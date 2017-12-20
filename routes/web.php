@@ -19,7 +19,7 @@ Route::get('/home', 'PagesController@index');
 
 Route::post('/loginme','UsersController@login');
 Route::get('/addprojects','PagesController@addproject');
-Route::get('/viewprojects','PagesController@addproject');
+Route::get('/viewprojects','PagesController@viewproject');
 Route::get('/additem','PagesController@additem');
 Route::get('/viewitem','PagesController@viewitem');
 Route::get('/borrowitem','PagesController@borrowitem');

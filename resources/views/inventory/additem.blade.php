@@ -25,7 +25,7 @@
 
 -->
 <body class="grey"style="padding-left:200px">
-			@include('navbar')
+			@include('inc.navbar')
 
 		<div class="container s9 m9 l9">
       <h1>Add Item</h1>

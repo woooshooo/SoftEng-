@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Add Project</title>
-		<!-- Compiled and minified CSS -->
-  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-		<!-- Compiled and minified JavaScript -->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
-		</style>
-	</head>
-	<body class="grey"style="padding-left:200px">
-				@include('inc/navbar')
-
+@extends('layout.app')
+@section('content')
 			<div class="container s9 m9 l9">
 	      <h1>Add Project</h1>
 				<form class="form grey darken-1 z-depth-5" style="padding:30px; border-radius:20px;">
@@ -50,23 +36,4 @@
 	    </div>
 	</form>
 	</div>
-  </body>
-	<script>
-  $(document).ready(function(){
-   $('.collapsible').collapsible();
- });</script>
- <script>
- $(document).ready(function() {
- $('select').material_select();
-});</script>
-<script>
-$('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
-    closeOnSelect: false // Close upon selecting a date,
-  });
-</script>
-</html>
+@endsection

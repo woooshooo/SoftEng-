@@ -12,7 +12,7 @@
 		</style>
 	</head>
 	<body class="grey"style="padding-left:200px">
-				@include('navbar')
+				@include('inc.navbar')
 
 
 

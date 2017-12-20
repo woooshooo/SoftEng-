@@ -23,15 +23,20 @@ class PagesController extends BaseController
   }
   public function viewproject(){
 
+    $title = 'View Project';
+
     return view('projects/projects')->with('title',$title);
   }
   public function additem(){
+    $title = 'Add Item';
     return view('inventory/additem')->with('title',$title);
   }
   public function viewitem(){
+    $title = 'View Item';
     return view('inventory/viewitem')->with('title',$title);
   }
   public function borrowitem(){
+    $title = 'Borrow Item';
     return view('inventory/borrowitem')->with('title',$title);
   }
   public function addvol(){
@@ -39,15 +44,19 @@ class PagesController extends BaseController
     return view('profile/addvol')->with('title',$title);
   }
   public function addstaff(){
+    $title = 'Add Staff';
     return view('profile/addstaff')->with('title',$title);
   }
   public function viewvolunteer(){
+    $title = 'View Volunteer';
     return view('profile/viewprof')->with('title',$title);
   }
   public function viewstaff(){
+    $title = 'View Staff';
     return view('profile/viewstaffprof')->with('title',$title);
   }
   public function viewprofiles(){
+    $title = 'View Profile';
     return view('profile/viewprof')->with('title',$title);
   }
   public function editvolunteer(){
