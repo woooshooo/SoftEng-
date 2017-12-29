@@ -34,7 +34,8 @@
           <ul id="trans3">
             <li><a href="{{url('addvolunteer')}}">Add Volunteer</a></li>
             <li><a href="{{url('addstaff')}}">Add Staff</a></li>
-            <li><a href="{{url('profs')}}">View Profile</a></li>
+            <li><a href="{{url('vols')}}">View Volunteers</a></li>
+            <li><a href="{{url('staffs')}}">View Staffs</a></li>
           </ul>
         </div>
       </li>

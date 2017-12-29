@@ -28,4 +28,4 @@ Route::get('/addvolunteer','PagesController@addvol');
 Route::get('/viewvounteer','PagesController@viewvolunteer');
 Route::get('/viewstaff','PagesController@viewstaff');
 Route::resource('/vols','VolsController');
-Route::resource('/profs','ProfilesController');
+Route::resource('/staffs','StaffsController');

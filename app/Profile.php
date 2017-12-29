@@ -17,5 +17,9 @@ class Profile extends Model
   {
     return $this->hasOne('App\Vols','profile_id');
   }
+  public function staff()
+  {
+    return $this->hasOne('App\Staffs','profile_id');
+  }
 }
 ?>
