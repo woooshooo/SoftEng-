@@ -17,9 +17,10 @@
   </head>
 
 	<body class="grey"style="padding-left:200px">
-
-		@include('inc/navbar')
+		<div class="container">		
 			@include('inc/messages')
+		</div>
+			@include('inc/navbar')
     	@yield('content')
 
 	</body>
