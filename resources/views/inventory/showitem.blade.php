@@ -7,6 +7,8 @@
        <p class="flow-text">Name:{{$items->item_name}}</p>
        <p class="flow-text">Type:{{$items->item_type}}</p>
        <p class="flow-text">Quantity:{{$items->item_quantity}}</p>
+       <p class="flow-text">In Stock:{{$items->item_quantity}}</p>
+       <p class="flow-text">Borrowed:{{$items->item_quantity}}</p>
        <p class="flow-text">Notes:{{$items->item_notes}}</p>
        <p class="flow-text"><a href="/items/{{$items->equipment_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></p>
        {!!Form::open(['action'=> ['ItemsController@destroy', $items->equipment_id], 'method' => 'POST', 'class' => 'pull-right'])!!}

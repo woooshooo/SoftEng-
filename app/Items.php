@@ -13,4 +13,9 @@ class Items extends Model
   //Timestamps
   public $timestamps = true;
 
+  public function borrow()
+  {
+    return $this->belongsTo('App\Borrow', 'borrow_id');
+  }
+
 }

@@ -1,4 +1,3 @@
-
 <html>
 	<head>
 		<title>{{$title}}</title>
@@ -17,7 +16,7 @@
   </head>
 
 	<body class="grey"style="padding-left:200px">
-		<div class="container">		
+		<div class="container">
 			@include('inc/messages')
 		</div>
 			@include('inc/navbar')
@@ -36,6 +35,26 @@
 	$(document).ready(function() {
 	$('select').material_select();
 });</script>
-
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+<script>
+$('input.autocomplete').autocomplete({
+    data: {
+      "Apple": null,
+      "Microsoft": null,
+      "Google": null,
+    },
+    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+    onAutocomplete: function(val) {
+      // Callback function when value is autcompleted.
+    },
+    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+  });
+</script>
 </body>
 </html>

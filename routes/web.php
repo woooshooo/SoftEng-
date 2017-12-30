@@ -29,3 +29,4 @@ Route::get('/viewstaff','PagesController@viewstaff');
 Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');
 Route::resource('/items','ItemsController');
+Route::resource('/borrows','BorrowsController');

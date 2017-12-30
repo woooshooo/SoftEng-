@@ -13,12 +13,8 @@
             </tr>
         </thead>
           @foreach ($staffs as $value)
-              <tr>
-      						<td>
-                    <a href="/staffs/{{$value->profile_id}}">
-                      {{$value->profile->firstname}} {{$value->profile->lastname}}
-                    </a>
-                  </td>
+              <tr class="clickable-row" data-href="/staffs/{{$value->profile_id}}">
+      						<td>{{$value->profile->firstname}} {{$value->profile->lastname}}</td>
       						<td>{{$value->cluster}}</td>
       						<td>{{$value->staff_pos}}</td>
                   <td><a href="/staffs/{{$value->profile_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></td>

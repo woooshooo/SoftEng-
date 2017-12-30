@@ -14,12 +14,8 @@
             </tr>
         </thead>
           @foreach ($vols as $value)
-              <tr>
-      						<td>
-                    <a href="/vols/{{$value->profile_id}}">
-                      {{$value->profile->firstname}} {{$value->profile->lastname}}
-                    </a>
-                  </td>
+              <tr class="clickable-row" data-href="/vols/{{$value->profile_id}}">
+      						<td>{{$value->profile->firstname}} {{$value->profile->lastname}}</td>
       						<td>{{$value->course}}</td>
       						<td>{{$value->yearlvl}}</td>
       						<td>{{$value->cluster}}</td>
