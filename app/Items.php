@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 class Items extends Model
 {
   //Table Name
@@ -15,7 +15,7 @@ class Items extends Model
 
   public function borrow()
   {
-    return $this->belongsTo('App\Borrow', 'equipment_id')->select(array('equipment_id','qtyBorrowed'));
+    return $this->belongsTo('App\Borrow', 'equipment_id');
   }
 
 }

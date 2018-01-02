@@ -15,13 +15,18 @@
             </tr>
         </thead>
 
-				@foreach ($items as $value)
+				@foreach ($avails as $value)
 						<tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
-								<td>{{$value->item_name}}</td>
-								<td>{{$value->item_type}}</td>
+							<td>{{$value->item_name}}</td>
+							<td>{{$value->item_type}}</td>
+							<td>{{$value->item_quantity}}</td>
+							@if($value->available > 0)
+								<td>{{$value->available}}</td>
+								<td>{{$value->borrowed}}</td>
+							@elseif($value->available < 1)
 								<td>{{$value->item_quantity}}</td>
-								<td>{{$value->item_quantity - $avails}}</td>
-								<td>{{$value->borrow['qtyBorrowed']}}</td>
+								<td>0</td>
+							@endif
 								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-small grey darken-1  z-depth-2">Borrow</a></td>
 						</tr>
 				@endforeach
