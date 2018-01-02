@@ -21,5 +21,9 @@ class Profile extends Model
   {
     return $this->hasOne('App\Staffs','profile_id');
   }
+  public function borrow()
+  {
+    return $this->hasMany('App\Borrow','profile_id');
+  }
 }
 ?>

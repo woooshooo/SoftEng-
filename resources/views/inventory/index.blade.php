@@ -21,9 +21,10 @@
 								<td>{{$value->item_type}}</td>
 								<td>{{$value->item_quantity}}</td>
 								<td>{{$value->item_quantity}}</td>
-								<td>{{$value->item_quantity}}</td>
+								<td>{{$value->borrow['qtyBorrowed']}}</td>
 								<td>{{$value->item_notes}}</td>
 								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></td>
+								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-small grey darken-1  z-depth-2">Borrow</a></td>
 						</tr>
 				@endforeach
 
@@ -31,7 +32,7 @@
 				<br>
 				<div class="navbutton">
 					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('additem')}}">Add Equipment</a>
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('borrowitem')}}">Borrow Equipment</a>
+					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('borrows')}}">Borrow Equipment</a>
 				</div>
 			</div>
 	</div>

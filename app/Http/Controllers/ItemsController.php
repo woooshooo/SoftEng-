@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Borrow;
 use App\Items;
+use App\Profile;
+use DB;
 class ItemsController extends Controller
 {
     /**
@@ -14,8 +17,12 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Items::all();
+        $borrows = Borrow::all();
+        $avails = DB::select('select sum(qtyBorrowed) AS sum from borrow a left join equipments b
+        ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
+        
         $title = 'View Equipments';
-        return view('inventory/index')->with('title', $title)->with('items', $items);
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails);
     }
 
     /**
@@ -63,8 +70,9 @@ class ItemsController extends Controller
     public function show($id)
     {
       $items = Items::find($id);
+      $borrows = Borrow::find($id)->profile;
       $title = 'Borrow';
-      return View('inventory/showitem')->with('items', $items)->with('title',$title);
+      return View('inventory/showitem')->with('title',$title)->with('items', $items)->with('borrows',$borrows);
     }
 
     /**

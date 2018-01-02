@@ -24,7 +24,7 @@
           <ul id="trans2">
             <li><a href="{{url('additem')}}">Add Item</a></li>
             <li><a href="{{url('items')}}">View Item</a></li>
-            <li><a href="{{url('borrowitem')}}">Borrow Item</a></li>
+            <li><a href="{{url('borrows')}}">Borrow Item</a></li>
           </ul>
         </div>
       </li>

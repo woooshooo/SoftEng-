@@ -13,6 +13,11 @@ class Borrow extends Model
   //Timestamps
   public $timestamps = true;
 
+  public function profile()
+  {
+    return $this->belongsTo('App\Profile','profile_id');
+  }
+
   public function item()
   {
     return $this->hasMany('App\Items','equipment_id');

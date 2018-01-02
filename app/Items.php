@@ -15,7 +15,7 @@ class Items extends Model
 
   public function borrow()
   {
-    return $this->belongsTo('App\Borrow', 'borrow_id');
+    return $this->belongsTo('App\Borrow', 'equipment_id')->select(array('equipment_id','qtyBorrowed'));
   }
 
 }
