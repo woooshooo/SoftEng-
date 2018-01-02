@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 30, 2017 at 08:59 AM
+-- Generation Time: Jan 02, 2018 at 09:39 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -25,6 +25,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `borrow`
+--
+
+DROP TABLE IF EXISTS `borrow`;
+CREATE TABLE IF NOT EXISTS `borrow` (
+  `borrow_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `equipment_id` int(10) UNSIGNED NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  `qtyBorrowed` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`borrow_id`),
+  KEY `profile_id` (`profile_id`),
+  KEY `equipment_id` (`equipment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `borrow`
+--
+
+INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `created_at`, `updated_at`) VALUES
+(1, 1, 12, 1, NULL, NULL),
+(2, 2, 12, 3, NULL, NULL),
+(3, 3, 18, 2, NULL, NULL),
+(4, 3, 14, 2, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `equipments`
 --
 
@@ -39,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`),
   UNIQUE KEY `item_name` (`item_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -48,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_notes`, `created_at`, `updated_at`) VALUES
 (1, 'DSLR 700D', 'Camera', 3, 'EOS 700D. Step into DSLR photography and let your creativity grow.', NULL, '2017-12-30 00:55:06'),
 (2, 'Flycam HD-3000 Handheld Video Stabilizer - Proaim', 'Camera Holder', 3, 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
-(4, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', '2017-12-30 00:25:10', '2017-12-30 00:25:10');
+(3, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', '2017-12-30 00:25:10', '2017-12-30 00:25:10');
 
 -- --------------------------------------------------------
 
@@ -62,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -75,7 +104,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2017_12_15_055142_create_profiles_table', 1),
 (5, '2017_12_28_152037_staff', 2),
 (6, '2017_12_30_053605_createusers', 3),
-(7, '2017_12_30_074542_add_item', 4);
+(7, '2017_12_30_074542_add_item', 4),
+(8, '2017_12_30_162911_create_borrow_table', 5);
 
 -- --------------------------------------------------------
 
@@ -116,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 --
 
 INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `email`, `contactdetails`, `created_at`, `updated_at`) VALUES
-(1, 'Bernie', NULL, 'Jereza', 'bmjereza@addu.edu.ph', '0999999999', NULL, NULL),
+(1, 'Bernie', 'Manuel', 'Jereza', 'bmjereza@addu.edu.ph', '0999999999', NULL, '2018-01-02 00:36:03'),
 (12, 'Webster Kyle', 'Boctoto', 'Genise', 'wkgenise@yahoo.com', '09287274683', '2017-12-15 15:01:13', '2017-12-16 02:33:00'),
 (13, 'Larissa Marie', NULL, 'Baarde', 'larissamarie25@gmail.com', '09393392063', '2017-12-15 15:13:27', '2017-12-15 15:13:27'),
 (14, 'Jimuel', NULL, 'Banawan', 'jwpbanawan@addu.edu.ph', '09430151214', '2017-12-15 15:16:45', '2017-12-15 15:16:45'),
@@ -168,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -205,6 +235,13 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `borrow`
+--
+ALTER TABLE `borrow`
+  ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
+  ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
 
 --
 -- Constraints for table `staffs`
