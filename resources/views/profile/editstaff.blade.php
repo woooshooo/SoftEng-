@@ -3,7 +3,7 @@
 		<div class="container">
 			<h4>Edit Staff Profile</h4>
 			{!! Form::open(['action' => ['StaffsController@update',$profiles->profile_id], 'method' => 'POST',
-				'class' => 'form grey darken-1 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+				'class' => 'form blue lighten-4 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
 
 				<div class="input-field col s3">
 					{{Form::text('fname', $profiles->firstname, ['class' => 'validate'])}}

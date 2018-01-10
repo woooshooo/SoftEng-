@@ -6,16 +6,80 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
       <style>
+        /*.btn-small used for most submit buttons
+          change color button in inline style
+          change text color in buttons here
+        */
         .btn-small {
            height: 24px;
            line-height: 24px;
            padding: 0 0.5rem;
+           color: #ffffff; 
+          }
+          /*
+            General body settings
+            Change here if needed
+            Change via inline if needed only
+          */
+          body{
+            padding-left:200px;
+            background-color: #ffffff;
+          }
+          /*
+            Footer color must be darker than from body bgcolor
+          */
+          footer{
+            background-color: black;
+          }
+          /*
+            Settings must be the same as footer
+          */
+          #footer-copyright{
+            background-color: #2e2e2e;
+          }
+          /*
+            Change via inline
+          */
+          .form{
+             background-color: #e8e8e8;
+             color: #000000;
+             padding: 30px;
+             border-radius: 20px;
+          }
+          /*
+            Change via inline
+          */
+          h1, h2, h3, h4, h5{
+            color: #000000;
+          }
+          p{
+            color: #000000;
+          }
+          #card-panel{
+            color: white;
+            height: auto;
+            margin: 2px;
+            border-radius: 10px;
+            font-color: ;
+          }
+          .flow-text{
+            color: black;
+          }
+          table{
+            color: #a3a3a3;
+            text-color: 
+          }
+          table td{
+            color: #000000;
+          }
+          table th{
+            color: #000000;
           }
       </style>
 
   </head>
 
-	<body class="grey"style="padding-left:200px">
+	<body>
 		<div class="container">
 			@include('inc/messages')
 		</div>

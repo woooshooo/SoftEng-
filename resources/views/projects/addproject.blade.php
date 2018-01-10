@@ -2,7 +2,7 @@
 @section('content')
 			<div class="container s9 m9 l9">
 	      <h1>Add Project</h1>
-				<form class="form grey darken-1 z-depth-5" style="padding:30px; border-radius:20px;">
+				<form id="addform" class="form grey darken-1 z-depth-5" style="padding:30px; border-radius:20px;">
 					<div class="input-field col s3">
 						<input type="text" class="validate" id="project_name">
 						<label for="project_name">Project Title</label>

@@ -3,7 +3,7 @@
 		<div class="container">
 			<h4>Add Volunteer Profile</h4>
 			{!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
-				'class' => 'form grey darken-1 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+				'class' => 'form white darken-1 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
 
 				<div class="input-field col s3">
 					{{Form::text('fname', '', ['class' => 'validate'])}}
@@ -50,8 +50,8 @@
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
            null, ['class'=>'input-field col s3 m3 l3','placeholder' => 'Cluster'])}}
 				</div>
-				{{Form::submit('Submit', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
-				{{Form::reset('Reset', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
+				{{Form::submit('Submit', ['class' => 'btn btn-small green lighten-1 waves-effect waves-light z-depth-5'])}}
+				{{Form::reset('Reset', ['class' => 'btn btn-small red darken-2 waves-effect waves-light z-depth-5'])}}
 		{!! Form::close() !!}
 		</div>
 

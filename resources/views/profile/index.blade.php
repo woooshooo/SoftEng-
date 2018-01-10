@@ -3,7 +3,7 @@
 			<div class="container">
 				<h4>Student Volunteers</h4>
 
-				<table class="centered bordered responsive-table highlight grey darken-1 z-depth-5" style="margin:2px; border-radius:10px;">
+				<table class="centered bordered responsive-table highlight grey lighten-4 z-depth-5" style="margin:2px; border-radius:10px;">
           <thead>
             <tr>
   						<th>Name</th>

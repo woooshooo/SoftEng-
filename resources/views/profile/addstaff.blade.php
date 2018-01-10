@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('content')
-		<div class="container">
+		<div class="container addform">
 			<h4>Add Staff Profile</h4>
 			{!! Form::open(['action' => 'StaffsController@store', 'method' => 'POST',
-				'class' => 'form grey darken-1 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+				'class' => 'form grey lighten-5 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
 
 				<div class="input-field col s3">
 					{{Form::text('fname', '', ['class' => 'validate'])}}
@@ -37,8 +37,8 @@
            null, ['class'=>'input-field col s3 m3 l3 disabled hidden','placeholder' => 'Cluster'])}}
 				</div>
 
-				{{Form::submit('Submit', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
-				{{Form::reset('Reset', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
+				{{Form::submit('Submit', ['class' => 'btn btn-small green lighten-1 waves-effect waves-light z-depth-5'])}}
+				{{Form::reset('Reset', ['class' => 'btn btn-small red darken-2 waves-effect waves-light z-depth-5'])}}
 		{!! Form::close() !!}
 		</div>
 
