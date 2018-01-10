@@ -11,7 +11,7 @@
     <ul class="collapsible collapsible-accordion">
       <li>
         <a class="collapsible-header" onclick="Materialize.showStaggeredList('#trans')"><h5>Projects</h5></a>
-        <div class="collapsible-body">
+        <div class="collapsible-body grey lighten-2">
           <ul id="trans">
             <li><a href="{{url('addprojects')}}">Add Project</a></li>
             <li><a href="{{url('viewprojects')}}">View Project</a></li>
@@ -20,7 +20,7 @@
       </li>
       <li>
         <a class="collapsible-header" onclick="Materialize.showStaggeredList('#trans2')"><h5>Inventory</h5></a>
-        <div class="collapsible-body">
+        <div class="collapsible-body grey lighten-2">
           <ul id="trans2">
             <li><a href="{{url('additem')}}">Add Item</a></li>
             <li><a href="{{url('items')}}">View Item</a></li>
@@ -30,7 +30,7 @@
       </li>
       <li>
         <a class="collapsible-header" onclick="Materialize.showStaggeredList('#trans3')"><h5>Profiles</h5></a>
-        <div class="collapsible-body">
+        <div class="collapsible-body grey lighten-2">
           <ul id="trans3">
             <li><a href="{{url('addvolunteer')}}">Add Volunteer</a></li>
             <li><a href="{{url('addstaff')}}">Add Staff</a></li>

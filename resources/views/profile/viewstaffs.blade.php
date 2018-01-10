@@ -3,7 +3,7 @@
 			<div class="container">
 				<h4>Viewing Staff Profiles</h4>
 
-				<table class="centered bordered responsive-table highlight grey lighten-4 z-depth-5" style="margin:2px; border-radius:10px;">
+				<table id="viewpeople" class="centered bordered responsive-table highlight z-depth-5" style="margin:2px; border-radius:10px;">
           <thead>
             <tr>
   						<th>Name</th>
@@ -25,8 +25,8 @@
 				</table>
 				<br>
 				<div class="navbutton">
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('vols')}}">View Volunteers</a>
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('addstaff')}}">Add Staff</a>
+					<a class="btn btn-small purple darken-1 waves-effect waves-light z-depth-5" href="{{url('vols')}}">View Volunteers</a>
+					<a class="btn btn-small green darken-1 waves-effect waves-light z-depth-5" href="{{url('addstaff')}}">Add Staff</a>
 				</div>
 			</div>
 	</div>

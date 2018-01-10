@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('content')
-		<div class="container addform">
+		<div class="container">
 			<h4>Add Staff Profile</h4>
 			{!! Form::open(['action' => 'StaffsController@store', 'method' => 'POST',
-				'class' => 'form grey lighten-5 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+				'class' => 'form z-depth-5', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
 
 				<div class="input-field col s3">
 					{{Form::text('fname', '', ['class' => 'validate'])}}

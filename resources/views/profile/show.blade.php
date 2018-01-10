@@ -3,7 +3,7 @@
   <div class="container col s12 m6" style="height:100px">
     <h4>Volunteers Profile</h4>
     <br>
-    <div class="card-panel blue lighten-4 col s9">
+  <div id="showpeople" class="card-panel col s9">
        <p class="flow-text">Fullname:{{$profiles->firstname}} {{$profiles->middlename}} {{$profiles->lastname}}</p>
        <p class="flow-text">Email: {{$profiles->email}}</p>
        <p class="flow-text">Contact Details: {{$profiles->contactdetails}}</p>

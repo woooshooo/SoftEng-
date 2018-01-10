@@ -3,7 +3,7 @@
 			<div class="container">
 				<h4>Student Volunteers</h4>
 
-				<table class="centered bordered responsive-table highlight grey lighten-4 z-depth-5" style="margin:2px; border-radius:10px;">
+				<table id="viewpeople" class="centered bordered responsive-table highlight z-depth-5" style="margin:2px; border-radius:10px;">
           <thead>
             <tr>
   						<th>Name</th>
@@ -19,7 +19,7 @@
       						<td>{{$value->course}}</td>
       						<td>{{$value->yearlvl}}</td>
       						<td>{{$value->cluster}}</td>
-                  <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></td>
+                  <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-small teal darken-1  z-depth-2" style="">Edit</a></td>
     					</tr>
           @endforeach
 
@@ -27,8 +27,8 @@
 				</table>
 				<br>
 				<div class="navbutton">
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('staffs')}}">View Staff</a>
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('addvolunteer')}}">Add Volunteer</a>
+					<a class="btn btn-small purple darken-1 waves-effect waves-light z-depth-5" href="{{url('staffs')}}">View Staff</a>
+					<a class="btn btn-small green darken-1 waves-effect waves-light z-depth-5" href="{{url('addvolunteer')}}">Add Volunteer</a>
 				</div>
 			</div>
 	</div>
