@@ -12,7 +12,7 @@
   </div>
 @endif
 @if(session('error'))
-  <div class="card-panel red accent-4 style="width:300px">
+  <div class="card-panel red accent-4" style="width:300px">
     {{session('error')}}
   </div>
 @endif
