@@ -11,6 +11,7 @@
     <ul class="collapsible collapsible-accordion">
       <li>
         <a class="collapsible-header " onclick="Materialize.showStaggeredList('#trans')"><h5>Projects</h5></a>
+        <a class="collapsible-header" onclick="Materialize.showStaggeredList('#trans')"><h5>Projects</h5></a>
         <div class="collapsible-body grey lighten-2">
           <ul id="trans">
             <li><a href="{{url('addprojects')}}">Add Project</a></li>
