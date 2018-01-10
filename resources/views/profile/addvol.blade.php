@@ -3,7 +3,7 @@
 		<div class="container">
 			<h4>Add Volunteer Profile</h4>
 			{!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
-				'class' => 'form white darken-1 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+				'class' => 'form z-depth-5', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
 
 				<div class="input-field col s3">
 					{{Form::text('fname', '', ['class' => 'validate'])}}

@@ -37,6 +37,9 @@
           #footer-copyright{
             background-color: #2e2e2e;
           }
+          #collapsible-body{
+            background-color: #e0e0e0;
+          }
           /*
             Change via inline
           */
@@ -46,9 +49,6 @@
              padding: 30px;
              border-radius: 20px;
           }
-          /*
-            Change via inline
-          */
           h1, h2, h3, h4, h5{
             color: #000000;
           }
@@ -65,15 +65,21 @@
           .flow-text{
             color: black;
           }
-          table{
-            color: #a3a3a3;
-            text-color: 
-          }
           table td{
             color: #000000;
           }
           table th{
             color: #000000;
+          }
+          table#viewpeople{
+            background-color: #9e9e9e;
+          }
+          card-panel#showpeople{
+            background-color: #9e9e9e;
+            color: white;
+          }
+          form#addform{
+            background-color: #eeeeee;
           }
       </style>
 
