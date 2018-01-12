@@ -1,25 +1,71 @@
 @extends('layout.app')
 @section('content')
-  <div class="container col s12 m6" style="height:100px">
-    <h4>Volunteers Profile</h4>
-    <br>
-  <div id="showpeople" class="card-panel col s9">
-       <p class="flow-text">Fullname:{{$profiles->firstname}} {{$profiles->middlename}} {{$profiles->lastname}}</p>
-       <p class="flow-text">Email: {{$profiles->email}}</p>
-       <p class="flow-text">Contact Details: {{$profiles->contactdetails}}</p>
-       <p class="flow-text">Course: {{$profiles->volunteer->course}}</p>
-       <p class="flow-text">Cluster: {{$profiles->volunteer->cluster}}</p>
-       <p class="flow-text">Year Level: {{$profiles->volunteer->yearlvl}}</p>
-       <p class="flow-text">Course: {{$profiles->volunteer->course}}</p>
-       <p class="flow-text">Section: {{$profiles->volunteer->section}}</p>
-       <p class="flow-text"><a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-small green darken-2  z-depth-2"><b>Edit</b></a></p>
-       {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => 'pull-right'])!!}
-        {{Form::hidden('_method','DELETE')}}
-        {{Form::submit('Delete',['class' => 'btn btn-small red darken-1  z-depth-2' ])}}
-       {!!Form::close()!!}
-   </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">View {{$profiles->firstname}}'s Profile</h1>
+        </div>
+    </div>
+      {!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
+        'class' => 'form'])!!}
 
-    <br>
-  </div>
-</div>
+        <div class="form-group col-lg-4">
+          {{Form::label('fname', 'First Name')}}
+          {{Form::text('fname', $profiles->firstname, ['class' => 'form-control','disabled' ,'placeholder' => 'First Name'])}}
+
+        </div>
+        <div class="form-group col-lg-4">
+          {{Form::label('mname', 'Middle Name')}}
+          {{Form::text('mname', $profiles->middlename, ['class' => 'form-control', 'disabled', 'placeholder' => 'Middle Name'])}}
+
+        </div>
+        <div class="form-group col-lg-4">
+          {{Form::label('lname', 'Last Name')}}
+          {{Form::text('lname', $profiles->lastname, ['class' => 'form-control', 'disabled','placeholder' => 'Last Name'])}}
+
+        </div>
+        <div class="form-group col-lg-6">
+          {{Form::label('contactdetails', 'Contact Details')}}
+          {{Form::text('contactdetails', $profiles->contactdetails,  ['class' => 'form-control', 'disabled','placeholder' => 'Contact Details'])}}
+
+        </div>
+        <div class="form-group col-lg-6">
+          {{Form::label('email', 'Email Address')}}
+          {{Form::email('email', $profiles->email, ['class' => 'form-control', 'disabled','placeholder' => 'Email Address'])}}
+        </div>
+        <div class="form-group col-lg-6">
+          {{Form::label('coursestrand', 'Course or Strand')}}
+          {{Form::text('coursestrand', $profiles->volunteer->course, ['class' => 'form-control','disabled', 'placeholder' => 'Course or Strand'])}}
+
+        </div>
+        <div class="form-group col-lg-6">
+          {{Form::label('section', 'Section')}}
+          {{Form::text('section', $profiles->volunteer->section, ['class' => 'form-control','disabled', 'placeholder' => 'Section'])}}
+
+        </div>
+
+        <div class="form-group col-lg-12">
+          <label>Year Level</label>
+          {{Form::select('yearlvl', ['Grade 11' => 'Grade 11',
+                                     'Grade 12' => 'Grade 12',
+                                     '1st Year' => '1st Year',
+                                     '2nd Year' => '2nd Year',
+                                     '3rd Year' => '3rd Year',
+                                     '4th Year' => '4th Year',
+                                     '5th Year' => '5th Year'],
+           $profiles->volunteer->yearlvl, ['class'=>'form-control','disabled','placeholder' => 'Year Level or Grade'])}}
+        </div>
+
+        <div class="form-group col-lg-12">
+          <label>Cluster</label>
+          {{Form::select('cluster', ['Broadcast & Productions Cluster' => 'Broadcast & Productions Cluster',
+                                     'Creative Cluster' => 'Creative Cluster',
+                                     'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
+          $profiles->volunteer->cluster, ['class'=>'form-control','disabled','placeholder' => 'Cluster'])}}
+        </div>
+       {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => ''])!!}
+        {{Form::hidden('_method','DELETE')}}
+        <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
+        {{Form::submit('Delete',['class' => 'btn btn-default' ])}}
+       {!!Form::close()!!}
+
 @endsection

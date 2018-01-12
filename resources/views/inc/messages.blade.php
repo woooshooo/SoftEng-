@@ -1,18 +1,18 @@
 @if(count($errors)>0)
   @foreach ($errors->all() as $error)
-    <div class="card-panel red accent-4" style="width:300px">
+    <div class="alert alert-warning">
       {{$error}}
     </div>
   @endforeach
 @endif
 
 @if(session('success'))
-  <div class="card-panel green accent-4" style="width:300px">
+  <div class="alert alert-success">
     {{session('success')}}
   </div>
 @endif
 @if(session('error'))
-  <div class="card-panel red accent-4" style="width:300px">
+  <div class="alert alert-warning">
     {{session('error')}}
   </div>
 @endif

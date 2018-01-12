@@ -1,59 +1,69 @@
 @extends('layout.app')
 @section('content')
-		<div class="container">
-			<h4>Edit Volunteer Profile</h4>
-			{!! Form::open(['action' => ['VolsController@update',$profiles->profile_id], 'method' => 'POST',
-				'class' => 'form blue lighten-4 z-depth-5', 'style' => 'padding:30px; border-radius:20px;'])!!}
+		<div class="row">
+				<div class="col-lg-12">
+						<h1 class="page-header">Edit Volunteer Profile</h1>
+				</div>
+		</div>
+			{!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
+				'class' => 'form'])!!}
 
-				<div class="input-field col s3">
-					{{Form::text('fname', $profiles->firstname, ['class' => 'validate'])}}
+				<div class="form-group col-lg-4">
 					{{Form::label('fname', 'First Name')}}
+					{{Form::text('fname', $profiles->firstname, ['class' => 'form-control', 'placeholder' => 'First Name'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('mname', $profiles->middlename, ['class' => 'validate'])}}
+				<div class="form-group col-lg-4">
 					{{Form::label('mname', 'Middle Name')}}
+					{{Form::text('mname', $profiles->middlename, ['class' => 'form-control', 'placeholder' => 'Middle Name'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('lname', $profiles->lastname, ['class' => 'validate'])}}
+				<div class="form-group col-lg-4">
 					{{Form::label('lname', 'Last Name')}}
+					{{Form::text('lname', $profiles->lastname, ['class' => 'form-control', 'placeholder' => 'Last Name'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('contactdetails', $profiles->contactdetails, ['class' => 'validate'])}}
+				<div class="form-group col-lg-6">
 					{{Form::label('contactdetails', 'Contact Details')}}
+					{{Form::text('contactdetails', $profiles->contactdetails,  ['class' => 'form-control', 'placeholder' => 'Contact Details'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::email('email', $profiles->email, ['class' => 'validate'])}}
+				<div class="form-group col-lg-6">
 					{{Form::label('email', 'Email Address')}}
+					{{Form::email('email', $profiles->email, ['class' => 'form-control', 'placeholder' => 'Email Address'])}}
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('coursestrand', $vols->course, ['class' => 'validate'])}}
+				<div class="form-group col-lg-6">
 					{{Form::label('coursestrand', 'Course or Strand')}}
+					{{Form::text('coursestrand', $vols->course, ['class' => 'form-control', 'placeholder' => 'Course or Strand'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('section', $vols->section, ['class' => 'validate'])}}
+				<div class="form-group col-lg-6">
 					{{Form::label('section', 'Section')}}
+					{{Form::text('section', $vols->section, ['class' => 'form-control', 'placeholder' => 'Section'])}}
+
 				</div>
-				<div class="input-field col s3 m3 l3">
+
+				<div class="form-group col-lg-12">
+					<label>Year Level</label>
 					{{Form::select('yearlvl', ['Grade 11' => 'Grade 11',
 						 												 'Grade 12' => 'Grade 12',
 						 												 '1st Year' => '1st Year',
 						 												 '2nd Year' => '2nd Year',
 						 												 '3rd Year' => '3rd Year',
 						 												 '4th Year' => '4th Year',
-						 												 '5th Year' => '5th Year'],$vols->yearlvl,
-                                     ['class'=>'input-field col s3 m3 l3','placeholder' => 'Year Level or Grade'])}}
+						 												 '5th Year' => '5th Year'],
+           $vols->yearlvl, ['class'=>'form-control','placeholder' => 'Year Level or Grade'])}}
 				</div>
 
-				<div class="input-field col s3 m3 l3">
+				<div class="form-group col-lg-12">
+					<label>Cluster</label>
 					{{Form::select('cluster', ['Broadcast & Productions Cluster' => 'Broadcast & Productions Cluster',
 						 												 'Creative Cluster' => 'Creative Cluster',
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
-           $vols->cluster, ['class'=>'input-field col s3 m3 l3','placeholder' => 'Cluster'])}}
+           $vols->cluster, ['class'=>'form-control','placeholder' => 'Cluster'])}}
 				</div>
-        {{Form::hidden('_method','PUT')}}
-				{{Form::submit('Submit', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
-				{{Form::reset('Reset', ['class' => 'btn btn-small black waves-effect waves-light z-depth-5'])}}
+				{{Form::submit('Submit', ['class' => 'btn btn-default'])}}
+				{{Form::reset('Reset', ['class' => 'btn btn-default'])}}
 		{!! Form::close() !!}
-		</div>
 
 @endsection

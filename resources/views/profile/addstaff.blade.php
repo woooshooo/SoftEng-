@@ -1,45 +1,55 @@
 @extends('layout.app')
 @section('content')
-		<div class="container">
-			<h4>Add Staff Profile</h4>
+			<div class="row">
+					<div class="col-lg-12">
+							<h1 class="page-header">Add Staff Profile</h1>
+					</div>
+					<!-- /.col-lg-12 -->
+			</div>
 			{!! Form::open(['action' => 'StaffsController@store', 'method' => 'POST',
-				'class' => 'form z-depth-5', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
+				'class' => 'col-lg-12 form', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
 
-				<div class="input-field col s3">
-					{{Form::text('fname', '', ['class' => 'validate'])}}
-					{{Form::label('fname', 'First Name')}}
+				<div class="form-group col-lg-4">
+					<label class="control-label" for="fname">First Name</label>
+					{{Form::text('fname', '', ['class' => 'form-control', 'placeholder' => 'First Name'])}}
+
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('mname', '', ['class' => 'validate'])}}
-					{{Form::label('mname', 'Middle Name')}}
+				<div class="form-group col-lg-4">
+					<label class="control-label" for="mname">Middle Name</label>
+					{{Form::text('mname', '', ['class' => 'form-control', 'placeholder' => 'Middle Name'])}}
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('lname', '', ['class' => 'validate'])}}
-					{{Form::label('lname', 'Last Name')}}
+
+				<div class="form-group col-lg-4">
+					<label class="control-label" for="lname">Last Name</label>
+					{{Form::text('lname', '', ['class' => 'form-control', 'placeholder' => 'Last Name'])}}
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('contactdetails', '', ['class' => 'validate'])}}
-					{{Form::label('contactdetails', 'Contact Details')}}
+				<br>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="contactdetails">Contact Details</label>
+					{{Form::text('contactdetails', '', ['class' => 'form-control', 'placeholder' => 'Contact Details'])}}
 				</div>
-				<div class="input-field col s3">
-					{{Form::email('email', '', ['class' => 'validate'])}}
-					{{Form::label('email', 'Email Address')}}
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="email">Email Address</label>
+					{{Form::email('email', '', ['class' => 'form-control', 'placeholder' => 'Email Address'])}}
 				</div>
-				<div class="input-field col s3">
-					{{Form::text('staff_pos', '', ['class' => 'validate'])}}
-					{{Form::label('staff_pos', 'Staff Position')}}
+				<br>
+				<div class="form-group col-lg-12">
+					<label class="control-label" for="staff_pos">Staff Position</label>
+					{{Form::text('staff_pos', '', ['class' => 'form-control', 'placeholder' => 'Staff Position'])}}
 				</div>
-				<div class="input-field col s3 m3 l3">
-					{{Form::select('cluster', ['Administrator' => 'Administrator',
+
+				<div class="form-group col-lg-12">
+					<label>Cluster</label>
+					{{Form::select('cluster', ['Administrator' => 'Administrator' ,
 																		 'Broadcast & Productions Cluster' => 'Broadcast & Productions Cluster',
 						 												 'Creative Cluster' => 'Creative Cluster',
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
-           null, ['class'=>'input-field col s3 m3 l3 disabled hidden','placeholder' => 'Cluster'])}}
+           null, ['class'=>'form-control','placeholder' => 'Choose Cluster'])}}
 				</div>
-
-				{{Form::submit('Submit', ['class' => 'btn btn-small green lighten-1 waves-effect waves-light z-depth-5'])}}
-				{{Form::reset('Reset', ['class' => 'btn btn-small red darken-2 waves-effect waves-light z-depth-5'])}}
+				<div class="form-group col-lg-12"><hr>
+					{{Form::submit('Submit', ['class' => 'btn btn-default'])}}
+					{{Form::reset('Reset', ['class' => 'btn btn-default'])}}
+				</div>
 		{!! Form::close() !!}
-		</div>
 
 @endsection

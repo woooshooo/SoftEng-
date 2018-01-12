@@ -1,9 +1,10 @@
 @extends('layout.app')
 @section('content')
-			<div class="container">
-				<h4>Equipment Inventory</h4>
-
-				<table class="centered bordered responsive-table highlight grey darken-1 z-depth-5" style="margin:2px; border-radius:10px;">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<h1>Equipment Inventory</h1>
+				</div>
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
           <thead>
             <tr>
   						<th>Name</th>
@@ -11,7 +12,6 @@
   						<th>Total Quantity</th>
   						<th>Available</th>
   						<th>Borrowed</th>
-  						<th>Notes</th>
               <th></th>
             </tr>
         </thead>
@@ -27,18 +27,15 @@
 									<td>{{$value->item_quantity}}</td>
 									<td>0</td>
 								@endif
-								<td>{{$value->item_notes}}</td>
-								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></td>
-								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-small grey darken-1  z-depth-2">Borrow</a></td>
+								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
 						</tr>
 				@endforeach
 
 				</table>
 				<br>
 				<div class="navbutton">
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('additem')}}">Add Equipment</a>
-					<a class="btn btn-small black waves-effect waves-light z-depth-5" href="{{url('borrows')}}">Borrow Equipment</a>
+					<a class="btn btn-default btn-lg btn-inline" href="{{url('additem')}}">Add Equipment</a>
+					<a class="btn btn-default btn-lg btn-inline" href="{{url('borrows')}}">Borrow Equipment</a>
 				</div>
 			</div>
-	</div>
 @endsection
