@@ -31,12 +31,13 @@
     <![endif]-->
   </head>
 
+
 	<body>
-			@include('inc/navbar')
+		@include('inc/navbar')
+		<div id="page-wrapper">
 			@include('inc/messages')
-			<div id="page-wrapper">
-				@yield('content')
-			</div>
+			@yield('content')
+		</div>
 	</body>
 	<!-- Compiled and minified JavaScript -->
 <script>

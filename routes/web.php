@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('loginpage');
+    $title = "Login";
+    return view('auth/login')->with('title',$title);
 });
 
 Route::get('/home', 'PagesController@index');
@@ -29,3 +30,7 @@ Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');
 Route::resource('/items','ItemsController');
 Route::resource('/borrows','BorrowsController');
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');

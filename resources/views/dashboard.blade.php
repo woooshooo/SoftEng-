@@ -1,7 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-
     <div id="wrapper">
             <div class="row">
                 <div class="col-lg-12">

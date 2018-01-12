@@ -26,8 +26,35 @@
 				<div class="form-group col-lg-12">
 					<label class="control-label" for="item_notes">Additional notes here.</label>
 					<textarea class="form-control" id="item_notes" name="item_notes" disabled>{{$items->item_name}}</textarea>
-					<br>
 				</div>
+				<div class="col-lg-6">
+					<label>In Stock:</label>
+	         @foreach ($totalBorrowed as $value)
+	           @if ($value->equipment_id == $items->equipment_id)
+							 <input type="number" class="form-control" value="{{$items->item_quantity - $value->sum}}" disabled>
+	           @endif
+	         @endforeach
+
+       		<label>Borrowed:</label>
+	         @foreach ($totalBorrowed as $value)
+	          @if ($value->equipment_id == $items->equipment_id)
+							<input type="number" class="form-control" value="{{$value->sum}}" disabled>
+
+	          @endif
+	         @endforeach
+				 </div>
+					<div class="well col-lg-6">
+						 <div class="panel-heading">
+							 Borrowers
+ 		 				 </div>
+						 <div class="panel-body">
+							  @foreach ($borrowedBy as $value)
+				         @if ($value->equipment_id == $items->equipment_id)
+									 {{$value->firstname}} {{$value->lastname}}  = {{$value->qtyBorrowed}} <br>
+				         @endif
+				       @endforeach
+					 </div>
+	 			 </div>
 				<div class="form-group col-lg-12">
 					<button class="btn btn-default" type="submit" name="action">Submit
 				  </button>

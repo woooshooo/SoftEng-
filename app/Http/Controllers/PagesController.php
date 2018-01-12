@@ -11,6 +11,10 @@ use DB;
 
 class PagesController extends BaseController
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
   public function index(){
     $title = 'Welcome to the Dashboard';
     //return view('dashboard', compact('title'));

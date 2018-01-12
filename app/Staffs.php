@@ -21,4 +21,9 @@ class Staffs extends Model
   {
     return $this->belongsTo('App\Profile', 'profile_id');
   }
+
+  public function user()
+  {
+    return $this->hasOne('App\User','staff_id');
+  }
 }
