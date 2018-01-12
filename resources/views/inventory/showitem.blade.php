@@ -1,52 +1,39 @@
 @extends('layout.app')
 @section('content')
-  <div class="container col s12 m6" style="height:100px">
-    <h4>Item Description</h4>
-    <br>
-    <div class="card-panel grey lighten-1 z-depth-5 col s9" style="height:auto; margin:2px; border-radius:10px;">
+			<div class="row">
+					<div class="col-lg-12">
+							<h1 class="page-header">Viewing Equipment</h1>
+					</div>
+					<!-- /.col-lg-12 -->
+			</div>
+			{!! Form::open(['action' => ['ItemsController@update',$items->equipment_id], 'method' => 'POST',
+				'class' => 'col-lg-12 form'])!!}
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_name">Equipment Name</label>
+					<input type="text" class="form-control" id="item_name" name="item_name" value="{{$items->item_name}}" disabled>
 
-       <p class="flow-text">Name: {{$items->item_name}}</p>
-       <p class="flow-text">Type: {{$items->item_type}}</p>
-       <p class="flow-text">Total Quantity: {{$items->item_quantity}}</p>
-       <p class="flow-text">In Stock:
-         @foreach ($totalBorrowed as $value)
-           @if ($value->equipment_id == $items->equipment_id)
-             {{$items->item_quantity - $value->sum}}
-           @endif
-         @endforeach</p></p>
-       <p class="flow-text">Borrowed:
-         @foreach ($totalBorrowed as $value)
-          @if ($value->equipment_id == $items->equipment_id)
-            {{$value->sum}}
-          @endif
-         @endforeach</p>
-       <table class="centered bordered responsive-table highlight grey darken-1 z-depth-5" style="margin:2px; border-radius:10px;">
-         <thead>
-           <tr>
-             <th>Name</th>
-             <th>Qty Borrowed</th>
-           </tr>
-         </thead>
+				</div>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_type">Type of Equipment</label>
+					<input type="text" class="form-control" id="item_kind" name="item_type" value="{{$items->item_type}}" disabled>
 
-       @foreach ($borrowedBy as $value)
-         @if ($value->equipment_id == $items->equipment_id)
-           <tr>
-           <td>{{$value->firstname}} {{$value->lastname}}</td>
-           <td>{{$value->qtyBorrowed}}</td>
-           <tr>
-         @endif
-       @endforeach
+				</div>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_quantity">Quantity</label>
+					<input type="number" class="form-control" id="item_quantity" name="item_quantity" value="{{$items->item_quantity}}" disabled>
 
-     </table>
-       <p class="flow-text">Notes:<br>{{$items->item_notes}}</p>
-       <p class="flow-text"><a href="/items/{{$items->equipment_id}}/edit" class="btn btn-small grey darken-1  z-depth-2">Edit</a></p>
-       {!!Form::open(['action'=> ['ItemsController@destroy', $items->equipment_id], 'method' => 'POST', 'class' => 'pull-right'])!!}
-        {{Form::hidden('_method','DELETE')}}
-        {{Form::submit('Delete',['class' => 'btn btn-small grey darken-1  z-depth-2' ])}}
-       {!!Form::close()!!}
-   </div>
-
-    <br>
-  </div>
-</div>
+				</div>
+				<div class="form-group col-lg-12">
+					<label class="control-label" for="item_notes">Additional notes here.</label>
+					<textarea class="form-control" id="item_notes" name="item_notes" disabled>{{$items->item_name}}</textarea>
+					<br>
+				</div>
+				<div class="form-group col-lg-12">
+					<button class="btn btn-default" type="submit" name="action">Submit
+				  </button>
+					<button class="btn btn-default" type="reset" name="action">Reset
+				  </button>
+				</div>
+      {{Form::hidden('_method','PUT')}}
+			{!! Form::close() !!}
 @endsection

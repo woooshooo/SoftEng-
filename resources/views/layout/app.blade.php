@@ -1,110 +1,44 @@
 <html>
 	<head>
 		<title>{{$title}}</title>
-		<!-- Compiled and minified CSS -->
-  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-      <style>
-        /*.btn-small used for most submit buttons
-          change color button in inline style
-          change text color in buttons here
-        */
-        .btn-small {
-           height: 24px;
-           line-height: 24px;
-           padding: 0 0.5rem;
-           color: #ffffff; 
-          }
-          /*
-            General body settings
-            Change here if needed
-            Change via inline if needed only
-          */
-          body{
-            padding-left:200px;
-            background-color: #ffffff;
-          }
-          /*
-            Footer color must be darker than from body bgcolor
-          */
-          footer{
-            background-color: black;
-          }
-          /*
-            Settings must be the same as footer
-          */
-          #footer-copyright{
-            background-color: #2e2e2e;
-          }
-          #collapsible-body{
-            background-color: #e0e0e0;
-          }
-          /*
-            Change via inline
-          */
-          .form{
-             background-color: #e8e8e8;
-             color: #000000;
-             padding: 30px;
-             border-radius: 20px;
-          }
-          h1, h2, h3, h4, h5{
-            color: #000000;
-          }
-          p{
-            color: #000000;
-          }
-          #card-panel{
-            color: white;
-            height: auto;
-            margin: 2px;
-            border-radius: 10px;
-            font-color: ;
-          }
-          .flow-text{
-            color: black;
-          }
-          table td{
-            color: #000000;
-          }
-          table th{
-            color: #000000;
-          }
-          table#viewpeople{
-            background-color: #9e9e9e;
-          }
-          card-panel#showpeople{
-            background-color: #9e9e9e;
-            color: white;
-          }
-          form#addform{
-            background-color: #eeeeee;
-          }
-      </style>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ asset('morrisjs/morris.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
 
 	<body>
-		<div class="container">
-			@include('inc/messages')
-		</div>
 			@include('inc/navbar')
-    	@yield('content')
-
+			@include('inc/messages')
+			<div id="page-wrapper">
+				@yield('content')
+			</div>
 	</body>
 	<!-- Compiled and minified JavaScript -->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-	<script>
-	$(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-</script>
-<script>
-	$(document).ready(function() {
-	$('select').material_select();
-});</script>
 <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
@@ -112,19 +46,51 @@ jQuery(document).ready(function($) {
     });
 });
 </script>
+<!-- jQuery -->
+<script src="{{ asset('jquery/jquery.min.js')}}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{{ asset('metisMenu/metisMenu.min.js')}}"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="{{ asset('raphael/raphael.min.js')}}"></script>
+<script src="{{ asset('morrisjs/morris.min.js')}}"></script>
+<script src="{{ asset('data/morris-data.js')}}"></script>
+<!-- DataTables JavaScript -->
+<script src="{{ asset('datatables/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{ asset('datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ asset('datatables-responsive/dataTables.responsive.js')}}"></script>
+<!-- Custom Theme JavaScript -->
+<script src="{{ asset('js/sb-admin-2.js')}}"></script>
+<!-- clickable row -->
 <script>
-$('input.autocomplete').autocomplete({
-    data: {
-      "Apple": null,
-      "Microsoft": null,
-      "Google": null,
-    },
-    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-    onAutocomplete: function(val) {
-      // Callback function when value is autcompleted.
-    },
-    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-  });
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+<!-- DATATABLES JSCRIPT-->
+<script>
+$(document).ready(function() {
+		$('#dataTables-example').DataTable({
+				responsive: true
+		});
+});
+</script>
+<!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+<script>
+// tooltip demo
+$('.tooltip-demo').tooltip({
+		selector: "[data-toggle=tooltip]",
+		container: "body"
+})
+// popover demo
+$("[data-toggle=popover]")
+		.popover()
 </script>
 </body>
 </html>

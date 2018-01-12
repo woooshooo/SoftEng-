@@ -1,15 +1,18 @@
 @extends('layout.app')
 @section('content')
-			<div class="container">
-				<h4>Student Volunteers</h4>
 
-				<table id="viewpeople" class="centered bordered responsive-table highlight z-depth-5" style="margin:2px; border-radius:10px;">
+			<div class="panel-body">
+				<div class="panel-heading">
+					<h1>Student Volunteers</h1>
+				</div>
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
           <thead>
             <tr>
   						<th>Name</th>
   						<th>Course</th>
   						<th>Year Level</th>
   						<th>Cluster</th>
+							<th>Status</th>
               <th></th>
             </tr>
         </thead>
@@ -19,7 +22,8 @@
       						<td>{{$value->course}}</td>
       						<td>{{$value->yearlvl}}</td>
       						<td>{{$value->cluster}}</td>
-                  <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-small teal darken-1  z-depth-2" style="">Edit</a></td>
+									<td>{{$value->vol_status}}</td>
+                  <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
     					</tr>
           @endforeach
 
@@ -27,9 +31,8 @@
 				</table>
 				<br>
 				<div class="navbutton">
-					<a class="btn btn-small purple darken-1 waves-effect waves-light z-depth-5" href="{{url('staffs')}}">View Staff</a>
-					<a class="btn btn-small green darken-1 waves-effect waves-light z-depth-5" href="{{url('addvolunteer')}}">Add Volunteer</a>
+					<a class="btn btn-default btn-lg btn-inline" href="{{url('staffs')}}">View Staff</a>
+					<a class="btn btn-default btn-lg btn-inline" href="{{url('addvolunteer')}}">Add Volunteer</a>
 				</div>
 			</div>
-	</div>
 @endsection
