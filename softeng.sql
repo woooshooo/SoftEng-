@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 02, 2018 at 09:39 AM
+-- Generation Time: Jan 12, 2018 at 07:00 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`),
   UNIQUE KEY `item_name` (`item_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_notes`, `created_at`, `updated_at`) VALUES
 (1, 'DSLR 700D', 'Camera', 3, 'EOS 700D. Step into DSLR photography and let your creativity grow.', NULL, '2017-12-30 00:55:06'),
 (2, 'Flycam HD-3000 Handheld Video Stabilizer - Proaim', 'Camera Holder', 3, 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
-(3, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', '2017-12-30 00:25:10', '2017-12-30 00:25:10');
+(3, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', '2017-12-30 00:25:10', '2017-12-30 00:25:10'),
+(6, 'aw', 'aw', 12, 'aw', '2018-01-02 03:25:28', '2018-01-12 04:20:03');
 
 -- --------------------------------------------------------
 
@@ -91,21 +92,21 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
+(9, '2014_10_12_000000_create_users_table', 2),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2017_12_15_053731_create_vols_table', 1),
 (4, '2017_12_15_055142_create_profiles_table', 1),
-(5, '2017_12_28_152037_staff', 2),
-(6, '2017_12_30_053605_createusers', 3),
-(7, '2017_12_30_074542_add_item', 4),
-(8, '2017_12_30_162911_create_borrow_table', 5);
+(5, '2017_12_28_152037_staff', 1),
+(6, '2017_12_30_053605_createusers', 1),
+(7, '2017_12_30_074542_add_item', 1),
+(8, '2017_12_30_162911_create_borrow_table', 1);
 
 -- --------------------------------------------------------
 
@@ -190,15 +191,25 @@ INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `created
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `staff_id` int(10) UNSIGNED DEFAULT NULL,
+  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `users_username_unique` (`username`),
+  KEY `staff_id` (`staff_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `staff_id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 1, 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'vfm5JCYO9DKMSvGuJSgI4b8yJn5uLfqJKqxIAsOnlWZhZJJBDrbC4yA94EpF', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
+(4, 2, 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-12 10:36:54');
 
 -- --------------------------------------------------------
 
@@ -248,6 +259,12 @@ ALTER TABLE `borrow`
 --
 ALTER TABLE `staffs`
   ADD CONSTRAINT `staffs_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staffs` (`staff_id`);
 
 --
 -- Constraints for table `vols`
