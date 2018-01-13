@@ -5,7 +5,7 @@
 						<h1 class="page-header">Edit Volunteer Profile</h1>
 				</div>
 		</div>
-			{!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
+			{!! Form::open(['action' => ['VolsController@update',$profiles->profile_id],  'method' => 'POST',
 				'class' => 'form'])!!}
 
 				<div class="form-group col-lg-4">
@@ -62,6 +62,7 @@
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
            $vols->cluster, ['class'=>'form-control','placeholder' => 'Cluster'])}}
 				</div>
+		{{Form::hidden('_method','PUT')}}
 				{{Form::submit('Submit', ['class' => 'btn btn-default'])}}
 				{{Form::reset('Reset', ['class' => 'btn btn-default'])}}
 		{!! Form::close() !!}

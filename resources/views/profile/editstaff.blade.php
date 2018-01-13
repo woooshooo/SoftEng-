@@ -7,8 +7,8 @@
 					</div>
 					<!-- /.col-lg-12 -->
 			</div>
-			{!! Form::open(['action' => 'StaffsController@store', 'method' => 'POST',
-				'class' => 'col-lg-12 form', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
+			{!! Form::open(['action' => ['StaffsController@update',$profiles->profile_id], 'method' => 'POST',
+				'class' => 'form'])!!}
 
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="fname">First Name</label>
@@ -47,8 +47,9 @@
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
             $staffs->cluster, ['class'=>'form-control','placeholder' => 'Choose Cluster'])}}
 				</div>
+				{{Form::hidden('_method','PUT')}}
 					{{Form::submit('Submit', ['class' => 'btn btn-default'])}}
 					{{Form::reset('Reset', ['class' => 'btn btn-default'])}}
-			{!! Form::close() !!}
+				{!! Form::close() !!}
 
 @endsection
