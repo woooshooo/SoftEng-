@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 12, 2018 at 07:00 PM
+-- Generation Time: Jan 13, 2018 at 12:38 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `profiles_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profiles`
@@ -154,7 +154,8 @@ INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `em
 (15, 'Mikhaela Angela', NULL, 'Doce', 'mikhaeladoce@gmail.com', '09778260120', '2017-12-16 00:54:50', '2017-12-16 00:54:50'),
 (18, 'Kimberly Rose', 'L.', 'Chan', 'janzelle18@gmail.com', '09980620929', '2017-12-16 01:12:18', '2017-12-16 01:12:18'),
 (19, 'Gian Carlo', 'Whaaaaaaaaat', 'Tancontian', 'gctancontian@addu.edu.ph', '09123123123', '2017-12-28 08:39:15', '2017-12-28 09:32:25'),
-(20, 'Aivy Rose', NULL, 'Villarba', 'arvillarba@addu.edu.ph', '1231231231', '2017-12-28 09:13:06', '2017-12-28 09:13:06');
+(20, 'Aivy Rose', NULL, 'Villarba', 'arvillarba@addu.edu.ph', '1231231231', '2017-12-28 09:13:06', '2017-12-28 09:13:06'),
+(26, 'Master', NULL, 'Bater', 'master@bater.com', '09876543210', '2018-01-13 04:35:08', '2018-01-13 04:35:08');
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `staffs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `staffs`
@@ -181,7 +182,8 @@ CREATE TABLE IF NOT EXISTS `staffs` (
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Administrator', 'Director', NULL, NULL),
 (2, 19, 'Creative Cluster', 'Creatives and Studio Head', '2017-12-28 08:39:15', '2017-12-28 08:39:15'),
-(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', '2017-12-28 09:13:06', '2017-12-28 09:13:06');
+(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', '2017-12-28 09:13:06', '2017-12-28 09:13:06'),
+(6, 26, 'Creative Cluster', 'Trainee', '2018-01-13 04:35:08', '2018-01-13 04:35:08');
 
 -- --------------------------------------------------------
 
@@ -201,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `staff_id` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -209,7 +211,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `staff_id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'vfm5JCYO9DKMSvGuJSgI4b8yJn5uLfqJKqxIAsOnlWZhZJJBDrbC4yA94EpF', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
-(4, 2, 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-12 10:36:54');
+(2, 2, 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-12 10:36:54'),
+(5, 6, 'mbater', '$2y$10$toDHDtCAseO2mtu5ujLG5OOEzGtdRZDevLqMxP63N.Q84CyaJY9Fu', NULL, '2018-01-13 04:35:08', '2018-01-13 04:35:08');
 
 -- --------------------------------------------------------
 
@@ -237,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `vols` (
 --
 
 INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `section`, `vol_status`, `created_at`, `updated_at`) VALUES
-(5, 12, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3A', 'ACTIVE', '2017-12-15 15:01:13', '2017-12-30 00:27:45'),
+(5, 12, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3A', 'ACTIVE', '2017-12-15 15:01:13', '2018-01-12 20:34:24'),
 (6, 13, 'Creative Cluster', '4th Year', 'AB IS Major in Asian Studies', 'ABIS4', 'ACTIVE', '2017-12-15 15:13:28', '2017-12-15 15:13:28'),
 (7, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Systems', 'InSys4A', 'ACTIVE', '2017-12-15 15:16:45', '2017-12-16 00:53:06'),
 (8, 15, 'Editorial & Social Media Cluster', 'Grade 11', 'STEM- Pre Science', 'Idk', 'ACTIVE', '2017-12-16 00:54:50', '2017-12-16 00:54:50'),
