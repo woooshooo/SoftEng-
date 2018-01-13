@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use App\Staffs;
 use App\Profile;
+use App\User;
 class StaffsController extends Controller
 {
     /**
@@ -54,6 +55,7 @@ class StaffsController extends Controller
       //update staff profile
       $profile = new Profile;
       $staff = new Staffs;
+      $user = new User;
       $profile->firstname = $request->input('fname');
       $profile->middlename = $request->input('mname');
       $profile->lastname = $request->input('lname');
@@ -64,7 +66,10 @@ class StaffsController extends Controller
       $profile->save();
       $staff->profile_id = $profile->profile_id;
       $staff->save();
-
+      $user->username = strtolower(substr($profile->firstname, 0, 1).$profile->lastname);
+      $user->password = bcrypt(strtolower($profile->lastname));
+      $user->staff_id = $profile->staff->staff_id;
+      $user->save();
       return redirect('/staffs')->with('success','Staff Added!')->with('profile',$profile)->with('staff',$staff);
     }
 
