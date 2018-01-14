@@ -13,6 +13,9 @@ class Borrow extends Model
   //Timestamps
   public $timestamps = true;
 
+  protected $fillable = [
+      'equipment_id, profile_id, qtyBorrowed'
+  ];
   public function profile()
   {
     return $this->belongsTo('App\Profile','profile_id');

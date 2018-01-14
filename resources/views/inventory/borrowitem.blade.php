@@ -1,35 +1,39 @@
 @extends('layout.app')
 @section('content')
-			<div class="container">
-				<h4>Equipment Inventory</h4>
-
-				<table class="centered bordered responsive-table highlight grey darken-1 z-depth-5" style="margin:2px; border-radius:10px;">
-          <thead>
-            <tr>
-  						<th>Name</th>
-  						<th>Type</th>
-  						<th>Total Quantity</th>
-  						<th>Available</th>
-  						<th>Borrowed</th>
-              <th></th>
-            </tr>
-        </thead>
-
-				@foreach ($avails as $value)
-						<tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
-							<td>{{$value->item_name}}</td>
-							<td>{{$value->item_type}}</td>
-							<td>{{$value->item_quantity}}</td>
-							@if($value->available > 0)
-								<td>{{$value->available}}</td>
-								<td>{{$value->borrowed}}</td>
-							@elseif($value->available < 1)
-								<td>{{$value->item_quantity}}</td>
-								<td>0</td>
-							@endif
-								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-small grey darken-1  z-depth-2">Borrow</a></td>
-						</tr>
-				@endforeach
+	<div class="row">
+			<div class="col-lg-12">
+					<h1 class="page-header">Borrow Equipment Form</h1>
 			</div>
+			<!-- /.col-lg-12 -->
 	</div>
+	{!! Form::open(['action' => 'BorrowsController@store', 'method' => 'POST','class' => 'col-lg-12 form'])!!}
+
+	<div class="form-group col-lg-6">
+		<label class="control-label" for="Borrower">Borrower</label>
+		<input type="text" class="form-control" id="Borrower" name="Borrower">
+		<select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
+	</div>
+	<div class="form-group col-lg-6">
+		<label class="control-label" for="item_name">Equipment Name</label>
+		<input type="text" class="form-control" id="item_name" name="item_name">
+
+	</div>
+
+	<div class="form-group col-lg-6">
+		<label class="control-label" for="item_quantity">Quantity</label>
+		<input type="number" class="form-control" id="item_quantity" name="item_quantity">
+
+	</div>
+	<div class="form-group col-lg-12">
+		<label class="control-label" for="item_notes">Input additional notes here.</label>
+		<textarea class="form-control" id="item_notes" name="item_notes"></textarea>
+		<br>
+	</div>
+	<div class="form-group col-lg-12">
+		<button class="btn btn-default" type="submit" name="action">Submit
+		</button>
+		<button class="btn btn-default" type="reset" name="action">Reset
+		</button>
+	</div>
+	{!! Form::close() !!}
 @endsection
