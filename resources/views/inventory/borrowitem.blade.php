@@ -26,10 +26,10 @@
 	</div>
 
 	<div class="form-group col-lg-12"></div>
-	
+
 	<div class="form-group col-lg-12">
-		<label class="control-label" for="Purpose">Purpose</label>
-		<texarea class="form-control" id="Purpose" name="Purpose"></textarea>
+		<label class="control-label" for="purpose">Purpose</label>
+		<texarea class="form-control" name="purpose"></textarea>
 	</div>
 
 
