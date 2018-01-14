@@ -5,7 +5,7 @@
             <h1 class="page-header">View {{$profiles->firstname}}'s Profile</h1>
         </div>
     </div>
-      {!! Form::open(['action' => 'VolsController@store', 'method' => 'POST',
+      {!! Form::open(['action' => ['VolsController@update', $profiles->profile_id], 'method' => 'POST',
         'class' => 'form'])!!}
 
         <div class="form-group col-lg-4">
@@ -62,6 +62,7 @@
                                      'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
           $profiles->volunteer->cluster, ['class'=>'form-control','disabled','placeholder' => 'Cluster'])}}
         </div>
+      {!!Form::close()!!}
        {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => ''])!!}
         {{Form::hidden('_method','DELETE')}}
         <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>

@@ -117,7 +117,7 @@ class StaffsController extends Controller
           'cluster' => 'required',
           'staff_pos' => 'required'
         ]);
-      //update volunteer profile
+      //update Staff profile
       $profile= Profile::find($id);
       $staff = Profile::find($id)->staff;
       $profile->firstname = $request->input('fname');
@@ -140,7 +140,12 @@ class StaffsController extends Controller
      */
     public function destroy($id)
     {
-        $profile = Profile::find($id);
+        $profile= Profile::find($id);
+        $staff = Profile::find($id)->staff;
+        $user = User::where('staff_id', $staff->staff_id);
+        $stafff = Staffs::where('staff_id',$staff->staff_id); //dapat dili kaparehas ug source makalagot ni 
+        $user->delete();
+        $stafff->delete(); //maka bwisit ni ikapila ko nag balik2x ani zzzzzzzzz
         $profile->delete();
         return redirect('/staffs')->with('success','Staff Profile Removed!');
     }

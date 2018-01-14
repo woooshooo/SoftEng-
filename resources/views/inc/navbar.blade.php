@@ -184,7 +184,7 @@
                     </div>
                     <!-- /input-group -->
                 </li>
-                
+
                 <li>
                     <a href="{{url('home')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
@@ -207,7 +207,7 @@
                             <a href="{{url('addevents')}}">Add Events</a>
                         </li>
                         <li>
-                            <a href="{{url('viewevents')}}">View Events</a>
+                            <a href="{{url('events')}}">View Events</a>
                         </li>
                     </ul>
                     <!-- /.nav-third-level -->

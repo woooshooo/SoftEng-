@@ -7,9 +7,6 @@
 					</div>
 					<!-- /.col-lg-12 -->
 			</div>
-			{!! Form::open(['action' => 'StaffsController@store', 'method' => 'POST',
-				'class' => 'col-lg-12 form', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
-
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="fname">First Name</label>
 					{{Form::text('fname', $profiles->firstname, ['class' => 'form-control', 'disabled','placeholder' => 'First Name'])}}
@@ -47,8 +44,7 @@
 						 												 'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
             $profiles->staff->cluster, ['class'=>'form-control','disabled','placeholder' => 'Choose Cluster'])}}
 				</div>
-
-       {!!Form::open(['action'=> ['StaffsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => 'pull-right'])!!}
+       {!!Form::open(['action'=> ['StaffsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => 'pull-left'])!!}
         {{Form::hidden('_method','DELETE')}}
         <a href="/staffs/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
         {{Form::submit('Delete',['class' => 'btn btn-default' ])}}

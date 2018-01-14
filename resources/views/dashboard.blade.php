@@ -7,6 +7,17 @@
                     <h1 class="page-header">Dashboard</h1>
                 </div>
                 <!-- /.col-lg-12 -->
+
+                <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    You are logged in!
+                </div>
+                
             </div>
             <!-- /.row -->
             <div class="row">

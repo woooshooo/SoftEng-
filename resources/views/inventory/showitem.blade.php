@@ -56,11 +56,10 @@
 					 </div>
 	 			 </div>
 				<div class="form-group col-lg-12">
-					<button class="btn btn-default" type="submit" name="action">Submit
-				  </button>
-					<button class="btn btn-default" type="reset" name="action">Reset
-				  </button>
-				</div>
-      {{Form::hidden('_method','PUT')}}
-			{!! Form::close() !!}
+				{!!Form::open(['action'=> ['ItemsController@destroy', $items->equipment_id], 'method' => 'POST', 'class' => ''])!!}
+         {{Form::hidden('_method','DELETE')}}
+				 <a href="/items/{{$items->equipment_id}}/edit" class="btn btn-default">Edit</a>
+         {{Form::submit('Delete',['class' => 'btn btn-default' ])}}
+        {!!Form::close()!!}
+			</div>
 @endsection

@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap Core CSS -->
+		<!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
@@ -92,6 +92,11 @@ $('.tooltip-demo').tooltip({
 // popover demo
 $("[data-toggle=popover]")
 		.popover()
+</script>
+<script>
+jQuery(document).ready(function($) {
+	$('.datepicker').datepicker();
+});
 </script>
 </body>
 </html>

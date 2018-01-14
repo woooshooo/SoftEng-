@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use App\Vols;
@@ -82,8 +81,9 @@ class VolsController extends Controller
     public function show($id)
     {
       $profiles = Profile::find($id);
+      $vols = Profile::find($id)->volunteer;
       $title = 'Volunteer';
-      return View('profile/show')->with('profiles', $profiles)->with('title',$title);
+      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title);
     }
 
     /**
@@ -147,6 +147,8 @@ class VolsController extends Controller
     public function destroy($id)
     {
         $profile = Profile::find($id);
+        $vol = Profile::find($id)->volunteer;
+        $vol->delete();
         $profile->delete();
         return redirect('/vols')->with('success','Volunteer Profile Removed!');
     }
