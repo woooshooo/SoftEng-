@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 13, 2018 at 12:38 PM
+-- Generation Time: Jan 14, 2018 at 10:49 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`),
   UNIQUE KEY `item_name` (`item_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -78,7 +78,26 @@ INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quanti
 (1, 'DSLR 700D', 'Camera', 3, 'EOS 700D. Step into DSLR photography and let your creativity grow.', NULL, '2017-12-30 00:55:06'),
 (2, 'Flycam HD-3000 Handheld Video Stabilizer - Proaim', 'Camera Holder', 3, 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
 (3, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', '2017-12-30 00:25:10', '2017-12-30 00:25:10'),
-(6, 'aw', 'aw', 12, 'aw', '2018-01-02 03:25:28', '2018-01-12 04:20:03');
+(7, 'Macbook', 'Laptop', 1, 'None', '2018-01-14 00:17:16', '2018-01-14 00:17:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE IF NOT EXISTS `events` (
+  `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `events_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_startdate` int(11) NOT NULL,
+  `events_deadline` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`events_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -92,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -106,7 +125,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2017_12_28_152037_staff', 1),
 (6, '2017_12_30_053605_createusers', 1),
 (7, '2017_12_30_074542_add_item', 1),
-(8, '2017_12_30_162911_create_borrow_table', 1);
+(8, '2017_12_30_162911_create_borrow_table', 1),
+(10, '2018_01_14_070945_create_projects', 3),
+(11, '2018_01_14_072323_create_events', 4),
+(12, '2018_01_14_073110_profile_projects', 5),
+(13, '2018_01_14_073131_profile_events', 5);
 
 -- --------------------------------------------------------
 
@@ -140,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `profiles_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profiles`
@@ -149,13 +172,61 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `email`, `contactdetails`, `created_at`, `updated_at`) VALUES
 (1, 'Bernie', 'Manuel', 'Jereza', 'bmjereza@addu.edu.ph', '0999999999', NULL, '2018-01-02 00:36:03'),
 (12, 'Webster Kyle', 'Boctoto', 'Genise', 'wkgenise@yahoo.com', '09287274683', '2017-12-15 15:01:13', '2017-12-16 02:33:00'),
-(13, 'Larissa Marie', NULL, 'Baarde', 'larissamarie25@gmail.com', '09393392063', '2017-12-15 15:13:27', '2017-12-15 15:13:27'),
+(13, 'Larissa Marie', 'A.', 'Baarde', 'larissamarie25@gmail.com', '09393392063', '2017-12-15 15:13:27', '2018-01-14 00:25:19'),
 (14, 'Jimuel', NULL, 'Banawan', 'jwpbanawan@addu.edu.ph', '09430151214', '2017-12-15 15:16:45', '2017-12-15 15:16:45'),
 (15, 'Mikhaela Angela', NULL, 'Doce', 'mikhaeladoce@gmail.com', '09778260120', '2017-12-16 00:54:50', '2017-12-16 00:54:50'),
 (18, 'Kimberly Rose', 'L.', 'Chan', 'janzelle18@gmail.com', '09980620929', '2017-12-16 01:12:18', '2017-12-16 01:12:18'),
 (19, 'Gian Carlo', 'Whaaaaaaaaat', 'Tancontian', 'gctancontian@addu.edu.ph', '09123123123', '2017-12-28 08:39:15', '2017-12-28 09:32:25'),
-(20, 'Aivy Rose', NULL, 'Villarba', 'arvillarba@addu.edu.ph', '1231231231', '2017-12-28 09:13:06', '2017-12-28 09:13:06'),
-(26, 'Master', NULL, 'Bater', 'master@bater.com', '09876543210', '2018-01-13 04:35:08', '2018-01-13 04:35:08');
+(20, 'Aivy Rose', NULL, 'Villarba', 'arvillarba@addu.edu.ph', '1231231231', '2017-12-28 09:13:06', '2017-12-28 09:13:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_events`
+--
+
+DROP TABLE IF EXISTS `profile_events`;
+CREATE TABLE IF NOT EXISTS `profile_events` (
+  `profile_events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `profile_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`profile_events_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile_projects`
+--
+
+DROP TABLE IF EXISTS `profile_projects`;
+CREATE TABLE IF NOT EXISTS `profile_projects` (
+  `profile_projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `profile_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`profile_projects_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+DROP TABLE IF EXISTS `projects`;
+CREATE TABLE IF NOT EXISTS `projects` (
+  `projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `projects_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `projects_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `projects_startdate` int(11) NOT NULL,
+  `projects_deadline` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `projects_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`projects_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -172,8 +243,8 @@ CREATE TABLE IF NOT EXISTS `staffs` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
-  KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `staffs_ibfk_1` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `staffs`
@@ -182,8 +253,7 @@ CREATE TABLE IF NOT EXISTS `staffs` (
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Administrator', 'Director', NULL, NULL),
 (2, 19, 'Creative Cluster', 'Creatives and Studio Head', '2017-12-28 08:39:15', '2017-12-28 08:39:15'),
-(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', '2017-12-28 09:13:06', '2017-12-28 09:13:06'),
-(6, 26, 'Creative Cluster', 'Trainee', '2018-01-13 04:35:08', '2018-01-13 04:35:08');
+(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', '2017-12-28 09:13:06', '2017-12-28 09:13:06');
 
 -- --------------------------------------------------------
 
@@ -203,16 +273,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `staff_id` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'vfm5JCYO9DKMSvGuJSgI4b8yJn5uLfqJKqxIAsOnlWZhZJJBDrbC4yA94EpF', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
-(2, 2, 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-12 10:36:54'),
-(5, 6, 'mbater', '$2y$10$toDHDtCAseO2mtu5ujLG5OOEzGtdRZDevLqMxP63N.Q84CyaJY9Fu', NULL, '2018-01-13 04:35:08', '2018-01-13 04:35:08');
+(1, 1, 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'm94yyQnkhYs3uLbYtl3KzODFNiHLqJMYDn0x7HvNN32AMJLbXjnsgA0qX80s', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
+(2, 2, 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-12 10:36:54');
 
 -- --------------------------------------------------------
 
@@ -233,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `vols` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vol_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vols`
@@ -261,7 +330,7 @@ ALTER TABLE `borrow`
 -- Constraints for table `staffs`
 --
 ALTER TABLE `staffs`
-  ADD CONSTRAINT `staffs_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
+  ADD CONSTRAINT `staffs_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
@@ -273,7 +342,7 @@ ALTER TABLE `users`
 -- Constraints for table `vols`
 --
 ALTER TABLE `vols`
-  ADD CONSTRAINT `vols_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `vols_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
