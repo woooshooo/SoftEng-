@@ -31,6 +31,16 @@ class PagesController extends BaseController
 
     return view('projects/projects')->with('title',$title);
   }
+  public function addevent(){
+    $title = 'Add Events';
+    return view('events/addevents')->with('title',$title);
+  }
+  public function viewevent(){
+
+    $title = 'View Event';
+
+    return view('events/events')->with('title',$title);
+  }
   public function additem(){
     $title = 'Add Item';
     return view('inventory/additem')->with('title',$title);

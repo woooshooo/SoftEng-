@@ -25,5 +25,13 @@ class Profile extends Model
   {
     return $this->hasMany('App\Borrow','profile_id');
   }
+  public function projects()
+  {
+    return $this->hasMany('App\ProfileProjects','profile_id');
+  }
+  public function events()
+  {
+    return $this->hasMany('App\ProfileEvents','profile_id');
+  }
 }
 ?>

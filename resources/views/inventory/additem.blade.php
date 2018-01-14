@@ -1,6 +1,5 @@
 @extends('layout.app')
 @section('content')
-		<div id="page-wrapper">
 			<div class="row">
 					<div class="col-lg-12">
 							<h1 class="page-header">Add Equipment</h1>
@@ -36,5 +35,4 @@
 				  </button>
 				</div>
 			{!! Form::close() !!}
-    </div>
 @endsection
