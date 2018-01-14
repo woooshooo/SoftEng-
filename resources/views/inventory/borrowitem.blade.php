@@ -11,24 +11,18 @@
 	<div class="form-group col-lg-6">
 		<label class="control-label" for="Borrower">Borrower</label>
 		<input type="text" class="form-control" id="Borrower" name="Borrower">
-		<select id="searchbox" name="q" placeholder="Search products or categories..." class="form-control"></select>
 	</div>
 	<div class="form-group col-lg-6">
 		<label class="control-label" for="item_name">Equipment Name</label>
 		<input type="text" class="form-control" id="item_name" name="item_name">
-
 	</div>
 
 	<div class="form-group col-lg-6">
-		<label class="control-label" for="item_quantity">Quantity</label>
+		<label class="control-label" for="item_quantity">Qty Borrowed</label>
 		<input type="number" class="form-control" id="item_quantity" name="item_quantity">
 
 	</div>
-	<div class="form-group col-lg-12">
-		<label class="control-label" for="item_notes">Input additional notes here.</label>
-		<textarea class="form-control" id="item_notes" name="item_notes"></textarea>
-		<br>
-	</div>
+
 	<div class="form-group col-lg-12">
 		<button class="btn btn-default" type="submit" name="action">Submit
 		</button>

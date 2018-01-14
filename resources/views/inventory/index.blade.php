@@ -12,7 +12,7 @@
   						<th>Total Quantity</th>
   						<th>Available</th>
   						<th>Borrowed</th>
-                        <th></th>
+							<th></th>
             </tr>
         </thead>
 				@foreach ($avails as $value)
@@ -26,8 +26,7 @@
 								@elseif($value->available < 1)
 									<td>{{$value->item_quantity}}</td>
 									<td>0</td>
-								@endif
-                                <td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-default btn-lg- btn-inline">Borrow</a></td>
+								@endif                        
 								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
 						</tr>
 				@endforeach
