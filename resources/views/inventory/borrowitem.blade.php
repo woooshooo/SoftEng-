@@ -3,7 +3,7 @@
 			<div class="container">
 				<h4>Equipment Inventory</h4>
 
-				<table class="centered bordered responsive-table highlight grey darken-1 z-depth-5" style="margin:2px; border-radius:10px;">
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
           <thead>
             <tr>
   						<th>Name</th>
@@ -27,7 +27,7 @@
 								<td>{{$value->item_quantity}}</td>
 								<td>0</td>
 							@endif
-								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-small grey darken-1  z-depth-2">Borrow</a></td>
+								<td><a href="/borrows/{{$value->equipment_id}}" class="btn btn-default btn-lg- btn-inline">Borrow</a></td>
 						</tr>
 				@endforeach
 			</div>

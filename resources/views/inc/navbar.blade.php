@@ -234,10 +234,10 @@
                             <a href="#">Volunteers <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
-                                    <a href="{{url('addvolunteer')}}">Add Volunteer</a>
+                                    <a href="{{url('vols')}}">View Volunteers</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('vols')}}">View Volunteers</a>
+                                    <a href="{{url('addvolunteer')}}">Add Volunteer</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->
@@ -246,10 +246,10 @@
                             <a href="#">Staff <span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
                                 <li>
-                                    <a href="{{url('addstaff')}}">Add Staff</a>
+                                    <a href="{{url('staffs')}}">View Staffs</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('staffs')}}">View Staffs</a>
+                                    <a href="{{url('addstaff')}}">Add Staff</a>
                                 </li>
                             </ul>
                             <!-- /.nav-third-level -->
