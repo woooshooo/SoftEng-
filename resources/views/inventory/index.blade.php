@@ -20,7 +20,10 @@
 								<td>{{$value->item_name}}</td>
 								<td>{{$value->item_status}}</td>
 								<td>{{$value->item_quantity}}</td>
-								@if($value->available > 0)
+								@if($value->item_status == 'UNAVAILABLE')
+									<td>N/A</td>
+									<td>N/A</td>
+								@elseif($value->available > 0)
 									<td>{{$value->available}}</td>
 									<td>{{$value->borrowed}}</td>
 								@elseif($value->available < 1)

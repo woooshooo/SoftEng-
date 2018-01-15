@@ -56,7 +56,7 @@
 				</div>
 				<div class="form-group col-lg-6">
           {{Form::label('vol_status', 'Status')}}
-          {{Form::text('vol_status', '', ['class' => 'form-control','disabled'])}}
+          {{Form::text('vol_status', $profiles->volunteer->vol_status, ['class' => 'form-control','disabled'])}}
 
         </div>
 

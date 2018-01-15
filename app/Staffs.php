@@ -9,7 +9,7 @@ class Staffs extends Model
   //Table Name
   protected $table = 'staffs';
   //Primary Key
-  public $primaryKey = 'vol_id';
+  public $primaryKey = 'staff_id';
   //Timestamps
   public $timestamps = true;
 

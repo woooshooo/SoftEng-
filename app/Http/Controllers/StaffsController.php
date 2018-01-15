@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use App\Staffs;
 use App\Profile;
 use App\User;
@@ -81,6 +82,7 @@ class StaffsController extends Controller
      */
     public function show($id)
     {
+      $staff = Profile::find($id)->staff;
       $profiles = Profile::find($id);
       $title = 'Staff';
       return View('profile/showstaff')->with('profiles', $profiles)->with('title',$title);
@@ -142,11 +144,22 @@ class StaffsController extends Controller
     {
         $profile= Profile::find($id);
         $staff = Profile::find($id)->staff;
-        $user = User::where('staff_id', $staff->staff_id);
-        $stafff = Staffs::where('staff_id',$staff->staff_id); //dapat dili kaparehas ug source makalagot ni 
-        $user->delete();
-        $stafff->delete(); //maka bwisit ni ikapila ko nag balik2x ani zzzzzzzzz
-        $profile->delete();
-        return redirect('/staffs')->with('success','Staff Profile Removed!');
+        $user = User::find($staff->staff_id);
+        //$user->delete();
+        //$stafff->delete(); //maka bwisit ni ikapila ko nag balik2x ani zzzzzzzzz
+        //$profile->delete();
+
+        if ($staff->staff_status == 'INACTIVE') {
+          $staff->staff_status = 'ACTIVE';
+          $user->user_status = 'ACTIVE';
+          $staff->save();
+          $user->save();
+        } else {
+          $staff->staff_status = 'INACTIVE';
+          $user->user_status = 'INACTIVE';
+          $staff->save();
+          $user->save();
+        }
+        return redirect('/staffs')->with('success','Staff Status Changed!');
     }
 }

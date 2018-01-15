@@ -10,6 +10,7 @@
   						<th>Name</th>
   						<th>Cluster</th>
   						<th>Position</th>
+              <th>Status</th>
               <th></th>
             </tr>
         </thead>
@@ -18,6 +19,7 @@
       						<td>{{$value->profile->firstname}} {{$value->profile->lastname}}</td>
       						<td>{{$value->cluster}}</td>
       						<td>{{$value->staff_pos}}</td>
+      						<td>{{$value->staff_status	}}</td>
                   <td><a href="/staffs/{{$value->profile_id}}/edit" class="btn btn-default btn-lg btn-block">Edit</a></td>
     					</tr>
           @endforeach
