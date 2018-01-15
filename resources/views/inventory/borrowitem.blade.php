@@ -9,8 +9,8 @@
 	{!! Form::open(['action' => 'BorrowsController@store', 'method' => 'POST','class' => 'col-lg-12 form'])!!}
 
 	<div class="form-group col-lg-6">
-		<label class="control-label" for="Borrower">Borrower</label>
-		<input type="text" class="form-control" id="Borrower" name="Borrower">
+		<label class="control-label" for="borrower">Borrower</label>
+		<input type="text" class="form-control" id="borrower" name="borrower">
 	</div>
 
 	<div class="form-group col-lg-12"></div>
@@ -21,8 +21,8 @@
 	</div>
 
 	<div class="form-group col-lg-6">
-		<label class="control-label" for="item_quantity">Qty Borrowed</label>
-		<input type="number" class="form-control" id="item_quantity" name="item_quantity">
+		<label class="control-label" for="qtyBorrowed">Qty Borrowed</label>
+		<input type="number" class="form-control" id="qtyBorrowed" name="qtyBorrowed">
 	</div>
 
 	<div class="form-group col-lg-12"></div>

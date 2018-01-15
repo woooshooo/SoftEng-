@@ -17,19 +17,19 @@
         </thead>
 				@foreach ($avails as $value)
 						<tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
-								<td>{{$value->item_name}}</td>
-								<td>{{$value->item_status}}</td>
-								<td>{{$value->item_quantity}}</td>
 								@if($value->item_status == 'UNAVAILABLE')
-									<td>N/A</td>
-									<td>N/A</td>
-								@elseif($value->available > 0)
-									<td>{{$value->available}}</td>
-									<td>{{$value->borrowed}}</td>
-								@elseif($value->available < 1)
-									<td>{{$value->item_quantity}}</td>
-									<td>0</td>
-								@endif
+										<td>{{$value->item_name}}</td>
+										<td><font color="red">{{$value->item_status}}</font></td>
+										<td>{{$value->item_quantity}}</td>
+										<td>N/A</td>
+										<td>N/A</td>
+									@else
+										<td>{{$value->item_name}}</td>
+										<td><font color="green">{{$value->item_status}}</font></td>
+										<td>{{$value->item_quantity}}</td>
+										<td>{{$value->available}}</td>
+										<td>{{$value->borrowed}}</td>
+									@endif
 								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
 						</tr>
 				@endforeach

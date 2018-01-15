@@ -28,27 +28,42 @@
 					<input type="text" class="form-control" id="item_status" name="item_status" value="{{$items->item_status}}" disabled>
 
 				</div>
-				<div class="form-group col-lg-12">
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_warranty">Equipment Warranty</label>
+					<input type="text" class="form-control" id="item_warranty" name="item_warranty" value="{{$items->item_warranty}}" disabled>
+
+				</div>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_dateofpurchase">Date of Purchase</label>
+					<input type="text" class="form-control" id="item_dateofpurchase" name="item_dateofpurchase" value="{{$items->item_dateofpurchase}}" disabled>
+
+				</div>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_code">Code</label>
+					<input type="text" class="form-control" id="item_code" name="item_code" value="{{$items->item_code}}" disabled>
+
+				</div>
+				<div class="form-group col-lg-6">
 					<label class="control-label" for="item_notes">Additional notes here.</label>
-					<textarea class="form-control" id="item_notes" name="item_notes" disabled>{{$items->item_name}}</textarea>
+					<textarea class="form-control" id="item_notes" name="item_notes" style="resize:none" disabled>{{$items->item_name}}</textarea>
 				</div>
 				<div class="col-lg-6">
 					<label>In Stock:</label>
 	         @foreach ($totalBorrowed as $value)
 	           @if ($value->equipment_id == $items->equipment_id)
-							 <input type="number" class="form-control" value="{{$items->item_quantity - $value->sum}}" disabled>
+							 <span>{{$items->item_quantity - $value->sum}}</span>
 	           @endif
 	         @endforeach
 
        		<label>Borrowed:</label>
 	         @foreach ($totalBorrowed as $value)
 	          @if ($value->equipment_id == $items->equipment_id)
-							<input type="number" class="form-control" value="{{$value->sum}}" disabled>
+							<span>{{$value->sum}}</span>
 
 	          @endif
 	         @endforeach
 				 </div>
-					<div class="well col-lg-6">
+					<div class="col-lg-6">
 						 <div class="panel-heading">
 							 Borrowers
  		 				 </div>

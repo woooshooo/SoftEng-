@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Borrow;
 use App\Items;
+use App\Profile;
 use DB;
 class BorrowsController extends Controller
 {
@@ -42,7 +43,26 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
-    
+      //validate
+        $this->validate($request, [
+          'borrower' => 'required',
+          'item_name' => 'required',
+          'qtyBorrowed' => 'required',
+          'purpose' => 'required',
+        ]);
+
+      $borrows = new Borrow;
+      $profile = $request->input('borrower');
+      $equipment = $request->input('item_name');
+      $borrows->qtyBorrowed = $request->input('qtyBorrowed');
+      $borrows->purpose = $request->input('purpose');
+      $profileDB = Profile::where('firstname', $profile)->first()->profile_id;
+      $borrows->profile_id = $profileDB;
+      $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
+      $borrows->equipment_id = $itemDB;
+      $borrows->save();
+
+      return redirect('/borrows')->with('success','Borrow Form Added!')->with('borrows',$borrows);
     }
 
     /**

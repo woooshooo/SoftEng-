@@ -8,6 +8,10 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use DB;
+use App\Projects;
+use App\Events;
+use App\Staffs;
+use App\Vols;
 
 class PagesController extends BaseController
 {
@@ -16,9 +20,12 @@ class PagesController extends BaseController
       $this->middleware('auth');
   }
   public function index(){
+    $projects = Projects::all()->count();
+    $events = Events::all()->count();
+    $staffs = Staffs::all()->count();
+    $vols = Vols::all()->count();
     $title = 'Welcome to the Dashboard';
-    //return view('dashboard', compact('title'));
-    return view('dashboard')->with('title',$title);
+    return view('dashboard')->with('title',$title)->with('projects',$projects)->with('events',$events)->with('staffs',$staffs)->with('vols',$vols);
   }
   public function addproject(){
     $title = 'Add Project';
