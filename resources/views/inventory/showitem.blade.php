@@ -23,6 +23,11 @@
 					<input type="number" class="form-control" id="item_quantity" name="item_quantity" value="{{$items->item_quantity}}" disabled>
 
 				</div>
+				<div class="form-group col-lg-6">
+					<label class="control-label" for="item_status">Equipment Status</label>
+					<input type="text" class="form-control" id="item_status" name="item_status" value="{{$items->item_status}}" disabled>
+
+				</div>
 				<div class="form-group col-lg-12">
 					<label class="control-label" for="item_notes">Additional notes here.</label>
 					<textarea class="form-control" id="item_notes" name="item_notes" disabled>{{$items->item_name}}</textarea>
@@ -59,7 +64,12 @@
 				{!!Form::open(['action'=> ['ItemsController@destroy', $items->equipment_id], 'method' => 'POST', 'class' => ''])!!}
          {{Form::hidden('_method','DELETE')}}
 				 <a href="/items/{{$items->equipment_id}}/edit" class="btn btn-default">Edit</a>
-         {{Form::submit('Delete',['class' => 'btn btn-default' ])}}
+				 @if ($items->item_status == 'UNAVAILABLE')
+				 		{{Form::submit('MAKE AVAILABLE',['class' => 'btn btn-default' ])}}
+					@else
+						{{Form::submit('MAKE UNAVAILABLE',['class' => 'btn btn-default' ])}}
+				 @endif
+
         {!!Form::close()!!}
 			</div>
 @endsection

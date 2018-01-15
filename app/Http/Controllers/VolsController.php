@@ -146,10 +146,14 @@ class VolsController extends Controller
      */
     public function destroy($id)
     {
-        $profile = Profile::find($id);
         $vol = Profile::find($id)->volunteer;
-        $vol->delete();
-        $profile->delete();
-        return redirect('/vols')->with('success','Volunteer Profile Removed!');
+        if ($vol->vol_status == 'INACTIVE') {
+          $vol->vol_status = 'ACTIVE';
+          $vol->save();
+        } else {
+          $vol->vol_status = 'INACTIVE';
+          $vol->save();
+        }
+        return redirect('/vols')->with('success','Volunteer Status Changed!');
     }
 }

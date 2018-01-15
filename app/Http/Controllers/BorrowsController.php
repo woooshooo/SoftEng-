@@ -42,7 +42,7 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
-
+    
     }
 
     /**

@@ -21,7 +21,7 @@ class ItemsController extends Controller
     {
         $items = Items::all();
         $borrows = Borrow::all();
-        $avails = DB::select('select a.equipment_id,a.item_name, a.item_type, a.item_quantity, (a.item_quantity - sum(b.qtyBorrowed)) AS available, sum(b.qtyBorrowed) AS borrowed, a.item_notes
+        $avails = DB::select('select a.equipment_id,a.item_name, a.item_status, a.item_quantity, (a.item_quantity - sum(b.qtyBorrowed)) AS available, sum(b.qtyBorrowed) AS borrowed, a.item_notes
         from equipments a left join borrow b
         ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
         $title = 'View Equipments';
@@ -53,7 +53,7 @@ class ItemsController extends Controller
           'item_quantity' => 'required',
           'item_notes' => 'required',
         ]);
-      //update staff profile
+
       $items = new Items;
       $items->item_name = $request->input('item_name');
       $items->item_type = $request->input('item_type');
@@ -133,7 +133,14 @@ class ItemsController extends Controller
     public function destroy($id)
     {
       $items = Items::find($id);
-      $items->delete();
-      return redirect('/items')->with('success','Equipment Removed!');
+      if ($items->item_status == 'UNAVAILABLE') {
+        $items->item_status = 'AVAILABLE';
+        $items->save();
+      } else {
+        $items->item_status = 'UNAVAILABLE';
+        $items->save();
+      }
+
+      return redirect('/items')->with('success','Equipment Status Changed!');
     }
 }

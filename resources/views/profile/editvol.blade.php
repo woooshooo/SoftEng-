@@ -43,7 +43,7 @@
 
 				</div>
 
-				<div class="form-group col-lg-12">
+				<div class="form-group col-lg-6">
 					<label>Year Level</label>
 					{{Form::select('yearlvl', ['Grade 11' => 'Grade 11',
 						 												 'Grade 12' => 'Grade 12',
@@ -54,6 +54,11 @@
 						 												 '5th Year' => '5th Year'],
            $vols->yearlvl, ['class'=>'form-control','placeholder' => 'Year Level or Grade'])}}
 				</div>
+				<div class="form-group col-lg-6">
+          {{Form::label('vol_status', 'Status')}}
+          {{Form::text('vol_status', '', ['class' => 'form-control','disabled'])}}
+
+        </div>
 
 				<div class="form-group col-lg-12">
 					<label>Cluster</label>

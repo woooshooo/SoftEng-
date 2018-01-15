@@ -8,7 +8,7 @@
           <thead>
             <tr>
   						<th>Name</th>
-  						<th>Type</th>
+  						<th>Status</th>
   						<th>Total Quantity</th>
   						<th>Available</th>
   						<th>Borrowed</th>
@@ -18,7 +18,7 @@
 				@foreach ($avails as $value)
 						<tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
 								<td>{{$value->item_name}}</td>
-								<td>{{$value->item_type}}</td>
+								<td>{{$value->item_status}}</td>
 								<td>{{$value->item_quantity}}</td>
 								@if($value->available > 0)
 									<td>{{$value->available}}</td>
@@ -26,7 +26,7 @@
 								@elseif($value->available < 1)
 									<td>{{$value->item_quantity}}</td>
 									<td>0</td>
-								@endif                        
+								@endif
 								<td><a href="/items/{{$value->equipment_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
 						</tr>
 				@endforeach

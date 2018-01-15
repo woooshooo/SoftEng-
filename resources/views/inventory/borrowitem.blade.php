@@ -29,7 +29,7 @@
 
 	<div class="form-group col-lg-12">
 		<label class="control-label" for="purpose">Purpose</label>
-		<texarea class="form-control" name="purpose"></textarea>
+		<textarea class="form-control" name="purpose"></textarea>
 	</div>
 
 

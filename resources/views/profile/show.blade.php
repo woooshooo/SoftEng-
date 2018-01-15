@@ -43,7 +43,7 @@
 
         </div>
 
-        <div class="form-group col-lg-12">
+        <div class="form-group col-lg-6">
           <label>Year Level</label>
           {{Form::select('yearlvl', ['Grade 11' => 'Grade 11',
                                      'Grade 12' => 'Grade 12',
@@ -53,6 +53,11 @@
                                      '4th Year' => '4th Year',
                                      '5th Year' => '5th Year'],
            $profiles->volunteer->yearlvl, ['class'=>'form-control','disabled','placeholder' => 'Year Level or Grade'])}}
+        </div>
+        <div class="form-group col-lg-6">
+          {{Form::label('vol_status', 'Status')}}
+          {{Form::text('vol_status', $profiles->volunteer->vol_status, ['class' => 'form-control','disabled'])}}
+
         </div>
 
         <div class="form-group col-lg-12">
@@ -66,7 +71,11 @@
        {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => ''])!!}
         {{Form::hidden('_method','DELETE')}}
         <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
-        {{Form::submit('Delete',['class' => 'btn btn-default' ])}}
+        @if ($profiles->volunteer->vol_status == 'INACTIVE')
+           {{Form::submit('MAKE ACTIVE',['class' => 'btn btn-default' ])}}
+         @else
+           {{Form::submit('MAKE INACTIVE',['class' => 'btn btn-default' ])}}
+        @endif
        {!!Form::close()!!}
 
 @endsection
