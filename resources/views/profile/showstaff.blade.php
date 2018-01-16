@@ -7,6 +7,10 @@
 					</div>
 					<!-- /.col-lg-12 -->
 			</div>
+				<div class="form-group col-lg-12">
+					<button class="btn btn-default"onclick="history.go(-1);">Back </button>
+				</div>
+
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="fname">First Name</label>
 					{{Form::text('fname', $profiles->firstname, ['class' => 'form-control', 'disabled','placeholder' => 'First Name'])}}
@@ -50,12 +54,14 @@
 				</div>
        {!!Form::open(['action'=> ['StaffsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => 'pull-left'])!!}
         {{Form::hidden('_method','DELETE')}}
+
         <a href="/staffs/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
 				@if ($profiles->staff->staff_status == 'INACTIVE')
-           {{Form::submit('MAKE ACTIVE',['class' => 'btn btn-default' ])}}
-         @else
-           {{Form::submit('MAKE INACTIVE',['class' => 'btn btn-default' ])}}
-        @endif
+					{{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
+				@else
+					{{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
+			 	@endif
 				<a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a>
        {!!Form::close()!!}
+
 @endsection

@@ -21,7 +21,7 @@
               @endif
             @endforeach
           </table>
-          <button onclick="history.go(-1);">Back </button>
+          <button class="btn btn-default"onclick="history.go(-1);">Back </button>
           <!-- <a href="/vols/{{$profiles->profile_id}}" class="btn btn-default btn-inline"> BACK  </a>-->
         </div>
     </div>

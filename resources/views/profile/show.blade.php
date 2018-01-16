@@ -5,6 +5,9 @@
             <h1 class="page-header">View {{$profiles->firstname}}'s Profile</h1>
         </div>
     </div>
+      <div class="form-group col-lg-12">
+        <button class="btn btn-default"onclick="history.go(-1);">Back </button>
+      </div>
       {!! Form::open(['action' => ['VolsController@update', $profiles->profile_id], 'method' => 'POST',
         'class' => 'form'])!!}
 
@@ -67,14 +70,15 @@
                                      'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
           $profiles->volunteer->cluster, ['class'=>'form-control','disabled','placeholder' => 'Cluster'])}}
         </div>
+
       {!!Form::close()!!}
        {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => ''])!!}
         {{Form::hidden('_method','DELETE')}}
         <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
         @if ($profiles->volunteer->vol_status == 'INACTIVE')
-           {{Form::submit('MAKE ACTIVE',['class' => 'btn btn-default' ])}}
+           {{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
          @else
-           {{Form::submit('MAKE INACTIVE',['class' => 'btn btn-default' ])}}
+           {{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
         @endif
         <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a>
        {!!Form::close()!!}

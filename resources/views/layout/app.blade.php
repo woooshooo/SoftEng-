@@ -31,8 +31,9 @@
     <![endif]-->
 		<!-- ajax -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-
-
+		<!-- date picker -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
   </head>
 
 
@@ -98,7 +99,9 @@ $("[data-toggle=popover]")
 		.popover()
 </script>
 <script>
-	$('.datepicker').datepicker();
+		$('.datepicker').datepicker({
+			autoclose: true,
+		});
 </script>
 
 <script>//stuff

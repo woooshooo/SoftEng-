@@ -7,7 +7,7 @@
 					<!-- /.col-lg-12 -->
 			</div>
 			{!! Form::open(['action' => 'ItemsController@store', 'method' => 'POST',
-				'class' => 'col-lg-12 form'])!!}
+				'class' => 'panel body col-lg-12 form'])!!}
 				<div class="form-group col-lg-6">
 					<label class="control-label" for="item_name">Equipment Name</label>
 					<input type="text" class="form-control" id="item_name" name="item_name">
