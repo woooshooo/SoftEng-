@@ -21,7 +21,7 @@ class BorrowsController extends Controller
       $avails = DB::select('select a.equipment_id,a.item_name, a.item_type, a.item_quantity, (a.item_quantity - sum(b.qtyBorrowed)) AS available, sum(b.qtyBorrowed) AS borrowed, a.item_notes
       from equipments a left join borrow b
       ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
-      $title = 'View Equipments';
+      $title = 'Borrow Equipments';
       return view('inventory/borrowitem')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails);
     }
 
@@ -73,7 +73,20 @@ class BorrowsController extends Controller
      */
     public function show($id)
     {
-        return "shit";
+        $title = 'Borrowed Items';
+        //$borrows = Profile::find($id)->borrow;
+        //$profiles = Profile::where('profile_id', $id)->first()->firstname;
+        $profiles = Profile::find($id);
+        //$borrows = DB::table('borrow')->where('borrow.profile_id','=',$id)
+        //->join('profiles', 'profiles.profile_id', '=', 'borrow.profile_id')
+        //->join('equipments', 'equipments.equipment_id', '=', 'borrow.equipment_id')
+        //->first();
+        $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose from profiles
+                            inner join borrow on profiles.profile_id = borrow.profile_id
+                            inner join equipments on borrow.equipment_id = equipments.equipment_id');
+        return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows)->with('profiles',$profiles);
+
+
     }
 
     /**

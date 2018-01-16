@@ -33,6 +33,7 @@ Route::get('/addstaff','PagesController@addstaff');
 Route::get('/addvolunteer','PagesController@addvol');
 Route::get('/viewvounteer','PagesController@viewvolunteer');
 Route::get('/viewstaff','PagesController@viewstaff');
+Route::get('/viewborroweditem','PagesController@viewborroweditem');
 
 Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');

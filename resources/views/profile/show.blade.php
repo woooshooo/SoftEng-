@@ -76,6 +76,7 @@
          @else
            {{Form::submit('MAKE INACTIVE',['class' => 'btn btn-default' ])}}
         @endif
+        <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a>
        {!!Form::close()!!}
 
 @endsection

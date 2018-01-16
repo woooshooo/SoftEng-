@@ -77,7 +77,7 @@ class ItemsController extends Controller
       $avails = DB::select('select (b.item_quantity - sum(a.qtyBorrowed)) AS `available`, sum(a.qtyBorrowed) AS `borrowed`, b.item_notes, b.item_status
       from borrow a left join equipments b
       ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
-      $title = 'Borrow';
+      $title = 'Viewing Equipment';
       $borrowedBy = DB::select('select firstname, lastname, borrow.equipment_id, borrow.qtyBorrowed from `borrow` left join `profiles` on profiles.profile_id=borrow.profile_id');
       $totalBorrowed = DB::select('select equipment_id, sum(qtyBorrowed) as `sum` from `borrow`,`profiles` where borrow.profile_id=profiles.profile_id group by equipment_id');
       return View('inventory/showitem')->with('title',$title)->with('items', $items)->with('avails', $avails)->with('borrowedBy',$borrowedBy)->with('totalBorrowed',$totalBorrowed);

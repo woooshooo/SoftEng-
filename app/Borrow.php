@@ -18,7 +18,7 @@ class Borrow extends Model
   ];
   public function profile()
   {
-    return $this->belongsTo('App\Profile','profile_id');
+    return $this->belongsToMany('App\Profile','profile_id');
   }
 
   public function item()

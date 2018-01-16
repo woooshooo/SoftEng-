@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group">
                           <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
-                          <li><a href="{{ route('register') }}">Register</a></li>
+                          <!-- <li><a href="{{ route('register') }}">Register</a></li> -->
                         </div>
                     </form>
                 </div>

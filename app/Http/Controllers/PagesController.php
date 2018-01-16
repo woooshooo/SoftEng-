@@ -60,6 +60,10 @@ class PagesController extends BaseController
     $title = 'Borrow Item';
     return view('inventory/borrowitem')->with('title',$title);
   }
+  public function viewborroweditem(){
+    $title = 'Borrowed Items';
+    return view('inventory/viewborroweditem')->with('title',$title);
+  }
   public function addvol(){
     $title = 'Add Volunteer';
     return view('profile/addvol')->with('title',$title);
