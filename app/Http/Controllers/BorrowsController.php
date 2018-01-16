@@ -51,16 +51,18 @@ class BorrowsController extends Controller
           'purpose' => 'required',
         ]);
 
-      $borrows = new Borrow;
-      $profile = $request->input('borrower');
-      $equipment = $request->input('item_name');
-      $borrows->qtyBorrowed = $request->input('qtyBorrowed');
-      $borrows->purpose = $request->input('purpose');
-      $profileDB = Profile::where('firstname', $profile)->first()->profile_id;
-      $borrows->profile_id = $profileDB;
-      $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
-      $borrows->equipment_id = $itemDB;
-      $borrows->save();
+        $count = count($request->item_name);
+        for($num = $count; $num > 0; $num-- ){
+          $borrows = new Borrow;
+          $equipment = $request->item_name[$num-1];
+          $borrows->qtyBorrowed = $request->qtyBorrowed[$num-1];
+          $borrows->purpose = $request->input('purpose');
+          $profileDB = Profile::where('firstname', '=', $request->borrower)->first()->profile_id;
+          $borrows->profile_id = $profileDB;
+          $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
+          $borrows->equipment_id = $itemDB;
+          $borrows->save();
+      }
 
       return redirect('/borrows')->with('success','Borrow Form Added!')->with('borrows',$borrows);
     }

@@ -34,7 +34,7 @@ Route::get('/addvolunteer','PagesController@addvol');
 Route::get('/viewvounteer','PagesController@viewvolunteer');
 Route::get('/viewstaff','PagesController@viewstaff');
 Route::get('/viewborroweditem','PagesController@viewborroweditem');
-
+Route::post('/addborroweditem','BorrowsController@store');
 Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');
 Route::resource('/items','ItemsController');

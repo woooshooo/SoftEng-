@@ -29,6 +29,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+		<!-- ajax -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
 
   </head>
@@ -98,5 +100,33 @@ $("[data-toggle=popover]")
 <script>
 	$('.datepicker').datepicker();
 </script>
+
+<script>//stuff
+$(document).ready(function(){
+    var i=1;
+    $('#add').click(function(){
+         i++;
+         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"/></td><td><input type="number" name="qtyBorrowed[]" class="form-control" placeholder="Quantiy to Borrow" ></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+    });
+    $(document).on('click', '.btn_remove', function(){
+         var button_id = $(this).attr("id");
+         $('#row'+button_id+'').remove();
+    });
+    $('#submit').click(function(){
+         $.ajax({
+              url:"/addborroweditem",
+              method:"POST",
+              data:$('#add_item').serialize(),
+              success:function(data)
+              {
+                   alert(data);
+                   $('#add_item')[0].reset();
+              }
+         });
+    });
+});
+</script>
+
+
 </body>
 </html>
