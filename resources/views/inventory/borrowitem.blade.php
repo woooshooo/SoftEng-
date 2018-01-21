@@ -10,7 +10,7 @@
 
 	<div class="form-group col-lg-6">
 		<label class="control-label" for="borrower">Borrower</label>
-		<input type="text" class="form-control" id="searchProfile" name="borrower">
+		<input type="text" class="form-control custom-search-form" id="searchProfile" name="borrower" placeholder="Enter Borrower">
 	</div>
 	<div class="form-group col-lg-12">
 						<div class="table-responsive">

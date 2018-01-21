@@ -148,7 +148,9 @@ class BorrowsController extends Controller
     public function searchProfile(Request $request)
     {
       $term = $request->term;
-      $profiles = Profile::where('firstname','LIKE','%'.$term.'%')->get();
+      $profiles = Profile::where('firstname','LIKE','%'.$term.'%')
+                          ->orWhere('lastname','LIKE','%'.$term.'%')
+                          ->get();
       if ( count($profiles) == 0){
         $searchResult[] = 'Profile not found.';
       } else {
