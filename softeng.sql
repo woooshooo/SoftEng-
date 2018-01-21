@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 16, 2018 at 08:04 AM
+-- Generation Time: Jan 21, 2018 at 09:08 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -35,24 +35,33 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `profile_id` int(11) NOT NULL,
   `qtyBorrowed` int(10) UNSIGNED DEFAULT NULL,
   `purpose` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `borrow_status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'borrowed',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
-INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, 1, 12, 1, '', NULL, NULL),
-(2, 2, 12, 3, '', NULL, NULL),
-(3, 3, 18, 2, '', NULL, NULL),
-(4, 3, 14, 2, '', NULL, NULL),
-(5, 4, 12, 1, 'Casual Use', '2018-01-15 00:58:30', '2018-01-15 00:58:30'),
-(6, 1, 19, 1, 'Recreational', '2018-01-16 00:00:46', '2018-01-16 00:00:46');
+INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 12, 1, '', 'returned', NULL, '2018-01-16 23:37:57'),
+(2, 2, 12, 3, '', 'returned', NULL, '2018-01-16 23:37:51'),
+(3, 3, 18, 2, '', 'returned', NULL, '2018-01-16 23:05:29'),
+(4, 3, 14, 2, '', 'returned', NULL, '2018-01-16 22:42:51'),
+(5, 4, 12, 1, 'Casual Use', 'returned', '2018-01-15 00:58:30', '2018-01-16 23:27:29'),
+(6, 1, 19, 1, 'Recreational', 'returned', '2018-01-16 00:00:46', '2018-01-16 23:39:08'),
+(7, 3, 1, 1, 'Recreational', 'returned', '2018-01-16 09:52:52', '2018-01-16 23:39:23'),
+(8, 1, 1, 1, 'Recreational', 'returned', '2018-01-16 09:52:52', '2018-01-16 23:39:16'),
+(9, 4, 12, 1, 'Test Borrow', 'returned', '2018-01-17 00:05:07', '2018-01-17 00:22:02'),
+(10, 4, 1, 1, 'Borrow lang', 'returned', '2018-01-17 00:22:49', '2018-01-17 01:21:02'),
+(11, 2, 12, 1, 'What', 'borrowed', '2018-01-20 01:32:55', '2018-01-20 01:32:55'),
+(12, 4, 12, 1, 'What', 'returned', '2018-01-21 00:19:15', '2018-01-21 00:22:03'),
+(13, 2, 19, 1, 'Field Demo', 'borrowed', '2018-01-21 00:30:09', '2018-01-21 00:30:09'),
+(14, 4, 19, 1, 'Field Demo', 'borrowed', '2018-01-21 00:30:09', '2018-01-21 00:30:09');
 
 -- --------------------------------------------------------
 
@@ -68,7 +77,6 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `item_quantity` int(11) NOT NULL,
   `item_warranty` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_dateofpurchase` date NOT NULL,
-  `item_code` varchar(25) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -81,11 +89,11 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 -- Dumping data for table `equipments`
 --
 
-INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_warranty`, `item_dateofpurchase`, `item_code`, `item_notes`, `item_status`, `created_at`, `updated_at`) VALUES
-(1, 'DSLR 700D', 'Camera', 3, '1 year warranty', '2017-11-01', 'ITEM001', 'EOS 700D. Step into DSLR photography and let your creativity grow.', 'AVAILABLE', '2017-12-30 00:50:06', '2017-12-30 00:55:06'),
-(2, 'Flycam HD-3000 Handheld Video Stabilizer - Proaim', 'Camera Holder', 3, '1 year warranty', '2017-11-01', 'ITEM002', 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', 'AVAILABLE', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
-(3, 'SanDisk Ultra SDHC Memory Card 16gb Class 10', 'SD Card', 5, '1 year warranty', '2017-11-01', 'ITEM003', 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', 'AVAILABLE', '2017-12-30 00:25:10', '2018-01-14 23:21:17'),
-(4, 'Macbook', 'Laptop', 1, '1 year warranty', '2017-11-01', 'ITEM004', 'Macbook ng Comms', 'AVAILABLE', '2018-01-14 00:17:16', '2018-01-15 01:19:24');
+INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_warranty`, `item_dateofpurchase`, `item_notes`, `item_status`, `created_at`, `updated_at`) VALUES
+(1, 'DSLR 700D', 'Camera', 3, '1 year warranty', '2017-11-01', 'EOS 700D. Step into DSLR photography and let your creativity grow.', 'AVAILABLE', '2017-12-30 00:50:06', '2017-12-30 00:55:06'),
+(2, 'Flycam HD', 'Camera Holder', 3, '1 year warranty', '2017-11-01', 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', 'AVAILABLE', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
+(3, 'SanDisk 16gb Class 10', 'SD Card', 5, '1 year warranty', '2017-11-01', 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', 'AVAILABLE', '2017-12-30 00:25:10', '2018-01-14 23:21:17'),
+(4, 'Macbook', 'Laptop', 1, '1 year warranty', '2017-11-01', 'Macbook ng Comms', 'AVAILABLE', '2018-01-14 00:17:16', '2018-01-15 01:19:24');
 
 -- --------------------------------------------------------
 
@@ -260,8 +268,8 @@ CREATE TABLE IF NOT EXISTS `staffs` (
 
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, NULL),
-(2, 19, 'Creative Cluster', 'Creatives and Studio Head', 'INACTIVE', '2017-12-28 08:39:15', '2018-01-15 01:22:16'),
-(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', 'INACTIVE', '2017-12-28 09:13:06', '2018-01-14 23:12:52');
+(2, 19, 'Creative Cluster', 'Creatives and Studio Head', 'ACTIVE', '2017-12-28 08:39:15', '2018-01-16 10:15:13'),
+(3, 20, 'Editorial & Social Media Cluster', 'Editorial & Social Media Head', 'ACTIVE', '2017-12-28 09:13:06', '2018-01-16 10:15:18');
 
 -- --------------------------------------------------------
 
@@ -289,9 +297,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'yUtHFO8SSC5Ja5FCBZM8SiPHXupsYetUmgAnzt6ZT2qFSiREiRiE2EUu6EyF', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
-(2, 2, 'INACTIVE', 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'rXCGeO7jhEt5s5lzowVOuonBXL1ZdaGYNtWszdDyrH4yfLS4ZBbmQvk8ZDPq', '2018-01-12 10:36:54', '2018-01-15 01:22:16'),
-(3, 3, 'INACTIVE', 'avillarba', '$2y$10$vF7ziPettMn9oDH.wwNrue7rfXa07PWBFLnlIkZCDjYAnmybSCkTa', NULL, NULL, '2018-01-14 23:12:52');
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', '1Y53jvqMKVokG4XI7ppBxh66CM4U5QJiC5hdoixdrUbxuhGRbBQBQfFdFaSa', '2018-01-12 10:01:39', '2018-01-12 10:01:39'),
+(2, 2, 'ACTIVE', 'staff', '$2y$10$mClhzR9ZWGRiw3ZuvjmR3e/N1i2DmJT537q3DmFMLVIrkEtrrWnL6', 'oHPi37QDaH4Q6raM5U7RmhMg7wDOjHRKMoviHz6c1XB3EssI9mHE2BRoVEMG', '2018-01-12 10:36:54', '2018-01-16 10:15:13'),
+(3, 3, 'ACTIVE', 'avillarba', '$2y$10$vF7ziPettMn9oDH.wwNrue7rfXa07PWBFLnlIkZCDjYAnmybSCkTa', NULL, NULL, '2018-01-16 10:15:19');
 
 -- --------------------------------------------------------
 
@@ -319,10 +327,10 @@ CREATE TABLE IF NOT EXISTS `vols` (
 --
 
 INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `section`, `vol_status`, `created_at`, `updated_at`) VALUES
-(5, 12, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3A', 'ACTIVE', '2017-12-15 15:01:13', '2018-01-15 22:49:23'),
+(5, 12, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3A', 'ACTIVE', '2017-12-15 15:01:13', '2018-01-16 10:10:26'),
 (6, 13, 'Creative Cluster', '4th Year', 'AB IS Major in Asian Studies', 'ABIS4', 'ACTIVE', '2017-12-15 15:13:28', '2017-12-15 15:13:28'),
 (7, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Systems', 'InSys4A', 'ACTIVE', '2017-12-15 15:16:45', '2017-12-16 00:53:06'),
-(8, 15, 'Editorial & Social Media Cluster', 'Grade 11', 'STEM- Pre Science', 'Idk', 'ACTIVE', '2017-12-16 00:54:50', '2017-12-16 00:54:50'),
+(8, 15, 'Editorial & Social Media Cluster', 'Grade 11', 'STEM- Pre Science', 'Idk', 'ACTIVE', '2017-12-16 00:54:50', '2018-01-16 10:13:02'),
 (9, 18, 'Broadcast & Productions Cluster', '4th Year', 'AB Mass Communication', 'ABMC4', 'ACTIVE', '2017-12-16 01:12:18', '2017-12-16 01:12:18');
 
 --
