@@ -1,3 +1,13 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+use App\Projects;
+use App\Events;
+use App\Staffs;
+use App\Vols;
+use App\Profile;
+$id = Auth::id();
+$user = Staffs::find($id)->profile;
+ ?>
 <html>
 	<head>
 		<title>{{$title}}</title>

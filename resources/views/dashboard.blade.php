@@ -4,22 +4,10 @@
     <div id="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+                    <p class="huge well page-header">Welcome to the Dashboard {{$user->firstname}}!</p>
                 </div>
-                <!-- /.col-lg-12 -->
-
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-
             </div>
-            <!-- /.row -->
+
             <div class="row">
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
@@ -74,12 +62,12 @@
                                     <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge">{{$staffs}}</div>
+                                    <div>Total Staffs</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{url('staffs')}}">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -96,12 +84,12 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
-                                    <div>Support Tickets!</div>
+                                    <div class="huge">{{$vols}}</div>
+                                    <div>Total Volunteers</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{url('vols')}}">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

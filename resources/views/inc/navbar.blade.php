@@ -153,7 +153,7 @@
                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="/staffs/{{$user->profile_id}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li class="divider"></li>
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -195,7 +195,7 @@
                           <a href="{{url('addprojects')}}">Add Project</a>
                         </li>
                         <li>
-                          <a href="{{url('viewprojects')}}">View Projects</a>
+                          <a href="{{url('projects')}}">View Projects</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

@@ -82,7 +82,7 @@ class StaffsController extends Controller
      */
     public function show($id)
     {
-      $staff = Profile::find($id)->staff;
+      // $staff = Profile::find($id)->staff;
       $profiles = Profile::find($id);
       $title = 'Staff';
       return View('profile/showstaff')->with('profiles', $profiles)->with('title',$title);

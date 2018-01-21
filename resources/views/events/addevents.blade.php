@@ -23,7 +23,7 @@
 						<div class="form-group col-lg-6">
 							<label for="cluster_name">Choose Cluster/s assigned</label>
 								<select id="cluster_name"class="form-control" multiple>
-									<option class="black-text" value="bpc">Broadcast & Productions Cluster</option>
+									<option class="black-t	 ext" value="bpc">Broadcast & Productions Cluster</option>
 									<option class="black-text" value="cc">Creative Cluster</option>
 									<option class="black-text" value="esmc">Editorial & Social Media Cluster</option>
 								</select>

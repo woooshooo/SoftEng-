@@ -7,11 +7,13 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Projects;
 use App\Events;
 use App\Staffs;
 use App\Vols;
+use App\Profile;
 
 class PagesController extends BaseController
 {
@@ -25,7 +27,9 @@ class PagesController extends BaseController
     $staffs = Staffs::all()->count();
     $vols = Vols::all()->count();
     $title = 'Welcome to the Dashboard';
-    return view('dashboard')->with('title',$title)->with('projects',$projects)->with('events',$events)->with('staffs',$staffs)->with('vols',$vols);
+    $id = Auth::id();
+    $user = Staffs::find($id)->profile;
+    return view('dashboard')->with('user',$user)->with('title',$title)->with('projects',$projects)->with('events',$events)->with('staffs',$staffs)->with('vols',$vols);
   }
   public function addproject(){
     $title = 'Add Project';

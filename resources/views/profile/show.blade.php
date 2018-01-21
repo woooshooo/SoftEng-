@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('content')
+  <div id="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">View {{$profiles->firstname}}'s Profile</h1>
@@ -82,5 +83,5 @@
         @endif
         <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a>
        {!!Form::close()!!}
-
+     </div>
 @endsection

@@ -83,7 +83,7 @@ class BorrowsController extends Controller
         //->join('profiles', 'profiles.profile_id', '=', 'borrow.profile_id')
         //->join('equipments', 'equipments.equipment_id', '=', 'borrow.equipment_id')
         //->first();
-        $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose from profiles
+        $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose, borrow.borrow_status as borrow_status, borrow.created_at as created_at, borrow.updated_at as updated_at from profiles
                             inner join borrow on profiles.profile_id = borrow.profile_id
                             inner join equipments on borrow.equipment_id = equipments.equipment_id');
         return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows)->with('profiles',$profiles);
@@ -111,8 +111,13 @@ class BorrowsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+      //validate
+        $ret = Borrow::find($id);
+        $ret->borrow_status = 'returned';
+        $ret->save();
+        return redirect('/items')->with('success','Item Returned');
+      }
+
 
     /**
      * Remove the specified resource from storage.

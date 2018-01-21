@@ -20,7 +20,10 @@ Route::get('/', function () {
       return view('auth/login')->with('title',$title);
     }
 });
-
+Route::get('/test', function () {
+      return view('text');
+    }
+);
 Route::get('/home', 'PagesController@index');
 Route::get('/addprojects','PagesController@addproject');
 Route::get('/viewprojects','PagesController@viewproject');

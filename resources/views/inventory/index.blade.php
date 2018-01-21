@@ -14,8 +14,9 @@
   						<th>Borrowed</th>
 							<th></th>
             </tr>
-        </thead>
-				@foreach ($avails as $value)
+        	</thead>
+
+					@foreach ($avails as $value)
 						<tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
 								@if($value->item_status == 'UNAVAILABLE')
 										<td>{{$value->item_name}}</td>

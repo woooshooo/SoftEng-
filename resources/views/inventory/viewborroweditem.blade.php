@@ -9,6 +9,8 @@
       						<th>Item Name</th>
       						<th>Quantity Borrowed</th>
       						<th>Purpose</th>
+                  <th>Date Borrowed</th>
+                  <th>Date Returned</th>
                 </tr>
             </thead>
             @foreach ($borrows as $value)
@@ -17,7 +19,13 @@
                   <td>{{$value->item_name}}</td>
                   <td>{{$value->qtyBorrowed}}</td>
                   <td>{{$value->purpose}}</td>
-                </tr>
+                  <td>{{$value->created_at}}</td>
+                  @if($value->borrow_status == "borrowed")
+                    <td>Not yet returned.</td>
+                  @else
+                    <td>{{$value->updated_at}}</td>
+                  @endif
+              </tr>
               @endif
             @endforeach
           </table>
