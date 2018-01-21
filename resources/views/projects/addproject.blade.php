@@ -35,7 +35,7 @@
 							<textarea class="form-control" id="project_details" name="project_details"></textarea>
 						</div>
 
-						<div class="form-group col-lg-4 datepicker" data-provide="datepicker">
+						<div class="form-group col-lg-4" data-provide="datepicker">
 							<label for="project_deadline">Project Deadline</label>
 					    <input type="text" name="project_deadline" class="form-control">
 						</div>

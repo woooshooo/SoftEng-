@@ -146,4 +146,19 @@ class ItemsController extends Controller
 
       return redirect('/items')->with('success','Equipment Status Changed!');
     }
+
+    public function search(Request $request)
+    {
+      $term = $request->term;
+      $items = Items::where('item_name','LIKE','%'.$term.'%')->get();
+      if ( count($items) == 0){
+        $searchResult[] = 'Equipment not found.';
+      } else {
+        foreach ($items as $key => $value) {
+          $searchResult[] = $value->item_name;
+        }
+      }
+      return $searchResult;
+
+    }
 }

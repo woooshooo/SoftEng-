@@ -41,6 +41,8 @@ Route::post('/addborroweditem','BorrowsController@store');
 Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');
 Route::resource('/items','ItemsController');
+Route::get('searchItem','BorrowsController@searchItem');
+Route::get('searchProfile','BorrowsController@searchProfile');
 Route::resource('/borrows','BorrowsController');
 Route::resource('/events','EventsController');
 Route::resource('/projects','ProjectsController');

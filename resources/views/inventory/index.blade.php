@@ -24,6 +24,12 @@
 										<td>{{$value->item_quantity}}</td>
 										<td>N/A</td>
 										<td>N/A</td>
+								@elseif ($value->item_quantity == $value->borrowed)
+									<td>{{$value->item_name}}</td>
+									<td><font color="red"> NO {{$value->item_status}}</font></td>
+									<td>{{$value->item_quantity}}</td>
+									<td>{{$value->available}}</td>
+									<td>{{$value->borrowed}}</td>
 									@else
 										<td>{{$value->item_name}}</td>
 										<td><font color="green">{{$value->item_status}}</font></td>

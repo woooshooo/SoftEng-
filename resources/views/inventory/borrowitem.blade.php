@@ -10,17 +10,17 @@
 
 	<div class="form-group col-lg-6">
 		<label class="control-label" for="borrower">Borrower</label>
-		<input type="text" class="form-control" id="borrower" name="borrower">
+		<input type="text" class="form-control" id="searchProfile" name="borrower">
 	</div>
 	<div class="form-group col-lg-12">
 						<div class="table-responsive">
 								 <table class="table table-bordered" id="dynamic_field">
 									 		<thead>
-												<th><label class="control-label" for="item_name">Equipment Name</label></th>
+												<th><label class="control-label" for="item_name">Enter Equipment Name</label></th>
 												<th><label class="control-label" for="qtyBorrowed">Qty Borrowed</label></th>
 											</thead>
 											<tr>
-													 <td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td>
+													 <td><input type="text" id="searchItem" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td>
 													 <td><input type="number" name="qtyBorrowed[]"  placeholder="Quantiy to Borrow" class="form-control"></td>
 													 <td><button type="button" name="add" id="add" class="btn btn-success btn-block">Add More</button></td>
 											</tr>
@@ -54,4 +54,5 @@
 		</button>
 	</div>
 	{!! Form::close() !!}
+
 @endsection

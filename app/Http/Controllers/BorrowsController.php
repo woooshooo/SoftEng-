@@ -57,7 +57,8 @@ class BorrowsController extends Controller
           $equipment = $request->item_name[$num-1];
           $borrows->qtyBorrowed = $request->qtyBorrowed[$num-1];
           $borrows->purpose = $request->input('purpose');
-          $profileDB = Profile::where('firstname', '=', $request->borrower)->first()->profile_id;
+          $name = strtok($request->borrower," ");
+          $profileDB = Profile::where('firstname', 'LIKE', '%'.$name.'%')->first()->profile_id;
           $borrows->profile_id = $profileDB;
           $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
           $borrows->equipment_id = $itemDB;
@@ -128,5 +129,34 @@ class BorrowsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function searchItem(Request $request)
+    {
+      $term = $request->term;
+      $items = Items::where('item_name','LIKE','%'.$term.'%')->get();
+      if ( count($items) == 0){
+        $searchResult[] = 'Equipment not found.';
+      } else {
+        foreach ($items as $key => $value) {
+          $searchResult[] = $value->item_name;
+        }
+      }
+      return $searchResult;
+
+    }
+    public function searchProfile(Request $request)
+    {
+      $term = $request->term;
+      $profiles = Profile::where('firstname','LIKE','%'.$term.'%')->get();
+      if ( count($profiles) == 0){
+        $searchResult[] = 'Profile not found.';
+      } else {
+        foreach ($profiles as $key => $value) {
+          $searchResult[] = $value->firstname . " " . $value->lastname;
+        }
+      }
+      return $searchResult;
+
     }
 }

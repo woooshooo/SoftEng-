@@ -24,6 +24,9 @@ $user = Staffs::find($id)->profile;
     <!-- MetisMenu CSS -->
     <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 
+    <!-- JQUERY UI -->
+    <link href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet">
 
@@ -33,12 +36,6 @@ $user = Staffs::find($id)->profile;
     <!-- Custom Fonts -->
     <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 		<!-- ajax -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<!-- date picker -->
@@ -55,15 +52,11 @@ $user = Staffs::find($id)->profile;
 		</div>
 	</body>
 	<!-- Compiled and minified JavaScript -->
-<script>
-jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
-</script>
 <!-- jQuery -->
 <script src="{{ asset('jquery/jquery.min.js')}}"></script>
+
+<!-- jQuery UI -->
+<script src="{{ asset('jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
@@ -119,7 +112,10 @@ $(document).ready(function(){
     var i=1;
     $('#add').click(function(){
          i++;
-         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"/></td><td><input type="number" name="qtyBorrowed[]" class="form-control" placeholder="Quantiy to Borrow" ></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control searchItem"></td><td><input type="number" name="qtyBorrowed[]" class="form-control" placeholder="Quantiy to Borrow" ></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $( ".searchItem" ).autocomplete({
+           source: 'http://localhost:8000/searchItem'
+         });
     });
     $(document).on('click', '.btn_remove', function(){
          var button_id = $(this).attr("id");
@@ -136,6 +132,16 @@ $(document).ready(function(){
                    $('#add_item')[0].reset();
               }
          });
+    });
+    $( function() {
+      $( "#searchItem" ).autocomplete({
+        source: 'http://localhost:8000/searchItem'
+      });
+    });
+    $( function() {
+      $( "#searchProfile" ).autocomplete({
+        source: 'http://localhost:8000/searchProfile'
+      });
     });
 });
 </script>
