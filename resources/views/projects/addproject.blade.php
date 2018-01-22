@@ -19,7 +19,7 @@
 							<input type="text" class="form-control" id="client_name" name="client_name">
 						</div>
 
-
+                        <!-- commented out for testing haha
 						<div class="form-group col-lg-6">
 							<label for="cluster_name">Choose Cluster/s assigned</label>
 								<select id="cluster_name"class="form-control" multiple>
@@ -28,9 +28,22 @@
 									<option class="black-text" value="esmc">Editorial & Social Media Cluster</option>
 								</select>
 						</div>
+                        -->
 
-
-						<div class="form-group col-lg-12">
+                        <div class="form-group col-lg-6">
+                            <label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
+                            <br>
+                                
+                                <label><input type="checkbox" class="form-check-input" value="Broadcast & Production Cluster"> Broadcast & Production Cluster</label>
+                                <br>
+                                <label>
+                                <input type="checkbox" class="form-check-input" value="Creative Cluster"> Creative Cluster</label>
+                                <br><label>
+                                <input type="checkbox" class="form-check-input" value="Editorial & Social Media Cluster"> Editorial & Social Media Cluster</label>
+                                <br>
+                        </div>
+                        
+                        <div class="form-group col-lg-12">
 							<label for="project_details">Project Details</label>
 							<textarea class="form-control" id="project_details" name="project_details"></textarea>
 						</div>
@@ -39,12 +52,12 @@
 							<label for="project_deadline">Project Deadline</label>
 					    <input type="text" name="project_deadline" class="form-control">
 						</div>
-
+                    
 					</div>
 						<button class="btn btn-default" type="submit" name="action">Submit
 					  </button>
 						<button class="btn btn-default" type="reset" name="action">Reset
 					  </button>
-					{!! Form::close() !!}
+			{!! Form::close() !!}
 
 @endsection
