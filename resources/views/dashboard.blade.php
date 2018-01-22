@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{url('viewprojects')}}">
+                        <a href="{{url('projects')}}">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

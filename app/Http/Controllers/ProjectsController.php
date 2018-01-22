@@ -48,7 +48,7 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
       $vols = Vols::all();
-      #return Vols::where('cluster',$request->cluster_name[0])->get();
+      #Vols::where('cluster',$request->cluster_name[1])->get();
       //validate
         $this->validate($request, [
           'project_name' => 'required',
@@ -60,7 +60,7 @@ class ProjectsController extends Controller
           'project_status' => 'required'
         ]);
 
-        $count = count($request->cluster_name);
+
         #
         $projects = new Projects;
         #
@@ -72,18 +72,20 @@ class ProjectsController extends Controller
         $projects->projects_status = $request->input('project_status');
         $projects->save();
         #
-
         #
-        #
-        for ($num = $count; $num > 0 ; $num--) {
-          $volunteers = Vols::where('cluster',$request->cluster_name[$num-1])->get();
-          foreach ($volunteers as $value) {
-            $profileprojects = new ProfileProjects;
-            $profileprojects->projects_id = $projects->projects_id;
-            $profileprojects->profile_id = $value->profile_id;
-            $profileprojects->save();
+        $aw = count($request->cluster_name)-1;
+          for ($num=$aw; $num >= 0 ; $num--) {
+            $volunteers = Vols::where('cluster',$request->cluster_name[$num])->get();
+            foreach ($volunteers as $value) {
+              $profileprojects = new ProfileProjects;
+              $profileprojects->projects_id = $projects->projects_id;
+              $profileprojects->profile_id = $value->profile_id;
+              $profileprojects->save();
           }
         }
+        #
+
+
 
         return redirect('/projects')->with('success','Added Project!');
 

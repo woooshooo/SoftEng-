@@ -18,11 +18,16 @@
         </thead>
           @foreach ($vols as $value)
               <tr class="clickable-row" data-href="/vols/{{$value->profile_id}}">
-      						<td>{{$value->profile->firstname}} {{$value->profile->lastname}}</td>
+      						<td>{{$value->profile->lastname}}, {{$value->profile->firstname}}</td>
       						<td>{{$value->course}}</td>
       						<td>{{$value->yearlvl}}</td>
       						<td>{{$value->cluster}}</td>
-									<td>{{$value->vol_status}}</td>
+									@if ($value->vol_status == "ACTIVE")
+										<td><font color="green">{{$value->vol_status}}</font></td>
+										@else
+										<td><font color="red">{{$value->vol_status}}</font></td>
+									@endif
+
                   <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
     					</tr>
           @endforeach
