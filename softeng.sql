@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 22, 2018 at 06:53 AM
+-- Generation Time: Jan 22, 2018 at 07:20 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -41,7 +41,14 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `borrow`
+--
+
+INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
+(20, 4, 25, 1, 'Use', 'borrowed', '2018-01-21 23:02:50', '2018-01-21 23:02:50');
 
 -- --------------------------------------------------------
 
@@ -86,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `events` (
   `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `events_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `events_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `events_startdate` int(11) NOT NULL,
-  `events_deadline` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_startdate` date NOT NULL,
+  `events_deadline` date NOT NULL,
   `events_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -208,11 +215,13 @@ INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `em
 DROP TABLE IF EXISTS `profile_events`;
 CREATE TABLE IF NOT EXISTS `profile_events` (
   `profile_events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `profile_id` int(11) NOT NULL,
+  `profile_id` int(10) NOT NULL,
   `events_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`profile_events_id`)
+  PRIMARY KEY (`profile_events_id`),
+  KEY `profile_id` (`profile_id`),
+  KEY `events_id` (`events_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -224,12 +233,14 @@ CREATE TABLE IF NOT EXISTS `profile_events` (
 DROP TABLE IF EXISTS `profile_projects`;
 CREATE TABLE IF NOT EXISTS `profile_projects` (
   `profile_projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `profile_id` int(11) NOT NULL,
-  `projects_id` int(10) NOT NULL,
+  `profile_id` int(10) NOT NULL,
+  `projects_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`profile_projects_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`profile_projects_id`),
+  KEY `projects_id` (`projects_id`),
+  KEY `profile_id` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -242,13 +253,13 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `projects_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `projects_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `projects_startdate` int(11) NOT NULL,
-  `projects_deadline` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `projects_startdate` date NOT NULL,
+  `projects_deadline` date NOT NULL,
   `projects_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -373,6 +384,20 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 ALTER TABLE `borrow`
   ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
   ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+
+--
+-- Constraints for table `profile_events`
+--
+ALTER TABLE `profile_events`
+  ADD CONSTRAINT `profile_events_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
+  ADD CONSTRAINT `profile_events_ibfk_2` FOREIGN KEY (`events_id`) REFERENCES `events` (`events_id`);
+
+--
+-- Constraints for table `profile_projects`
+--
+ALTER TABLE `profile_projects`
+  ADD CONSTRAINT `profile_projects_ibfk_1` FOREIGN KEY (`projects_id`) REFERENCES `projects` (`projects_id`),
+  ADD CONSTRAINT `profile_projects_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
 
 --
 -- Constraints for table `staffs`
