@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 22, 2018 at 07:20 AM
+-- Generation Time: Jan 22, 2018 at 09:19 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -41,14 +41,15 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
 INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
-(20, 4, 25, 1, 'Use', 'borrowed', '2018-01-21 23:02:50', '2018-01-21 23:02:50');
+(20, 4, 25, 1, 'Use', 'borrowed', '2018-01-21 23:02:50', '2018-01-21 23:02:50'),
+(21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56');
 
 -- --------------------------------------------------------
 
@@ -240,7 +241,32 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile_projects`
+--
+
+INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_id`, `created_at`, `updated_at`) VALUES
+(1, 23, 1, '2018-01-22 01:15:51', '2018-01-22 01:15:51'),
+(2, 24, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(3, 33, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(4, 38, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(5, 42, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(6, 11, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(7, 13, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(8, 15, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(9, 19, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(10, 20, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(11, 25, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(12, 27, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(13, 28, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(14, 30, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(15, 31, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(16, 32, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(17, 34, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(18, 40, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52'),
+(19, 41, 1, '2018-01-22 01:15:52', '2018-01-22 01:15:52');
 
 -- --------------------------------------------------------
 
@@ -252,6 +278,7 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `projects_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `projects_client` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `projects_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `projects_startdate` date NOT NULL,
   `projects_deadline` date NOT NULL,
@@ -260,6 +287,13 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
+(1, 'Aw', 'Aweeee', 'Test', '2018-01-22', '2018-01-11', 'Ongoing', '2018-01-22 01:15:51', '2018-01-22 01:15:51');
 
 -- --------------------------------------------------------
 
