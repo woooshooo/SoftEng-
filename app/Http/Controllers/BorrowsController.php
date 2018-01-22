@@ -51,6 +51,7 @@ class BorrowsController extends Controller
           'purpose' => 'required',
         ]);
 
+
         $count = count($request->item_name);
         for($num = $count; $num > 0; $num-- ){
           $borrows = new Borrow;
@@ -63,9 +64,10 @@ class BorrowsController extends Controller
           $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
           $borrows->equipment_id = $itemDB;
           $borrows->save();
+
       }
 
-      return redirect('/borrows')->with('success','Borrow Form Added!')->with('borrows',$borrows);
+      return redirect('/borrows')->with('success','Equipment Borrowed!')->with('borrows',$borrows);
     }
 
     /**
@@ -116,7 +118,7 @@ class BorrowsController extends Controller
         $ret = Borrow::find($id);
         $ret->borrow_status = 'returned';
         $ret->save();
-        return redirect('/items')->with('success','Item Returned');
+        return redirect("/items")->with('success','Item Returned');
       }
 
 
@@ -139,7 +141,11 @@ class BorrowsController extends Controller
         $searchResult[] = 'Equipment not found.';
       } else {
         foreach ($items as $key => $value) {
-          $searchResult[] = $value->item_name;
+          if ($value->item_status == "UNAVAILABLE") {
+            $searchResult[] = $value->item_name + " not available for borrowing";
+          } else {
+            $searchResult[] = $value->item_name;
+          }
         }
       }
       return $searchResult;

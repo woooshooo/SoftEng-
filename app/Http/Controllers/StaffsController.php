@@ -145,9 +145,6 @@ class StaffsController extends Controller
         $profile= Profile::find($id);
         $staff = Profile::find($id)->staff;
         $user = User::find($staff->staff_id);
-        //$user->delete();
-        //$stafff->delete(); //maka bwisit ni ikapila ko nag balik2x ani zzzzzzzzz
-        //$profile->delete();
 
         if ($staff->staff_status == 'INACTIVE') {
           $staff->staff_status = 'ACTIVE';
