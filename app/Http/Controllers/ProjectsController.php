@@ -8,7 +8,8 @@ use App\Vols;
 use App\Staffs;
 use App\Profile;
 use App\Events;
-use App\ProfileEvents;
+use App\ProfileProjects;
+use App\Projects;
 class ProjectsController extends Controller
 {
     /**
@@ -24,7 +25,8 @@ class ProjectsController extends Controller
     public function index()
     {
         $title = 'View Projects';
-        return view('projects/projects')->with('title', $title);
+        $projects = Projects::all();
+        return view('projects/projects')->with('title', $title)->with('projects', $projects);
     }
 
     /**
@@ -34,7 +36,7 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects/addproject');
     }
 
     /**
@@ -45,7 +47,47 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $vols = Vols::all();
+      #return Vols::where('cluster',$request->cluster_name[0])->get();
+      //validate
+        $this->validate($request, [
+          'project_name' => 'required',
+          'client_name' => 'required',
+          'cluster_name' => 'required',
+          'project_details' => 'required',
+          'project_startdate' => 'required',
+          'project_deadline' => 'required',
+          'project_status' => 'required'
+        ]);
+
+        $count = count($request->cluster_name);
+        #
+        $projects = new Projects;
+        #
+        $projects->projects_name = $request->input('project_name');
+        $projects->projects_client = $request->input('client_name');
+        $projects->projects_details = $request->input('project_details');
+        $projects->projects_startdate = $request->input('project_startdate');
+        $projects->projects_deadline = $request->input('project_deadline');
+        $projects->projects_status = $request->input('project_status');
+        $projects->save();
+        #
+
+        #
+        #
+        for ($num = $count; $num > 0 ; $num--) {
+          $volunteers = Vols::where('cluster',$request->cluster_name[$num-1])->get();
+          foreach ($volunteers as $value) {
+            $profileprojects = new ProfileProjects;
+            $profileprojects->projects_id = $projects->projects_id;
+            $profileprojects->profile_id = $value->profile_id;
+            $profileprojects->save();
+          }
+        }
+
+        return redirect('/projects')->with('success','Added Project!');
+
+
     }
 
     /**
@@ -56,7 +98,9 @@ class ProjectsController extends Controller
      */
     public function show($id)
     {
-        //
+      $title = 'Viewing Project';
+      $projects = Projects::find($id);
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects);
     }
 
     /**
@@ -67,7 +111,9 @@ class ProjectsController extends Controller
      */
     public function edit($id)
     {
-        //
+      $title = 'Viewing Project';
+      $projects = Projects::find($id);
+      return view('projects/editprojects')->with('title',$title)->with('projects',$projects);
     }
 
     /**
