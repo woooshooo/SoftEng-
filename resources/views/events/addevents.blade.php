@@ -21,13 +21,16 @@
 
 
 						<div class="form-group col-lg-6">
-							<label for="cluster_name">Choose Cluster/s assigned</label>
-								<select id="cluster_name"class="form-control" multiple>
-									<option class="black-t	 ext" value="bpc">Broadcast & Productions Cluster</option>
-									<option class="black-text" value="cc">Creative Cluster</option>
-									<option class="black-text" value="esmc">Editorial & Social Media Cluster</option>
-								</select>
-						</div>
+                            <label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
+                            <br>
+                                <label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Production Cluster"> Broadcast & Production Cluster</label>
+                                <br>
+                                <label>
+                                <input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>
+                                <br><label>
+                                <input type="checkbox" class="form-check-input" name="cluster_name[]" value="Editorial & Social Media Cluster"> Editorial & Social Media Cluster</label>
+                                <br>
+                        </div>
 
 
 						<div class="form-group col-lg-12">
@@ -35,9 +38,17 @@
 							<textarea class="form-control" id="project_details" name="project_details"></textarea>
 						</div>
 
-						<div class="form-group col-lg-4 datepicker" data-provide="datepicker">
-							<label for="project_deadline">Event Deadline</label>
-					    <input type="text" name="project_deadline" class="form-control">
+						<div class="form-group col-lg-4">
+							<label for="project_startdate">Project Start Date</label>
+					    <input type="date" name="project_startdate" class="form-control">
+						</div>
+						<div class="form-group col-lg-4">
+							<label for="project_deadline">Project Deadline</label>
+					    <input type="date" name="project_deadline" class="form-control">
+						</div>
+						<div class="form-group col-lg-4">
+							<label for="project_status">Status</label>
+					    <input type="text" name="project_status" class="form-control">
 						</div>
 
 					</div>
