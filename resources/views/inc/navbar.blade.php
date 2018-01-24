@@ -190,7 +190,7 @@
                     <a href="{{url('home')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Projects <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-desktop fa-fw"></i> Projects <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                           <a href="{{url('addprojects')}}">Add Project</a>
@@ -202,7 +202,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Events <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-book fa-fw"></i> Events <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('addevents')}}">Add Events</a>
@@ -229,7 +229,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-user fa-fw"></i> Profiles <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-users fa-fw"></i> Profiles <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="#">Volunteers <span class="fa arrow"></span></a>
