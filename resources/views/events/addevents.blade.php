@@ -39,11 +39,11 @@
 						</div>
 
 						<div class="form-group col-lg-4">
-							<label for="project_startdate">Project Start Date</label>
+							<label for="project_startdate">Event Start Date</label>
 					    <input type="date" name="project_startdate" class="form-control">
 						</div>
 						<div class="form-group col-lg-4">
-							<label for="project_deadline">Project Deadline</label>
+							<label for="project_deadline">Event End Date</label>
 					    <input type="date" name="project_deadline" class="form-control">
 						</div>
 						<div class="form-group col-lg-4">
