@@ -1,477 +1,445 @@
-<html>
-    <head>
-         <title>Dynamically Add or Remove input fields in PHP with JQuery</title>
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <style>
-    ul.bs-autocomplete-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  max-height: 200px;
-  overflow: auto;
-  z-index: 9999;
-  border: 1px solid #eeeeee;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
-}
+<!-- THE BODY OF THE DASHBOARD -->
+<!-- /.row -->
+<!-- AREA CHART -->
 
-ul.bs-autocomplete-menu a {
-  font-weight: normal;
-  color: #333333;
-}
 
-.ui-helper-hidden-accessible {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.ui-state-active,
-.ui-state-focus {
-  color: #23527c;
-  background-color: #eeeeee;
-}
-
-.bs-autocomplete-feedback {
-  width: 1.5em;
-  height: 1.5em;
-  overflow: hidden;
-  margin-top: .5em;
-  margin-right: .5em;
-}
-
-.loader {
-  font-size: 10px;
-  text-indent: -9999em;
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  background: #333;
-  background: -moz-linear-gradient(left, #333333 10%, rgba(255, 255, 255, 0) 42%);
-  background: -webkit-linear-gradient(left, #333333 10%, rgba(255, 255, 255, 0) 42%);
-  background: -o-linear-gradient(left, #333333 10%, rgba(255, 255, 255, 0) 42%);
-  background: -ms-linear-gradient(left, #333333 10%, rgba(255, 255, 255, 0) 42%);
-  background: linear-gradient(to right, #333333 10%, rgba(255, 255, 255, 0) 42%);
-  position: relative;
-  -webkit-animation: load3 1.4s infinite linear;
-  animation: load3 1.4s infinite linear;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-}
-
-.loader:before {
-  width: 50%;
-  height: 50%;
-  background: #333;
-  border-radius: 100% 0 0 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-}
-
-.loader:after {
-  background: #fff;
-  width: 75%;
-  height: 75%;
-  border-radius: 50%;
-  content: '';
-  margin: auto;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-@-webkit-keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes load3 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-    </style>
-    <body>
-      <div class="container">
-<h1>jQuery UI autocomplete for Bootstrap</h1>
-<p>Demo version with local data.</p>
 <div class="row">
- <div class="col-xs-7">
-   <div class="form-group">
-     <label for="ac-demo" class="control-label">Autocomplete demo</label>
-     <input class="form-control bs-autocomplete" id="ac-demo" value="" placeholder="Type the first two characters of a city name..." type="text" data-source="demo_source.php" data-hidden_field_id="city-code" data-item_id="id" data-item_label="cityName" autocomplete="off">
-   </div>
- </div>
- <div class="col-xs-3">
-   <div class="form-group">
-     <label for="city-code" class="control-label">“Hidden” field</label>
-     <input class="form-control" id="city-code" name="citycode" value="" type="number" readonly>
-     <span class="help-block">This field should be hidden!</span>
-   </div>
- </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Actions
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="#">Action</a>
+                            </li>
+                            <li><a href="#">Another action</a>
+                            </li>
+                            <li><a href="#">Something else here</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="morris-area-chart"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            Actions
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="#">Action</a>
+                            </li>
+                            <li><a href="#">Another action</a>
+                            </li>
+                            <li><a href="#">Something else here</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>3326</td>
+                                        <td>10/21/2013</td>
+                                        <td>3:29 PM</td>
+                                        <td>$321.33</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3325</td>
+                                        <td>10/21/2013</td>
+                                        <td>3:20 PM</td>
+                                        <td>$234.34</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3324</td>
+                                        <td>10/21/2013</td>
+                                        <td>3:03 PM</td>
+                                        <td>$724.17</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3323</td>
+                                        <td>10/21/2013</td>
+                                        <td>3:00 PM</td>
+                                        <td>$23.71</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3322</td>
+                                        <td>10/21/2013</td>
+                                        <td>2:49 PM</td>
+                                        <td>$8345.23</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3321</td>
+                                        <td>10/21/2013</td>
+                                        <td>2:23 PM</td>
+                                        <td>$245.12</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3320</td>
+                                        <td>10/21/2013</td>
+                                        <td>2:15 PM</td>
+                                        <td>$5663.54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3319</td>
+                                        <td>10/21/2013</td>
+                                        <td>2:13 PM</td>
+                                        <td>$943.45</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.col-lg-4 (nested) -->
+                    <div class="col-lg-8">
+                        <div id="morris-bar-chart"></div>
+                    </div>
+                    <!-- /.col-lg-8 (nested) -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <ul class="timeline">
+                    <li>
+                        <div class="timeline-badge"><i class="fa fa-check"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                                </p>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores odit qui est tempora eos, nostrum provident explicabo dignissimos debitis vel! Adipisci eius voluptates, ad aut recusandae minus eaque facere.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge danger"><i class="fa fa-bomb"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque, tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut debitis!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-badge info"><i class="fa fa-save"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
+                                <hr>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-gear"></i> <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#">Action</a>
+                                        </li>
+                                        <li><a href="#">Another action</a>
+                                        </li>
+                                        <li><a href="#">Something else here</a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a>
+                                        </li>
+                                  </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia quam qui adipisci quas consequuntur nostrum sequi. Consequuntur, commodi.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="timeline-inverted">
+                        <div class="timeline-badge success"><i class="fa fa-graduation-cap"></i>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">Lorem ipsum dolor</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque eaque.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Notifications Panel
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-comment fa-fw"></i> New Comment
+                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                        <span class="pull-right text-muted small"><em>12 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-envelope fa-fw"></i> Message Sent
+                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-tasks fa-fw"></i> New Task
+                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                        <span class="pull-right text-muted small"><em>11:32 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-bolt fa-fw"></i> Server Crashed!
+                        <span class="pull-right text-muted small"><em>11:13 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-warning fa-fw"></i> Server Not Responding
+                        <span class="pull-right text-muted small"><em>10:57 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                        <span class="pull-right text-muted small"><em>9:49 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-money fa-fw"></i> Payment Received
+                        <span class="pull-right text-muted small"><em>Yesterday</em>
+                        </span>
+                    </a>
+                </div>
+                <!-- /.list-group -->
+                <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+            </div>
+            <div class="panel-body">
+                <div id="morris-donut-chart"></div>
+                <a href="#" class="btn btn-default btn-block">View Details</a>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="chat-panel panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-comments fa-fw"></i> Chat
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu slidedown">
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-refresh fa-fw"></i> Refresh
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-check-circle fa-fw"></i> Available
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-times fa-fw"></i> Busy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-clock-o fa-fw"></i> Away
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-sign-out fa-fw"></i> Sign Out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <ul class="chat">
+                    <li class="left clearfix">
+                        <span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div class="header">
+                                <strong class="primary-font">Jack Sparrow</strong>
+                                <small class="pull-right text-muted">
+                                    <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                </small>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="right clearfix">
+                        <span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div class="header">
+                                <small class=" text-muted">
+                                    <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
+                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="left clearfix">
+                        <span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div class="header">
+                                <strong class="primary-font">Jack Sparrow</strong>
+                                <small class="pull-right text-muted">
+                                    <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="right clearfix">
+                        <span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                        </span>
+                        <div class="chat-body clearfix">
+                            <div class="header">
+                                <small class=" text-muted">
+                                    <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
+                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                            </div>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.panel-body -->
+            <div class="panel-footer">
+                <div class="input-group">
+                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btn-chat">
+                            Send
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <!-- /.panel-footer -->
+        </div>
+        <!-- /.panel .chat-panel -->
+    </div>
+    <!-- /.col-lg-4 -->
 </div>
-<p>Spinner icon from <a href="https://projects.lukehaas.me/css-loaders">https://projects.lukehaas.me/css-loaders</a>/</p>
-<p>Remote source version: <a href="https://github.com/massimo-cassandro/jQueryUI-autocomplete-bootstrap">https://github.com/massimo-cassandro/jQueryUI-autocomplete-bootstrap</a></p>
-</div>
-    </body>
-</html>
-<script>
-$.widget("ui.autocomplete", $.ui.autocomplete, {
-
-  _renderMenu: function(ul, items) {
-    var that = this;
-    ul.attr("class", "nav nav-pills nav-stacked  bs-autocomplete-menu");
-    $.each(items, function(index, item) {
-      that._renderItemData(ul, item);
-    });
-  },
-
-  _resizeMenu: function() {
-    var ul = this.menu.element;
-    ul.outerWidth(Math.min(
-      // Firefox wraps long text (possibly a rounding bug)
-      // so we add 1px to avoid the wrapping (#7513)
-      ul.width("").outerWidth() + 1,
-      this.element.outerWidth()
-    ));
-  }
-
-});
-
-(function() {
-  "use strict";
-  var cities = [{
-    "id": 1,
-    "cityName": "Amsterdam"
-  }, {
-    "id": 2,
-    "cityName": "Athens"
-  }, {
-    "id": 3,
-    "cityName": "Baghdad"
-  }, {
-    "id": 4,
-    "cityName": "Bangkok"
-  }, {
-    "id": 5,
-    "cityName": "Barcelona"
-  }, {
-    "id": 6,
-    "cityName": "Beijing"
-  }, {
-    "id": 7,
-    "cityName": "Belgrade"
-  }, {
-    "id": 8,
-    "cityName": "Berlin"
-  }, {
-    "id": 9,
-    "cityName": "Bogota"
-  }, {
-    "id": 10,
-    "cityName": "Bratislava"
-  }, {
-    "id": 11,
-    "cityName": "Brussels"
-  }, {
-    "id": 12,
-    "cityName": "Bucharest"
-  }, {
-    "id": 13,
-    "cityName": "Budapest"
-  }, {
-    "id": 14,
-    "cityName": "Buenos Aires"
-  }, {
-    "id": 15,
-    "cityName": "Cairo"
-  }, {
-    "id": 16,
-    "cityName": "CapeTown"
-  }, {
-    "id": 17,
-    "cityName": "Caracas"
-  }, {
-    "id": 18,
-    "cityName": "Chicago"
-  }, {
-    "id": 19,
-    "cityName": "Copenhagen"
-  }, {
-    "id": 20,
-    "cityName": "Dhaka"
-  }, {
-    "id": 21,
-    "cityName": "Dubai"
-  }, {
-    "id": 22,
-    "cityName": "Dublin"
-  }, {
-    "id": 23,
-    "cityName": "Frankfurt"
-  }, {
-    "id": 24,
-    "cityName": "Geneva"
-  }, {
-    "id": 25,
-    "cityName": "Hanoi"
-  }, {
-    "id": 26,
-    "cityName": "Helsinki"
-  }, {
-    "id": 27,
-    "cityName": "Hong Kong"
-  }, {
-    "id": 28,
-    "cityName": "Istanbul"
-  }, {
-    "id": 29,
-    "cityName": "Jakarta"
-  }, {
-    "id": 30,
-    "cityName": "Jerusalem"
-  }, {
-    "id": 31,
-    "cityName": "Johannesburg"
-  }, {
-    "id": 32,
-    "cityName": "Kabul"
-  }, {
-    "id": 33,
-    "cityName": "Karachi"
-  }, {
-    "id": 34,
-    "cityName": "Kiev"
-  }, {
-    "id": 35,
-    "cityName": "Kuala Lumpur"
-  }, {
-    "id": 36,
-    "cityName": "Lagos"
-  }, {
-    "id": 37,
-    "cityName": "Lahore"
-  }, {
-    "id": 38,
-    "cityName": "Lima"
-  }, {
-    "id": 39,
-    "cityName": "Lisbon"
-  }, {
-    "id": 40,
-    "cityName": "Ljubljana"
-  }, {
-    "id": 41,
-    "cityName": "London"
-  }, {
-    "id": 42,
-    "cityName": "Los Angeles"
-  }, {
-    "id": 43,
-    "cityName": "Luxembourg"
-  }, {
-    "id": 44,
-    "cityName": "Madrid"
-  }, {
-    "id": 45,
-    "cityName": "Manila"
-  }, {
-    "id": 46,
-    "cityName": "Marrakesh"
-  }, {
-    "id": 47,
-    "cityName": "Melbourne"
-  }, {
-    "id": 48,
-    "cityName": "Mexico City"
-  }, {
-    "id": 49,
-    "cityName": "Montreal"
-  }, {
-    "id": 50,
-    "cityName": "Moscow"
-  }, {
-    "id": 51,
-    "cityName": "Mumbai"
-  }, {
-    "id": 52,
-    "cityName": "Nairobi"
-  }, {
-    "id": 53,
-    "cityName": "New Delhi"
-  }, {
-    "id": 54,
-    "cityName": "NewYork"
-  }, {
-    "id": 55,
-    "cityName": "Nicosia"
-  }, {
-    "id": 56,
-    "cityName": "Oslo"
-  }, {
-    "id": 57,
-    "cityName": "Ottawa"
-  }, {
-    "id": 58,
-    "cityName": "Paris"
-  }, {
-    "id": 59,
-    "cityName": "Prague"
-  }, {
-    "id": 60,
-    "cityName": "Reykjavik"
-  }, {
-    "id": 61,
-    "cityName": "Riga"
-  }, {
-    "id": 62,
-    "cityName": "Rio de Janeiro"
-  }, {
-    "id": 63,
-    "cityName": "Rome"
-  }, {
-    "id": 64,
-    "cityName": "Saint Petersburg"
-  }, {
-    "id": 65,
-    "cityName": "San Francisco"
-  }, {
-    "id": 66,
-    "cityName": "Santiago de Chile"
-  }, {
-    "id": 67,
-    "cityName": "São Paulo"
-  }, {
-    "id": 68,
-    "cityName": "Seoul"
-  }, {
-    "id": 69,
-    "cityName": "Shanghai"
-  }, {
-    "id": 70,
-    "cityName": "Singapore"
-  }, {
-    "id": 71,
-    "cityName": "Sofia"
-  }, {
-    "id": 72,
-    "cityName": "Stockholm"
-  }, {
-    "id": 73,
-    "cityName": "Sydney"
-  }, {
-    "id": 74,
-    "cityName": "Tallinn"
-  }, {
-    "id": 75,
-    "cityName": "Tehran"
-  }, {
-    "id": 76,
-    "cityName": "The Hague"
-  }, {
-    "id": 77,
-    "cityName": "Tokyo"
-  }, {
-    "id": 78,
-    "cityName": "Toronto"
-  }, {
-    "id": 79,
-    "cityName": "Venice"
-  }, {
-    "id": 80,
-    "cityName": "Vienna"
-  }, {
-    "id": 81,
-    "cityName": "Vilnius"
-  }, {
-    "id": 82,
-    "cityName": "Warsaw"
-  }, {
-    "id": 83,
-    "cityName": "Washington D.C."
-  }, {
-    "id": 84,
-    "cityName": "Wellington"
-  }, {
-    "id": 85,
-    "cityName": "Zagreb"
-  }];
-
-  $('.bs-autocomplete').each(function() {
-    var _this = $(this),
-      _data = _this.data(),
-      _hidden_field = $('#' + _data.hidden_field_id);
-
-    _this.after('<div class="bs-autocomplete-feedback form-control-feedback"><div class="loader">Loading...</div></div>')
-      .parent('.form-group').addClass('has-feedback');
-
-    var feedback_icon = _this.next('.bs-autocomplete-feedback');
-    feedback_icon.hide();
-
-    _this.autocomplete({
-        minLength: 2,
-        autoFocus: true,
-
-        source: function(request, response) {
-          var _regexp = new RegExp(request.term, 'i');
-          var data = cities.filter(function(item) {
-            return item.cityName.match(_regexp);
-          });
-          response(data);
-        },
-
-        search: function() {
-          feedback_icon.show();
-          _hidden_field.val('');
-        },
-
-        response: function() {
-          feedback_icon.hide();
-        },
-
-        focus: function(event, ui) {
-          _this.val(ui.item[_data.item_label]);
-          event.preventDefault();
-        },
-
-        select: function(event, ui) {
-          _this.val(ui.item[_data.item_label]);
-          _hidden_field.val(ui.item[_data.item_id]);
-          event.preventDefault();
-        }
-      })
-      .data('ui-autocomplete')._renderItem = function(ul, item) {
-        return $('<li></li>')
-          .data("item.autocomplete", item)
-          .append('<a>' + item[_data.item_label] + '</a>')
-          .appendTo(ul);
-      };
-    // end autocomplete
-  });
-})();
-</script>
+<!-- /.row -->

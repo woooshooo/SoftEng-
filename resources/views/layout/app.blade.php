@@ -41,6 +41,11 @@ $user = Staffs::find($id)->profile;
 		<!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <!-- calendar -->
+    <link rel='stylesheet' href={{asset('fullcalendar-3.8.0/fullcalendar.css')}} />
+    <script src={{asset('fullcalendar-3.8.0/lib/jquery.min.js')}}></script>
+    <script src={{asset('fullcalendar-3.8.0/lib/moment.min.js')}}></script>
+
   </head>
 
 
@@ -74,6 +79,30 @@ $user = Staffs::find($id)->profile;
 <script src="{{ asset('datatables-responsive/dataTables.responsive.js')}}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/sb-admin-2.js')}}"></script>
+<!-- fullCalendar -->
+<script src={{asset('fullcalendar-3.8.0/fullcalendar.js')}}></script>
+<script>
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+        header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
+      navLinks: true, // can click day/week names to navigate views
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+        dayClick: function() {
+        alert('a day has been clicked!');
+    }
+    })
+
+});
+</script>
 <!-- clickable row -->
 <script>
 jQuery(document).ready(function($) {
