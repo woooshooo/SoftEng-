@@ -28,7 +28,7 @@
 										<td><font color="red">{{$value->vol_status}}</font></td>
 									@endif
 
-                  <td><a href="/vols/{{$value->profile_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
+                  <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Edit</button></td>
     					</tr>
           @endforeach
 
