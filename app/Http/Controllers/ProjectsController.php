@@ -127,7 +127,55 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $vols = Vols::all();
+      #Vols::where('cluster',$request->cluster_name[1])->get();
+      //validate
+        $this->validate($request, [
+          'project_name' => 'required',
+          'client_name' => 'required',
+          'cluster_name' => 'required',
+          'project_details' => 'required',
+          'project_startdate' => 'required',
+          'project_deadline' => 'required',
+          'project_status' => 'required'
+        ]);
+
+
+        #
+        $projects = Projects::find($id);
+        #
+        $projects->projects_name = $request->input('project_name');
+        $projects->projects_client = $request->input('client_name');
+        $projects->projects_details = $request->input('project_details');
+        $projects->projects_startdate = $request->input('project_startdate');
+        $projects->projects_deadline = $request->input('project_deadline');
+        $projects->projects_status = $request->input('project_status');
+        $projects->save();
+        #
+        #
+
+        $profileprojects = ProfileProjects::all();
+        foreach ($profileprojects as $value) {
+          $value->delete();
+        }
+        
+        $aw = count($request->cluster_name)-1;
+          for ($num=$aw; $num >= 0 ; $num--) {
+            $volunteers = Vols::where('cluster',$request->cluster_name[$num])->get();
+            foreach ($volunteers as $value) {
+              $profileprojects = new ProfileProjects;
+              $profileprojects->projects_id = $projects->projects_id;
+              $profileprojects->profile_id = $value->profile_id;
+              $profileprojects->save();
+          }
+        }
+        #
+
+
+
+        return redirect('/projects')->with('success','Edited Project!');
+
+
     }
 
     /**

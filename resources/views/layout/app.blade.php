@@ -172,6 +172,7 @@ $(document).ready(function(){
         source: 'http://localhost:8000/searchProfile'
       });
     });
+    $('#myModal').modal(options)
 });
 </script>
 

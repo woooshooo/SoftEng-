@@ -60,6 +60,7 @@
 						</div>
 
 					</div>
+						{{Form::hidden('_method','PUT')}}
 						<button class="btn btn-default" type="submit" name="action">Submit
 					  </button>
 						<button class="btn btn-default" type="reset" name="action">Reset
