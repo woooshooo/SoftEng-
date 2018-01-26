@@ -66,10 +66,12 @@ class StaffsController extends Controller
       $staff->staff_pos = $request->input('staff_pos');
       $profile->save();
       $staff->profile_id = $profile->profile_id;
+      $staff->staff_status = "ACTIVE";
       $staff->save();
       $user->username = strtolower(substr($profile->firstname, 0, 1).$profile->lastname);
       $user->password = bcrypt(strtolower($profile->lastname));
       $user->staff_id = $profile->staff->staff_id;
+      $user->user_status = "ACTIVE";
       $user->save();
       return redirect('/staffs')->with('success','Staff Added!')->with('profile',$profile)->with('staff',$staff);
     }
@@ -125,6 +127,7 @@ class StaffsController extends Controller
       $profile->firstname = $request->input('fname');
       $profile->middlename = $request->input('mname');
       $profile->lastname = $request->input('lname');
+      $profile->contactdetails = $request->input('contactdetails');
       $profile->email = $request->input('email');
       $staff->cluster = $request->input('cluster');
       $staff->staff_pos = $request->input('staff_pos');
