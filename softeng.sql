@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 22, 2018 at 12:42 PM
+-- Generation Time: Jan 27, 2018 at 04:05 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `borrow` (
 --
 
 INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
-(20, 4, 25, 1, 'Use', 'borrowed', '2018-01-21 23:02:50', '2018-01-21 23:02:50'),
+(20, 4, 25, 1, 'Use', 'returned', '2018-01-21 23:02:50', '2018-01-26 20:00:48'),
 (21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56');
 
 -- --------------------------------------------------------
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -132,7 +132,26 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2018_01_14_070945_create_projects', 3),
 (11, '2018_01_14_072323_create_events', 4),
 (12, '2018_01_14_073110_profile_projects', 5),
-(13, '2018_01_14_073131_profile_events', 5);
+(13, '2018_01_14_073131_profile_events', 5),
+(14, '2018_01_26_060648_milestone_projects', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `milestone_projects`
+--
+
+DROP TABLE IF EXISTS `milestone_projects`;
+CREATE TABLE IF NOT EXISTS `milestone_projects` (
+  `milestone_projects_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `projects_id` int(10) UNSIGNED NOT NULL,
+  `milestone_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `milestone_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`milestone_projects_id`),
+  KEY `projects_id` (`projects_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -173,7 +192,8 @@ CREATE TABLE IF NOT EXISTS `profiles` (
 --
 
 INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `email`, `contactdetails`, `created_at`, `updated_at`) VALUES
-(1, 'Bernie', 'Manuel', 'Jereza', 'bmjereza@addu.edu.ph', '0999999999', NULL, '2018-01-02 00:36:03'),
+(1, 'Bernie', 'Manuel', 'Jereza', 'bmjereza@addu.edu.ph', '09055652213', NULL, '2018-01-25 21:53:16'),
+(2, 'Aivy Rose', 'N.', 'Villarba', 'arnvillarba@addu.edu.ph', '09999999999', '2018-01-25 21:45:59', '2018-01-25 21:45:59'),
 (11, 'Darlene Marie', 'M.', 'Abarcar', 'abarcardarlene@gmail.com', '09338767400', '2018-01-21 22:10:36', '2018-01-21 22:10:36'),
 (12, 'Giannedale', 'M.', 'Arroyo', 'geedoreo@gmail.com', '09325370913', '2018-01-21 22:11:46', '2018-01-21 22:11:46'),
 (13, 'Larissa Marie', NULL, 'Baarde', 'larissamarie25@gmail.com', '09393392063', '2018-01-21 22:13:05', '2018-01-21 22:13:05'),
@@ -241,32 +261,18 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
 --
 
 INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_id`, `created_at`, `updated_at`) VALUES
-(1, 23, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(2, 24, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(3, 33, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(4, 38, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(5, 42, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(6, 11, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(7, 13, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(8, 15, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(9, 19, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(10, 20, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(11, 25, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(12, 27, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(13, 28, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(14, 30, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(15, 31, 1, '2018-01-22 04:00:54', '2018-01-22 04:00:54'),
-(16, 32, 1, '2018-01-22 04:00:55', '2018-01-22 04:00:55'),
-(17, 34, 1, '2018-01-22 04:00:55', '2018-01-22 04:00:55'),
-(18, 40, 1, '2018-01-22 04:00:55', '2018-01-22 04:00:55'),
-(19, 41, 1, '2018-01-22 04:00:55', '2018-01-22 04:00:55');
+(30, 23, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
+(31, 24, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
+(32, 33, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
+(33, 38, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
+(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19');
 
 -- --------------------------------------------------------
 
@@ -293,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
 --
 
 INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
-(1, 'Project Sample 1', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-22 04:00:54');
+(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19');
 
 -- --------------------------------------------------------
 
@@ -312,14 +318,15 @@ CREATE TABLE IF NOT EXISTS `staffs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
   KEY `staffs_ibfk_1` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `staffs`
 --
 
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, NULL);
+(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-01-26 19:44:14'),
+(2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-25 21:45:59');
 
 -- --------------------------------------------------------
 
@@ -340,14 +347,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `staff_id` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', '1Y53jvqMKVokG4XI7ppBxh66CM4U5QJiC5hdoixdrUbxuhGRbBQBQfFdFaSa', '2018-01-12 10:01:39', '2018-01-12 10:01:39');
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'FSfccdjVVuerdW0nP4XcSqCtGvF1eD5U1R69QtYylcmLckOu04U9j4J3aF7R', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
+(2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-25 21:45:59');
 
 -- --------------------------------------------------------
 
@@ -375,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `vols` (
 --
 
 INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `section`, `vol_status`, `created_at`, `updated_at`) VALUES
-(1, 11, 'Creative Cluster', '4th Year', 'AB-Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:10:36', '2018-01-21 22:10:36'),
+(1, 11, 'Creative Cluster', '4th Year', 'AB-Psychology', '4-AB Psych', 'ACTIVE', '2018-01-21 22:10:36', '2018-01-26 19:57:36'),
 (2, 12, 'Broadcast & Productions Cluster', '4th Year', 'AB Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:11:46', '2018-01-21 22:11:46'),
 (3, 13, 'Creative Cluster', '4th Year', 'AB IS Major in Asian Studies', '4-AB IS Major in Asian Studies', 'ACTIVE', '2018-01-21 22:13:05', '2018-01-21 22:13:05'),
 (4, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Technology', 'IT 3-A', 'ACTIVE', '2018-01-21 22:13:54', '2018-01-21 22:13:54'),
@@ -418,6 +426,12 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 ALTER TABLE `borrow`
   ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
   ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+
+--
+-- Constraints for table `milestone_projects`
+--
+ALTER TABLE `milestone_projects`
+  ADD CONSTRAINT `milestone_projects_ibfk_1` FOREIGN KEY (`projects_id`) REFERENCES `projects` (`projects_id`);
 
 --
 -- Constraints for table `profile_events`
