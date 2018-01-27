@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Staffs;
 use App\Profile;
 use App\User;
+use DB;
 class StaffsController extends Controller
 {
     /**
@@ -86,8 +87,13 @@ class StaffsController extends Controller
     {
       // $staff = Profile::find($id)->staff;
       $profiles = Profile::find($id);
+      $staffs = Profile::find($id)->staff;
       $title = 'Staff';
-      return View('profile/showstaff')->with('profiles', $profiles)->with('title',$title);
+
+      $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose, borrow.borrow_status as borrow_status, borrow.created_at as created_at, borrow.updated_at as updated_at from profiles
+                          inner join borrow on profiles.profile_id = borrow.profile_id
+                          inner join equipments on borrow.equipment_id = equipments.equipment_id');
+      return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows);
     }
 
     /**
@@ -134,7 +140,7 @@ class StaffsController extends Controller
       $profile->save();
       $staff->save();
 
-      return redirect('/staffs')->with('success','Staff Profile Edited!');
+      return redirect("/staffs/".$id)->with('success','Staff Profile Edited!');
     }
 
     /**
@@ -160,6 +166,6 @@ class StaffsController extends Controller
           $staff->save();
           $user->save();
         }
-        return redirect('/staffs')->with('success','Staff Status Changed!');
+        return redirect("/staffs/".$id)->with('success','Staff Status Changed!');
     }
 }

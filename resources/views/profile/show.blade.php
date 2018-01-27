@@ -75,13 +75,154 @@
       {!!Form::close()!!}
        {!!Form::open(['action'=> ['VolsController@destroy', $profiles->profile_id], 'method' => 'POST', 'class' => ''])!!}
         {{Form::hidden('_method','DELETE')}}
-        <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a>
+        <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#voleditprofilemodal">Edit</button>
+        {{-- <a href="/vols/{{$profiles->profile_id}}/edit" class="btn btn-default">Edit</a> --}}
         @if ($profiles->volunteer->vol_status == 'INACTIVE')
            {{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
          @else
            {{Form::submit('Change Status',['class' => 'btn btn-default' ])}}
         @endif
-        <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a>
+        {{-- <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a> --}}
+       <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewborroweditems">View Borrowed Items</button>
        {!!Form::close()!!}
      </div>
+
+
 @endsection
+
+<!-- Modal View Borrowed Items-->
+<div class="modal fade" id="viewborroweditems" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Borrowed Items</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+                  <thead>
+                    <tr>
+          						<th>Item Name</th>
+          						<th>Quantity Borrowed</th>
+          						<th>Purpose</th>
+                      <th>Date Borrowed</th>
+                      <th>Date Returned</th>
+                    </tr>
+                </thead>
+                @foreach ($borrows as $value)
+                  @if ($value->firstname == $profiles->firstname)
+                    <tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
+                      <td>{{$value->item_name}}</td>
+                      <td>{{$value->qtyBorrowed}}</td>
+                      <td>{{$value->purpose}}</td>
+                      <td>{{$value->created_at}}</td>
+                      @if($value->borrow_status == "borrowed")
+                        <td>Not yet returned.</td>
+                      @else
+                        <td>{{$value->updated_at}}</td>
+                      @endif
+                  </tr>
+                  @endif
+                @endforeach
+              </table>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal VOL EDIT PROFILE-->
+<div class="modal fade" id="voleditprofilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">Edit Profle</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        {!! Form::open(['action' => ['VolsController@update',$profiles->profile_id],  'method' => 'POST',
+         'class' => 'form'])!!}
+
+         <div class="form-group col-lg-4">
+           {{Form::label('fname', 'First Name')}}
+           {{Form::text('fname', $profiles->firstname, ['class' => 'form-control', 'placeholder' => 'First Name'])}}
+
+         </div>
+         <div class="form-group col-lg-4">
+           {{Form::label('mname', 'Middle Name')}}
+           {{Form::text('mname', $profiles->middlename, ['class' => 'form-control', 'placeholder' => 'Middle Name'])}}
+
+         </div>
+         <div class="form-group col-lg-4">
+           {{Form::label('lname', 'Last Name')}}
+           {{Form::text('lname', $profiles->lastname, ['class' => 'form-control', 'placeholder' => 'Last Name'])}}
+
+         </div>
+         <div class="form-group col-lg-6">
+           {{Form::label('contactdetails', 'Contact Details')}}
+           {{Form::text('contactdetails', $profiles->contactdetails,  ['class' => 'form-control', 'placeholder' => 'Contact Details'])}}
+
+         </div>
+         <div class="form-group col-lg-6">
+           {{Form::label('email', 'Email Address')}}
+           {{Form::email('email', $profiles->email, ['class' => 'form-control', 'placeholder' => 'Email Address'])}}
+         </div>
+         <div class="form-group col-lg-6">
+           {{Form::label('coursestrand', 'Course or Strand')}}
+           {{Form::text('coursestrand', $vols->course, ['class' => 'form-control', 'placeholder' => 'Course or Strand'])}}
+
+         </div>
+         <div class="form-group col-lg-6">
+           {{Form::label('section', 'Section')}}
+           {{Form::text('section', $vols->section, ['class' => 'form-control', 'placeholder' => 'Section'])}}
+
+         </div>
+
+         <div class="form-group col-lg-6">
+           <label>Year Level</label>
+           {{Form::select('yearlvl', ['Grade 11' => 'Grade 11',
+                                      'Grade 12' => 'Grade 12',
+                                      '1st Year' => '1st Year',
+                                      '2nd Year' => '2nd Year',
+                                      '3rd Year' => '3rd Year',
+                                      '4th Year' => '4th Year',
+                                      '5th Year' => '5th Year'],
+             $vols->yearlvl, ['class'=>'form-control','placeholder' => 'Year Level or Grade'])}}
+         </div>
+         <div class="form-group col-lg-6">
+            {{Form::label('vol_status', 'Status')}}
+            {{Form::text('vol_status', $profiles->volunteer->vol_status, ['class' => 'form-control','disabled'])}}
+
+          </div>
+
+         <div class="form-group col-lg-12">
+           <label>Cluster</label>
+           {{Form::select('cluster', ['Broadcast & Productions Cluster' => 'Broadcast & Productions Cluster',
+                                      'Creative Cluster' => 'Creative Cluster',
+                                      'Editorial & Social Media Cluster' => 'Editorial & Social Media Cluster'],
+             $vols->cluster, ['class'=>'form-control','placeholder' => 'Cluster'])}}
+         </div>
+         {{-- {{Form::submit('Submit', ['class' => 'btn btn-default'])}}
+         {{Form::reset('Reset', ['class' => 'btn btn-default'])}} --}}
+      </div>
+    </div>
+      <div class="modal-footer">
+        {{Form::hidden('_method','PUT')}}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
