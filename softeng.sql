@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 27, 2018 at 04:05 AM
+-- Generation Time: Jan 27, 2018 at 08:40 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
@@ -49,7 +49,11 @@ CREATE TABLE IF NOT EXISTS `borrow` (
 
 INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
 (20, 4, 25, 1, 'Use', 'returned', '2018-01-21 23:02:50', '2018-01-26 20:00:48'),
-(21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56');
+(21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56'),
+(22, 4, 25, 1, 'Livestream', 'borrowed', '2018-01-26 21:09:31', '2018-01-26 21:09:31'),
+(23, 3, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
+(24, 2, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
+(25, 1, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52');
 
 -- --------------------------------------------------------
 
@@ -80,8 +84,8 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_warranty`, `item_dateofpurchase`, `item_notes`, `item_status`, `created_at`, `updated_at`) VALUES
 (1, 'DSLR 700D', 'Camera', 3, '1 year warranty', '2017-11-01', 'EOS 700D. Step into DSLR photography and let your creativity grow.', 'AVAILABLE', '2017-12-30 00:50:06', '2017-12-30 00:55:06'),
 (2, 'Flycam HD', 'Camera Holder', 3, '1 year warranty', '2017-11-01', 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', 'AVAILABLE', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
-(3, 'SanDisk 16gb Class 10', 'SD Card', 5, '1 year warranty', '2017-11-01', 'SanDisk Ultra SDHC Memory Card 16gb Class 10 Uhs-i Read up to 48mb S', 'AVAILABLE', '2017-12-30 00:25:10', '2018-01-14 23:21:17'),
-(4, 'Macbook', 'Laptop', 1, '1 year warranty', '2017-11-01', 'Macbook ng Comms', 'AVAILABLE', '2018-01-14 00:17:16', '2018-01-21 21:11:33');
+(3, 'SanDisk 16gb Class 10', 'SD Card', 5, '1 year warranty', '2017-11-01', 'SanDisk 16gb Class 10', 'AVAILABLE', '2017-12-30 00:25:10', '2018-01-26 21:55:42'),
+(4, 'Macbook', 'Laptop', 1, '1 year warranty', '2017-11-01', 'Macbook ng Comms', 'AVAILABLE', '2018-01-14 00:17:16', '2018-01-26 21:41:18');
 
 -- --------------------------------------------------------
 
@@ -121,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(9, '2014_10_12_000000_create_users_table', 2),
+(9, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2017_12_15_053731_create_vols_table', 1),
 (4, '2017_12_15_055142_create_profiles_table', 1),
@@ -129,11 +133,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2017_12_30_053605_createusers', 1),
 (7, '2017_12_30_074542_add_item', 1),
 (8, '2017_12_30_162911_create_borrow_table', 1),
-(10, '2018_01_14_070945_create_projects', 3),
-(11, '2018_01_14_072323_create_events', 4),
-(12, '2018_01_14_073110_profile_projects', 5),
-(13, '2018_01_14_073131_profile_events', 5),
-(14, '2018_01_26_060648_milestone_projects', 6);
+(10, '2018_01_14_070945_create_projects', 1),
+(11, '2018_01_14_072323_create_events', 1),
+(12, '2018_01_14_073110_profile_projects', 1),
+(13, '2018_01_14_073131_profile_events', 1),
+(14, '2018_01_26_060648_milestone_projects', 1);
 
 -- --------------------------------------------------------
 
@@ -326,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `staffs` (
 
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-01-26 19:44:14'),
-(2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-25 21:45:59');
+(2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------
 
@@ -355,7 +359,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'FSfccdjVVuerdW0nP4XcSqCtGvF1eD5U1R69QtYylcmLckOu04U9j4J3aF7R', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
-(2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-25 21:45:59');
+(2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------
 
