@@ -24,10 +24,9 @@ class ItemsController extends Controller
         $avails = DB::select('select a.equipment_id,a.item_name, a.item_status, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
           from equipments a left join (select * from borrow where borrow_status = "borrowed") b
           ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
-
-        $qtyB = DB::select('select SUM(b.qtyBorrowed) as qtyB FROM borrow b, equipments a WHERE b.borrow_status = "borrowed" GROUP BY a.equipment_id'); //returns the sum of qty borrowed
         $title = 'View Equipments';
-        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails)->with('qtyB', $qtyB);
+        $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, equipments.item_name AS item_name, borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails)->with('borrowedBy',$borrowedBy);
     }
 
     /**

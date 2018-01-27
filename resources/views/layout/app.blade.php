@@ -54,6 +54,9 @@ $user = Staffs::find($id)->profile;
       @media screen
       {
       }
+      .ui-front {
+        z-index:1001;
+        }
     </style>
 
   </head>
@@ -125,6 +128,9 @@ jQuery(document).ready(function($) {
 <script>
 $(document).ready(function() {
 		$('#dataTables-example').DataTable({
+				responsive: true
+		});
+    $('#dataTables').DataTable({
 				responsive: true
 		});
 });

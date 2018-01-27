@@ -71,7 +71,7 @@ class BorrowsController extends Controller
           }
       }
 
-      return redirect('/borrows')->with('success','Equipment Borrowed!')->with('borrows',$borrows);
+      return redirect('/items')->with('success','Equipment Borrowed!')->with('borrows',$borrows);
     }
 
     /**
@@ -148,6 +148,7 @@ class BorrowsController extends Controller
           if ($value->item_status == "UNAVAILABLE") {
             $searchResult[] = "item not found";
           }
+            $searchResult[] = $value->item_name;
         }
       }
       return $searchResult;

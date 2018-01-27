@@ -4,7 +4,7 @@
 				<div class="panel-heading">
 					<h1>Equipment Inventory</h1>
 				</div>
-				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
           <thead>
             <tr>
   						<th>Name</th>
@@ -44,6 +44,7 @@
 				<div class="navbutton">
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">View all borrowed</button>
 				</div>
 			</div>
 @endsection
@@ -115,7 +116,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-					{!! Form::open(['action' => 'BorrowsController@store', 'method' => 'POST','class' => 'col-lg-12 form', 'id' => 'add_item'])!!}
+					{!! Form::open(['action' => 'BorrowsController@store', 'method' => 'POST','class' => 'col-lg-12 form  ui-front ', 'id' => 'add_item'])!!}
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
@@ -150,6 +151,57 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Submit</button>
 				{!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal ADD EQUIPMENT -->
+<div class="modal fade bd-example-modal-lg" id="listallborrowed" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLongTitle">All Equipments Borrowed</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				<div class="row">
+					<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+						<thead>
+							<tr>
+								<th>Borrower</th>
+								<th>Item Name</th>
+								<th>Quantity Borrowed</th>
+								<th>Date Borrowed</th>
+								<th>Option</th>
+							</tr>
+					</thead>
+					@foreach ($borrowedBy as $value)
+					 @if ($value->borrow_status == 'borrowed')
+						 <tr>
+							<td>{{$value->firstname}} {{$value->lastname}} </td>
+							<td>{{$value->item_name}}</td>
+							<td>{{$value->qtyBorrowed}}</td>
+							<td>{{$value->created_at}}</td>
+							{!! Form::open(['action' => ['BorrowsController@update',$value->borrow_id], 'method' => 'POST',
+								'class' => 'form'])!!}
+							<td>{{Form::submit('Return',['class' => 'btn btn-default btn-block' ])}}</td>
+							{{Form::hidden('_method','PUT')}}
+							{!!Form::close()!!}
+
+						 </tr>
+					 @endif
+				 @endforeach
+				</table>
+				</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
       </div>
     </div>
   </div>

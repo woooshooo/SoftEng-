@@ -175,7 +175,8 @@
             <ul class="nav" id="side-menu">
                 <!-- /searchbar-group -->
                 <li class="sidebar-search">
-                    <div class="input-group custom-search-form">
+                    <div class="text-center">
+                          <h4>Welcome {{$user->firstname}}</h4>
                         {{-- <input type="text" class="form-control" placeholder="Search...">
                           <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
@@ -214,8 +215,8 @@
                     <!-- /.nav-third-level -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Equipments <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+                    <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipments</a>
+                    {{-- <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('additem')}}">Add Equipments</a>
                         </li>
@@ -225,7 +226,7 @@
                         <li>
                             <a href="{{url('borrows')}}">Borrow Equipments</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                     <!-- /.nav-second-level -->
                 </li>
                 <li>

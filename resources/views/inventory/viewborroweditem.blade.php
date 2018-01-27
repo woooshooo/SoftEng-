@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">{{$profiles->firstname}}'s Borrowed Items</h1>
-            <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+            <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
               <thead>
                 <tr>
       						<th>Item Name</th>

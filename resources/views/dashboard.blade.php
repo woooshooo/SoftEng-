@@ -3,12 +3,7 @@
 @section('content')
     <div id="wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <p class="huge well page-header">Welcome to the Dashboard {{$user->firstname}}!</p>
-                </div>
-            </div>
-
-            <div class="row">
+              <br>
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
