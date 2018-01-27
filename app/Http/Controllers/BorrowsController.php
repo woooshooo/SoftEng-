@@ -18,9 +18,9 @@ class BorrowsController extends Controller
     {
       $items = Items::all();
       $borrows = Borrow::all();
-      $avails = DB::select('select a.equipment_id,a.item_name, a.item_type, a.item_quantity, (a.item_quantity - sum(b.qtyBorrowed)) AS available, sum(b.qtyBorrowed) AS borrowed, a.item_notes
-      from equipments a left join borrow b
-      ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
+      $avails = DB::select('select a.equipment_id,a.item_name, a.item_status, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
+        from equipments a left join (select * from borrow where borrow_status = "borrowed") b
+        ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
       $title = 'Borrow Equipments';
       return view('inventory/borrowitem')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails);
     }
@@ -43,6 +43,7 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
+
       //validate
         $this->validate($request, [
           'borrower' => 'required',
@@ -50,7 +51,6 @@ class BorrowsController extends Controller
           'qtyBorrowed' => 'required',
           'purpose' => 'required',
         ]);
-
 
         $count = count($request->item_name);
         for($num = $count; $num > 0; $num-- ){
@@ -62,9 +62,13 @@ class BorrowsController extends Controller
           $profileDB = Profile::where('firstname', 'LIKE', '%'.$name.'%')->first()->profile_id;
           $borrows->profile_id = $profileDB;
           $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
-          $borrows->equipment_id = $itemDB;
-          $borrows->save();
-
+          $borrowed = Borrow::where('equipment_id', $itemDB)->where('borrow_status','borrowed')->sum('qtyBorrowed');
+          if(Items::where('equipment_id',$itemDB)->value('item_quantity') == $borrowed){
+            return redirect('/borrows')->with('error','Equipment/s not available for borrowing!')->with('borrows',$borrows);
+          } else {
+            $borrows->equipment_id = $itemDB;
+            $borrows->save();
+          }
       }
 
       return redirect('/borrows')->with('success','Equipment Borrowed!')->with('borrows',$borrows);
@@ -142,9 +146,7 @@ class BorrowsController extends Controller
       } else {
         foreach ($items as $key => $value) {
           if ($value->item_status == "UNAVAILABLE") {
-            $searchResult[] = $value->item_name + " not available for borrowing";
-          } else {
-            $searchResult[] = $value->item_name;
+            $searchResult[] = "item not found";
           }
         }
       }

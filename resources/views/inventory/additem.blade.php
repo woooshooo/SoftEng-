@@ -35,7 +35,7 @@
 				</div>
 				<div class="form-group col-lg-12">
 					<label class="control-label" for="item_notes">Input additional notes here.</label>
-					<textarea class="form-control" id="item_notes" name="item_notes"></textarea>
+					<textarea style="height: 30%; width: 100%; resize: vertical"class="form-control" id="item_notes" name="item_notes"></textarea>
 					<br>
 				</div>
 				<div class="form-group col-lg-12">

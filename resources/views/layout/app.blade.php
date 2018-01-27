@@ -45,6 +45,16 @@ $user = Staffs::find($id)->profile;
     <link rel='stylesheet' href={{asset('fullcalendar-3.8.0/fullcalendar.css')}} />
     <script src={{asset('fullcalendar-3.8.0/lib/jquery.min.js')}}></script>
     <script src={{asset('fullcalendar-3.8.0/lib/moment.min.js')}}></script>
+    <style type="text/css">
+      @media print
+      {
+      .noprint {display:none;}
+      }
+
+      @media screen
+      {
+      }
+    </style>
 
   </head>
 
@@ -52,7 +62,7 @@ $user = Staffs::find($id)->profile;
 	<body>
 		@include('inc/navbar')
 		<div id="page-wrapper">
-			@include('inc/messages')
+      @include('inc/messages')
 			@yield('content')
 		</div>
 	</body>

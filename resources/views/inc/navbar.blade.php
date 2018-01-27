@@ -217,7 +217,7 @@
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Equipments <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{url('additem')}}">Add Equipment</a>
+                            <a href="{{url('additem')}}">Add Equipments</a>
                         </li>
                         <li>
                             <a href="{{url('items')}}">View Equipments</a>
@@ -232,27 +232,27 @@
                     <a href="#"><i class="fa fa-users fa-fw"></i> Profiles <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Volunteers <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
+                            <a href="{{url('vols')}}">Volunteers</a>
+                            {{-- <ul class="nav nav-third-level">
                                 <li>
                                     <a href="{{url('vols')}}">View Volunteers</a>
                                 </li>
                                 <li>
                                     <a href="{{url('addvolunteer')}}">Add Volunteer</a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                             <!-- /.nav-third-level -->
                         </li>
                         <li>
-                            <a href="#">Staff <span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
+                            <a href="{{url('staffs')}}">Staff</a>
+                            {{-- <ul class="nav nav-third-level">
                                 <li>
                                     <a href="{{url('staffs')}}">View Staffs</a>
                                 </li>
                                 <li>
                                     <a href="{{url('addstaff')}}">Add Staff</a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                             <!-- /.nav-third-level -->
                         </li>
                     </ul>

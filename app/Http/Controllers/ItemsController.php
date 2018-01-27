@@ -97,7 +97,7 @@ class ItemsController extends Controller
     {
       $items = Items::find($id);
       $title = 'Edit Item';
-      return View('inventory/edititem')->with('items', $items)->with('title',$title);
+      return View('inventory/edititem/')->with('items', $items)->with('title',$title);
     }
 
     /**
@@ -124,7 +124,7 @@ class ItemsController extends Controller
       $items->item_notes = $request->input('item_notes');
       $items->save();
 
-      return redirect('/items')->with('success','Equipment Edited!')->with('items',$items);
+      return redirect('items/'.$id)->with('success','Equipment Edited!')->with('items',$items);
     }
 
     /**
@@ -136,15 +136,19 @@ class ItemsController extends Controller
     public function destroy($id)
     {
       $items = Items::find($id);
-      if ($items->item_status == 'UNAVAILABLE') {
-        $items->item_status = 'AVAILABLE';
+
+      if ($items->item_status == 'AVAILABLE') {
+        if(Borrow::where('equipment_id',$id)->where('borrow_status','borrowed')->sum('qtyBorrowed') > 0){
+          return redirect('items/'.$id)->with('error','Status Cannot Be Changed, Item is Borrowed.');
+        }
+        $items->item_status = 'UNAVAILABLE';
         $items->save();
       } else {
-        $items->item_status = 'UNAVAILABLE';
+        $items->item_status = 'AVAILABLE';
         $items->save();
       }
 
-      return redirect('/items')->with('success','Equipment Status Changed!');
+      return redirect('items/'.$id)->with('success','Equipment Status Changed!');
     }
 
     public function search(Request $request)
