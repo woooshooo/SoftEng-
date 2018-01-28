@@ -56,7 +56,11 @@
 						</div>
 						<div class="form-group col-lg-4">
 							<label for="project_status">Status</label>
-					    <input type="text" name="project_status" class="form-control">
+							<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
+					    	<select class="form-control">
+					    		<option>Ongoing</option>
+					    		<option>Finsihed</option>
+					    	</select>
 						</div>
 
 					</div>

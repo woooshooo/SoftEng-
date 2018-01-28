@@ -3,12 +3,13 @@
 	<div id="wrapper">
 		<div class="row">
 				<div class="col-lg-12">
-						<h1 class="page-header">Show Project</h1>
+						<h1 class="page-header">{{$projects->projects_name}}</h1>
 				</div>
 		</div>
     <div class="form-group col-lg-12">
       <button class="btn btn-default"onclick="history.go(-1);">Back </button>
     </div>
+    <!--
 		{!! Form::open(['action' => ['ProjectsController@update',$projects->projects_id], 'method' => 'POST',
 			'class' => 'panel-body col-lg-12 form'])!!}
 
@@ -50,11 +51,47 @@
 						</div>
 
 					</div>
-
-
-					<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
-					  Edit
-					</button>
+				-->
+				{!! Form::open(['action' => ['ProjectsController@update',$projects->projects_id], 'method' => 'POST',
+				'class' => 'panel-body col-lg-12 form'])!!}
+				<div class="col-lg-12">
+					<div class="progress progress-striped active">
+						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                    	</div>
+				</div>
+				<div class="col-lg-6">
+					<label for="project_details">Project Details</label>
+							<textarea class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
+				</div>
+				<div class="col-lg-6">
+					<!--No function for milestones yet-->
+					<label>Project Milestones</label><br>
+					<!--Lagay ng foreach for each Milestone from DB-->
+					<label><input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 1</label>
+                                <br>
+                                <label>
+                                <input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 2</label>
+                                <br><label>
+                                <input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 3</label>
+                                <br>
+				</div>
+				<div class="form-group col-lg-4">
+						<label for="project_startdate">Project Start Date</label>
+							<input type="date" name="project_startdate" class="form-control" value="{{$projects->projects_startdate}}" disabled>
+				</div>
+				<div class="form-group col-lg-4">
+						<label for="project_deadline">Project Deadline</label>
+							<input type="date" name="project_deadline" class="form-control" value="{{$projects->projects_deadline}}" disabled>
+				</div>
+				<div class="form-group col-lg-4">
+						<label for="project_status">Status</label>
+							<input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}">
+				</div>
+				
+				<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
+				  Edit
+				</button>
 
 
 @endsection
