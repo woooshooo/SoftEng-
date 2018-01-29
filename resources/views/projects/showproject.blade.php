@@ -86,7 +86,7 @@
 				</div>
 				<div class="form-group col-lg-4">
 						<label for="project_status">Status</label>
-							<input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}">
+							<input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}" disabled>
 				</div>
 				
 				<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
@@ -147,7 +147,11 @@
 									</div>
 									<div class="form-group col-lg-4">
 										<label for="project_status">Status</label>
-								    <input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}">
+									<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
+					    			<select class="form-control" value="{{$projects->projects_status}}">
+					    				<option>Ongoing</option>
+					    				<option>Finsihed</option>
+					    			</select>
 									</div>
 						</div>
 				</div>
