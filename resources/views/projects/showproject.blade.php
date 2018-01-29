@@ -57,24 +57,27 @@
 				<div class="col-lg-12">
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php ?>" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
                     	</div>
 				</div>
+				<div class = "col-lg-12">
 				<div class="col-lg-6">
 					<label for="project_details">Project Details</label>
 							<textarea class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
 				</div>
 				<div class="col-lg-6">
+					<br>
 					<!--No function for milestones yet-->
 					<label>Project Milestones</label><br>
 					<!--Lagay ng foreach for each Milestone from DB-->
-					<label><input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 1</label>
-                                <br>
-                                <label>
-                                <input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 2</label>
-                                <br><label>
-                                <input type="checkbox" class="form-check-input" name="#" value="#"> Milestone 3</label>
-                                <br>
+
+					@foreach($milestones as $value)
+					
+					<label>
+						<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked="#"> {{$value->milestone_name}}
+					</label><br>
+                    @endforeach
+				</div>
 				</div>
 				<div class="form-group col-lg-4">
 						<label for="project_startdate">Project Start Date</label>
@@ -148,10 +151,10 @@
 									<div class="form-group col-lg-4">
 										<label for="project_status">Status</label>
 									<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
-					    			<select class="form-control" value="{{$projects->projects_status}}">
-					    				<option>Ongoing</option>
-					    				<option>Finsihed</option>
-					    			</select>
+					    			{{Form::select('project_status', ['Ongoing' => 'Ongoing',
+                                     'Finsihed' => 'Finsihed',
+                                     'Pending' => 'Pending'],
+          							$projects->project_status, ['class'=>'form-control'])}}
 									</div>
 						</div>
 				</div>

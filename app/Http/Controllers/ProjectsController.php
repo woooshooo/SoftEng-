@@ -10,6 +10,7 @@ use App\Profile;
 use App\Events;
 use App\ProfileProjects;
 use App\Projects;
+use App\MilestoneProjects;
 class ProjectsController extends Controller
 {
     /**
@@ -102,7 +103,9 @@ class ProjectsController extends Controller
     {
       $title = 'Viewing Project';
       $projects = Projects::find($id);
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects);
+      $milestones = MilestoneProjects::where('projects_id', $id)->get();
+      $count = count($milestones);
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones);
     }
 
     /**
@@ -173,7 +176,7 @@ class ProjectsController extends Controller
 
 
 
-        return redirect('/projects')->with('success','Edited Project!');
+        return redirect('projects/'.$id)->with('success','Edited Project!');
 
 
     }

@@ -64,7 +64,7 @@ class BorrowsController extends Controller
           $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
           $borrowed = Borrow::where('equipment_id', $itemDB)->where('borrow_status','borrowed')->sum('qtyBorrowed');
           if(Items::where('equipment_id',$itemDB)->value('item_quantity') == $borrowed){
-            return redirect('/borrows')->with('error','Equipment/s not available for borrowing!')->with('borrows',$borrows);
+            return redirect('/items')->with('error','Equipment/s not available for borrowing!')->with('borrows',$borrows);
           } else {
             $borrows->equipment_id = $itemDB;
             $borrows->save();

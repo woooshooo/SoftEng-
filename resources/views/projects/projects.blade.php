@@ -12,7 +12,6 @@
 										<th>Start Date</th>
 										<th>End Date</th>
                     <th>Status</th>
-                    <th></th>
                     </tr>
                 </thead>
 								@foreach ($projects as $value)
@@ -22,7 +21,7 @@
 												<td>{{$value->projects_startdate}}</td>
 												<td>{{$value->projects_deadline}}</td>
 												<td>{{$value->projects_status}}</td>
-												<td><a href="/projects/{{$value->projects_id}}/edit" class="btn btn-default btn-block">Edit</a></td>
+												
 										</tr>
 								@endforeach
             </table>
