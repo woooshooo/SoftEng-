@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 27, 2018 at 08:40 AM
+-- Generation Time: Jan 30, 2018 at 08:04 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
@@ -50,10 +50,11 @@ CREATE TABLE IF NOT EXISTS `borrow` (
 INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
 (20, 4, 25, 1, 'Use', 'returned', '2018-01-21 23:02:50', '2018-01-26 20:00:48'),
 (21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56'),
-(22, 4, 25, 1, 'Livestream', 'borrowed', '2018-01-26 21:09:31', '2018-01-26 21:09:31'),
+(22, 4, 25, 1, 'Livestream', 'returned', '2018-01-26 21:09:31', '2018-01-29 22:08:32'),
 (23, 3, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
 (24, 2, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
-(25, 1, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52');
+(25, 1, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
+(26, 4, 14, 1, 'Livestream', 'borrowed', '2018-01-29 22:08:52', '2018-01-29 22:08:52');
 
 -- --------------------------------------------------------
 
@@ -90,6 +91,41 @@ INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quanti
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipment_codes`
+--
+
+DROP TABLE IF EXISTS `equipment_codes`;
+CREATE TABLE IF NOT EXISTS `equipment_codes` (
+  `equipment_codes_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `equipment_id` int(10) UNSIGNED NOT NULL,
+  `item_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`equipment_codes_id`),
+  KEY `equipment_id` (`equipment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `equipment_codes`
+--
+
+INSERT INTO `equipment_codes` (`equipment_codes_id`, `equipment_id`, `item_code`, `created_at`, `updated_at`) VALUES
+(1, 1, 'ITEM001', NULL, NULL),
+(2, 1, 'ITEM002', NULL, NULL),
+(3, 1, 'ITEM003', NULL, NULL),
+(4, 2, 'ITEM004', NULL, NULL),
+(5, 2, 'ITEM005', NULL, NULL),
+(6, 2, 'ITEM006', NULL, NULL),
+(7, 3, 'ITEM007', NULL, NULL),
+(8, 3, 'ITEM008', NULL, NULL),
+(9, 3, 'ITEM009', NULL, NULL),
+(10, 3, 'ITEM010', NULL, NULL),
+(11, 3, 'ITEM011', NULL, NULL),
+(12, 4, 'ITEM012', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `events`
 --
 
@@ -118,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -137,7 +173,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2018_01_14_072323_create_events', 1),
 (12, '2018_01_14_073110_profile_projects', 1),
 (13, '2018_01_14_073131_profile_events', 1),
-(14, '2018_01_26_060648_milestone_projects', 1);
+(14, '2018_01_26_060648_milestone_projects', 1),
+(15, '2018_01_30_074807_item__code', 2);
 
 -- --------------------------------------------------------
 
@@ -430,6 +467,12 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 ALTER TABLE `borrow`
   ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
   ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+
+--
+-- Constraints for table `equipment_codes`
+--
+ALTER TABLE `equipment_codes`
+  ADD CONSTRAINT `equipment_codes_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
 
 --
 -- Constraints for table `milestone_projects`
