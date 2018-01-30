@@ -17,5 +17,9 @@ class Items extends Model
   {
     return $this->belongsTo('App\Borrow', 'equipment_id');
   }
+  public function itemcode()
+  {
+    return $this->hasMany('App\ItemCode', 'equipment_id');
+  }
 
 }

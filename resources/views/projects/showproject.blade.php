@@ -63,7 +63,7 @@
 				<div class = "col-lg-12">
 				<div class="col-lg-6">
 					<label for="project_details">Project Details</label>
-							<textarea class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
+							<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
 				</div>
 				<div class="col-lg-6">
 					<br>
@@ -139,7 +139,7 @@
 
 								  <div class="form-group col-lg-12">
 										<label for="project_details">Project Details</label>
-										<textarea class="form-control" id="project_details" name="project_details">{{$projects->projects_details}}</textarea>
+										<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="project_details" name="project_details">{{$projects->projects_details}}</textarea>
 									</div>
 									<div class="form-group col-lg-4">
 										<label for="project_startdate">Project Start Date</label>

@@ -127,14 +127,14 @@
 						<input type="text" class="form-control" id="item_dateofpurchase" name="item_dateofpurchase" value="{{$items->item_dateofpurchase}}">
 
 					</div>
-					<div class="form-group col-lg-6">
+					{{-- <div class="form-group col-lg-6">
 						<label class="control-label" for="item_code">Code</label>
 						<input type="text" class="form-control" id="item_code" name="item_code" value="{{$items->item_code}}">
 
-					</div>
+					</div> --}}
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="item_notes">Input additional notes here.</label>
-						<textarea class="form-control" id="item_notes" name="item_notes" >{{$items->item_name}}</textarea>
+						<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="item_notes" name="item_notes" >{{$items->item_name}}</textarea>
 						<br>
 				</div>
 
