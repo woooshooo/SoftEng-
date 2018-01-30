@@ -133,6 +133,9 @@ $(document).ready(function() {
     $('#dataTables').DataTable({
 				responsive: true
 		});
+    $('#dataTables-record').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
 });
 </script>
 <!-- Page-Level Demo Scripts - Notifications - Use for reference -->

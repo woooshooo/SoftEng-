@@ -54,10 +54,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Add Equipment</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Add Equipment</h3>
+
       </div>
       <div class="modal-body">
 				<div class="row">
@@ -109,10 +110,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Borrow Equipment Form</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Borrow Equipment Form</h3>
+
       </div>
       <div class="modal-body">
         <div class="row">
@@ -163,13 +165,14 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">All Equipments Borrowed</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">All Equipments Borrowed</h3>
       </div>
       <div class="modal-body">
 				<div class="row">
+					<div class=" col-lg-12 ml-auto">
 					<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
 						<thead>
 							<tr>
@@ -197,6 +200,7 @@
 					 @endif
 				 @endforeach
 				</table>
+			</div>
 				</div>
       </div>
       <div class="modal-footer">

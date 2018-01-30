@@ -37,7 +37,6 @@
 				<div class="navbutton noprint">
 					<a class="btn btn-default btn-lg btn-inline" href="{{url('staffs')}}">View Staff</a>
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addvolunteer">Add Volunteer</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline"  onclick="window.print();return false;" >Print Page</button>
 				</div>
 			</div>
 @endsection
@@ -46,10 +45,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Add Volunteer</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Add Volunteer</h3>
+
       </div>
       <div class="modal-body">
         <div class="row">

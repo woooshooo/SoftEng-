@@ -25,7 +25,8 @@ class ItemsController extends Controller
           from equipments a left join (select * from borrow where borrow_status = "borrowed") b
           ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
         $title = 'View Equipments';
-        $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, equipments.item_name AS item_name, borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
+        $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, equipments.item_name AS item_name,borrow.purpose AS purpose ,borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
+
         return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails)->with('borrowedBy',$borrowedBy);
     }
 
@@ -80,7 +81,7 @@ class ItemsController extends Controller
       from borrow a left join equipments b
       ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
       $title = 'Viewing Equipment';
-      $borrowedBy = DB::select('select borrow.borrow_id as borrow_id, firstname, lastname, borrow.equipment_id, borrow.qtyBorrowed, borrow.borrow_status as borrow_status from `borrow` left join `profiles` on profiles.profile_id=borrow.profile_id');
+      $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, borrow.equipment_id, equipments.item_name AS item_name,borrow.purpose AS purpose ,borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
       $totalBorrowed = DB::select('select equipment_id, sum(qtyBorrowed) as `sum` from `borrow`,`profiles` where borrow.profile_id=profiles.profile_id group by equipment_id');
       return View('inventory/showitem')->with('title',$title)->with('items', $items)->with('avails', $avails)->with('borrows', $borrows)->with('borrowedBy',$borrowedBy)->with('totalBorrowed',$totalBorrowed);
 

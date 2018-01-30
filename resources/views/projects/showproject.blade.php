@@ -72,7 +72,7 @@
 					<!--Lagay ng foreach for each Milestone from DB-->
 
 					@foreach($milestones as $value)
-					
+
 					<label>
 						<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked="#"> {{$value->milestone_name}}
 					</label><br>
@@ -91,7 +91,7 @@
 						<label for="project_status">Status</label>
 							<input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}" disabled>
 				</div>
-				
+
 				<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
 				  Edit
 				</button>
@@ -104,10 +104,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Edit Project</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Edit Project</h3>
+
       </div>
       <div class="modal-body">
         <div class="row">

@@ -73,7 +73,7 @@
          {{Form::hidden('_method','DELETE')}}
 				 <div class=" form-group col-lg-6"><br>
 					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#itemeditmodal">Edit</button>
-					 {{-- <a href="/items/{{$items->equipment_id}}/edit" class="btn btn-default">Edit</a> --}}
+					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewrecordmodal">View Record</button>
 				 @if ($items->item_status == 'UNAVAILABLE')
 				 		{{Form::submit('Make Available',['class' => 'btn btn-default' ])}}
 					@else
@@ -87,15 +87,16 @@
 
 @endsection
 
-<!-- Modal -->
+<!-- Modal Edit Item -->
 <div class="modal fade" id="itemeditmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Edit Equipment</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Edit Equipment</h3>
+
       </div>
       <div class="modal-body">
 				<div class="row">
@@ -145,6 +146,56 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
 				{!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal View Record-->
+<div class="modal fade" id="viewrecordmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Equipment Record</h3>
+
+      </div>
+      <div class="modal-body">
+				<div class="row">
+            <div class="col-lg-12">
+                <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-record">
+                  <thead>
+                    <tr>
+          						<th>Borrower</th>
+											<th>Purpose</th>
+                      <th>Date Borrowed</th>
+                      <th>Date Returned</th>
+                    </tr>
+                </thead>
+								@foreach ($borrowedBy as $value)
+									@if (($value->equipment_id == $items->equipment_id))
+									<tr>
+										<td>{{$value->firstname}} {{$value->lastname}} </td>
+										<td>{{$value->purpose}} </td>
+										<td>{{$value->created_at}} </td>
+										@if ($value->borrow_status == "borrowed")
+											<td>Not yet returned. </td>
+											@else
+											<td>{{$value->updated_at}} </td>
+										@endif
+									</tr>
+									@endif
+								@endforeach
+							</table>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
