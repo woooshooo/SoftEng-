@@ -196,7 +196,15 @@ $(document).ready(function(){
 </script>
 
 <!-- To change progress bar width (inline style) -->
+<script>
+$(document).ready(function(){
+  $('#projProgBar').css('width', '100%');
+});
+  //count checkboxes in div where milestones are
+function countMilestone(){
 
+}
 
+</script>
 
 </html>

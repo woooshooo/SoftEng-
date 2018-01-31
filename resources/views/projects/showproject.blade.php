@@ -57,7 +57,7 @@
 				<div class="col-lg-12">
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<div id="projProgBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 						<!--
 							Divide total/finished milestones via query, round to nearest whole number
 							change value of style="width: <accordingly>"
