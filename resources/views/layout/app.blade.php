@@ -195,6 +195,8 @@ $(document).ready(function(){
 });
 </script>
 
+<!-- To change progress bar width (inline style) -->
+
 
 
 </html>
