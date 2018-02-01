@@ -227,6 +227,7 @@ $(document).ready(function(){
 });
 </script>
 
+<<<<<<< HEAD
 <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
@@ -248,6 +249,18 @@ $( function() {
     source: 'http://localhost:8000/searchItemCode'
   });
 });
+=======
+<!-- To change progress bar width (inline style) -->
+<script>
+$(document).ready(function(){
+  $('#projProgBar').css('width', '100%');
+});
+  //count checkboxes in div where milestones are
+function countMilestone(){
+
+}
+
+>>>>>>> 38b9934e0e43ec3a0d5de3cf0892bd51680ce4b4
 </script>
 
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2018 at 08:04 AM
+-- Generation Time: Feb 01, 2018 at 09:57 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -31,30 +31,78 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `borrow`;
 CREATE TABLE IF NOT EXISTS `borrow` (
   `borrow_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `equipment_id` int(10) UNSIGNED NOT NULL,
+  `dateborrowed` date NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `qtyBorrowed` int(10) UNSIGNED DEFAULT NULL,
   `purpose` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `borrow_status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'borrowed',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
-  KEY `profile_id` (`profile_id`),
-  KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `profile_id` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
-INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, `purpose`, `borrow_status`, `created_at`, `updated_at`) VALUES
-(20, 4, 25, 1, 'Use', 'returned', '2018-01-21 23:02:50', '2018-01-26 20:00:48'),
-(21, 4, 14, 1, 'Use', 'returned', '2018-01-21 23:28:47', '2018-01-21 23:28:56'),
-(22, 4, 25, 1, 'Livestream', 'returned', '2018-01-26 21:09:31', '2018-01-29 22:08:32'),
-(23, 3, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
-(24, 2, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
-(25, 1, 13, 1, 'Cover College Fiesta', 'borrowed', '2018-01-26 23:59:52', '2018-01-26 23:59:52'),
-(26, 4, 14, 1, 'Livestream', 'borrowed', '2018-01-29 22:08:52', '2018-01-29 22:08:52');
+INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, '2018-02-03', 25, 'Test', NULL, NULL),
+(2, '2018-02-17', 14, 'Ttest', NULL, NULL),
+(3, '2018-02-01', 25, 'TESSSTT', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrow_details`
+--
+
+DROP TABLE IF EXISTS `borrow_details`;
+CREATE TABLE IF NOT EXISTS `borrow_details` (
+  `borrow_details_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `borrow_id` int(10) UNSIGNED NOT NULL,
+  `equipment_details_id` int(10) UNSIGNED NOT NULL,
+  `numberofdays` double NOT NULL,
+  `returndate` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`borrow_details_id`),
+  KEY `borrow_id` (`borrow_id`),
+  KEY `equipment_details_id` (`equipment_details_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `borrow_details`
+--
+
+INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `returndate`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2018-02-01', NULL, '2018-02-01 00:48:53'),
+(2, 2, 2, 1, '2018-02-01', NULL, NULL),
+(5, 3, 1, 1, NULL, '2018-02-01 01:03:45', '2018-02-01 01:03:45'),
+(6, 3, 2, 1, NULL, '2018-02-01 01:03:45', '2018-02-01 01:03:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrow_profile`
+--
+
+DROP TABLE IF EXISTS `borrow_profile`;
+CREATE TABLE IF NOT EXISTS `borrow_profile` (
+  `borrow_profile_id` int(11) NOT NULL AUTO_INCREMENT,
+  `borrow_id` int(10) UNSIGNED NOT NULL,
+  `profile_id` int(10) NOT NULL,
+  PRIMARY KEY (`borrow_profile_id`),
+  KEY `borrow_id` (`borrow_id`),
+  KEY `profile_id` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `borrow_profile`
+--
+
+INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
+(1, 1, 25),
+(2, 2, 14),
+(3, 3, 25);
 
 -- --------------------------------------------------------
 
@@ -65,63 +113,53 @@ INSERT INTO `borrow` (`borrow_id`, `equipment_id`, `profile_id`, `qtyBorrowed`, 
 DROP TABLE IF EXISTS `equipments`;
 CREATE TABLE IF NOT EXISTS `equipments` (
   `equipment_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `item_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_quantity` int(11) NOT NULL,
-  `item_warranty` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `item_dateofpurchase` date NOT NULL,
-  `item_notes` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `item_status` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dateordered` date NOT NULL,
+  `datedelivered` date NOT NULL,
+  `receivedby` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `encodedby` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`equipment_id`),
-  UNIQUE KEY `item_name` (`item_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`equipment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
 --
 
-INSERT INTO `equipments` (`equipment_id`, `item_name`, `item_type`, `item_quantity`, `item_warranty`, `item_dateofpurchase`, `item_notes`, `item_status`, `created_at`, `updated_at`) VALUES
-(1, 'DSLR 700D', 'Camera', 3, '1 year warranty', '2017-11-01', 'EOS 700D. Step into DSLR photography and let your creativity grow.', 'AVAILABLE', '2017-12-30 00:50:06', '2017-12-30 00:55:06'),
-(2, 'Flycam HD', 'Camera Holder', 3, '1 year warranty', '2017-11-01', 'Flycam offers TRUE QUALITY with PRECISION DESIGN at a REASONABLE Price.', 'AVAILABLE', '2017-12-30 00:22:04', '2017-12-30 00:22:04'),
-(3, 'SanDisk 16gb Class 10', 'SD Card', 5, '1 year warranty', '2017-11-01', 'SanDisk 16gb Class 10', 'AVAILABLE', '2017-12-30 00:25:10', '2018-01-26 21:55:42'),
-(4, 'Macbook', 'Laptop', 1, '1 year warranty', '2017-11-01', 'Macbook ng Comms', 'AVAILABLE', '2018-01-14 00:17:16', '2018-01-26 21:41:18');
+INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `receivedby`, `encodedby`, `created_at`, `updated_at`) VALUES
+(1, '2018-02-01', '2018-02-01', 'Bernie Jereza', 'AUTHENTICATED USER HERE', NULL, NULL),
+(2, '2018-02-01', '2018-02-01', 'Aivy Rose Villarba', 'AUTHENTICATED USER HERE', NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `equipment_codes`
+-- Table structure for table `equipment_details`
 --
 
-DROP TABLE IF EXISTS `equipment_codes`;
-CREATE TABLE IF NOT EXISTS `equipment_codes` (
-  `equipment_codes_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `equipment_details`;
+CREATE TABLE IF NOT EXISTS `equipment_details` (
+  `equipment_details_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `equipment_id` int(10) UNSIGNED NOT NULL,
+  `item_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_warranty` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `item_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'AVAILABLE',
+  `item_desc` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`equipment_codes_id`),
+  PRIMARY KEY (`equipment_details_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `equipment_codes`
+-- Dumping data for table `equipment_details`
 --
 
-INSERT INTO `equipment_codes` (`equipment_codes_id`, `equipment_id`, `item_code`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ITEM001', NULL, NULL),
-(2, 1, 'ITEM002', NULL, NULL),
-(3, 1, 'ITEM003', NULL, NULL),
-(4, 2, 'ITEM004', NULL, NULL),
-(5, 2, 'ITEM005', NULL, NULL),
-(6, 2, 'ITEM006', NULL, NULL),
-(7, 3, 'ITEM007', NULL, NULL),
-(8, 3, 'ITEM008', NULL, NULL),
-(9, 3, 'ITEM009', NULL, NULL),
-(10, 3, 'ITEM010', NULL, NULL),
-(11, 3, 'ITEM011', NULL, NULL),
-(12, 4, 'ITEM012', NULL, NULL);
+INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
+(1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', NULL, 'BORROWED', NULL, NULL, NULL),
+(2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', NULL, 'AVAILABLE', NULL, NULL, NULL),
+(3, 2, 'ITEMNAME3', 'TYPE2', 'CODE3', NULL, 'AVAILABLE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -154,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -174,7 +212,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2018_01_14_073110_profile_projects', 1),
 (13, '2018_01_14_073131_profile_events', 1),
 (14, '2018_01_26_060648_milestone_projects', 1),
-(15, '2018_01_30_074807_item__code', 2);
+(15, '2018_01_30_074807_item__code', 2),
+(16, '2018_01_31_031917_equipment_details', 3),
+(17, '2018_01_31_155208_borrow_details', 3);
 
 -- --------------------------------------------------------
 
@@ -427,7 +467,7 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (1, 11, 'Creative Cluster', '4th Year', 'AB-Psychology', '4-AB Psych', 'ACTIVE', '2018-01-21 22:10:36', '2018-01-26 19:57:36'),
 (2, 12, 'Broadcast & Productions Cluster', '4th Year', 'AB Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:11:46', '2018-01-21 22:11:46'),
 (3, 13, 'Creative Cluster', '4th Year', 'AB IS Major in Asian Studies', '4-AB IS Major in Asian Studies', 'ACTIVE', '2018-01-21 22:13:05', '2018-01-21 22:13:05'),
-(4, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Technology', 'IT 3-A', 'ACTIVE', '2018-01-21 22:13:54', '2018-01-21 22:13:54'),
+(4, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Technology', 'IT 3-A', 'ACTIVE', '2018-01-21 22:13:54', '2018-02-01 00:46:13'),
 (5, 15, 'Creative Cluster', '4th Year', 'BSEd English', '4-BSEd English', 'ACTIVE', '2018-01-21 22:15:08', '2018-01-21 22:15:08'),
 (6, 16, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Systems', 'InSys 3-A', 'ACTIVE', '2018-01-21 22:16:15', '2018-01-21 22:16:15'),
 (7, 17, 'Broadcast & Productions Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:17:59', '2018-01-21 22:17:59'),
@@ -465,14 +505,27 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 -- Constraints for table `borrow`
 --
 ALTER TABLE `borrow`
-  ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`),
-  ADD CONSTRAINT `borrow_ibfk_2` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+  ADD CONSTRAINT `borrow_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
 
 --
--- Constraints for table `equipment_codes`
+-- Constraints for table `borrow_details`
 --
-ALTER TABLE `equipment_codes`
-  ADD CONSTRAINT `equipment_codes_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+ALTER TABLE `borrow_details`
+  ADD CONSTRAINT `borrow_details_ibfk_1` FOREIGN KEY (`borrow_id`) REFERENCES `borrow` (`borrow_id`),
+  ADD CONSTRAINT `borrow_details_ibfk_2` FOREIGN KEY (`equipment_details_id`) REFERENCES `equipment_details` (`equipment_details_id`);
+
+--
+-- Constraints for table `borrow_profile`
+--
+ALTER TABLE `borrow_profile`
+  ADD CONSTRAINT `borrow_profile_ibfk_1` FOREIGN KEY (`borrow_id`) REFERENCES `borrow` (`borrow_id`),
+  ADD CONSTRAINT `borrow_profile_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`profile_id`);
+
+--
+-- Constraints for table `equipment_details`
+--
+ALTER TABLE `equipment_details`
+  ADD CONSTRAINT `equipment_details_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
 
 --
 -- Constraints for table `milestone_projects`

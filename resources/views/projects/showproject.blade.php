@@ -57,26 +57,34 @@
 				<div class="col-lg-12">
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="<?php ?>" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+						<div id="projProgBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+						<!--
+							Divide total/finished milestones via query, round to nearest whole number
+							change value of style="width: <accordingly>"
+						-->
                     	</div>
 				</div>
 				<div class = "col-lg-12">
-				<div class="col-lg-6">
-					<label for="project_details">Project Details</label>
-							<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
-				</div>
-				<div class="col-lg-6">
-					<br>
-					<!--No function for milestones yet-->
-					<label>Project Milestones</label><br>
-					<!--Lagay ng foreach for each Milestone from DB-->
+					<div class="col-lg-6">
+						<label for="project_details">Project Details</label>
+								<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
+					</div>
+					<div class="col-lg-6">
+						<br>
+						<!--No function for milestones yet-->
+						<label>Project Milestones</label><br>
+						<!--Lagay ng foreach for each Milestone from DB-->
 
-					@foreach($milestones as $value)
+						@foreach($milestones as $value)
 
-					<label>
-						<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked="#"> {{$value->milestone_name}}
-					</label><br>
-                    @endforeach
+						<label>
+							<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked> {{$value->milestone_name}}
+						</label><br>
+						<!--
+							If milestone_status = finished
+									change checkbox to checked
+						-->
+	                    @endforeach
 				</div>
 				</div>
 				<div class="form-group col-lg-4">
