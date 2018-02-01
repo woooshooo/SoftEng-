@@ -21,9 +21,13 @@ class Profile extends Model
   {
     return $this->hasOne('App\Staffs','profile_id');
   }
-  public function borrow()
+  public function borrows()
   {
-    return $this->hasMany('App\Borrow','profile_id');
+    return $this->hasMany('App\Borrow','borrow_id','profile_id');
+  }
+  public function borrowprofile()
+  {
+    return $this->hasOne('App\BorrowProfile','profile_id');
   }
   public function projects()
   {

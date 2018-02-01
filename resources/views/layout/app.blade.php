@@ -21,6 +21,7 @@ $user = Staffs::find($id)->profile;
 		<!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
+
     <!-- MetisMenu CSS -->
     <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 
@@ -154,16 +155,17 @@ $("[data-toggle=popover]")
 			autoclose: true,
 		});
 </script>
-
-<script>//stuff
+<!-- ADDING MORE Equipment-->
+<script>
 $(document).ready(function(){
     var i=1;
     $('#add').click(function(){
          i++;
-         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control searchItem"></td><td><input type="number" name="qtyBorrowed[]" class="form-control" placeholder="Quantiy to Borrow" ></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemtype" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
          $( ".searchItem" ).autocomplete({
            source: 'http://localhost:8000/searchItem'
          });
+         //CREATE SEARCH ITEM TYPE
     });
     $(document).on('click', '.btn_remove', function(){
          var button_id = $(this).attr("id");
@@ -181,20 +183,71 @@ $(document).ready(function(){
               }
          });
     });
-    $( function() {
-      $( "#searchItem" ).autocomplete({
-        source: 'http://localhost:8000/searchItem'
-      });
-    });
-    $( function() {
-      $( "#searchProfile" ).autocomplete({
-        source: 'http://localhost:8000/searchProfile'
-      });
-    });
+
     $('#myModal').modal(options)
 });
 </script>
 
+<!-- ADDING MORE Equipment-->
+<script>
+$(document).ready(function(){
+    var i=1;
+    $('#addborrow').click(function(){
+         i++;
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><input type="text" id="searchItemCode'+i+'" name="item_code[]" placeholder="Enter Item Code"class="form-control"</td><td><input type="text" id="searchItem'+i+'" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
 
+         $( '.searchItem'+i+'' ).autocomplete({
+           source: 'http://localhost:8000/searchItem'
+         });
+         $( '#searchItemCode'+i+'').autocomplete({
+           source: 'http://localhost:8000/searchItemCode'
+         });
+    });
+    $( function() {
+      $( "#searchItemCode" ).autocomplete({
+        source: 'http://localhost:8000/searchItemCode'
+      });
+    });
+    $(document).on('click', '.btn_remove', function(){
+         var button_id = $(this).attr("id");
+         $('#row'+button_id+'').remove();
+    });
+    $('#submit').click(function(){
+         $.ajax({
+              url:"/addborroweditem",
+              method:"POST",
+              data:$('#add_item').serialize(),
+              success:function(data)
+              {
+                   alert(data);
+                   $('#add_item')[0].reset();
+              }
+         });
+    });
+});
+</script>
+
+<script>
+$( function() {
+  $( "#searchItem" ).autocomplete({
+    source: 'http://localhost:8000/searchItem'
+  });
+});
+$( function() {
+  $( "#searchProfilee" ).autocomplete({
+    source: 'http://localhost:8000/searchProfile'
+  });
+});
+$( function() {
+  $( "#searchProfile" ).autocomplete({
+    source: 'http://localhost:8000/searchProfile'
+  });
+});
+$( function() {
+  $( "#searchItemCode" ).autocomplete({
+    source: 'http://localhost:8000/searchItemCode'
+  });
+});
+</script>
 
 </html>

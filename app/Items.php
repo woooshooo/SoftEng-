@@ -11,15 +11,12 @@ class Items extends Model
   //Primary Key
   public $primaryKey = 'equipment_id';
   //Timestamps
-  public $timestamps = true;
+  public $timestamps = false;
 
-  public function borrow()
+
+  public function itemdetail()
   {
-    return $this->belongsTo('App\Borrow', 'equipment_id');
-  }
-  public function itemcode()
-  {
-    return $this->hasMany('App\ItemCode', 'equipment_id');
+    return $this->hasMany('App\ItemDetails', 'equipment_id');
   }
 
 }

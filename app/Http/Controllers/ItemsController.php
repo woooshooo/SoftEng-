@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use App\Borrow;
 use App\Items;
 use App\Profile;
-use App\ItemCode;
+use App\ItemDetails;
+use App\BorrowDetails;
 use DB;
 class ItemsController extends Controller
 {
@@ -21,15 +22,24 @@ class ItemsController extends Controller
     public function index()
     {
         $items = Items::all();
-        $itemcodes = ItemCode::all();
+        $itemdetails = ItemDetails::all();
         $borrows = Borrow::all();
-        $avails = DB::select('select a.equipment_id,a.item_name, a.item_status, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
-          from equipments a left join (select * from borrow where borrow_status = "borrowed") b
-          ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
-        $title = 'View Equipments';
-        $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, equipments.item_name AS item_name,borrow.purpose AS purpose ,borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
+        $profiles = Profile::all();
+        $borrowdetails = BorrowDetails::all();
+        // foreach ($borrows as $key => $value) {
+        //   return $value->profile[$key]->firstname;
+        //
+        // }
 
-        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails)->with('borrowedBy',$borrowedBy)->with('itemcodes', $itemcodes);
+        // $avails = DB::select('select a.equipment_id,a.item_name, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
+        //   from equipments a left join (select * from borrow where borrow_status = "borrowed") b
+        //   ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
+        $title = 'View Equipments';
+        // $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, borrow.equipment_id, equipments.item_name AS item_name, borrow.purpose AS purpose, borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id LEFT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
+
+
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails);
+        // ->with('avails', $avails)->with('borrowedBy',$borrowedBy)
     }
 
     /**
@@ -50,22 +60,37 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
+
       //validate
         $this->validate($request, [
+          'dateordered' => 'required',
+          'datedelivered' => 'required',
+          'receivedby' => 'required',
+          'encodedby' => 'required',
           'item_name' => 'required',
           'item_type' => 'required',
-          'item_quantity' => 'required',
-          'item_notes' => 'required',
+          'item_code' => 'required'
         ]);
 
-      $items = new Items;
-      $items->item_name = $request->input('item_name');
-      $items->item_type = $request->input('item_type');
-      $items->item_quantity = $request->input('item_quantity');
-      $items->item_notes = $request->input('item_notes');
-      $items->save();
+          $count = count($request->item_name);
+          $items = new Items;
+          $items->dateordered = $request->input('dateordered');
+          $items->datedelivered = $request->input('datedelivered');
+          $items->receivedby = $request->input('receivedby');
+          $items->encodedby = $request->input('encodedby');
+          $items->save();
+        for($num = $count; $num > 0; $num-- ){
+          $itemdetails = new ItemDetails;
+          $itemdetails->equipment_id = $items->equipment_id;
+          $itemdetails->item_name = $request->item_name[$num-1];
+          $itemdetails->item_type = $request->item_type[$num-1];
+          $itemdetails->item_code = $request->item_code[$num-1];
+          $itemdetails->item_warranty = $request->item_warranty[$num-1];
+          $itemdetails->item_desc = $request->item_desc[$num-1];
+          $itemdetails->save();
+        }
 
-      return redirect('/items')->with('success','Equipment/s Added!')->with('items',$items);
+      return redirect('/items')->with('success','Equipment/s Added!')->with('items',$items)->with('itemdetails', $itemdetails);
     }
 
     /**
@@ -77,15 +102,11 @@ class ItemsController extends Controller
     public function show($id)
     {
       $items = Items::find($id);
-      $itemcodes = ItemCode::all();
+      $itemdetails = Items::find($id)->itemdetail;
       $borrows = Borrow::all();
-      $avails = DB::select('select (b.item_quantity - sum(a.qtyBorrowed)) AS `available`, sum(a.qtyBorrowed) AS `borrowed`, b.item_notes, b.item_status
-      from borrow a left join equipments b
-      ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
       $title = 'Viewing Equipment';
-      $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, borrow.equipment_id, equipments.item_name AS item_name,borrow.purpose AS purpose ,borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id RIGHT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
-      $totalBorrowed = DB::select('select equipment_id, sum(qtyBorrowed) as `sum` from `borrow`,`profiles` where borrow.profile_id=profiles.profile_id group by equipment_id');
-      return View('inventory/showitem')->with('title',$title)->with('items', $items)->with('avails', $avails)->with('borrows', $borrows)->with('borrowedBy',$borrowedBy)->with('totalBorrowed',$totalBorrowed)->with('itemcodes', $itemcodes);
+
+      return View('inventory/showitem')->with('title',$title)->with('items', $items)->with('borrows', $borrows)->with('itemdetails',$itemdetails);
 
     }
 
@@ -111,24 +132,28 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
       //validate
         $this->validate($request, [
-          'item_name' => 'required',
-          'item_type' => 'required',
-          'item_quantity' => 'required',
+
+          'item_warranty' => 'required',
           'item_notes' => 'required',
+          'item_dateofpurchase' => 'required',
+          'item_code' => 'required'
+
         ]);
-      //update staff profile
-      $items = Items::find($id);
-      $items->item_name = $request->input('item_name');
-      $items->item_type = $request->input('item_type');
-      $items->item_quantity = $request->input('item_quantity');
-      $items->item_notes = $request->input('item_notes');
-      $items->save();
 
-      return redirect('items/'.$id)->with('success','Equipment Edited!')->with('items',$items);
+          $itemdetails = ItemDetails::where('equipment_id', $id)->first();
+          $itemdetails->equipment_id = $items->equipment_id;
+          $itemdetails->item_dateofpurchase = $request->input('item_dateofpurchase');
+          $itemdetails->item_warranty = $request->input('item_warranty');
+          $itemdetails->item_notes = $request->input('item_notes');
+          $itemdetails->item_code = $request->input('item_code');
+          $itemdetails->item_status = 'AVAILABLE';
+          $itemdetails->save();
+      return redirect('items/'.$id);
     }
-
     /**
      * Remove the specified resource from storage.
      *

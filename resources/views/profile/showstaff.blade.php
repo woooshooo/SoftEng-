@@ -71,42 +71,46 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Borrowed Items</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Borrowed Items</h3>
+
       </div>
       <div class="modal-body">
-        <div class="row">
-            <div class="col-lg-12">
-                <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
-                  <thead>
-                    <tr>
-          						<th>Item Name</th>
-          						<th>Quantity Borrowed</th>
-          						<th>Purpose</th>
-                      <th>Date Borrowed</th>
-                      <th>Date Returned</th>
-                    </tr>
-                </thead>
-                @foreach ($borrows as $value)
-                  @if ($value->firstname == $profiles->firstname)
-                    <tr class="clickable-row" data-href="/items/{{$value->equipment_id}}">
-                      <td>{{$value->item_name}}</td>
-                      <td>{{$value->qtyBorrowed}}</td>
-                      <td>{{$value->purpose}}</td>
-                      <td>{{$value->created_at}}</td>
-                      @if($value->borrow_status == "borrowed")
-                        <td>Not yet returned.</td>
-                      @else
-                        <td>{{$value->updated_at}}</td>
-                      @endif
-                  </tr>
-                  @endif
-                @endforeach
-              </table>
-            </div>
-        </div>
+      <div class="row">
+        <div class=" col-lg-12 ml-auto">
+        <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+          <thead>
+            <tr>
+              <th>Borrower</th>
+              <th>Item Name</th>
+              <th>Item Code</th>
+              <th>To return after</th>
+              <th>Date Borrowed</th>
+              <th>Date Returned</th>
+            </tr>
+          </thead>
+        @foreach($borrows as $key => $value)
+           @if($value->profile_id == $profileid)
+           <tr>
+               <td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
+               <td>{{$value->itemdetails[0]->item_name}}</td>
+               <td>{{$value->itemdetails[0]->item_code}}</td>
+               <td>{{$value->borrowdetail[0]->numberofdays}} day/s</td>
+               <td>{{$value->dateborrowed}}</td>
+               @if(!empty($value->borrowdetail[0]->returndate))
+                 <td>{{$value->borrowdetail[0]->returndate}}</td>
+                 @else
+                 <td>Not yet returned</td>
+               @endif
+           </tr>
+           @endif
+        @endforeach
+      </table>
+      </div>
+      </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

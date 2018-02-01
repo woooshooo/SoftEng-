@@ -11,11 +11,18 @@ class ItemDetails extends Model
   //Primary Key
   public $primaryKey = 'equipment_details_id';
   //Timestamps
-  public $timestamps = true;
-
+  public $timestamps = false;
+  protected $fillable = ['item_status'];
   public function item()
   {
-    return $this->belongsToMany('App\Items', 'equipment_id');
+    return $this->belongsTo('App\Items', 'equipment_id');
   }
-
+  public function borrow()
+  {
+    return $this->belongsToMany('App\Borrow', 'borrow_id');
+  }
+  public function borrowdetail()
+  {
+    return $this->belongsToMany('App\BorrowDetails', 'borrow_id');
+  }
 }

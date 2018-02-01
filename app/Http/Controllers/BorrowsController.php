@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Borrow;
+use App\BorrowProfile;
+use App\BorrowDetails;
 use App\Items;
+use App\ItemDetails;
 use App\Profile;
 use DB;
+use Carbon\Carbon;
 class BorrowsController extends Controller
 {
     /**
@@ -18,11 +22,8 @@ class BorrowsController extends Controller
     {
       $items = Items::all();
       $borrows = Borrow::all();
-      $avails = DB::select('select a.equipment_id,a.item_name, a.item_status, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
-        from equipments a left join (select * from borrow where borrow_status = "borrowed") b
-        ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
       $title = 'Borrow Equipments';
-      return view('inventory/borrowitem')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('avails', $avails);
+      return view('inventory/borrowitem')->with('title', $title)->with('items', $items)->with('borrows', $borrows);
     }
 
     /**
@@ -43,35 +44,40 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
-
+      //return $request;
       //validate
         $this->validate($request, [
+          'dateborrowed' => 'required',
           'borrower' => 'required',
-          'item_name' => 'required',
-          'qtyBorrowed' => 'required',
-          'purpose' => 'required',
+          'item_code'=> 'required',
+          'item_name'=> 'required',
+          'numberofdays'=> 'required',
+          'purpose' => 'required'
         ]);
 
-        $count = count($request->item_name);
+        $count = count($request->item_code);
+        $borrows = new Borrow;
+        $borrows->dateborrowed = $request->input('dateborrowed');
+        $name = explode(' ',$request->input('borrower'));
+        $borrows->profile_id = Profile::where('firstname','LIKE','%'.$name[0].'%')->first()->profile_id;
+        $borrows->purpose = $request ->input('purpose');
+        $borrows->save();
+        $borrow_profile = new BorrowProfile;
+        $borrow_profile->borrow_id = $borrows->borrow_id;
+        $borrow_profile->profile_id = $borrows->profile_id;
+        $borrow_profile->save();
         for($num = $count; $num > 0; $num-- ){
-          $borrows = new Borrow;
-          $equipment = $request->item_name[$num-1];
-          $borrows->qtyBorrowed = $request->qtyBorrowed[$num-1];
-          $borrows->purpose = $request->input('purpose');
-          $name = strtok($request->borrower," ");
-          $profileDB = Profile::where('firstname', 'LIKE', '%'.$name.'%')->first()->profile_id;
-          $borrows->profile_id = $profileDB;
-          $itemDB = Items::where('item_name', $equipment)->first()->equipment_id;
-          $borrowed = Borrow::where('equipment_id', $itemDB)->where('borrow_status','borrowed')->sum('qtyBorrowed');
-          if(Items::where('equipment_id',$itemDB)->value('item_quantity') == $borrowed){
-            return redirect('/items')->with('error','Equipment/s not available for borrowing!')->with('borrows',$borrows);
-          } else {
-            $borrows->equipment_id = $itemDB;
-            $borrows->save();
-          }
-      }
+          $borrowdetails = new BorrowDetails;
+          $borrowdetails->borrow_id = $borrows->borrow_id;
+          $borrowdetails->equipment_details_id = ItemDetails::where('item_code',$request->item_code[$num-1])->value('equipment_details_id');
+          $borrowdetails->numberofdays = $request->numberofdays[$num-1];
+          $borrowdetails->save();
+          $itemdetails = ItemDetails::where('item_code',$request->item_code[$num-1])->first();
+          $itemdetails->item_status = 'BORROWED';
+          $itemdetails->save();
+        }
 
-      return redirect('/items')->with('success','Equipment Borrowed!')->with('borrows',$borrows);
+      return redirect('/items')->with('success','Equipment Borrowed!')->with('borrows',$borrows)->with('$orrowdetails',$borrowdetails);
     }
 
     /**
@@ -119,9 +125,13 @@ class BorrowsController extends Controller
     public function update(Request $request, $id)
     {
       //validate
-        $ret = Borrow::find($id);
-        $ret->borrow_status = 'returned';
-        $ret->save();
+
+        $return = Borrow::find($id)->borrowdetail->first();
+        $item = Borrow::find($id)->itemdetails->first();
+        $item->item_status = 'AVAILABLE';
+        $return->returndate = date('Y-m-d');
+        $return->save();
+        $item->save();
         return redirect("/items")->with('success','Item Returned');
       }
 
@@ -140,8 +150,8 @@ class BorrowsController extends Controller
     public function searchItem(Request $request)
     {
       $term = $request->term;
-      $items = Items::where('item_name','LIKE','%'.$term.'%')->get();
-      if ( count($items) == 0){
+      $items = ItemDetails::where('item_name','LIKE','%'.$term.'%')->get();
+      if (count($items) == 0){
         $searchResult[] = 'Equipment not found.';
       } else {
         foreach ($items as $key => $value) {
@@ -151,6 +161,17 @@ class BorrowsController extends Controller
             $searchResult[] = $value->item_name;
         }
       }
+      return $searchResult;
+
+    }
+    public function searchItemCode(Request $request)
+    {
+      $term = $request->term;
+      $items = ItemDetails::where('item_code','LIKE','%'.$term.'%')->get();
+
+        foreach ($items as $key => $value) {
+            $searchResult[] = $value->item_code;
+        }
       return $searchResult;
 
     }

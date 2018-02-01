@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Staffs;
 use App\Profile;
 use App\User;
+use App\Borrow;
 use DB;
 class StaffsController extends Controller
 {
@@ -85,15 +86,19 @@ class StaffsController extends Controller
      */
     public function show($id)
     {
-      // $staff = Profile::find($id)->staff;
+      $title = 'Staffs';
       $profiles = Profile::find($id);
+      $profileid = Profile::find($id)->profile_id;
       $staffs = Profile::find($id)->staff;
-      $title = 'Staff';
 
-      $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose, borrow.borrow_status as borrow_status, borrow.created_at as created_at, borrow.updated_at as updated_at from profiles
-                          inner join borrow on profiles.profile_id = borrow.profile_id
-                          inner join equipments on borrow.equipment_id = equipments.equipment_id');
-      return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows);
+      if (Profile::find($id)->borrowprofile) {
+        $borrowid = Profile::find($id)->borrowprofile->value('borrow_id');
+        $borrows = Borrow::find($borrowid)->get();
+        return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
+      } else {
+        $borrows = Borrow::all();
+        return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
+      }
     }
 
     /**

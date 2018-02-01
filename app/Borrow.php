@@ -11,19 +11,21 @@ class Borrow extends Model
   //Primary Key
   public $primaryKey = 'borrow_id';
   //Timestamps
-  public $timestamps = true;
+  public $timestamps = false;
 
-  protected $fillable = [
-      'equipment_id, profile_id, qtyBorrowed'
-  ];
+
   public function profile()
   {
-    return $this->belongsToMany('App\Profile','profile_id');
+    return $this->belongsToMany('App\Profile','borrow_profile','borrow_id','profile_id');
   }
 
-  public function item()
+  public function borrowdetail()
   {
-    return $this->hasMany('App\Items','equipment_id');
+    return $this->hasMany('App\BorrowDetails','borrow_id');
+  }
+  public function itemdetails()
+  {
+    return $this->hasMany('App\ItemDetails', 'equipment_details_id');
   }
 
 }

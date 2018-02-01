@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use App\Vols;
 use App\Profile;
+use App\Borrow;
+use App\BorrowProfile;
 use DB;
 class VolsController extends Controller
 {
@@ -81,14 +83,25 @@ class VolsController extends Controller
      */
     public function show($id)
     {
-      $profiles = Profile::find($id);
-      $vols = Profile::find($id)->volunteer;
       $title = 'Volunteer';
+      $profiles = Profile::find($id);
+      $profileid = Profile::find($id)->profile_id;
+      $vols = Profile::find($id)->volunteer;
+      if (Profile::find($id)->borrowprofile) {
+        $borrowid = Profile::find($id)->borrowprofile->value('borrow_id');
+        $borrows = Borrow::find($borrowid)->get();
+        return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
+      } else {
+        $borrows = Borrow::all();
+        return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
+      }
 
-      $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose, borrow.borrow_status as borrow_status, borrow.created_at as created_at, borrow.updated_at as updated_at from profiles
-                          inner join borrow on profiles.profile_id = borrow.profile_id
-                          inner join equipments on borrow.equipment_id = equipments.equipment_id');
-      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows);
+
+
+      // foreach ($borrows as $key => $value) {
+      //   return $value;
+      // }
+
     }
 
     /**
