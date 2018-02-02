@@ -117,13 +117,21 @@ class BorrowsController extends Controller
     public function update(Request $request, $id)
     {
       //validate
+        $return = Borrow::find($id)->borrowdetail;
+        $count = count($return);
+        foreach ($return as $key => $value) {
+          $rid = $return[$key]->borrow_details_id;
+          $bd = BorrowDetails::find($rid);
+          $bid = BorrowDetails::find($rid)->equipment_details_id;
+          $items = ItemDetails::find($bid);
+          $items->item_status = "AVAILABLE";
+          $items->item_desc = $request->item_desc[$count-1];
+          $count--;
+          $items->save();
+          $bd->returndate = date('Y-m-d');
+          $bd->save();
+        }
 
-        $return = Borrow::find($id)->borrowdetail->first();
-        $item = Borrow::find($id)->itemdetails->first();
-        $item->item_status = 'AVAILABLE';
-        $return->returndate = date('Y-m-d');
-        $return->save();
-        $item->save();
         return redirect("/items")->with('success','Item Returned');
       }
 

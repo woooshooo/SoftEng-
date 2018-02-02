@@ -123,7 +123,7 @@
                <td>{{$value->itemdetails[0]->item_code}}</td>
                <td>{{$value->borrowdetail[0]->numberofdays}} day/s</td>
                <td>{{$value->dateborrowed}}</td>
-               @if(!empty($value->borrowdetail[0]->returndate))
+               @if(!is_null($value->borrowdetail[0]->returndate))
                  <td>{{$value->borrowdetail[0]->returndate}}</td>
                  @else
                  <td>Not yet returned</td>

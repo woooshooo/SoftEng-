@@ -43,14 +43,14 @@
 							<label class="control-label" for="item_status">Equipment Status</label>
 							<input type="text" class="form-control custom-search-form" name="item_status" value="{{$itemdetails->item_status}}" disabled>
 						</div>
-						<div class="form-group col-lg-8	">
+						<div class="form-group col-lg-4">
 							<label class="control-label" for="item_warranty">Equipment Warranty</label>
 							<input type="text" class="form-control custom-search-form" name="item_warranty" value="{{$itemdetails->item_warranty}}" disabled>
 						</div>
-						<div class="form-group col-lg-12">
-							<label class="control-label" for="encodedby">Description</label>
-							<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control custom-search-form" name="item_desc" disabled>
-							{{$itemdetails->item_description}}</textarea>
+						<div class="form-group col-lg-4">
+							<label class="control-label" for="item_desc">Condition</label>
+							<input type="text" class="form-control custom-search-form" name="item_desc" value="{{$itemdetails->item_desc}}" disabled>
+							</input>
 						</div>
 
 					</div>

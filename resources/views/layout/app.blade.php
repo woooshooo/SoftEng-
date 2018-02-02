@@ -218,6 +218,11 @@ $(document).ready(function(){
         source: 'http://localhost:8000/searchItemCode'
       });
     });
+    $( function() {
+      $( "#searchItem" ).autocomplete({
+        source: 'http://localhost:8000/searchItem'
+      });
+    });
     $(document).on('click', '.btn_remove', function(){
          var button_id = $(this).attr("id");
          $('#row'+button_id+'').remove();
@@ -236,7 +241,7 @@ $(document).ready(function(){
     });
 });
 </script>
-<script>
+{{-- <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
     source: 'http://localhost:8000/searchItem'
@@ -257,9 +262,8 @@ $( function() {
     source: 'http://localhost:8000/searchItemCode'
   });
 });
-<<<<<<< HEAD
 
-</script>
+</script> --}}
 
 <script>
 

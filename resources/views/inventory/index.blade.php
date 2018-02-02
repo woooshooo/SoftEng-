@@ -7,7 +7,7 @@
 				<div class="navbutton">
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">Return Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">Return Equipments</button>
 				</div><br>
 
 				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
@@ -126,7 +126,7 @@
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="dateborrowed">Date Borrowed</label>
-						<input type="date" class="form-control custom-search-form" name="dateborrowed" placeholder="Enter Date">
+						<input type="date" class="form-control custom-search-form" name="dateborrowed" placeholder="Enter Date" value="">
 					</div>
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
@@ -192,26 +192,21 @@
 						<thead>
 							<tr>
 								<th>Borrower</th>
-								<th>Item Name</th>
-								<th>Item Code</th>
+								<th>Purpose</th>
 								<th>Date Borrowed</th>
 								<th>Option</th>
 							</tr>
 						</thead>
-					@foreach($borrowed as $key => $value)
-							<tr>
-								@if (is_null($value->returndate))
-								 <td>{{$value->firstname}} {{$value->lastname}}</td>
-	 							 <td>{{$value->item_name}}</td>
-	 							 <td>{{$value->item_code}}</td>
-	 							 <td>{{$value->dateborrowed}}</td>
-	 							{!! Form::open(['action' => ['BorrowsController@update',$value->borrow_id], 'method' => 'POST',
-	 								'class' => 'form'])!!}
-	 							<td>{{Form::submit('Return',['class' => 'btn btn-default btn-block' ])}}</td>
-	 							{{Form::hidden('_method','PUT')}}
-	 							{!!Form::close()!!}
-								@endif
-						 </tr>
+					@foreach($borrows as $key => $value)
+						@if (is_null($value->borrowdetail[0]->returndate))
+						<tr>
+							<td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
+							<td>{{$value->purpose}}</td>
+							<td>{{$value->dateborrowed}}</td>
+							<td><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#returnconfirmation">Return</button></td>
+
+						</tr>
+					@endif
 
 				 	@endforeach
 				</table>
@@ -267,6 +262,58 @@
       	</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- Modal BORROW FORMS -->
+<div class="modal fade bd-example-modal-lg" id="returnconfirmation" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Confirmation</h3>
+      </div>
+      <div class="modal-body">
+				<div class="row">
+					<div class=" col-lg-12 ml-auto">
+
+
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
+					<thead>
+						<tr>
+							<th>Item Name</th>
+							<th>Item Code</th>
+							<th>Date Borrowed</th>
+							<th>Item Description</th>
+						</tr>
+					</thead>
+				@foreach($borrowed as $key => $value)
+						<tr>
+							@if (is_null($value->returndate))
+							 <td>{{$value->item_name}}</td>
+							 <td>{{$value->item_code}}</td>
+							 <td>{{$value->dateborrowed}}</td>
+							 {!! Form::open(['action' => ['BorrowsController@update',$value->borrow_id], 'method' => 'POST', 'class' => 'form'])!!}
+				 			{{ csrf_field() }}
+							 <td><input type="text" name="item_desc[]" class="form-control" style="width: 100%" placeholder="condition of item here"></input></td>
+							@endif
+					 </tr>
+				@endforeach
+			</table>
+				</div>
+			</div>
+      <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				{{Form::submit('Return',['class' => 'btn btn-primary' ])}}
+				{{Form::hidden('_method','PUT')}}
+				{!!Form::close()!!}
       </div>
     </div>
   </div>
