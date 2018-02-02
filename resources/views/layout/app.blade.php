@@ -227,7 +227,6 @@ $(document).ready(function(){
 });
 </script>
 
-<<<<<<< HEAD
 <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
@@ -249,18 +248,23 @@ $( function() {
     source: 'http://localhost:8000/searchItemCode'
   });
 });
-=======
-<!-- To change progress bar width (inline style) -->
-<script>
+//To change progress bar width (inline style)
 $(document).ready(function(){
   $('#projProgBar').css('width', '100%');
 });
+  
+</script>
+
+<script>
   //count checkboxes in div where milestones are
-function countMilestone(){
+  $(document).ready(function(){
+    var $checkboxes = $('#milestonesform label input[type="checkbox"]');
 
-}
-
->>>>>>> 38b9934e0e43ec3a0d5de3cf0892bd51680ce4b4
+    $checkboxes.change(function(){
+      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+      $('#count-checked-checkboxes').text(countCheckedCheckboxes);
+    });
+  });
 </script>
 
 </html>
