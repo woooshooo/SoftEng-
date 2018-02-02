@@ -55,9 +55,16 @@ $user = Staffs::find($id)->profile;
       @media screen
       {
       }
+
       .ui-front {
         z-index:1001;
-        }
+      }
+      .modal-backdrop {
+        visibility: hidden !important;
+      }
+      .modal.in {
+        background-color: rgba(0,0,0,0.5);
+      }
     </style>
 
   </head>
@@ -132,6 +139,9 @@ $(document).ready(function() {
 				responsive: true
 		});
     $('#dataTables').DataTable({
+				responsive: true
+		});
+    $('#dataTables-forms').DataTable({
 				responsive: true
 		});
     $('#dataTables-record').DataTable( {
@@ -226,8 +236,6 @@ $(document).ready(function(){
     });
 });
 </script>
-
-<<<<<<< HEAD
 <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
@@ -249,7 +257,24 @@ $( function() {
     source: 'http://localhost:8000/searchItemCode'
   });
 });
-=======
+
+</script>
+
+<script>
+
+$('#listallborrowed').on('hidden.bs.modal', function (event) {
+  if ($('.modal:visible').length) {
+    $('body').addClass('modal-open');
+  }
+});
+
+</script>
+
+
+
+
+
+
 <!-- To change progress bar width (inline style) -->
 <script>
 $(document).ready(function(){
@@ -260,7 +285,6 @@ function countMilestone(){
 
 }
 
->>>>>>> 38b9934e0e43ec3a0d5de3cf0892bd51680ce4b4
 </script>
 
 </html>

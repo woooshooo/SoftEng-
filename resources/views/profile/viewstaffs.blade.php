@@ -4,6 +4,10 @@
 				<div class="panel-heading">
 					<h1>Viewing Staff Profiles</h1>
 				</div>
+				<div class="navbutton noprint">
+					<a class="btn btn-default btn-lg btn-inline" href="{{url('vols')}}">View Volunteers</a>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addStaff">Add Staff</button>
+				</div><br>
 				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
           <thead>
             <tr>
@@ -31,10 +35,7 @@
 
 				</table>
 				<br>
-				<div class="navbutton noprint">
-					<a class="btn btn-default btn-lg btn-inline" href="{{url('vols')}}">View Volunteers</a>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addStaff">Add Staff</button>
-				</div>
+
 			</div>
 @endsection
 

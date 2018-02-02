@@ -99,7 +99,7 @@ class StaffsController extends Controller
         $borrows = Borrow::all();
         return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
       }
-    }
+}
 
     /**
      * Show the form for editing the specified resource.

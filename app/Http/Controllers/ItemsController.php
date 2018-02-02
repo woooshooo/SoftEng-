@@ -21,25 +21,17 @@ class ItemsController extends Controller
      }
     public function index()
     {
+        $profiles = Profile::all();
         $items = Items::all();
         $itemdetails = ItemDetails::all();
         $borrows = Borrow::all();
+        $borrowed = DB::select('select borrow.borrow_id, borrow.dateborrowed, borrow.purpose, borrow.profile_id, borrow_details.returndate, PROFILES.firstname, PROFILES.lastname, equipment_details.* FROM equipment_details INNER JOIN borrow_details ON borrow_details.equipment_details_id = equipment_details.equipment_details_id INNER JOIN borrow ON borrow.borrow_id = borrow_details.borrow_id INNER JOIN profiles ON profiles.profile_id = borrow.profile_id');
         $profiles = Profile::all();
         $borrowdetails = BorrowDetails::all();
-        // foreach ($borrows as $key => $value) {
-        //   return $value->profile[$key]->firstname;
-        //
-        // }
-
-        // $avails = DB::select('select a.equipment_id,a.item_name, a.item_quantity, COALESCE(a.item_quantity - sum(b.qtyBorrowed),a.item_quantity) AS available, COALESCE(sum(b.qtyBorrowed),0) AS borrowed
-        //   from equipments a left join (select * from borrow where borrow_status = "borrowed") b
-        //   ON a.equipment_id = b.equipment_id group by a.equipment_id'); //returns the sum of qty borrowed
         $title = 'View Equipments';
-        // $borrowedBy = DB::select('select borrow.borrow_id AS borrow_id, firstname, lastname, borrow.equipment_id, equipments.item_name AS item_name, borrow.purpose AS purpose, borrow.qtyBorrowed, borrow.borrow_status AS borrow_status, borrow.created_at AS created_at, borrow.updated_at AS updated_at FROM `borrow` LEFT JOIN `profiles` ON profiles.profile_id = borrow.profile_id LEFT JOIN `equipments` ON borrow.equipment_id = equipments.equipment_id');
 
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('borrowed',$borrowed)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles);
 
-        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails);
-        // ->with('avails', $avails)->with('borrowedBy',$borrowedBy)
     }
 
     /**

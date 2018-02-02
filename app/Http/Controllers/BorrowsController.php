@@ -88,18 +88,10 @@ class BorrowsController extends Controller
      */
     public function show($id)
     {
-        $title = 'Borrowed Items';
-        //$borrows = Profile::find($id)->borrow;
-        //$profiles = Profile::where('profile_id', $id)->first()->firstname;
-        $profiles = Profile::find($id);
-        //$borrows = DB::table('borrow')->where('borrow.profile_id','=',$id)
-        //->join('profiles', 'profiles.profile_id', '=', 'borrow.profile_id')
-        //->join('equipments', 'equipments.equipment_id', '=', 'borrow.equipment_id')
-        //->first();
-        $borrows = DB::select('select profiles.profile_id as id, profiles.firstname as firstname, equipments.item_name as item_name, equipments.equipment_id as equipment_id, borrow.qtyBorrowed as qtyBorrowed, borrow.purpose as purpose, borrow.borrow_status as borrow_status, borrow.created_at as created_at, borrow.updated_at as updated_at from profiles
-                            inner join borrow on profiles.profile_id = borrow.profile_id
-                            inner join equipments on borrow.equipment_id = equipments.equipment_id');
-        return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows)->with('profiles',$profiles);
+        $title = 'Borrow Form';
+        $borrows = Borrow::find($id);
+
+        return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows);
 
 
     }
@@ -155,26 +147,25 @@ class BorrowsController extends Controller
         $searchResult[] = 'Equipment not found.';
       } else {
         foreach ($items as $key => $value) {
-          if ($value->item_status == "UNAVAILABLE") {
-            $searchResult[] = "item not found";
-          }
+          if ($value->item_status == "AVAILABLE") {
             $searchResult[] = $value->item_name;
+          }
         }
       }
       return $searchResult;
 
     }
-    public function searchItemCode(Request $request)
-    {
+    public function searchItemCode(Request $request){
       $term = $request->term;
       $items = ItemDetails::where('item_code','LIKE','%'.$term.'%')->get();
-
-        foreach ($items as $key => $value) {
-            $searchResult[] = $value->item_code;
+      foreach ($items as $key => $value) {
+        if ($value->item_status == "AVAILABLE") {
+          $searchResult[] = $value->item_code;
         }
+      }
       return $searchResult;
+      }
 
-    }
     public function searchProfile(Request $request)
     {
       $term = $request->term;

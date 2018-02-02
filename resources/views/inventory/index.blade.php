@@ -4,6 +4,12 @@
 				<div class="panel-heading">
 					<h1>Inventory</h1>
 				</div>
+				<div class="navbutton">
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">Return Equipment</button>
+				</div><br>
+
 				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
           <thead>
             <tr>
@@ -19,17 +25,17 @@
 								<td>{{$value->item_name}}</td>
 								<td>{{$value->item_type}}</td>
 								<td>{{$value->item_code}}</td>
-								<td>{{$value->item_status}}</td>
+								@if ($value->item_status == "BORROWED" || $value->item_status == "DAMAGED")
+									<td><font color="red">{{$value->item_status}}</font></td>
+								@else
+									<td><font color="green">{{$value->item_status}}</font></td>
+								@endif
 						</tr>
 				@endforeach
 
 				</table>
 				<br>
-				<div class="navbutton">
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">View all borrowed</button>
-				</div>
+
 			</div>
 @endsection
 
@@ -42,7 +48,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">Delivery Receipt</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">Add Equipment</h3>
 
       </div>
       <div class="modal-body">
@@ -111,7 +117,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">Borrow Equipment Form</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">Borrow Form</h3>
 
       </div>
       <div class="modal-body">
@@ -124,7 +130,12 @@
 					</div>
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
-						<input type="text" class="form-control custom-search-form" id="searchProfilee" name="borrower" placeholder="Enter Borrower">
+						{{-- <input type="text" class="form-control custom-search-form" id="searchProfilee" name="borrower" placeholder="Enter Borrower"> --}}
+						<select class="form-control custom-search-form" name="borrower">
+							@foreach ($profiles as $key => $value)
+								<option value="{{$value->firstname}} {{$value->lastname}}">{{$value->firstname}} {{$value->lastname}}</option>
+							@endforeach
+						</select>
 					</div>
 					<div class="form-group col-lg-12">
 										<div class="table-responsive">
@@ -147,7 +158,7 @@
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="purpose">Purpose</label>
-						<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" name="purpose"></textarea>
+						<textarea style="height: 10%; width: 100%; resize: vertical" class="form-control" name="purpose"></textarea>
 					</div>
 
 
@@ -183,22 +194,25 @@
 								<th>Borrower</th>
 								<th>Item Name</th>
 								<th>Item Code</th>
+								<th>Date Borrowed</th>
 								<th>Option</th>
 							</tr>
 						</thead>
-					@foreach ($borrows as $value)
-						 @if ($value->itemdetails[0]->item_status == 'BORROWED')
-						 <tr>
-								 <td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
-	 							 <td>{{$value->itemdetails[0]->item_name}}</td>
-	 							 <td>{{$value->itemdetails[0]->item_code}}</td>
+					@foreach($borrowed as $key => $value)
+							<tr>
+								@if (is_null($value->returndate))
+								 <td>{{$value->firstname}} {{$value->lastname}}</td>
+	 							 <td>{{$value->item_name}}</td>
+	 							 <td>{{$value->item_code}}</td>
+	 							 <td>{{$value->dateborrowed}}</td>
 	 							{!! Form::open(['action' => ['BorrowsController@update',$value->borrow_id], 'method' => 'POST',
 	 								'class' => 'form'])!!}
 	 							<td>{{Form::submit('Return',['class' => 'btn btn-default btn-block' ])}}</td>
 	 							{{Form::hidden('_method','PUT')}}
 	 							{!!Form::close()!!}
+								@endif
 						 </tr>
-						 @endif
+
 				 	@endforeach
 				</table>
 			</div>
@@ -210,4 +224,51 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal BORROW FORMS -->
+<div class="modal fade bd-example-modal-lg" id="borrowforms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">All Borrow Forms</h3>
+      </div>
+      <div class="modal-body">
+				<div class="row">
+					<div class=" col-lg-12 ml-auto">
+					<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-forms">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Borrower</th>
+								<th>Purpose</th>
+								<th>Date Borrowed</th>
+								<th>Date Returned</th>
+							</tr>
+						</thead>
+					@foreach ($borrows as $value)
+						 <tr data-dismiss="modal" data-toggle="modal" data-target="#forms">
+							 <td>{{$value->borrow_id}}</td>
+							 <td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
+							 <td>{{$value->purpose}}</td>
+							 <td>{{$value->dateborrowed}}</td>
+							 @if(!empty($value->borrowdetail[0]->returndate))
+                 <td>{{$value->borrowdetail[0]->returndate}}</td>
+                 @else
+                 <td>Not yet returned</td>
+               @endif
+						 </tr>
+				 	@endforeach
+				</table>
+				</div>
+      	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
