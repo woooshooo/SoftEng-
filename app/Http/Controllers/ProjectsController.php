@@ -104,8 +104,8 @@ class ProjectsController extends Controller
       $title = 'Viewing Project';
       $projects = Projects::find($id);
       $milestones = MilestoneProjects::where('projects_id', $id)->get();
-      
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones);
+      $mstatus = MilestoneProjects::where('milestone_status', 'Finished');
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('');
     }
 
     /**

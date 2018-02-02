@@ -236,6 +236,10 @@ $(document).ready(function(){
     });
 });
 </script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 417694508bce3bf8cd0fce0170ddaac33dda09e4
 <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
@@ -257,6 +261,7 @@ $( function() {
     source: 'http://localhost:8000/searchItemCode'
   });
 });
+<<<<<<< HEAD
 
 </script>
 
@@ -277,14 +282,28 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 <!-- To change progress bar width (inline style) -->
 <script>
+=======
+//To change progress bar width (inline style)
+>>>>>>> 417694508bce3bf8cd0fce0170ddaac33dda09e4
 $(document).ready(function(){
   $('#projProgBar').css('width', '100%');
 });
+  
+</script>
+
+<script>
   //count checkboxes in div where milestones are
-function countMilestone(){
+  $(document).ready(function(){
+    var $checkboxes = $('#milestonesform label input[type="checkbox"]');
 
-}
-
+<<<<<<< HEAD
+=======
+    $checkboxes.change(function(){
+      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+      $('#count-checked-checkboxes').text(countCheckedCheckboxes);
+    });
+  });
+>>>>>>> 417694508bce3bf8cd0fce0170ddaac33dda09e4
 </script>
 
 </html>

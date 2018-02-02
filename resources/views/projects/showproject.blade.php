@@ -74,17 +74,17 @@
 						<!--No function for milestones yet-->
 						<label>Project Milestones</label><br>
 						<!--Lagay ng foreach for each Milestone from DB-->
-
+						<form id="milestonesform">
 						@foreach($milestones as $value)
-
-						<label>
-							<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked> {{$value->milestone_name}}
-						</label><br>
-						<!--
-							If milestone_status = finished
-									change checkbox to checked
-						-->
+							<!--if milestone status is completed, add checked property-->
+							<label>
+								<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked> {{$value->milestone_name}}
+							</label><br>
 	                    @endforeach
+	                	</form>
+	                    <div class="count-checked">
+	                    	<span id="count-checked-checkboxes">0</span> checked
+						</div>
 				</div>
 				</div>
 				<div class="form-group col-lg-4">
