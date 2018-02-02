@@ -6,7 +6,7 @@
 							<h1 class="page-header">Viewing Equipment</h1>
 
 					</div>
-					<div class="row">
+					<div class="row ">
 						{!! Form::open(['action' => 'ItemsController@store', 'method' => 'POST', 'class' => 'panel body col-lg-12 form ui-front'])!!}
 
 						<div class="form-group col-lg-6">
@@ -60,6 +60,7 @@
 				 <div class=" form-group col-lg-6"><br>
 					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#itemeditmodal">Edit</button>
 					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewrecordmodal">View Record</button>
+					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm">Add to Damaged</button>
 
 			 </div>
         {!!Form::close()!!}
@@ -69,19 +70,58 @@
 
 @endsection
 
-<!-- Modal -->
-<div class="modal fade" id="viewrecordmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal View Record -->
+<div class="modal fade bd-example-modal-lg" id="viewrecordmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Item Record</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Item Record</h3>
+
       </div>
       <div class="modal-body">
-        ...
+				<div class="row">
+				<div class=" col-lg-12 ml-auto">
+        <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-viewrecord">
+          <thead>
+            <tr>
+              <th>Borrower</th>
+              <th>Purpose</th>
+              <th>Days Due</th>
+              <th>Purpose</th>
+              <th>Date Borrowed</th>
+              <th>Date Returned</th>
+            </tr>
+          </thead>
+				@foreach ($borrowdetails as $borrowdetail)
+					@foreach($borrows as $borrow)
+	        	@foreach ($profiles as $profile)
+							@if ($borrow->profile_id == $profile->profile_id)
+								@if ($borrowdetail->borrow_id == $borrow->borrow_id)
+										<tr>
+	                    <td>{{$profile->firstname}} {{$profile->lastname}}</td>
+	                    <td>{{$borrow->purpose}}</td>
+	                    <td>{{$borrowdetail->numberofdays}}</td>
+	                    <td>{{$borrow->purpose}}</td>
+	                    <td>{{$borrow->dateborrowed}}</td>
+											@if (!is_null($borrowdetail->returndate))
+	                      <td>{{$borrowdetail->returndate}}</td>
+	                    @else
+	                      <td>Not Yet Returned</td>
+	                    @endif
+	                  </tr>
+								@endif
+							@endif
+	        	@endforeach
+	        @endforeach
+				@endforeach
+
+      </table>
       </div>
+      </div>
+		</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -89,3 +129,30 @@
     </div>
   </div>
 </div>
+
+
+<!--Confirmation -->
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-sm model-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h3 class="modal-title" id="exampleModalLongTitle">Item Record</h3>
+
+	      </div>
+	      <div class="modal-body">
+					<div class="row">
+					<div class=" col-lg-12 ml-auto">
+
+	      </div>
+	      </div>
+			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

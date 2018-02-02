@@ -9,6 +9,10 @@ use App\Staffs;
 use App\Profile;
 use App\User;
 use App\Borrow;
+use App\BorrowProfile;
+use App\Items;
+use App\ItemDetails;
+use App\BorrowDetails;
 use DB;
 class StaffsController extends Controller
 {
@@ -88,17 +92,13 @@ class StaffsController extends Controller
     {
       $title = 'Staffs';
       $profiles = Profile::find($id);
-      $profileid = Profile::find($id)->profile_id;
       $staffs = Profile::find($id)->staff;
+      $borrows = Borrow::where('profile_id',$id)->get();
+      $borrowdetails = BorrowDetails::all();
+      $itemdetails = ItemDetails::all();
 
-      if (Profile::find($id)->borrowprofile) {
-        $borrowid = Profile::find($id)->borrowprofile->value('borrow_id');
-        $borrows = Borrow::find($borrowid)->get();
-        return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
-      } else {
-        $borrows = Borrow::all();
-        return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
-      }
+      return View('profile/showstaff')->with('profiles', $profiles)->with('staffs', $staffs)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails);
+
 }
 
     /**

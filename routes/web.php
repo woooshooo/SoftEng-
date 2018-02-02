@@ -42,6 +42,7 @@ Route::resource('/vols','VolsController');
 Route::resource('/staffs','StaffsController');
 Route::resource('/items','ItemsController');
 Route::get('searchItem','BorrowsController@searchItem');
+Route::get('searchItemType','BorrowsController@searchItemType');
 Route::get('searchItemCode','BorrowsController@searchItemCode');
 Route::get('searchProfile','BorrowsController@searchProfile');
 Route::resource('/borrows','BorrowsController');

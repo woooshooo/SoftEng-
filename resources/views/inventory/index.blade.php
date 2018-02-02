@@ -1,5 +1,17 @@
 @extends('layout.app')
 @section('content')
+	<?php
+	use Illuminate\Support\Facades\Auth;
+	use App\Projects;
+	use App\Events;
+	use App\Staffs;
+	use App\Vols;
+	use App\Profile;
+	use App\ItemType;
+	$id = Auth::id();
+	$user = Staffs::find($id)->profile;
+
+	 ?>
 			<div class="panel-body">
 				<div class="panel-heading">
 					<h1>Inventory</h1>
@@ -69,7 +81,7 @@
 					</div>
 					<div class="form-group col-lg-6">
 						<label class="control-label" for="encodedby">Encoded By</label>
-						<input type="text" class="form-control custom-search-form" id="searchProfile" name="encodedby" value="AUTHENTICATED USER HERE">
+						<input type="text" class="form-control custom-search-form" name="encodedby" value="{{$user->firstname}} {{$user->lastname}}" disabled>
 					</div>
 					<div class="form-group col-lg-12">
 										<div class="table-responsive">
@@ -84,7 +96,7 @@
 															</thead>
 															<tr>
 																	 <td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td>
-																	 <td><input type="text" id="searchItemtype" name="item_type[]" placeholder="Enter Type" class="form-control"></td>
+																	 <td><input type="text" id="searchItemType" name="item_type[]" placeholder="Enter Type" class="form-control"></td>
 																	 <td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td>
 																	 <td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td>
 																	 <td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td>
@@ -126,8 +138,12 @@
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="dateborrowed">Date Borrowed</label>
-						<input type="date" class="form-control custom-search-form" name="dateborrowed" placeholder="Enter Date" value="">
+						<input type="date" class="form-control custom-search-form" id="currentdate" name="dateborrowed" placeholder="Enter Date">
 					</div>
+					<script>
+						document.getElementById('currentdate').value = new Date().toISOString().substring(0, 10);
+					</script>
+
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
 						{{-- <input type="text" class="form-control custom-search-form" id="searchProfilee" name="borrower" placeholder="Enter Borrower"> --}}
@@ -194,17 +210,16 @@
 								<th>Borrower</th>
 								<th>Purpose</th>
 								<th>Date Borrowed</th>
-								<th>Option</th>
+								{{-- <th>Option</th> --}}
 							</tr>
 						</thead>
 					@foreach($borrows as $key => $value)
 						@if (is_null($value->borrowdetail[0]->returndate))
-						<tr>
+						<tr class="clickable-row" data-href="/borrows/{{$value->borrow_id}}">
 							<td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
 							<td>{{$value->purpose}}</td>
 							<td>{{$value->dateborrowed}}</td>
-							<td><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#returnconfirmation">Return</button></td>
-
+							{{-- <td><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#returnconfirmation">Return</button></td> --}}
 						</tr>
 					@endif
 
@@ -285,7 +300,7 @@
 					<div class=" col-lg-12 ml-auto">
 
 
-				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
+				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-items">
 					<thead>
 						<tr>
 							<th>Item Name</th>

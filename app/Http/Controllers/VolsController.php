@@ -7,6 +7,9 @@ use App\Vols;
 use App\Profile;
 use App\Borrow;
 use App\BorrowProfile;
+use App\Items;
+use App\ItemDetails;
+use App\BorrowDetails;
 use DB;
 class VolsController extends Controller
 {
@@ -85,16 +88,12 @@ class VolsController extends Controller
     {
       $title = 'Volunteer';
       $profiles = Profile::find($id);
-      $profileid = Profile::find($id)->profile_id;
       $vols = Profile::find($id)->volunteer;
-      if (Profile::find($id)->borrowprofile) {
-        $borrowid = Profile::find($id)->borrowprofile->value('borrow_id');
-        $borrows = Borrow::find($borrowid)->get();
-        return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
-      } else {
-        $borrows = Borrow::all();
-        return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('profileid',$profileid);
-      }
+      $borrows = Borrow::where('profile_id',$id)->get();
+      $borrowdetails = BorrowDetails::all();
+      $itemdetails = ItemDetails::all();
+
+      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails);
 
 
 

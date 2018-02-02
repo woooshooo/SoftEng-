@@ -17,6 +17,10 @@ class ItemDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
     public function index()
     {
         //
@@ -51,13 +55,15 @@ class ItemDetailsController extends Controller
      */
     public function show($id)
     {
+      $title = 'Viewing Equipment';
       $itemdetails = ItemDetails::find($id);
       $items = ItemDetails::find($id)->item;
+      $borrowdetails = BorrowDetails::where('equipment_details_id',$itemdetails->equipment_details_id)->get();
       $borrows = Borrow::all();
-      $title = 'Viewing Equipment';
+      $profiles = Profile::all();
 
+      return View('inventory/showitem')->with('title',$title)->with('itemdetails', $itemdetails)->with('borrows', $borrows)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles)->with('items',$items);
 
-      return View('inventory/showitem')->with('title',$title)->with('borrows', $borrows)->with('itemdetails',$itemdetails)->with('items',$items);
     }
 
     /**

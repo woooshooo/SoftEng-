@@ -7,6 +7,7 @@ use App\Borrow;
 use App\BorrowProfile;
 use App\BorrowDetails;
 use App\Items;
+use App\ItemType;
 use App\ItemDetails;
 use App\Profile;
 use DB;
@@ -18,6 +19,10 @@ class BorrowsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
     public function index()
     {
       $items = Items::all();
@@ -90,8 +95,11 @@ class BorrowsController extends Controller
     {
         $title = 'Borrow Form';
         $borrows = Borrow::find($id);
+        $borrowdetails = Borrow::find($id)->borrowdetail;
+        $itemdetails = ItemDetails::all();
+        $profiles = Profile::where('profile_id',$borrows->profile_id)->get();
 
-        return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows);
+        return view('inventory/viewborroweditem')->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails)->with('profiles',$profiles);
 
 
     }
@@ -125,8 +133,8 @@ class BorrowsController extends Controller
           $bid = BorrowDetails::find($rid)->equipment_details_id;
           $items = ItemDetails::find($bid);
           $items->item_status = "AVAILABLE";
-          $items->item_desc = $request->item_desc[$count-1];
-          $count--;
+          $items->item_desc = $request->item_desc[$key];
+          --$count;
           $items->save();
           $bd->returndate = date('Y-m-d');
           $bd->save();
@@ -163,6 +171,16 @@ class BorrowsController extends Controller
       return $searchResult;
 
     }
+    public function searchItemType(Request $request){
+      $term = $request->term;
+      $items = ItemType::where('item_type','LIKE','%'.$term.'%')->get();
+      foreach ($items as $value) {
+        $searchResult[] = $value->item_type;
+      }
+      return $searchResult;
+    }
+
+
     public function searchItemCode(Request $request){
       $term = $request->term;
       $items = ItemDetails::where('item_code','LIKE','%'.$term.'%')->get();

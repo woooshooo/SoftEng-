@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Borrow;
 use App\Items;
 use App\Profile;
+use App\Staffs;
 use App\ItemDetails;
 use App\BorrowDetails;
 use DB;
@@ -52,13 +54,13 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-
+      $id = Auth::id();
+      $user = Staffs::find($id)->profile;
       //validate
         $this->validate($request, [
           'dateordered' => 'required',
           'datedelivered' => 'required',
           'receivedby' => 'required',
-          'encodedby' => 'required',
           'item_name' => 'required',
           'item_type' => 'required',
           'item_code' => 'required'
@@ -69,7 +71,7 @@ class ItemsController extends Controller
           $items->dateordered = $request->input('dateordered');
           $items->datedelivered = $request->input('datedelivered');
           $items->receivedby = $request->input('receivedby');
-          $items->encodedby = $request->input('encodedby');
+          $items->encodedby = $user->firstname." ".$user->lastname; #<--- returns authenticated user
           $items->save();
         for($num = $count; $num > 0; $num-- ){
           $itemdetails = new ItemDetails;

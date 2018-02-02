@@ -5,6 +5,7 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
  ?>
@@ -144,8 +145,14 @@ $(document).ready(function() {
     $('#dataTables-forms').DataTable({
 				responsive: true
 		});
+    $('#dataTables-items').DataTable({
+				responsive: true
+		});
     $('#dataTables-record').DataTable( {
         "order": [[ 3, "desc" ]]
+    } );
+    $('#dataTables-viewrecord').DataTable( {
+        "order": [[ 5, "desc" ]]
     } );
 });
 </script>
@@ -171,9 +178,9 @@ $(document).ready(function(){
     var i=1;
     $('#add').click(function(){
          i++;
-         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemtype" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-         $( ".searchItem" ).autocomplete({
-           source: 'http://localhost:8000/searchItem'
+         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemType'+i+'" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $( '#searchItemType'+i+'' ).autocomplete({
+           source: 'http://localhost:8000/searchItemType'
          });
          //CREATE SEARCH ITEM TYPE
     });
@@ -205,23 +212,12 @@ $(document).ready(function(){
     $('#addborrow').click(function(){
          i++;
          $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><input type="text" id="searchItemCode'+i+'" name="item_code[]" placeholder="Enter Item Code"class="form-control"</td><td><input type="text" id="searchItem'+i+'" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-
-         $( '.searchItem'+i+'' ).autocomplete({
+         $( '#searchItem'+i+'' ).autocomplete({
            source: 'http://localhost:8000/searchItem'
          });
          $( '#searchItemCode'+i+'').autocomplete({
            source: 'http://localhost:8000/searchItemCode'
          });
-    });
-    $( function() {
-      $( "#searchItemCode" ).autocomplete({
-        source: 'http://localhost:8000/searchItemCode'
-      });
-    });
-    $( function() {
-      $( "#searchItem" ).autocomplete({
-        source: 'http://localhost:8000/searchItem'
-      });
     });
     $(document).on('click', '.btn_remove', function(){
          var button_id = $(this).attr("id");
@@ -241,10 +237,15 @@ $(document).ready(function(){
     });
 });
 </script>
-{{-- <script>
+<script>
 $( function() {
   $( "#searchItem" ).autocomplete({
     source: 'http://localhost:8000/searchItem'
+  });
+});
+$( function() {
+  $( "#searchItemType" ).autocomplete({
+    source: 'http://localhost:8000/searchItemType'
   });
 });
 $( function() {
@@ -263,7 +264,7 @@ $( function() {
   });
 });
 
-</script> --}}
+</script>
 
 <script>
 

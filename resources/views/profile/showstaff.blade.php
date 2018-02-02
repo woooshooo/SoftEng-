@@ -83,29 +83,35 @@
         <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
           <thead>
             <tr>
-              <th>Borrower</th>
               <th>Item Name</th>
               <th>Item Code</th>
               <th>To return after</th>
+              <th>Purpose</th>
               <th>Date Borrowed</th>
               <th>Date Returned</th>
             </tr>
           </thead>
-        @foreach($borrows as $key => $value)
-           @if($value->profile_id == $profileid)
-           <tr>
-               <td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
-               <td>{{$value->itemdetails[0]->item_name}}</td>
-               <td>{{$value->itemdetails[0]->item_code}}</td>
-               <td>{{$value->borrowdetail[0]->numberofdays}} day/s</td>
-               <td>{{$value->dateborrowed}}</td>
-               @if(!empty($value->borrowdetail[0]->returndate))
-                 <td>{{$value->borrowdetail[0]->returndate}}</td>
-                 @else
-                 <td>Not yet returned</td>
-               @endif
-           </tr>
-           @endif
+        @foreach($borrows as $borrow)
+          @foreach ($borrowdetails as $borrowdetail)
+            @foreach ($itemdetails as $itemdetail)
+              @if ($borrow->borrow_id == $borrowdetail->borrow_id)
+                @if ($borrowdetail->equipment_details_id == $itemdetail->equipment_details_id)
+                  <tr>
+                    <td>{{$itemdetail->item_name}}</td>
+                    <td>{{$itemdetail->item_code}}</td>
+                    <td>{{$borrowdetail->numberofdays}}</td>
+                    <td>{{$borrow->purpose}}</td>
+                    <td>{{$borrow->dateborrowed}}</td>
+										@if (!is_null($borrowdetail->returndate))
+                      <td>{{$borrowdetail->returndate}}</td>
+                    @else
+                      <td>Not Yet Returned</td>
+                    @endif
+                  </tr>
+                @endif
+              @endif
+            @endforeach
+          @endforeach
         @endforeach
       </table>
       </div>
@@ -118,6 +124,7 @@
     </div>
   </div>
 </div>
+
 
 <!-- Modal STAFF EDIT PROFILE-->
 <div class="modal fade" id="staffeditprofilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
