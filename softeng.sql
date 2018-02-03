@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 01, 2018 at 09:57 AM
+-- Generation Time: Feb 03, 2018 at 05:40 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -38,16 +38,32 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
 INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, '2018-02-03', 25, 'Test', NULL, NULL),
-(2, '2018-02-17', 14, 'Ttest', NULL, NULL),
-(3, '2018-02-01', 25, 'TESSSTT', NULL, NULL);
+(1, '2018-02-02', 11, '123213123ASD', NULL, NULL),
+(2, '2018-02-02', 13, 'asdasd213123', NULL, NULL),
+(3, '2018-02-01', 1, 'ASDASDASDASD', NULL, NULL),
+(4, '2018-02-01', 26, 'ASDASDASDASD', NULL, NULL),
+(5, '2018-02-01', 1, 'ASDASDASD', NULL, NULL),
+(6, '2018-02-01', 27, 'ASDASD123213ASD', NULL, NULL),
+(7, '2018-02-02', 22, 'ASDASD213ADASD FASDFSDAFSADF', NULL, NULL),
+(8, '2018-02-02', 12, 'ASDASD213', NULL, NULL),
+(9, '2018-01-25', 25, 'asdasdasdasd', NULL, NULL),
+(10, '2018-02-01', 33, 'asdasdasdas', NULL, NULL),
+(11, '2018-02-09', 20, 'asdasdasd', NULL, NULL),
+(12, '2018-02-02', 19, 'ASDASDASDASDASD', NULL, NULL),
+(13, '2018-01-29', 21, 'ADASDASD', NULL, NULL),
+(14, '2018-02-01', 11, 'ASDASD', NULL, NULL),
+(15, '2018-02-01', 19, '123123123QWDASDASD', NULL, NULL),
+(16, '2018-02-01', 25, 'asdasdasdasdasd', NULL, NULL),
+(17, '2018-02-02', 16, 'ASDASDASDASD', NULL, NULL),
+(18, '2018-02-02', 13, 'ASKJDHKSLAFASDHFKLHS', NULL, NULL),
+(19, '2018-02-02', 40, 'Shooting in the Blood Moon', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -67,17 +83,46 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
   PRIMARY KEY (`borrow_details_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow_details`
 --
 
 INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `returndate`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2018-02-01', NULL, '2018-02-01 00:48:53'),
-(2, 2, 2, 1, '2018-02-01', NULL, NULL),
-(5, 3, 1, 1, NULL, '2018-02-01 01:03:45', '2018-02-01 01:03:45'),
-(6, 3, 2, 1, NULL, '2018-02-01 01:03:45', '2018-02-01 01:03:45');
+(1, 1, 1, 2, '2018-02-02', '2018-02-02 01:39:31', '2018-02-02 01:46:30'),
+(2, 1, 2, 3, '2018-02-02', '2018-02-02 01:39:31', '2018-02-02 01:45:53'),
+(3, 2, 2, 3, '2018-02-02', '2018-02-02 01:46:58', '2018-02-02 01:47:03'),
+(4, 3, 3, 3, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
+(5, 3, 1, 2, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
+(6, 3, 2, 1, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
+(7, 4, 3, 4, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
+(8, 4, 1, 3, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
+(9, 4, 2, 2, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
+(10, 5, 2, 2, '2018-02-02', '2018-02-02 02:02:20', '2018-02-02 02:03:16'),
+(11, 6, 1, 2, '2018-02-02', '2018-02-02 02:02:46', '2018-02-02 02:03:33'),
+(12, 7, 3, 4, '2018-02-02', '2018-02-02 02:03:04', '2018-02-02 02:03:23'),
+(13, 8, 1, 3, '2018-02-02', '2018-02-02 02:07:46', '2018-02-02 03:18:29'),
+(14, 8, 2, 2, '2018-02-02', '2018-02-02 02:07:46', '2018-02-02 03:18:29'),
+(15, 9, 3, 5, '2018-02-02', '2018-02-02 02:25:54', '2018-02-02 02:34:46'),
+(16, 10, 3, 2, '2018-02-02', '2018-02-02 03:01:52', '2018-02-02 03:05:33'),
+(17, 11, 3, 2, '2018-02-02', '2018-02-02 03:19:08', '2018-02-02 03:19:21'),
+(18, 11, 1, 3, '2018-02-02', '2018-02-02 03:19:08', '2018-02-02 03:19:21'),
+(19, 12, 1, 2, '2018-02-02', '2018-02-02 03:25:03', '2018-02-02 03:25:11'),
+(20, 12, 2, 3, '2018-02-02', '2018-02-02 03:25:03', '2018-02-02 03:25:11'),
+(21, 13, 2, 3, '2018-02-02', '2018-02-02 03:26:19', '2018-02-02 03:26:34'),
+(22, 13, 1, 2, '2018-02-02', '2018-02-02 03:26:19', '2018-02-02 03:26:34'),
+(23, 14, 1, 3, '2018-02-02', '2018-02-02 04:57:13', '2018-02-02 05:42:43'),
+(24, 14, 2, 2, '2018-02-02', '2018-02-02 04:57:14', '2018-02-02 05:42:43'),
+(25, 15, 1, 2, '2018-02-02', '2018-02-02 05:43:23', '2018-02-02 05:44:39'),
+(26, 15, 2, 1, '2018-02-02', '2018-02-02 05:43:23', '2018-02-02 05:44:39'),
+(27, 16, 3, 3, '2018-02-02', '2018-02-02 05:43:49', '2018-02-02 05:44:11'),
+(28, 17, 2, 3, '2018-02-02', '2018-02-02 05:52:25', '2018-02-02 05:52:43'),
+(29, 17, 1, 2, '2018-02-02', '2018-02-02 05:52:25', '2018-02-02 05:52:43'),
+(30, 18, 1, 2, '2018-02-02', '2018-02-02 05:54:30', '2018-02-02 05:54:59'),
+(31, 18, 2, 1, '2018-02-02', '2018-02-02 05:54:31', '2018-02-02 05:54:59'),
+(32, 19, 1, 3, NULL, '2018-02-02 06:33:09', '2018-02-02 06:33:09'),
+(33, 19, 2, 1, NULL, '2018-02-02 06:33:09', '2018-02-02 06:33:09');
 
 -- --------------------------------------------------------
 
@@ -93,16 +138,32 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
   PRIMARY KEY (`borrow_profile_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `borrow_profile`
 --
 
 INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
-(1, 1, 25),
-(2, 2, 14),
-(3, 3, 25);
+(1, 1, 11),
+(2, 2, 13),
+(3, 3, 1),
+(4, 4, 26),
+(5, 5, 1),
+(6, 6, 27),
+(7, 7, 22),
+(8, 8, 12),
+(9, 9, 25),
+(10, 10, 33),
+(11, 11, 20),
+(12, 12, 19),
+(13, 13, 21),
+(14, 14, 11),
+(15, 15, 19),
+(16, 16, 25),
+(17, 17, 16),
+(18, 18, 13),
+(19, 19, 40);
 
 -- --------------------------------------------------------
 
@@ -120,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -128,7 +189,8 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 
 INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `receivedby`, `encodedby`, `created_at`, `updated_at`) VALUES
 (1, '2018-02-01', '2018-02-01', 'Bernie Jereza', 'AUTHENTICATED USER HERE', NULL, NULL),
-(2, '2018-02-01', '2018-02-01', 'Aivy Rose Villarba', 'AUTHENTICATED USER HERE', NULL, NULL);
+(2, '2018-02-01', '2018-02-01', 'Aivy Rose Villarba', 'AUTHENTICATED USER HERE', NULL, NULL),
+(3, '2018-02-01', '2018-02-03', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -150,16 +212,18 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_details_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipment_details`
 --
 
 INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', NULL, 'BORROWED', NULL, NULL, NULL),
-(2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', NULL, 'AVAILABLE', NULL, NULL, NULL),
-(3, 2, 'ITEMNAME3', 'TYPE2', 'CODE3', NULL, 'AVAILABLE', NULL, NULL, NULL);
+(1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', NULL, 'BORROWED', 'ITEM twoGOOD CONDITION', NULL, NULL),
+(2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', NULL, 'BORROWED', 'ITEM oneGOOD CONDITION', NULL, NULL),
+(3, 2, 'ITEMNAME3', 'TYPE2', 'CODE3', NULL, 'AVAILABLE', 'IN GOOD CONDITION', NULL, NULL),
+(4, 3, 'DSLR 700D', 'Camera', 'CODE4', '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL),
+(5, 3, 'DSLR 700D', 'Camera', 'CODE3', '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -232,7 +296,15 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `milestone_projects`
+--
+
+INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `milestone_name`, `milestone_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Milestone 1', 'Ongoing', NULL, NULL),
+(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -441,6 +513,17 @@ INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `view_itemtype`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `view_itemtype`;
+CREATE TABLE IF NOT EXISTS `view_itemtype` (
+`item_type` varchar(191)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `vols`
 --
 
@@ -496,6 +579,15 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (30, 40, 'Creative Cluster', '3rd Year', 'AB Mass Communication', '3-AB Mass Communication', 'ACTIVE', '2018-01-21 22:46:24', '2018-01-21 22:46:24'),
 (31, 41, 'Creative Cluster', '4th Year', 'AB IDS minor in Language and Literature', '4-AB IDS minor in Language and Literature', 'ACTIVE', '2018-01-21 22:47:35', '2018-01-21 22:47:35'),
 (32, 42, 'Editorial & Social Media Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:48:55', '2018-01-21 22:48:55');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_itemtype`
+--
+DROP TABLE IF EXISTS `view_itemtype`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_itemtype`  AS  select distinct `equipment_details`.`item_type` AS `item_type` from `equipment_details` ;
 
 --
 -- Constraints for dumped tables
