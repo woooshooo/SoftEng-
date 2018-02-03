@@ -23,17 +23,17 @@
 						</div>
 						<div class="form-group col-lg-6">
 							<label class="control-label" for="encodedby">Encoded By</label>
-							<input type="text" class="form-control custom-search-form" id="searchProfile" name="encodedby" value="AUTHENTICATED USER HERE" disabled>
+							<input type="text" class="form-control custom-search-form" id="searchProfile" name="encodedby" value="{{$items->encodedby}}" disabled>
 						</div>
 					<div class="col-lg-12"><hr style="height:30px"></hr></div>
 <!--		ITEM DETAILS  -->
 						<div class="form-group col-lg-4">
 							<label class="control-label" for="item_name">Equipment Name</label>
-							<input type="text" class="form-control custom-search-form"  name="item_name" value="{{$items->dateordered}}" disabled>
+							<input type="text" class="form-control custom-search-form"  name="item_name" value="{{$itemdetails->item_name}}" disabled>
 						</div>
 						<div class="form-group col-lg-4">
 							<label class="control-label" for="item_type">Equipment Type</label>
-							<input type="text" class="form-control custom-search-form"  name="item_type" value="{{$itemdetails->item_name}}" disabled>
+							<input type="text" class="form-control custom-search-form"  name="item_type" value="{{$itemdetails->item_type}}" disabled>
 						</div>
 						<div class="form-group col-lg-4">
 							<label class="control-label" for="item_code">Item Code</label>
@@ -58,9 +58,13 @@
 				{!!Form::open(['action'=> ['ItemsController@destroy', $items->equipment_id], 'method' => 'POST', 'class' => 'panel panel-body col-lg-12 form'])!!}
          {{Form::hidden('_method','DELETE')}}
 				 <div class=" form-group col-lg-6"><br>
-					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#itemeditmodal">Edit</button>
+					 {{-- <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#itemeditmodal">Edit</button> --}}
 					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewrecordmodal">View Record</button>
-					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm">Add to Damaged</button>
+					 @if ($itemdetails->item_status == "BORROWED")
+						 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm" disabled>Change Status</button>
+					 @else
+						 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm">Change Status</button>
+					 @endif
 
 			 </div>
         {!!Form::close()!!}
@@ -124,7 +128,6 @@
 		</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -132,26 +135,35 @@
 
 
 <!--Confirmation -->
-	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-sm model-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
-	        <h3 class="modal-title" id="exampleModalLongTitle">Item Record</h3>
-
+	        <h3 class="modal-title" id="exampleModalLongTitle">Confirm</h3>
 	      </div>
 	      <div class="modal-body">
+					{!! Form::open(['action' => ['ItemDetailsController@update',$itemdetails->equipment_details_id], 'method' => 'POST', 'class' => 'form'])!!}
 					<div class="row">
 					<div class=" col-lg-12 ml-auto">
 
+					Change Equipment Status : <select name="item_status" class="form-control">
+						<option value="AVAILABLE">AVAILABLE</option>
+						<option value="DAMAGED">DAMAGED</option>
+						<option value="LOST">LOST</option>
+						<option value="IN REPAIR">IN REPAIR</option>
+					</select>
 	      </div>
 	      </div>
 			</div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
+
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					{{Form::submit('Save Changes',['class' => 'btn btn-primary' ])}}
+					{{Form::hidden('_method','PUT')}}
+					{!!Form::close()!!}
 	      </div>
 	    </div>
 	  </div>

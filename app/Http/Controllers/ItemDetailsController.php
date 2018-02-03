@@ -86,7 +86,12 @@ class ItemDetailsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+      $itemdetails = ItemDetails::find($id);
+      $itemdetails->item_status = $request->input('item_status');
+      $itemdetails->save();
+
+      return redirect('itemdetails/'.$id)->with('success','Changed Equipment Status!')->with('itemdetails',$itemdetails);
     }
 
     /**

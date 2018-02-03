@@ -37,10 +37,10 @@
 								<td>{{$value->item_name}}</td>
 								<td>{{$value->item_type}}</td>
 								<td>{{$value->item_code}}</td>
-								@if ($value->item_status == "BORROWED" || $value->item_status == "DAMAGED")
-									<td><font color="red">{{$value->item_status}}</font></td>
-								@else
+								@if ($value->item_status == "AVAILABLE" )
 									<td><font color="green">{{$value->item_status}}</font></td>
+								@else
+									<td><font color="red">{{$value->item_status}}</font></td>
 								@endif
 						</tr>
 				@endforeach
