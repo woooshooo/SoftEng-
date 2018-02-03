@@ -17,7 +17,7 @@
 					<h1>Inventory</h1>
 				</div>
 				<div class="navbutton">
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Items</button>
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
 					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">Return Equipments</button>
 				</div><br>
@@ -60,7 +60,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">Add Equipment</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">Add Items</h3>
 
       </div>
       <div class="modal-body">
@@ -87,8 +87,8 @@
 										<div class="table-responsive">
 												 <table class="table table-hover" id="dynamic_field">
 													 		<thead>
-																<th><label class="control-label" for="item_name">Equipment Name</label></th>
-																<th><label class="control-label" for="item_type">Equipment Type</label></th>
+																<th><label class="control-label" for="item_name">Item Name</label></th>
+																<th><label class="control-label" for="item_type">Item Type</label></th>
 																<th><label class="control-label" for="item_code">Item Code</label></th>
 																<th><label class="control-label" for="item_warranty">Warranty</label></th>
 																<th><label class="control-label" for="item_desc">Description</label></th>
@@ -158,7 +158,7 @@
 												 <table class="table table-hover" id="dynamic_field_borrow">
 													 		<thead>
 																<th><label class="control-label" for="item_code">Item Code</label></th>
-																<th><label class="control-label" for="item_name">Equipment Name</label></th>
+																<th><label class="control-label" for="item_name">Item Name</label></th>
 																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
 															</thead>
 															<tr>
@@ -199,7 +199,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">All Equipments Borrowed</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">All Borrow Forms</h3>
       </div>
       <div class="modal-body">
 				<div class="row">
