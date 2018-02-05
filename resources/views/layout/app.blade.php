@@ -5,6 +5,7 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+use App\MilestoneProjects;
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
@@ -276,31 +277,43 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 </script>
 
-
-
-
-
-
 <!-- To change progress bar width (inline style) -->
 <script>
 
 //To change progress bar width (inline style)
-$(document).ready(function(){
-  $('#projProgBar').css('width', '100%');
-});
 
 </script>
 
 <script>
   //count checkboxes in div where milestones are
+  var countChecked = function(){
+    var n = $("input:checked").length;
+    $("#result").text(n);
+  };
+  $("input[type=checkbox]").on("click", countChecked);
+
+  //count all checkboxes
+
+  var countAll = function(){
+    var m = $("[name=milestone_project]").length;
+    $("#allElem").text(m);
+  };
+  $("input[type=checkbox]").on("click", countAll);
+
+  var quotient = function(){
+    var quo = (countChecked/countAll)*100;
+    $("#progress").text(quo);
+  };
+  $("input[type=checkbox]").on("click", quotient);
+
   $(document).ready(function(){
-    var checkboxes = $('#milestonesform label input[type="checkbox"]');
-    checkboxes.change(function(){
-      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
-      $('#count-checked-checkboxes').value(countCheckedCheckboxes);
-    });
+    $('#projProgBar').css('width', '50%');
   });
 
+
 </script>
+<script>
+  
+  </script>
 
 </html>

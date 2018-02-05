@@ -26,7 +26,7 @@
 							<label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
 							<br>
 							<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Production Cluster" > Broadcast & Production Cluster</label>
-							<br>
+				 			<br>
 							<label>
 							<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster" > Creative Cluster</label>
 							<br><label>
@@ -57,7 +57,7 @@
 				<div class="col-lg-12">
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div id="projProgBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+						<div id="projProgBar" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
 						<!--
 							Divide total/finished milestones via query, round to nearest whole number
 							change value of style="width: <accordingly>"
@@ -69,21 +69,26 @@
 						<label for="project_details">Project Details</label>
 								<textarea style="height: 30%; width: 100%; resize: vertical" class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
 					</div>
-					<div class="col-lg-6">
+					<div class="col-lg-6" id="{{$projects->projects_id}}">
 						<br>
 						<!--No function for milestones yet-->
 						<label>Project Milestones</label><br>
+						<!--if milestone status is completed, add checked property-->
 						<!--Lagay ng foreach for each Milestone from DB-->
 						<form id="milestonesform">
 						@foreach($milestones as $value)
-							<!--if milestone status is completed, add checked property-->
 							<label>
-								<input type="checkbox" class="form-check-input" name="milestone_project" value="{{$value->milestone_name}}" checked> {{$value->milestone_name}}
+								<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
 							</label><br>
 	                    @endforeach
 	                	</form>
 	                    <div class="count-checked">
-	                    	<span id="count-checked-checkboxes">0</span> checked
+	                    	<span id="result">0</span>
+	                    	<br>
+							<span id="allElem">_</span>
+							<br>
+							<span id="progress">_</span>
+								
 						</div>
 				</div>
 				</div>
