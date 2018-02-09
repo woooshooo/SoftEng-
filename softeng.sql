@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 03, 2018 at 05:40 AM
+-- Generation Time: Feb 09, 2018 at 08:46 AM
 -- Server version: 5.7.19
--- PHP Version: 7.1.9
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -283,6 +283,22 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `milestones_finished`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `milestones_finished`;
+CREATE TABLE IF NOT EXISTS `milestones_finished` (
+`milestone_projects_id` int(10) unsigned
+,`projects_id` int(10) unsigned
+,`milestone_name` varchar(191)
+,`milestone_status` varchar(191)
+,`created_at` timestamp
+,`updated_at` timestamp
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `milestone_projects`
 --
 
@@ -296,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -304,7 +320,10 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
 
 INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `milestone_name`, `milestone_status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Milestone 1', 'Ongoing', NULL, NULL),
-(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL);
+(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL),
+(3, 2, 'HAHAHA', 'Ongoing', NULL, NULL),
+(4, 2, 'HUHUU', 'Finished', NULL, NULL),
+(5, 2, 'milestone 1', 'Ongoing', '2018-02-06 23:39:20', '2018-02-06 23:39:20');
 
 -- --------------------------------------------------------
 
@@ -414,7 +433,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
@@ -425,7 +444,12 @@ INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_i
 (31, 24, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
 (32, 33, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
 (33, 38, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19');
+(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
+(35, 23, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
+(36, 24, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
+(37, 33, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
+(38, 38, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
+(39, 42, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23');
 
 -- --------------------------------------------------------
 
@@ -445,14 +469,15 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
-(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19');
+(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19'),
+(2, 'Project Sample Two', 'Aloy & Friends', 'HAHAHA', '2018-02-07', '2018-02-09', 'Ongoing', '2018-02-06 22:45:23', '2018-02-06 22:45:23');
 
 -- --------------------------------------------------------
 
@@ -579,6 +604,15 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (30, 40, 'Creative Cluster', '3rd Year', 'AB Mass Communication', '3-AB Mass Communication', 'ACTIVE', '2018-01-21 22:46:24', '2018-01-21 22:46:24'),
 (31, 41, 'Creative Cluster', '4th Year', 'AB IDS minor in Language and Literature', '4-AB IDS minor in Language and Literature', 'ACTIVE', '2018-01-21 22:47:35', '2018-01-21 22:47:35'),
 (32, 42, 'Editorial & Social Media Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:48:55', '2018-01-21 22:48:55');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `milestones_finished`
+--
+DROP TABLE IF EXISTS `milestones_finished`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `milestones_finished`  AS  select `milestone_projects`.`milestone_projects_id` AS `milestone_projects_id`,`milestone_projects`.`projects_id` AS `projects_id`,`milestone_projects`.`milestone_name` AS `milestone_name`,`milestone_projects`.`milestone_status` AS `milestone_status`,`milestone_projects`.`created_at` AS `created_at`,`milestone_projects`.`updated_at` AS `updated_at` from (((select `milestone_projects`.`milestone_projects_id` AS `milestone_projects_id`,`milestone_projects`.`projects_id` AS `projects_id`,`milestone_projects`.`milestone_name` AS `milestone_name`,`milestone_projects`.`milestone_status` AS `milestone_status`,`milestone_projects`.`created_at` AS `created_at`,`milestone_projects`.`updated_at` AS `updated_at` from `milestone_projects` where (`milestone_projects`.`milestone_status` = 'Finished'))) `milestone_projects` join `projects` on((`milestone_projects`.`projects_id` = `projects`.`projects_id`))) ;
 
 -- --------------------------------------------------------
 
