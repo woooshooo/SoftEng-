@@ -5,11 +5,10 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
-use App\MilestoneProjects;
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
- ?>
+?>
 <html>
 	<head>
 		<title>{{$title}}</title>
@@ -277,6 +276,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 </script>
 
+<!--
 <script>
   $(document).ready(function(){
     //count all checkboxes
@@ -308,8 +308,32 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
     
   });
-</script>
 
+
+-->
+
+
+
+<!-- To change progress bar width (inline style) -->
+{{-- <script>
+
+//To change progress bar width (inline style)
+$(document).ready(function(){
+  $('#projProgBar').css('width', '100%');
+});
+
+</script>
+ --}}
+<script>
+  //count checkboxes in div where milestones are
+  $(document).ready(function(){
+    var checkboxes = $('#milestonesform label input[type="checkbox"]');
+    checkboxes.change(function(){
+      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+      $('#count-checked-checkboxes').value(countCheckedCheckboxes);
+    });
+  });
+</script>
 <!-- Adding milestones-->
 <script>
 $(document).ready(function(){

@@ -4,12 +4,6 @@
 					<div class="panel-heading">
 						<h1>Projects</h1>
 					</div>
-			<div class="col-lg-12">
-				<div class="navbutton">
-					<button class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addproject">Add Project</button>
-				</div><br>
-			</div>
-			<div class="col-lg-12">
             <table class="table table-bordered table-hover table-responsive" id="dataTables-example">
                 <thead>
                     <tr>
@@ -31,6 +25,6 @@
 										</tr>
 								@endforeach
             </table>
-        </div>
+
         </div>
 @endsection

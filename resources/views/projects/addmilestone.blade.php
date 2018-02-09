@@ -8,7 +8,6 @@
 													 		<thead>
 																<th><label class="control-label" for="milestone_name">Name</label></th>
 																<th><label class="control-label" for="milestone_status">Status</label></th>
-																
 															</thead>
 															<tr>
 																<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
