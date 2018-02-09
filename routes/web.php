@@ -49,5 +49,10 @@ Route::resource('/borrows','BorrowsController');
 Route::resource('/events','EventsController');
 Route::resource('/projects','ProjectsController');
 Route::resource('/itemdetails','ItemDetailsController');
+<<<<<<< HEAD
 Route::get('getItemName/{id}','ItemsController@getItemName');
 Auth::routes();
+=======
+Route::resource('/addmilestone','MilestoneProjectsController');
+Auth::routes();
+>>>>>>> 257c0a575d96b8b25e3908ca758e6278760a9013

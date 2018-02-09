@@ -11,6 +11,7 @@ use App\Events;
 use App\ProfileProjects;
 use App\Projects;
 use App\MilestoneProjects;
+use App\FinishedMilestones;
 class ProjectsController extends Controller
 {
     /**
@@ -104,8 +105,10 @@ class ProjectsController extends Controller
       $title = 'Viewing Project';
       $projects = Projects::find($id);
       $milestones = MilestoneProjects::where('projects_id', $id)->get();
+      $finished = FinishedMilestones::where('projects_id', $id)->get();
+      $progress = (count($finished)/count($milestones))*100;
       $mstatus = MilestoneProjects::where('milestone_status', 'Finished');
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('');
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress);
     }
 
     /**

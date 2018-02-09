@@ -5,8 +5,12 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+<<<<<<< HEAD
 use App\ItemDetails;
 
+=======
+use App\MilestoneProjects;
+>>>>>>> 257c0a575d96b8b25e3908ca758e6278760a9013
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
@@ -207,7 +211,7 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- ADDING MORE Equipment-->
+<!-- ADDING MORE Borrow-->
 <script>
 $(document).ready(function(){
     var i=1;
@@ -333,30 +337,71 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 </script>
 
+<<<<<<< HEAD
 
 
 
 
 <!-- To change progress bar width (inline style) -->
+=======
+>>>>>>> 257c0a575d96b8b25e3908ca758e6278760a9013
 <script>
-
-//To change progress bar width (inline style)
-$(document).ready(function(){
-  $('#projProgBar').css('width', '100%');
-});
-
-</script>
-
-<script>
-  //count checkboxes in div where milestones are
   $(document).ready(function(){
-    var checkboxes = $('#milestonesform label input[type="checkbox"]');
-    checkboxes.change(function(){
-      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
-      $('#count-checked-checkboxes').value(countCheckedCheckboxes);
-    });
-  });
+    //count all checkboxes
+    var countAll = function(){
+      var m = parseInt($("[name=milestone_project]").length);
+      $("#allElem").text(m);
+    };
+    $("input[type=checkbox]").on("click", countAll);
+    
+    //count checkboxes in div where milestones are
+    var countChecked = function(){
+      var n = parseInt($("input:checked").length);
+      $("#result").text(n);
+    };
+    $("input[type=checkbox]").on("click", countChecked);
+      
+    //Get quotient of checked/total
+    var quotient = function(){
+      var quo = (countChecked%countAll)*100;
+      var quoo = parseInt(quo);
+      $("#progress").text(quo);
+    };
+    $("input[type=checkbox]").on("click", quotient);
+    
 
+    // for changing width of progress bar
+    var length = parseInt(quoo);
+    $('#projProgBar').css({"width":""+length+"%"});
+
+    
+  });
 </script>
 
+<!-- Adding milestones-->
+<script>
+$(document).ready(function(){
+    var i=1;
+    $('#addmilestone').click(function(){
+         i++;
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+    });
+    $(document).on('click', '.btn_remove', function(){
+         var button_id = $(this).attr("id");
+         $('#row'+button_id+'').remove();
+    });
+    $('#submit').click(function(){
+         $.ajax({
+              url:"/addborroweditem",
+              method:"POST",
+              data:$('#add_item').serialize(),
+              success:function(data)
+              {
+                   alert(data);
+                   $('#add_item')[0].reset();
+              }
+         });
+    });
+});
+</script>
 </html>
