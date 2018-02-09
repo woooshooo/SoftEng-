@@ -29,8 +29,9 @@ class StaffsController extends Controller
     {
       $profiles = Profile::all();
       $staffs = Staffs::all();
+      $itemdetails = ItemDetails::all();
       $title = 'View Staffs';
-      return view('profile/viewstaffs')->with('title', $title)->with('staffs', $staffs)->with('profiles', $profiles);
+      return view('profile/viewstaffs')->with('title', $title)->with('staffs', $staffs)->with('profiles', $profiles)->with('itemdetails',$itemdetails);
     }
 
     /**

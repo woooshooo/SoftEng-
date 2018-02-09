@@ -5,9 +5,12 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+use App\ItemDetails;
+
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
+
  ?>
 <html>
 	<head>
@@ -178,7 +181,7 @@ $(document).ready(function(){
     var i=1;
     $('#add').click(function(){
          i++;
-         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemType'+i+'" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemType'+i+'" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="number"  name="item_quantity[]" class="form-control" value="1"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
          $( '#searchItemType'+i+'' ).autocomplete({
            source: 'http://localhost:8000/searchItemType'
          });
@@ -201,7 +204,6 @@ $(document).ready(function(){
          });
     });
 
-    $('#myModal').modal(options)
 });
 </script>
 
@@ -211,12 +213,35 @@ $(document).ready(function(){
     var i=1;
     $('#addborrow').click(function(){
          i++;
-         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><input type="text" id="searchItemCode'+i+'" name="item_code[]" placeholder="Enter Item Code"class="form-control"</td><td><input type="text" id="searchItem'+i+'" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-         $( '#searchItem'+i+'' ).autocomplete({
-           source: 'http://localhost:8000/searchItem'
-         });
-         $( '#searchItemCode'+i+'').autocomplete({
-           source: 'http://localhost:8000/searchItemCode'
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($itemdetails as $key => $value)<option value="{{$value->equipment_details_id}}">{{$value->item_code}}</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         // $( '#searchItem'+i+'' ).autocomplete({
+         //   source: 'http://localhost:8000/searchItem'
+         // });
+         // $( '#searchItemCode'+i+'').autocomplete({
+         //   source: 'http://localhost:8000/searchItemCode'
+         // });
+         $(".itemCode"+i).change(function(){
+           var id = $("#itemCode"+i).val();
+           console.log(id);
+           options = "";
+           $('.item_name'+i).empty();
+           if (id){
+             $.ajax({
+               url:"/getItemName/"+id,
+               type: "GET",
+               data:{'id':id},
+               success:function(response){
+                 console.log(response);
+                 for(x = 0; x < response.length;  x++){
+                   options += "<option value='"+ response[x].equipment_details_id+"'>"+response[x ].item_name+"</option>";
+                 }
+                 $('.item_name'+i).append(options);
+               },
+               error: function(data){
+                 console.log(data);
+               }
+             });
+           }
          });
     });
     $(document).on('click', '.btn_remove', function(){
@@ -264,6 +289,38 @@ $( function() {
   });
 });
 
+
+
+</script>
+
+<script>
+$(document).ready(function() {
+var i = 1;
+var option = "";
+$(".itemCode").change(function(){
+  var id = $("#itemCode").val();
+
+  option = "";
+  $('.item_name').empty();
+  if (id){
+    $.ajax({
+      url:"/getItemName/"+id,
+      type: "GET",
+      data:{'id':id},
+      success:function(response){
+
+        for(i = 0; i < response.length;  i++){
+          option += "<option value='" + response[i].equipment_details_id+"'>" + response[i].item_name+ "</option>";
+        }
+        $('.item_name').append(option);
+      },
+      error: function(data){
+        console.log(data);
+      }
+    });
+  }
+});
+});
 </script>
 
 <script>
@@ -275,7 +332,6 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 });
 
 </script>
-
 
 
 

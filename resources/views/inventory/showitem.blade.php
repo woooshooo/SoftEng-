@@ -44,6 +44,10 @@
 							<input type="text" class="form-control custom-search-form" name="item_status" value="{{$itemdetails->item_status}}" disabled>
 						</div>
 						<div class="form-group col-lg-4">
+							<label class="control-label" for="item_quantity">Quantity</label>
+							<input type="text" class="form-control custom-search-form" name="item_quantity" value="{{$itemdetails->item_quantity}}" disabled>
+						</div>
+						<div class="form-group col-lg-4">
 							<label class="control-label" for="item_warranty">Equipment Warranty</label>
 							<input type="text" class="form-control custom-search-form" name="item_warranty" value="{{$itemdetails->item_warranty}}" disabled>
 						</div>
@@ -92,7 +96,6 @@
           <thead>
             <tr>
               <th>Borrower</th>
-              <th>Purpose</th>
               <th>Days Due</th>
               <th>Purpose</th>
               <th>Date Borrowed</th>
@@ -106,12 +109,11 @@
 								@if ($borrowdetail->borrow_id == $borrow->borrow_id)
 										<tr>
 	                    <td>{{$profile->firstname}} {{$profile->lastname}}</td>
-	                    <td>{{$borrow->purpose}}</td>
 	                    <td>{{$borrowdetail->numberofdays}}</td>
 	                    <td>{{$borrow->purpose}}</td>
 	                    <td>{{$borrow->dateborrowed}}</td>
-											@if (!is_null($borrowdetail->returndate))
-	                      <td>{{$borrowdetail->returndate}}</td>
+											@if (!is_null($borrow->returndate))
+	                      <td>{{$borrow->returndate}}</td>
 	                    @else
 	                      <td>Not Yet Returned</td>
 	                    @endif

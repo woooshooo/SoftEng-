@@ -49,14 +49,13 @@ class BorrowsController extends Controller
      */
     public function store(Request $request)
     {
-      //return $request;
+      // return $request;
       //validate
         $this->validate($request, [
           'dateborrowed' => 'required',
           'borrower' => 'required',
           'item_code'=> 'required',
           'item_name'=> 'required',
-          'numberofdays'=> 'required',
           'purpose' => 'required'
         ]);
 
@@ -75,11 +74,21 @@ class BorrowsController extends Controller
           $borrowdetails = new BorrowDetails;
           $borrowdetails->borrow_id = $borrows->borrow_id;
           $borrowdetails->equipment_details_id = ItemDetails::where('item_code',$request->item_code[$num-1])->value('equipment_details_id');
+          if (is_null($request->quantity_borrowed)) {
+            $borrowdetails->quantity_borrowed = 1;
+          } else {
+            $borrowdetails->quantity_borrowed = $request->quantity_borrowed[$num-1];
+          }
           $borrowdetails->numberofdays = $request->numberofdays[$num-1];
-          $borrowdetails->save();
           $itemdetails = ItemDetails::where('item_code',$request->item_code[$num-1])->first();
-          $itemdetails->item_status = 'BORROWED';
+          if ($itemdetails->item_quantity == 1) {
+            $itemdetails->item_status = "BORROWED";
+          } else {
+            // $itemdetails->item_quantity = $itemdetails->item_quantity - $request->quantity_borrowed[$num-1];
+          }
           $itemdetails->save();
+          $borrowdetails->save();
+
         }
 
       return redirect('/items')->with('success','Equipment Borrowed!')->with('borrows',$borrows)->with('$orrowdetails',$borrowdetails);
@@ -125,19 +134,25 @@ class BorrowsController extends Controller
     public function update(Request $request, $id)
     {
       //validate
+        $returndate = Borrow::find($id);
+        $returndate->returndate = date('Y-m-d');
+        $returndate->save();
         $return = Borrow::find($id)->borrowdetail;
         $count = count($return);
         foreach ($return as $key => $value) {
           $rid = $return[$key]->borrow_details_id;
           $bd = BorrowDetails::find($rid);
           $bid = BorrowDetails::find($rid)->equipment_details_id;
+          $qtyBorrowed = BorrowDetails::find($rid)->quantity_borrowed;
           $items = ItemDetails::find($bid);
-          $items->item_status = "AVAILABLE";
+          if ($items->item_quantity != 1) {
+            // $items->item_quantity = $items->item_quantity + $qtyBorrowed;
+          } else {
+            $items->item_status = "AVAILABLE";
+          }
           $items->item_desc = $request->item_desc[$key];
           --$count;
           $items->save();
-          $bd->returndate = date('Y-m-d');
-          $bd->save();
         }
 
         return redirect("/items")->with('success','Item Returned');
@@ -208,4 +223,5 @@ class BorrowsController extends Controller
       return $searchResult;
 
     }
+
 }

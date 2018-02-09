@@ -14,6 +14,7 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+use App\ItemDetails;
 
 class PagesController extends BaseController
 {
@@ -29,7 +30,8 @@ class PagesController extends BaseController
     $title = 'Welcome to the Dashboard';
     $id = Auth::id();
     $user = Staffs::find($id)->profile;
-    return view('dashboard')->with('user',$user)->with('title',$title)->with('projects',$projects)->with('events',$events)->with('staffs',$staffs)->with('vols',$vols);
+    $itemdetails = ItemDetails::all();
+    return view('dashboard')->with('user',$user)->with('title',$title)->with('projects',$projects)->with('events',$events)->with('staffs',$staffs)->with('vols',$vols)->with('itemdetails', $itemdetails);
   }
   public function addproject(){
     $title = 'Add Project';

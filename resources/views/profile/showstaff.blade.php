@@ -7,9 +7,6 @@
 					</div>
 					<!-- /.col-lg-12 -->
 			</div>
-				<div class="form-group col-lg-12">
-					<button class="btn btn-default"onclick="history.go(-1);">Back </button>
-				</div>
 
 				<div class="form-group col-lg-4">
 					<label class="control-label" for="fname">First Name</label>
@@ -102,10 +99,10 @@
                     <td>{{$borrowdetail->numberofdays}}</td>
                     <td>{{$borrow->purpose}}</td>
                     <td>{{$borrow->dateborrowed}}</td>
-										@if (!is_null($borrowdetail->returndate))
-                      <td>{{$borrowdetail->returndate}}</td>
+										@if (is_null($borrow->returndate))
+											<td>Not Yet Returned</td>
                     @else
-                      <td>Not Yet Returned</td>
+                      <td>{{$borrow->returndate}}</td>
                     @endif
                   </tr>
                 @endif

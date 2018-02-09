@@ -26,8 +26,9 @@ class VolsController extends Controller
     {
       $profiles = Profile::all();
       $vols = Vols::all();
+      $itemdetails = ItemDetails::all();
       $title = 'View Volunteers';
-      return view('profile/index')->with('title', $title)->with('vols', $vols)->with('profiles', $profiles);
+      return view('profile/index')->with('title', $title)->with('vols', $vols)->with('profiles', $profiles)->with('itemdetails',$itemdetails);
     }
 
     /**
