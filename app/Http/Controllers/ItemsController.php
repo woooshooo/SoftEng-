@@ -27,13 +27,14 @@ class ItemsController extends Controller
         $profiles = Profile::all();
         $items = Items::all();
         $itemdetails = ItemDetails::all();
+        $forBorrows = ItemDetails::all();
         $borrows = Borrow::all();
         $borrowed = DB::select('select borrow.borrow_id, borrow.dateborrowed, borrow.purpose, borrow.profile_id, borrow.returndate, PROFILES.firstname, PROFILES.lastname, equipment_details.* FROM equipment_details INNER JOIN borrow_details ON borrow_details.equipment_details_id = equipment_details.equipment_details_id INNER JOIN borrow ON borrow.borrow_id = borrow_details.borrow_id INNER JOIN profiles ON profiles.profile_id = borrow.profile_id');
         $profiles = Profile::all();
-        $borrowdetails = BorrowDetails::all();
+        // $borrowdetails = BorrowDetails::all();
         $title = 'View Equipments';
         $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed) as sumOf from sumofBorrowed group by equipment_details_id');
-        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('borrowed',$borrowed)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles)->with('sum',$sum);
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('borrowed',$borrowed)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('sum',$sum)->with('forBorrows',$forBorrows);
 
     }
 
@@ -189,6 +190,6 @@ class ItemsController extends Controller
 
     }
     public function getItemName($id){
-      return $itemnames = ItemDetails::select('equipment_details_id', 'item_code', 'item_name')->where('equipment_details_id',$id)->get();
+      return $itemnames = ItemDetails::select('equipment_details_id', 'item_code', 'item_name')->where('equipment_details_id',$id)->where('item_status','AVAILABLE')->get();
     }
 }

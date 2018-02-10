@@ -8,6 +8,7 @@ use App\Vols;
 use App\Staffs;
 use App\Profile;
 use App\Events;
+use App\ItemDetails;
 use App\ProfileProjects;
 use App\Projects;
 use App\MilestoneProjects;
@@ -27,8 +28,9 @@ class ProjectsController extends Controller
     public function index()
     {
         $title = 'View Projects';
+        $itemdetails = ItemDetails::all();
         $projects = Projects::all();
-        return view('projects/projects')->with('title', $title)->with('projects', $projects);
+        return view('projects/projects')->with('title', $title)->with('projects', $projects)->with('itemdetails',$itemdetails);
     }
 
     /**
@@ -164,7 +166,7 @@ class ProjectsController extends Controller
         foreach ($profileprojects as $value) {
           $value->delete();
         }
-        
+
         $aw = count($request->cluster_name)-1;
           for ($num=$aw; $num >= 0 ; $num--) {
             $volunteers = Vols::where('cluster',$request->cluster_name[$num])->get();
