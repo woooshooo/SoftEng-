@@ -10,8 +10,47 @@
 	use App\ItemType;
 	$id = Auth::id();
 	$user = Staffs::find($id)->profile;
+?>
 
-	 ?>
+<!-- ADDING MORE Borrow-->
+<script>
+$(document).ready(function(){
+    var i=1;
+    $('#addborrow').click(function(){
+         i++;
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->equipment_details_id}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+
+         $(".itemCode"+i).change(function(){
+           var id = $("#itemCode"+i).val();
+           console.log(id);
+           options = "";
+           $('.item_name'+i).empty();
+           if (id){
+             $.ajax({
+               url:"/getItemName/"+id,
+               type: "GET",
+               data:{'id':id},
+               success:function(response){
+                 console.log(response);
+                 for(x = 0; x < response.length;  x++){
+                   options += "<option value='"+ response[x].equipment_details_id+"'>"+response[x ].item_name+"</option>";
+                 }
+                 $('.item_name'+i).append(options);
+               },
+               error: function(data){
+                 console.log(data);
+               }
+             });
+           }
+         });
+    });
+    $(document).on('click', '.btn_remove', function(){
+         var button_id = $(this).attr("id");
+         $('#row'+button_id+'').remove();
+    });
+});
+</script>
+
 			<div class="panel-body">
 				<div class="panel-heading">
 					<h1>Inventory</h1>
@@ -162,7 +201,6 @@
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
-						{{-- <input type="text" class="form-control custom-search-form" id="searchProfilee" name="borrower" placeholder="Enter Borrower"> --}}
 						<select class="form-control custom-search-form" name="borrower">
 							@foreach ($profiles as $key => $value)
 								<option value="{{$value->firstname}} {{$value->lastname}}">{{$value->firstname}} {{$value->lastname}}</option>
@@ -179,8 +217,6 @@
 																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
 															</thead>
 															<tr>
-																{{-- <td><input type="text"  id="searchItemCode" name="item_code[]" placeholder="Enter Item Code"class="form-control"></td>
-																<td><input type="text" id="searchItem" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td> --}}
 																<td><select id="itemCode" class="form-control itemCode" >
 																@foreach ($itemdetails as $key => $value)
 																	@if ($value->item_status == "AVAILABLE")
@@ -191,6 +227,9 @@
 																<td>
 																	<select name="item_name[]" class="form-control item_name"></select>
 																</td>
+																{{-- if item quantity is one disable adding more quantity to borrow
+																	if item has more than 1 quantity allow until max available quantity
+																 	--}}
 																<td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td>
 																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td>
 																<td><button type="button" name="addborrow" id="addborrow" class="btn btn-success btn-block">Add More</button></td>

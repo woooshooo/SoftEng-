@@ -61,7 +61,6 @@ class ItemDetailsController extends Controller
       $borrowdetails = BorrowDetails::where('equipment_details_id',$itemdetails->equipment_details_id)->get();
       $borrows = Borrow::all();
       $profiles = Profile::all();
-
       return View('inventory/showitem')->with('title',$title)->with('itemdetails', $itemdetails)->with('borrows', $borrows)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles)->with('items',$items);
 
     }

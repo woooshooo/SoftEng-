@@ -5,6 +5,7 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
+<<<<<<< HEAD
 
 
 $id = Auth::id();
@@ -16,6 +17,10 @@ use App\ItemDetails;
 
 use App\MilestoneProjects;
 
+=======
+use App\ItemDetails;
+use App\MilestoneProjects;
+>>>>>>> 1a9c7108d4b4bc05ab196e2186ad8033d2bc18a2
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
@@ -217,61 +222,6 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- ADDING MORE Borrow-->
-<script>
-$(document).ready(function(){
-    var i=1;
-    $('#addborrow').click(function(){
-         i++;
-         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($itemdetails as $key => $value)<option value="{{$value->equipment_details_id}}">{{$value->item_code}}</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-         // $( '#searchItem'+i+'' ).autocomplete({
-         //   source: 'http://localhost:8000/searchItem'
-         // });
-         // $( '#searchItemCode'+i+'').autocomplete({
-         //   source: 'http://localhost:8000/searchItemCode'
-         // });
-         $(".itemCode"+i).change(function(){
-           var id = $("#itemCode"+i).val();
-           console.log(id);
-           options = "";
-           $('.item_name'+i).empty();
-           if (id){
-             $.ajax({
-               url:"/getItemName/"+id,
-               type: "GET",
-               data:{'id':id},
-               success:function(response){
-                 console.log(response);
-                 for(x = 0; x < response.length;  x++){
-                   options += "<option value='"+ response[x].equipment_details_id+"'>"+response[x ].item_name+"</option>";
-                 }
-                 $('.item_name'+i).append(options);
-               },
-               error: function(data){
-                 console.log(data);
-               }
-             });
-           }
-         });
-    });
-    $(document).on('click', '.btn_remove', function(){
-         var button_id = $(this).attr("id");
-         $('#row'+button_id+'').remove();
-    });
-    $('#submit').click(function(){
-         $.ajax({
-              url:"/addborroweditem",
-              method:"POST",
-              data:$('#add_item').serialize(),
-              success:function(data)
-              {
-                   alert(data);
-                   $('#add_item')[0].reset();
-              }
-         });
-    });
-});
-</script>
 <script>
 $( function() {
   $( "#searchItem" ).autocomplete({
@@ -344,6 +294,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 </script>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!--
 =======
 <<<<<<< HEAD
@@ -355,6 +306,9 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 =======
 >>>>>>> 257c0a575d96b8b25e3908ca758e6278760a9013
 >>>>>>> f91290131737bdd6ce8650362b39b7e8cd4085da
+=======
+<!-- To change progress bar width (inline style) -->
+>>>>>>> 1a9c7108d4b4bc05ab196e2186ad8033d2bc18a2
 <script>
   $(document).ready(function(){
     //count all checkboxes
@@ -363,14 +317,14 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
       $("#allElem").text(m);
     };
     $("input[type=checkbox]").on("click", countAll);
-    
+
     //count checkboxes in div where milestones are
     var countChecked = function(){
       var n = parseInt($("input:checked").length);
       $("#result").text(n);
     };
     $("input[type=checkbox]").on("click", countChecked);
-      
+
     //Get quotient of checked/total
     var quotient = function(){
       var quo = (countChecked%countAll)*100;
@@ -378,13 +332,13 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
       $("#progress").text(quo);
     };
     $("input[type=checkbox]").on("click", quotient);
-    
+
 
     // for changing width of progress bar
     var length = parseInt(quoo);
     $('#projProgBar').css({"width":""+length+"%"});
 
-    
+
   });
 
 
