@@ -9,6 +9,7 @@ use App\Profile;
 use App\Staffs;
 use App\ItemDetails;
 use App\BorrowDetails;
+use App\sumofBorrowed;
 use DB;
 class ItemsController extends Controller
 {
@@ -27,12 +28,12 @@ class ItemsController extends Controller
         $items = Items::all();
         $itemdetails = ItemDetails::all();
         $borrows = Borrow::all();
-        $borrowed = DB::select('select borrow.borrow_id, borrow.dateborrowed, borrow.purpose, borrow.profile_id, borrow_details.returndate, PROFILES.firstname, PROFILES.lastname, equipment_details.* FROM equipment_details INNER JOIN borrow_details ON borrow_details.equipment_details_id = equipment_details.equipment_details_id INNER JOIN borrow ON borrow.borrow_id = borrow_details.borrow_id INNER JOIN profiles ON profiles.profile_id = borrow.profile_id');
+        $borrowed = DB::select('select borrow.borrow_id, borrow.dateborrowed, borrow.purpose, borrow.profile_id, borrow.returndate, PROFILES.firstname, PROFILES.lastname, equipment_details.* FROM equipment_details INNER JOIN borrow_details ON borrow_details.equipment_details_id = equipment_details.equipment_details_id INNER JOIN borrow ON borrow.borrow_id = borrow_details.borrow_id INNER JOIN profiles ON profiles.profile_id = borrow.profile_id');
         $profiles = Profile::all();
         $borrowdetails = BorrowDetails::all();
         $title = 'View Equipments';
-
-        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('borrowed',$borrowed)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles);
+        $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed) as sumOf from sumofBorrowed group by equipment_details_id');
+        return view('inventory/index')->with('title', $title)->with('items', $items)->with('borrows', $borrows)->with('borrowed',$borrowed)->with('itemdetails',$itemdetails)->with('borrowdetails',$borrowdetails)->with('profiles',$profiles)->with('sum',$sum);
 
     }
 
@@ -79,6 +80,7 @@ class ItemsController extends Controller
           $itemdetails->item_name = $request->item_name[$num-1];
           $itemdetails->item_type = $request->item_type[$num-1];
           $itemdetails->item_code = $request->item_code[$num-1];
+          $itemdetails->item_quantity = $request->item_quantity[$num-1];
           $itemdetails->item_warranty = $request->item_warranty[$num-1];
           $itemdetails->item_desc = $request->item_desc[$num-1];
           $itemdetails->save();
@@ -185,5 +187,8 @@ class ItemsController extends Controller
       }
       return $searchResult;
 
+    }
+    public function getItemName($id){
+      return $itemnames = ItemDetails::select('equipment_details_id', 'item_code', 'item_name')->where('equipment_details_id',$id)->get();
     }
 }
