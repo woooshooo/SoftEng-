@@ -5,7 +5,7 @@
 -- Host: 127.0.0.1:3306
 -- Generation Time: Feb 09, 2018 at 08:46 AM
 -- Server version: 5.7.19
--- PHP Version: 5.6.31
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
