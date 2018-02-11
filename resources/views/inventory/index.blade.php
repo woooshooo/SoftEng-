@@ -104,6 +104,7 @@ $(document).ready(function(){
 							</tr>
 				@endforeach
 
+
 				</table>
 				<br>
 

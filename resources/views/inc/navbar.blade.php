@@ -200,8 +200,8 @@
                           <a href="{{url('projects')}}">View Projects</a>
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
                 </li>
+
                 <li>
                     <a href="#"><i class="fa fa-book fa-fw"></i> Events <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -212,52 +212,24 @@
                             <a href="{{url('events')}}">View Events</a>
                         </li>
                     </ul>
-                    <!-- /.nav-third-level -->
-                </li>
-                <li>
-                    <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipments</a>
-                    {{-- <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{url('additem')}}">Add Equipments</a>
-                        </li>
-                        <li>
-                            <a href="{{url('items')}}">View Equipments</a>
-                        </li>
-                        <li>
-                            <a href="{{url('borrows')}}">Borrow Equipments</a>
-                        </li>
-                    </ul> --}}
-                    <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-users fa-fw"></i> Profiles <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{url('vols')}}">Volunteers</a>
-                            {{-- <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="{{url('vols')}}">View Volunteers</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('addvolunteer')}}">Add Volunteer</a>
-                                </li>
-                            </ul> --}}
-                            <!-- /.nav-third-level -->
                         </li>
                         <li>
                             <a href="{{url('staffs')}}">Staff</a>
-                            {{-- <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="{{url('staffs')}}">View Staffs</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('addstaff')}}">Add Staff</a>
-                                </li>
-                            </ul> --}}
-                            <!-- /.nav-third-level -->
                         </li>
                     </ul>
-                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipments</a>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-fw"></i> Reports</a>
                 </li>
             </ul>
         </div>

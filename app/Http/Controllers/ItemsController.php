@@ -190,7 +190,6 @@ class ItemsController extends Controller
     }
     public function getItemName($id){
       $itemnames = ItemDetails::select('equipment_details_id', 'item_code', 'item_name','item_quantity')->where('item_code',$id)->where('item_status','AVAILABLE')->get();
-      $available = ""; 
       return $itemnames;
     }
 }

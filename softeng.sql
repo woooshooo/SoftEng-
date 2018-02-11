@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 11, 2018 at 03:44 PM
+-- Generation Time: Feb 11, 2018 at 05:52 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -39,16 +39,15 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
 INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `returndate`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, '2018-02-11', '2018-02-11', 1, 'asdasdasdasd', NULL, NULL),
-(2, '2018-02-01', '2018-02-11', 14, 'tessssssst', NULL, NULL),
-(4, '2018-02-11', '2018-02-11', 1, 'asdasd', NULL, NULL);
+(1, '2018-02-11', NULL, 1, 'test', NULL, NULL),
+(2, '2018-02-11', NULL, 14, 'test', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -68,18 +67,16 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
   PRIMARY KEY (`borrow_details_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow_details`
 --
 
 INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `quantity_borrowed`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 3, 2, NULL, NULL),
-(2, 2, 2, 3, 1, NULL, NULL),
-(3, 1, 2, 1, 3, NULL, NULL),
-(4, 4, 1, 2, 1, '2018-02-11 07:35:55', '2018-02-11 07:35:55'),
-(5, 4, 5, 3, 1, '2018-02-11 07:35:56', '2018-02-11 07:35:56');
+(1, 1, 1, 2, 8, '2018-02-11 09:44:26', '2018-02-11 09:44:26'),
+(2, 1, 4, 1, 1, '2018-02-11 09:44:26', '2018-02-11 09:44:26'),
+(3, 2, 2, 2, 5, '2018-02-11 09:51:37', '2018-02-11 09:51:37');
 
 -- --------------------------------------------------------
 
@@ -95,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
   PRIMARY KEY (`borrow_profile_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `borrow_profile`
@@ -103,8 +100,7 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
 
 INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
 (1, 1, 1),
-(2, 2, 14),
-(4, 4, 1);
+(2, 2, 14);
 
 -- --------------------------------------------------------
 
@@ -163,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
 INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_quantity`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
 (1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', 10, NULL, 'AVAILABLE', 'Itemname2 is okay', NULL, NULL),
 (2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', 5, NULL, 'AVAILABLE', 'Item 1 Okay', NULL, NULL),
-(4, 3, 'DSLR 700D', 'Camera', 'CODE4', 1, '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL),
+(4, 3, 'DSLR 700D', 'Camera', 'CODE4', 1, '1 Week Replacement', 'BORROWED', NULL, NULL, NULL),
 (5, 3, 'DSLR 700D', 'Camera', 'CODE3', 1, '1 Week Replacement', 'AVAILABLE', 'dslr 700d its okay', NULL, NULL);
 
 -- --------------------------------------------------------
