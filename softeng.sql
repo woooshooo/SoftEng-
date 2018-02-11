@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 09, 2018 at 08:46 AM
+-- Generation Time: Feb 11, 2018 at 03:44 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -32,38 +32,23 @@ DROP TABLE IF EXISTS `borrow`;
 CREATE TABLE IF NOT EXISTS `borrow` (
   `borrow_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `dateborrowed` date NOT NULL,
+  `returndate` date DEFAULT NULL,
   `profile_id` int(11) NOT NULL,
   `purpose` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow`
 --
 
-INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, '2018-02-02', 11, '123213123ASD', NULL, NULL),
-(2, '2018-02-02', 13, 'asdasd213123', NULL, NULL),
-(3, '2018-02-01', 1, 'ASDASDASDASD', NULL, NULL),
-(4, '2018-02-01', 26, 'ASDASDASDASD', NULL, NULL),
-(5, '2018-02-01', 1, 'ASDASDASD', NULL, NULL),
-(6, '2018-02-01', 27, 'ASDASD123213ASD', NULL, NULL),
-(7, '2018-02-02', 22, 'ASDASD213ADASD FASDFSDAFSADF', NULL, NULL),
-(8, '2018-02-02', 12, 'ASDASD213', NULL, NULL),
-(9, '2018-01-25', 25, 'asdasdasdasd', NULL, NULL),
-(10, '2018-02-01', 33, 'asdasdasdas', NULL, NULL),
-(11, '2018-02-09', 20, 'asdasdasd', NULL, NULL),
-(12, '2018-02-02', 19, 'ASDASDASDASDASD', NULL, NULL),
-(13, '2018-01-29', 21, 'ADASDASD', NULL, NULL),
-(14, '2018-02-01', 11, 'ASDASD', NULL, NULL),
-(15, '2018-02-01', 19, '123123123QWDASDASD', NULL, NULL),
-(16, '2018-02-01', 25, 'asdasdasdasdasd', NULL, NULL),
-(17, '2018-02-02', 16, 'ASDASDASDASD', NULL, NULL),
-(18, '2018-02-02', 13, 'ASKJDHKSLAFASDHFKLHS', NULL, NULL),
-(19, '2018-02-02', 40, 'Shooting in the Blood Moon', NULL, NULL);
+INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `returndate`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, '2018-02-11', '2018-02-11', 1, 'asdasdasdasd', NULL, NULL),
+(2, '2018-02-01', '2018-02-11', 14, 'tessssssst', NULL, NULL),
+(4, '2018-02-11', '2018-02-11', 1, 'asdasd', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -77,52 +62,24 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
   `borrow_id` int(10) UNSIGNED NOT NULL,
   `equipment_details_id` int(10) UNSIGNED NOT NULL,
   `numberofdays` double NOT NULL,
-  `returndate` date DEFAULT NULL,
+  `quantity_borrowed` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_details_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `borrow_details`
 --
 
-INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `returndate`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 2, '2018-02-02', '2018-02-02 01:39:31', '2018-02-02 01:46:30'),
-(2, 1, 2, 3, '2018-02-02', '2018-02-02 01:39:31', '2018-02-02 01:45:53'),
-(3, 2, 2, 3, '2018-02-02', '2018-02-02 01:46:58', '2018-02-02 01:47:03'),
-(4, 3, 3, 3, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
-(5, 3, 1, 2, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
-(6, 3, 2, 1, '2018-02-02', '2018-02-02 01:49:21', '2018-02-02 01:49:39'),
-(7, 4, 3, 4, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
-(8, 4, 1, 3, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
-(9, 4, 2, 2, '2018-02-02', '2018-02-02 02:01:17', '2018-02-02 02:01:24'),
-(10, 5, 2, 2, '2018-02-02', '2018-02-02 02:02:20', '2018-02-02 02:03:16'),
-(11, 6, 1, 2, '2018-02-02', '2018-02-02 02:02:46', '2018-02-02 02:03:33'),
-(12, 7, 3, 4, '2018-02-02', '2018-02-02 02:03:04', '2018-02-02 02:03:23'),
-(13, 8, 1, 3, '2018-02-02', '2018-02-02 02:07:46', '2018-02-02 03:18:29'),
-(14, 8, 2, 2, '2018-02-02', '2018-02-02 02:07:46', '2018-02-02 03:18:29'),
-(15, 9, 3, 5, '2018-02-02', '2018-02-02 02:25:54', '2018-02-02 02:34:46'),
-(16, 10, 3, 2, '2018-02-02', '2018-02-02 03:01:52', '2018-02-02 03:05:33'),
-(17, 11, 3, 2, '2018-02-02', '2018-02-02 03:19:08', '2018-02-02 03:19:21'),
-(18, 11, 1, 3, '2018-02-02', '2018-02-02 03:19:08', '2018-02-02 03:19:21'),
-(19, 12, 1, 2, '2018-02-02', '2018-02-02 03:25:03', '2018-02-02 03:25:11'),
-(20, 12, 2, 3, '2018-02-02', '2018-02-02 03:25:03', '2018-02-02 03:25:11'),
-(21, 13, 2, 3, '2018-02-02', '2018-02-02 03:26:19', '2018-02-02 03:26:34'),
-(22, 13, 1, 2, '2018-02-02', '2018-02-02 03:26:19', '2018-02-02 03:26:34'),
-(23, 14, 1, 3, '2018-02-02', '2018-02-02 04:57:13', '2018-02-02 05:42:43'),
-(24, 14, 2, 2, '2018-02-02', '2018-02-02 04:57:14', '2018-02-02 05:42:43'),
-(25, 15, 1, 2, '2018-02-02', '2018-02-02 05:43:23', '2018-02-02 05:44:39'),
-(26, 15, 2, 1, '2018-02-02', '2018-02-02 05:43:23', '2018-02-02 05:44:39'),
-(27, 16, 3, 3, '2018-02-02', '2018-02-02 05:43:49', '2018-02-02 05:44:11'),
-(28, 17, 2, 3, '2018-02-02', '2018-02-02 05:52:25', '2018-02-02 05:52:43'),
-(29, 17, 1, 2, '2018-02-02', '2018-02-02 05:52:25', '2018-02-02 05:52:43'),
-(30, 18, 1, 2, '2018-02-02', '2018-02-02 05:54:30', '2018-02-02 05:54:59'),
-(31, 18, 2, 1, '2018-02-02', '2018-02-02 05:54:31', '2018-02-02 05:54:59'),
-(32, 19, 1, 3, NULL, '2018-02-02 06:33:09', '2018-02-02 06:33:09'),
-(33, 19, 2, 1, NULL, '2018-02-02 06:33:09', '2018-02-02 06:33:09');
+INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `quantity_borrowed`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 3, 2, NULL, NULL),
+(2, 2, 2, 3, 1, NULL, NULL),
+(3, 1, 2, 1, 3, NULL, NULL),
+(4, 4, 1, 2, 1, '2018-02-11 07:35:55', '2018-02-11 07:35:55'),
+(5, 4, 5, 3, 1, '2018-02-11 07:35:56', '2018-02-11 07:35:56');
 
 -- --------------------------------------------------------
 
@@ -138,32 +95,16 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
   PRIMARY KEY (`borrow_profile_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `borrow_profile`
 --
 
 INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
-(1, 1, 11),
-(2, 2, 13),
-(3, 3, 1),
-(4, 4, 26),
-(5, 5, 1),
-(6, 6, 27),
-(7, 7, 22),
-(8, 8, 12),
-(9, 9, 25),
-(10, 10, 33),
-(11, 11, 20),
-(12, 12, 19),
-(13, 13, 21),
-(14, 14, 11),
-(15, 15, 19),
-(16, 16, 25),
-(17, 17, 16),
-(18, 18, 13),
-(19, 19, 40);
+(1, 1, 1),
+(2, 2, 14),
+(4, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -188,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 --
 
 INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `receivedby`, `encodedby`, `created_at`, `updated_at`) VALUES
-(1, '2018-02-01', '2018-02-01', 'Bernie Jereza', 'AUTHENTICATED USER HERE', NULL, NULL),
-(2, '2018-02-01', '2018-02-01', 'Aivy Rose Villarba', 'AUTHENTICATED USER HERE', NULL, NULL),
+(1, '2018-02-01', '2018-02-01', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
+(2, '2018-02-01', '2018-02-01', 'Aivy Rose Villarba', 'Aivy Rose Villarba', NULL, NULL),
 (3, '2018-02-01', '2018-02-03', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -205,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
   `item_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `item_quantity` int(11) NOT NULL,
   `item_warranty` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'AVAILABLE',
   `item_desc` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -218,12 +160,11 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
 -- Dumping data for table `equipment_details`
 --
 
-INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', NULL, 'BORROWED', 'ITEM twoGOOD CONDITION', NULL, NULL),
-(2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', NULL, 'BORROWED', 'ITEM oneGOOD CONDITION', NULL, NULL),
-(3, 2, 'ITEMNAME3', 'TYPE2', 'CODE3', NULL, 'AVAILABLE', 'IN GOOD CONDITION', NULL, NULL),
-(4, 3, 'DSLR 700D', 'Camera', 'CODE4', '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL),
-(5, 3, 'DSLR 700D', 'Camera', 'CODE3', '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL);
+INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_quantity`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
+(1, 1, 'ITEMNAME2', 'TYPE2', 'CODE2', 10, NULL, 'AVAILABLE', 'Itemname2 is okay', NULL, NULL),
+(2, 1, 'ITEMNAME1', 'TYPE1', 'CODE1', 5, NULL, 'AVAILABLE', 'Item 1 Okay', NULL, NULL),
+(4, 3, 'DSLR 700D', 'Camera', 'CODE4', 1, '1 Week Replacement', 'AVAILABLE', NULL, NULL, NULL),
+(5, 3, 'DSLR 700D', 'Camera', 'CODE3', 1, '1 Week Replacement', 'AVAILABLE', 'dslr 700d its okay', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,18 +253,15 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
 --
 
 INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `milestone_name`, `milestone_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Milestone 1', 'Ongoing', NULL, NULL),
-(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL),
-(3, 2, 'HAHAHA', 'Ongoing', NULL, NULL),
-(4, 2, 'HUHUU', 'Finished', NULL, NULL),
-(5, 2, 'milestone 1', 'Ongoing', '2018-02-06 23:39:20', '2018-02-06 23:39:20');
+(1, 1, 'Milestone 1', 'Finished', NULL, NULL),
+(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -433,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
@@ -444,12 +382,7 @@ INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_i
 (31, 24, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
 (32, 33, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
 (33, 38, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(35, 23, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
-(36, 24, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
-(37, 33, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
-(38, 38, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23'),
-(39, 42, 2, '2018-02-06 22:45:23', '2018-02-06 22:45:23');
+(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19');
 
 -- --------------------------------------------------------
 
@@ -469,15 +402,14 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
-(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19'),
-(2, 'Project Sample Two', 'Aloy & Friends', 'HAHAHA', '2018-02-07', '2018-02-09', 'Ongoing', '2018-02-06 22:45:23', '2018-02-06 22:45:23');
+(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19');
 
 -- --------------------------------------------------------
 
@@ -509,6 +441,19 @@ INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_s
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `sumofborrowed`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `sumofborrowed`;
+CREATE TABLE IF NOT EXISTS `sumofborrowed` (
+`equipment_details_id` int(10) unsigned
+,`item_name` varchar(191)
+,`quantity_borrowed` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -534,6 +479,26 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'FSfccdjVVuerdW0nP4XcSqCtGvF1eD5U1R69QtYylcmLckOu04U9j4J3aF7R', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
 (2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_damaged`
+-- (See below for the actual view)
+--
+DROP VIEW IF EXISTS `view_damaged`;
+CREATE TABLE IF NOT EXISTS `view_damaged` (
+`equipment_details_id` int(10) unsigned
+,`equipment_id` int(10) unsigned
+,`item_name` varchar(191)
+,`item_type` varchar(191)
+,`item_code` varchar(191)
+,`item_warranty` varchar(191)
+,`item_status` varchar(191)
+,`item_desc` varchar(191)
+,`created_at` timestamp
+,`updated_at` timestamp
+);
 
 -- --------------------------------------------------------
 
@@ -613,6 +578,24 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 DROP TABLE IF EXISTS `milestones_finished`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `milestones_finished`  AS  select `milestone_projects`.`milestone_projects_id` AS `milestone_projects_id`,`milestone_projects`.`projects_id` AS `projects_id`,`milestone_projects`.`milestone_name` AS `milestone_name`,`milestone_projects`.`milestone_status` AS `milestone_status`,`milestone_projects`.`created_at` AS `created_at`,`milestone_projects`.`updated_at` AS `updated_at` from (((select `milestone_projects`.`milestone_projects_id` AS `milestone_projects_id`,`milestone_projects`.`projects_id` AS `projects_id`,`milestone_projects`.`milestone_name` AS `milestone_name`,`milestone_projects`.`milestone_status` AS `milestone_status`,`milestone_projects`.`created_at` AS `created_at`,`milestone_projects`.`updated_at` AS `updated_at` from `milestone_projects` where (`milestone_projects`.`milestone_status` = 'Finished'))) `milestone_projects` join `projects` on((`milestone_projects`.`projects_id` = `projects`.`projects_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `sumofborrowed`
+--
+DROP TABLE IF EXISTS `sumofborrowed`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `sumofborrowed`  AS  select `equipment_details`.`equipment_details_id` AS `equipment_details_id`,`equipment_details`.`item_name` AS `item_name`,`borrow_details`.`quantity_borrowed` AS `quantity_borrowed` from (`equipment_details` join `borrow_details` on((`equipment_details`.`equipment_details_id` = `borrow_details`.`equipment_details_id`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_damaged`
+--
+DROP TABLE IF EXISTS `view_damaged`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_damaged`  AS  select `equipment_details`.`equipment_details_id` AS `equipment_details_id`,`equipment_details`.`equipment_id` AS `equipment_id`,`equipment_details`.`item_name` AS `item_name`,`equipment_details`.`item_type` AS `item_type`,`equipment_details`.`item_code` AS `item_code`,`equipment_details`.`item_warranty` AS `item_warranty`,`equipment_details`.`item_status` AS `item_status`,`equipment_details`.`item_desc` AS `item_desc`,`equipment_details`.`created_at` AS `created_at`,`equipment_details`.`updated_at` AS `updated_at` from `equipment_details` where (`equipment_details`.`item_status` = 'DAMAGED') ;
 
 -- --------------------------------------------------------
 
