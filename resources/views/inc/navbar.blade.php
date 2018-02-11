@@ -229,7 +229,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-fw"></i> Reports</a>
+                    <a href="{{url('reports')}}"><i class="fa fa-tasks fa-fw"></i> Reports</a>
                 </li>
             </ul>
         </div>

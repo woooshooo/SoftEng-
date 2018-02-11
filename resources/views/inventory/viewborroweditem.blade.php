@@ -23,6 +23,7 @@
   													 		<thead>
   																<th><label class="control-label" for="item_code">Item Code</label></th>
   																<th><label class="control-label" for="item_name">Equipment Name</label></th>
+  																<th><label class="control-label" for="quantity_borrowed">Quantity Borrowed</label></th>
   																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
                                   <th><label class="control-label" for="item_desc">Item Condition</label><th>
   															</thead>
@@ -32,12 +33,11 @@
                                       <tr>
                                           <td><input type="text" name="item_code[]" placeholder="Enter Item Code"class="form-control" value="{{$value->item_code}}"disabled></td>
                                           <td><input type="text" name="item_name[]" placeholder="Enter Equipment Name" class="form-control" value="{{$value->item_name}}"disabled></td>
+                                            <td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="{{$borrowdetails[$key2]->quantity_borrowed}}" disabled></td>
                                           <td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" value="{{$borrowdetails[$key2]->numberofdays}}" disabled></td>
                                           {!! Form::open(['action' => ['BorrowsController@update',$value2->borrow->borrow_id], 'method' => 'POST', 'class' => 'form-class'])!!}
                                           {{ csrf_field() }}
                                           <td><input type="text" name="item_desc[]" class="form-control" style="width: 100%" placeholder="condition of item here"value="{{$value->item_desc}}"/></td>
-
-
                                       </tr>
                                     @endif
                                   @endforeach
