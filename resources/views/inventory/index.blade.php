@@ -32,17 +32,31 @@
             </tr>
         	</thead>
 
-					@foreach ($itemdetails as $value)
-						<tr class="clickable-row" data-href="/itemdetails/{{$value->equipment_details_id}}">
-								<td>{{$value->item_name}}</td>
-								<td>{{$value->item_type}}</td>
-								<td>{{$value->item_code}}</td>
-								@if ($value->item_status == "AVAILABLE" )
-									<td><font color="green">{{$value->item_status}}</font></td>
-								@else
-									<td><font color="red">{{$value->item_status}}</font></td>
-								@endif
-						</tr>
+					@foreach ($itemdetails as $key => $value)
+							<tr class="clickable-row" data-href="/itemdetails/{{$value->equipment_details_id}}">
+									<td>{{$value->item_name}}</td>
+									<td>{{$value->item_type}}</td>
+									<td>{{$value->item_code}}</td>
+									{{--  green available and more than 0 value--}}
+											@if ($value->item_status == "AVAILABLE" && $value->item_quantity > 0)
+												@if ($value->item_quantity >= 2)
+													@foreach ($sum as $key2 => $value2)
+														@if ($value->equipment_details_id == $value2->equipment_details_id )
+															@if (($value->item_quantity - $value2->sumOf) != 0)
+																<td><font color="green"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
+															@else
+																<td><font color="red"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
+															@endif
+														@endif
+													@endforeach
+												@else
+													<td><font color="green">{{$value->item_status}}</font></td>
+												@endif
+
+											@elseif ($value->item_status != "AVAILABLE")
+												<td><font color="red">{{$value->item_status}}</font></td>
+											@endif
+							</tr>
 				@endforeach
 
 				</table>
@@ -90,6 +104,7 @@
 																<th><label class="control-label" for="item_name">Item Name</label></th>
 																<th><label class="control-label" for="item_type">Item Type</label></th>
 																<th><label class="control-label" for="item_code">Item Code</label></th>
+																<th><label class="control-label" for="item_quantity">Quantity</label></th>
 																<th><label class="control-label" for="item_warranty">Warranty</label></th>
 																<th><label class="control-label" for="item_desc">Description</label></th>
 																<th><label class="control-label" for=""></label></th>
@@ -98,9 +113,10 @@
 																	 <td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td>
 																	 <td><input type="text" id="searchItemType" name="item_type[]" placeholder="Enter Type" class="form-control"></td>
 																	 <td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td>
+																	 <td><input type="number"  name="item_quantity[]" class="form-control" value="1"</td>
 																	 <td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td>
 																	 <td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td>
-																	 <td><button type="button" name="add" id="add" class="btn btn-success btn-block">Add More</button></td>
+																	 <td><button type="button" name="add" id="add" class="btn btn-success btn-block">Add Item</button></td>
 															</tr>
 												 </table>
 										</div>
@@ -159,11 +175,23 @@
 													 		<thead>
 																<th><label class="control-label" for="item_code">Item Code</label></th>
 																<th><label class="control-label" for="item_name">Item Name</label></th>
+																<th><label class="control-label" for="quantity_borrowed">Quantity to Borrow</label></th>
 																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
 															</thead>
 															<tr>
-																<td><input type="text"  id="searchItemCode" name="item_code[]" placeholder="Enter Item Code"class="form-control"</td>
-																<td><input type="text" id="searchItem" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td>
+																{{-- <td><input type="text"  id="searchItemCode" name="item_code[]" placeholder="Enter Item Code"class="form-control"></td>
+																<td><input type="text" id="searchItem" name="item_name[]" placeholder="Enter Equipment Name" class="form-control"></td> --}}
+																<td><select id="itemCode" class="form-control itemCode" >
+																@foreach ($itemdetails as $key => $value)
+																	@if ($value->item_status == "AVAILABLE")
+																		<option value="{{$value->equipment_details_id}}">{{$value->item_code}}</option>
+																	@endif
+																@endforeach
+															</select></td>
+																<td>
+																	<select name="item_name[]" class="form-control item_name"></select>
+																</td>
+																<td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td>
 																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td>
 																<td><button type="button" name="addborrow" id="addborrow" class="btn btn-success btn-block">Add More</button></td>
 															</tr>
@@ -210,78 +238,32 @@
 								<th>Borrower</th>
 								<th>Purpose</th>
 								<th>Date Borrowed</th>
-								{{-- <th>Option</th> --}}
 							</tr>
 						</thead>
-					@foreach($borrows as $key => $value)
-						@if (is_null($value->borrowdetail[0]->returndate))
-						<tr class="clickable-row" data-href="/borrows/{{$value->borrow_id}}">
-							<td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
-							<td>{{$value->purpose}}</td>
-							<td>{{$value->dateborrowed}}</td>
-							{{-- <td><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#returnconfirmation">Return</button></td> --}}
-						</tr>
-					@endif
-
-				 	@endforeach
+						@foreach ($profiles as $key => $value)
+							@foreach($borrows as $key1 => $value1)
+									@if ($value->profile_id == $value1->profile_id)
+											@if (is_null($value1->returndate))
+											<tr class="clickable-row" data-href="/borrows/{{$value1->borrow_id}}">
+												<td>{{$value->firstname}} {{$value->lastname}}</td>
+												<td>{{$value1->purpose}}</td>
+												<td>{{$value1->dateborrowed}}</td>
+											</tr>
+										@endif
+									@endif
+						 	@endforeach
+						@endforeach
 				</table>
 			</div>
 				</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal BORROW FORMS -->
-<div class="modal fade bd-example-modal-lg" id="borrowforms" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">All Borrow Forms</h3>
-      </div>
-      <div class="modal-body">
-				<div class="row">
-					<div class=" col-lg-12 ml-auto">
-					<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-forms">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Borrower</th>
-								<th>Purpose</th>
-								<th>Date Borrowed</th>
-								<th>Date Returned</th>
-							</tr>
-						</thead>
-					@foreach ($borrows as $value)
-						 <tr data-dismiss="modal" data-toggle="modal" data-target="#forms">
-							 <td>{{$value->borrow_id}}</td>
-							 <td>{{$value->profile[0]->firstname}} {{$value->profile[0]->lastname}}</td>
-							 <td>{{$value->purpose}}</td>
-							 <td>{{$value->dateborrowed}}</td>
-							 @if(!empty($value->borrowdetail[0]->returndate))
-                 <td>{{$value->borrowdetail[0]->returndate}}</td>
-                 @else
-                 <td>Not yet returned</td>
-               @endif
-						 </tr>
-				 	@endforeach
-				</table>
-				</div>
-      	</div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
 
 
