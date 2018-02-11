@@ -126,8 +126,8 @@
                     <td>{{$borrowdetail->numberofdays}}</td>
                     <td>{{$borrow->purpose}}</td>
                     <td>{{$borrow->dateborrowed}}</td>
-                    @if (!is_null($borrowdetail->returndate))
-                      <td>{{$borrowdetail->returndate}}</td>
+                    @if (!is_null($borrow->returndate))
+                      <td>{{$borrow->returndate}}</td>
                     @else
                       <td>Not Yet Returned</td>
                     @endif

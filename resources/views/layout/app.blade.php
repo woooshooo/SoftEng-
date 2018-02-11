@@ -5,27 +5,13 @@ use App\Events;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
-<<<<<<< HEAD
+use App\ItemDetails;
+use App\MilestoneProjects;
 
 
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
 ?>
-
-use App\ItemDetails;
-
-
-use App\MilestoneProjects;
-
-=======
-use App\ItemDetails;
-use App\MilestoneProjects;
->>>>>>> 1a9c7108d4b4bc05ab196e2186ad8033d2bc18a2
-
-$id = Auth::id();
-$user = Staffs::find($id)->profile;
-
- ?>
 
 <html>
 	<head>
@@ -257,10 +243,11 @@ $( function() {
 $(document).ready(function() {
 var i = 1;
 var option = "";
+var maxvalue = "";
 $(".itemCode").change(function(){
   var id = $("#itemCode").val();
-
   option = "";
+	maxvalue = "";
   $('.item_name').empty();
   if (id){
     $.ajax({
@@ -268,11 +255,16 @@ $(".itemCode").change(function(){
       type: "GET",
       data:{'id':id},
       success:function(response){
-
+				console.log(response);
         for(i = 0; i < response.length;  i++){
-          option += "<option value='" + response[i].equipment_details_id+"'>" + response[i].item_name+ "</option>";
+          option += "<option value='" + response[i].item_name+"'>" + response[i].item_name+ "</option>";
+					maxvalue += response[i].item_quantity;
         }
         $('.item_name').append(option);
+				$('.qtytoBorrow').attr({
+		       "max" : maxvalue,
+					 "min" : 1
+		    });
       },
       error: function(data){
         console.log(data);
@@ -293,22 +285,9 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 </script>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<!--
-=======
-<<<<<<< HEAD
-
-
 
 
 <!-- To change progress bar width (inline style) -->
-=======
->>>>>>> 257c0a575d96b8b25e3908ca758e6278760a9013
->>>>>>> f91290131737bdd6ce8650362b39b7e8cd4085da
-=======
-<!-- To change progress bar width (inline style) -->
->>>>>>> 1a9c7108d4b4bc05ab196e2186ad8033d2bc18a2
 <script>
   $(document).ready(function(){
     //count all checkboxes
@@ -377,18 +356,6 @@ $(document).ready(function(){
     $(document).on('click', '.btn_remove', function(){
          var button_id = $(this).attr("id");
          $('#row'+button_id+'').remove();
-    });
-    $('#submit').click(function(){
-         $.ajax({
-              url:"/addborroweditem",
-              method:"POST",
-              data:$('#add_item').serialize(),
-              success:function(data)
-              {
-                   alert(data);
-                   $('#add_item')[0].reset();
-              }
-         });
     });
 });
 </script>

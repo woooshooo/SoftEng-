@@ -11,19 +11,20 @@
 	$id = Auth::id();
 	$user = Staffs::find($id)->profile;
 ?>
-
 <!-- ADDING MORE Borrow-->
 <script>
 $(document).ready(function(){
     var i=1;
+		var maxvalue ="";
     $('#addborrow').click(function(){
          i++;
-         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->equipment_details_id}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow'+i+'"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
 
          $(".itemCode"+i).change(function(){
            var id = $("#itemCode"+i).val();
            console.log(id);
            options = "";
+					 maxvalue ="";
            $('.item_name'+i).empty();
            if (id){
              $.ajax({
@@ -33,9 +34,14 @@ $(document).ready(function(){
                success:function(response){
                  console.log(response);
                  for(x = 0; x < response.length;  x++){
-                   options += "<option value='"+ response[x].equipment_details_id+"'>"+response[x ].item_name+"</option>";
+                   options += "<option value='"+ response[x].item_name+"'>"+response[x].item_name+"</option>";
+									 maxvalue += response[x].item_quantity;
                  }
                  $('.item_name'+i).append(options);
+								 $('.qtytoBorrow'+i).attr({
+				 		       "max" : maxvalue,
+				 					 "min" : 1
+				 		    });
                },
                error: function(data){
                  console.log(data);
@@ -217,10 +223,10 @@ $(document).ready(function(){
 																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
 															</thead>
 															<tr>
-																<td><select id="itemCode" class="form-control itemCode" >
+																<td><select name="item_code[]" id="itemCode" class="form-control itemCode" >
 																@foreach ($itemdetails as $key => $value)
 																	@if ($value->item_status == "AVAILABLE")
-																		<option value="{{$value->equipment_details_id}}">{{$value->item_code}}</option>
+																		<option value="{{$value->item_code}}">{{$value->item_code}}</option>
 																	@endif
 																@endforeach
 															</select></td>
@@ -230,7 +236,8 @@ $(document).ready(function(){
 																{{-- if item quantity is one disable adding more quantity to borrow
 																	if item has more than 1 quantity allow until max available quantity
 																 	--}}
-																<td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control" value="1"></td>
+																<td><input type="number" name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow"></td>
+
 																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td>
 																<td><button type="button" name="addborrow" id="addborrow" class="btn btn-success btn-block">Add More</button></td>
 															</tr>

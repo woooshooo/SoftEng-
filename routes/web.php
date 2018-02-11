@@ -50,12 +50,5 @@ Route::resource('/events','EventsController');
 Route::resource('/projects','ProjectsController');
 Route::resource('/itemdetails','ItemDetailsController');
 Route::get('getItemName/{id}','ItemsController@getItemName');
-<<<<<<< HEAD
 Auth::routes();
 Route::resource('/addmilestone','MilestoneProjectsController');
-Auth::routes();
-
-=======
-Route::resource('/addmilestone','MilestoneProjectsController');
-Auth::routes();
->>>>>>> 1a9c7108d4b4bc05ab196e2186ad8033d2bc18a2
