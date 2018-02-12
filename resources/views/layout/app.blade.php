@@ -319,13 +319,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 
   });
-
-
--->
-
-
-
-<!-- To change progress bar width (inline style) -->
+</script>
 {{-- <script>
 
 //To change progress bar width (inline style)
@@ -335,6 +329,7 @@ $(document).ready(function(){
 
 </script>
  --}}
+
 <script>
   //count checkboxes in div where milestones are
   $(document).ready(function(){
@@ -348,14 +343,14 @@ $(document).ready(function(){
 <!-- Adding milestones-->
 <script>
 $(document).ready(function(){
-    var i=1;
+    var j=1;
     $('#addmilestone').click(function(){
-         i++;
-         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         j+1;
+         $('#dynamic_field_milestone').append('<tr id="row'+j+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+j+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
-    $(document).on('click', '.btn_remove', function(){
-         var button_id = $(this).attr("id");
-         $('#row'+button_id+'').remove();
+    $(document).on('click', '.btn_remove'+j+' ', function(){
+         var btn_id = $(this).attr("id");
+         $('#row'+j+'').remove();
     });
 });
 </script>
