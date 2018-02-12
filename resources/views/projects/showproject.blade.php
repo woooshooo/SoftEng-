@@ -180,4 +180,44 @@
 </div>
 
 <!-- Add milestones modal -->
-
+<div class="modal fade" id="addmilestone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+    	<div class="modal-content">
+      		<div class="modal-header">
+      			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">Add Milestone</h3>
+    </div>
+    	<div class="modal-body">
+        <div class="row">
+        	{!! Form::open(['action' => 'MilestoneProjectsController@store', 'method' => 'POST',
+			'class' => 'panel-body col-lg-12 form'])!!}
+					<div class="form-group col-lg-12" id="addmilestone">
+										<div class="table-responsive">
+												 <table class="table table-hover" id="dynamic_field_milestone">
+													 		<thead>
+																<th><label class="control-label" for="milestone_name">Name</label></th>
+																<th><label class="control-label" for="milestone_status">Status</label></th>
+															</thead>
+															<tr>
+																<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
+																<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing"></td>
+																
+																<td><button type="button" name="addmilestone" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
+															</tr>
+												 </table>
+										</div>
+					</div>
+					 <button type="submit" class="btn btn-primary">Save</button>
+			 <div class="modal-footer">
+				{{Form::hidden('_method','PUT')}}
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+				{!! Form::close() !!}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+</div>
