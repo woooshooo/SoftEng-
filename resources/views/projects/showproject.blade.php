@@ -80,9 +80,20 @@
 						<!--Lagay ng foreach for each Milestone from DB-->
 						<form id="milestonesform">
 						@foreach($milestones as $value)
+								<!--
 								<label>
 									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
-								</label><br>	
+								</label><br>
+								-->
+								@if($value->milestone_status == 'Finished')
+	         				<label>
+									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}" disabled checked> {{$value->milestone_name}}
+							</label><br>
+							@else
+								<label>
+										<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
+								</label><br>
+	         			@endif
 	                    @endforeach
 	                	</form>
 	                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestone">Add Milestone</button>
@@ -202,14 +213,16 @@
 															</thead>
 															<tr>
 																<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
-																<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing"></td>
+																<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled=""></td>
 																
 																<td><button type="button" name="addmilestone" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
 															</tr>
 												 </table>
 										</div>
 					</div>
+					<!--
 					 <button type="submit" class="btn btn-primary">Save</button>
+					-->
 			 <div class="modal-footer">
 				{{Form::hidden('_method','PUT')}}
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
