@@ -16,7 +16,7 @@
 
 						<div class="form-group col-lg-6">
 							<label for="client_name">Client Name</label>
-							<input type="text" class="form-control" id="client_name" name="client_name">
+							<input type="text" class="form-control" id="projects_client" name="client_name">
 						</div>
 
                         <!-- commented out for testing haha

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Projects;
 use App\MilestoneProjects;
+use App\FinishedMilestones;
+
 class MilestoneProjectsController extends Controller
 {
     /**
@@ -63,7 +65,7 @@ class MilestoneProjectsController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -93,7 +95,7 @@ class MilestoneProjectsController extends Controller
         ]);
 
         //update milestone Status
-        $milestone = MilestoneProjects::find($id)->milestone_name;
+        $milestone = MilestoneProjects::('milestone_status')->get();
         if($milestone->milestone_status == 'Ongoing'){
           $milestone->milestone_status = 'Finsihed';
           $milestone->save();

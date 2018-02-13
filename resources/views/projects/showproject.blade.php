@@ -1,5 +1,21 @@
 @extends('layout.app')
 @section('content')
+
+	<!-- Adding milestones-->
+	<script>
+	$(document).ready(function(){
+	    var i=1;
+	    $('#addmilestone').click(function(){
+	         i++;
+	         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+	    });
+	    $(document).on('click', '.btn_remove'+i+' ', function(){
+	         var btn_id = $(this).attr("id");
+	         $('#row'+btn_id+'').remove();
+	    });
+	});
+	</script>
+
 	<div id="wrapper">
 		<div class="row">
 				<div class="col-lg-12">
@@ -43,15 +59,17 @@
 								@if($value->milestone_status == 'Finished')
 	         				<label>
 									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}" disabled checked> {{$value->milestone_name}}
-							</label><br>
-							@else
+								</label><br>
+								@else
 								<label>
 										<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
 								</label><br>
 	         			@endif
-	                    @endforeach
-	                	</form>
-	                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestone">Add Milestone</button>
+	          	@endforeach
+	            </form>
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestones">
+								Add Milestones
+							</button>
 
 				</div>
 				</div>
@@ -71,7 +89,6 @@
 				<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
 				  Edit
 				</button>
-
 
 @endsection
 
@@ -145,47 +162,25 @@
   </div>
 </div>
 
-<!-- Add milestones modal -->
-<div class="modal fade" id="addmilestone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-    	<div class="modal-content">
-      		<div class="modal-header">
-      			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">Add Milestone</h3>
-    </div>
-    	<div class="modal-body">
-        <div class="row">
-        	{!! Form::open(['action' => 'MilestoneProjectsController@store', 'method' => 'POST',
-			'class' => 'panel-body col-lg-12 form'])!!}
-					<div class="form-group col-lg-12">
-										<div class="table-responsive">
-												 <table class="table table-hover" id="dynamic_field_milestone">
-													 		<thead>
-																<th><label class="control-label" for="milestone_name">Name</label></th>
-																<th><label class="control-label" for="milestone_status">Status</label></th>
-															</thead>
-															<tr>
-																<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
-																<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled=""></td>
-
-																<td><button type="button" name="addmilestone" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
-															</tr>
-												 </table>
-										</div>
-					</div>
-					<!--
-					 <button type="submit" class="btn btn-primary">Save</button>
-					-->
-			 <div class="modal-footer">
-				{{Form::hidden('_method','PUT')}}
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+<!--Add milestones modal-->
+<div class="modal fade" id="addmilestones" tabindex="-1" role="dialog" aria-labelledby = exampleModalCenterTitle aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role-="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h3 class="modal-title" id="exampleModalLongTitle">Add Milestone</h3>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => 'MilestoneProjectsController@store', 'method' => 'POST',
+					'class' => 'form z-depth-5', 'style' => 'padding:30px; border-radius:20px;', 'id' => 'addform'])!!}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+ 				<button type="submit" class="btn btn-primary">Save</button>
 				{!! Form::close() !!}
-	</div>
-	</div>
-	</div>
-	</div>
+			</div>
+		</div>
 	</div>
 </div>

@@ -307,7 +307,9 @@ $(document).ready(function(){
     });
   });
 </script>
+
 <!-- Adding milestones-->
+<!--
 <script>
 $(document).ready(function(){
     var i=1;
@@ -321,4 +323,5 @@ $(document).ready(function(){
     });
 });
 </script>
+-->	
 </html>
