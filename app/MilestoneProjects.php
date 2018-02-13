@@ -20,5 +20,4 @@ class MilestoneProjects extends Model
   {
     return $this->belongsTo('App\Projects', 'projects_id');
   }
-
 }

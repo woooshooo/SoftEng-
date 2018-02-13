@@ -310,12 +310,12 @@ $(document).ready(function(){
 <!-- Adding milestones-->
 <script>
 $(document).ready(function(){
-    var j=1;
+    var i=1;
     $('#addmilestone').click(function(){
-         j++;
-         $('#dynamic_field_milestone').append('<tr id="row'+j+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+j+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         i++;
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
-    $(document).on('click', '.btn_remove'+j+' ', function(){
+    $(document).on('click', '.btn_remove'+i+' ', function(){
          var btn_id = $(this).attr("id");
          $('#row'+btn_id+'').remove();
     });

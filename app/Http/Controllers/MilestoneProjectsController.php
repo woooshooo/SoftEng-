@@ -86,7 +86,22 @@ class MilestoneProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //validate
+        $this->validate($request, [
+          'milestone_name' => 'required',
+          'milestone_status' => 'required'
+        ]);
+
+        //update milestone Status
+        $milestone = MilestoneProjects::find($id)->milestone_name;
+        if($milestone->milestone_status == 'Ongoing'){
+          $milestone->milestone_status = 'Finsihed';
+          $milestone->save();
+        }
+        else{
+          $milestone->milestone_status = 'Ongoing';
+          $milestone->save();
+        }
     }
 
     /**

@@ -52,7 +52,7 @@
 	                    @endforeach
 	                	</form>
 	                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestone">Add Milestone</button>
-	                    
+
 				</div>
 				</div>
 				<div class="form-group col-lg-4">
@@ -169,7 +169,7 @@
 															<tr>
 																<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
 																<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled=""></td>
-																
+
 																<td><button type="button" name="addmilestone" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
 															</tr>
 												 </table>
