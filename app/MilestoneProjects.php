@@ -20,8 +20,4 @@ class MilestoneProjects extends Model
   {
     return $this->belongsTo('App\Projects', 'projects_id');
   }
-
-  public function findOngoing(){
-    return $this->where('milestone_status', 'Ongoing')->get();
-  }
 }

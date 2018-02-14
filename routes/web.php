@@ -53,3 +53,4 @@ Route::get('getItemName/{id}','ItemsController@getItemName');
 Route::get('reports','ReportsController@index');
 Auth::routes();
 Route::resource('/addmilestone','MilestoneProjectsController');
+Route::get('/finishedprojects/{id}', 'ProjectsController@destroy');

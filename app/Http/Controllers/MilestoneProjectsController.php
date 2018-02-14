@@ -95,7 +95,7 @@ class MilestoneProjectsController extends Controller
         ]);
 
         //update milestone Status
-        $milestone = MilestoneProjects::('milestone_status')->get();
+        $milestone = MilestoneProjects::find($id);
         if($milestone->milestone_status == 'Ongoing'){
           $milestone->milestone_status = 'Finsihed';
           $milestone->save();

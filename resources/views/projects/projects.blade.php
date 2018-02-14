@@ -63,7 +63,7 @@
 					<div class="col-lg-12">
 						<label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
 						<br>
-								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Production Cluster"> Broadcast & Production Cluster</label>
+								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"> Broadcast & Productions Cluster</label>
 								<br>
 								<label>
 								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>

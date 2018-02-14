@@ -51,8 +51,9 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-      $vols = Vols::all();
-      #Vols::where('cluster',$request->cluster_name[1])->get();
+      // return $request->cluster_name[0];
+      // $vols = Vols::all();
+      // return Vols::where('cluster',$request->cluster_name[0])->get();
       //validate
         $this->validate($request, [
           'project_name' => 'required',
@@ -77,9 +78,10 @@ class ProjectsController extends Controller
         $projects->save();
         #
         #
-        $aw = count($request->cluster_name)-1;
-          for ($num=$aw; $num >= 0 ; $num--) {
-            $volunteers = Vols::where('cluster',$request->cluster_name[$num])->get();
+        $count = count($request->cluster_name); //2
+          for ($i=0; $count > $i ; $i++) {
+
+            $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
             foreach ($volunteers as $value) {
               $profileprojects = new ProfileProjects;
               $profileprojects->projects_id = $projects->projects_id;
@@ -175,9 +177,10 @@ class ProjectsController extends Controller
           $value->delete();
         }
 
-        $aw = count($request->cluster_name)-1;
-          for ($num=$aw; $num >= 0 ; $num--) {
-            $volunteers = Vols::where('cluster',$request->cluster_name[$num])->get();
+        $count = count($request->cluster_name); //2
+          for ($i=0; $count > $i ; $i++) {
+
+            $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
             foreach ($volunteers as $value) {
               $profileprojects = new ProfileProjects;
               $profileprojects->projects_id = $projects->projects_id;
@@ -202,6 +205,9 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $title = 'Finish Project';
+      $projects = Projects::find($id);
+      $profileprojects = ProfileProjects::where('projects_id', $id)->get();
+      return view('projects/finishedproject')->with('projects', $projects)->with('profileprojects', $profileprojects)->with('title', $title);
     }
 }
