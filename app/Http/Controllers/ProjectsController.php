@@ -108,8 +108,16 @@ class ProjectsController extends Controller
       $projects = Projects::find($id);
       $milestones = MilestoneProjects::where('projects_id', $id)->get();
       $finished = FinishedMilestones::where('projects_id', $id)->get();
-      $progress = (count($finished)/count($milestones))*100;
-      $mstatus = MilestoneProjects::where('milestone_status', 'Finished');
+      $getmilestones = count($milestones);
+      $getfinished = count($finished);
+      $progress;
+      if($getmilestones == 0 || $getfinished == 0){
+        $progress = 0;
+      }
+      else{
+        $progress = ($getfinished/$getmilestones)*100;
+      }
+      //$mstatus = MilestoneProjects::where('milestone_status', 'Finished');
       return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress);
     }
 

@@ -58,7 +58,7 @@
 					</div>
 					<div class="col-lg-6">
 						<label class="control-label" for="client_name">Client Name</label>
-						<input type="text" class="form-control" id="projects_client" name="projects_client" placeholder="Client Name">
+						<input type="text" class="form-control" id="projects_client" name="client_name" placeholder="Client Name">
 					</div><br>
 					<div class="col-lg-12">
 						<label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
@@ -77,11 +77,11 @@
 					</div>
 					<div class="col-lg-4">
 						<label for="project_startdate">Project Start Date</label>
-						<input type="date" name="project_startdate" class="form-control">
+						<input type="date" name="project_startdate" class="form-control" id="projectDatePicker">
 					</div>
 					<div class="col-lg-4">
 						<label for="project_deadline">Project Deadline</label>
-						<input type="date" name="project_deadline" class="form-control">
+						<input type="date" name="project_deadline" class="form-control" id="projectDatePicker">
 					</div>
 					<div class="col-lg-4">
 						<label for="project_status">Status</label>
