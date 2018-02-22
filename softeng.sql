@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 14, 2018 at 03:03 AM
+-- Generation Time: Feb 22, 2018 at 04:38 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -172,6 +172,7 @@ DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `events_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_clients` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `events_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `events_startdate` date NOT NULL,
   `events_deadline` date NOT NULL,
@@ -179,7 +180,14 @@ CREATE TABLE IF NOT EXISTS `events` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`events_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`events_id`, `events_name`, `events_clients`, `events_details`, `events_startdate`, `events_deadline`, `events_status`, `created_at`, `updated_at`) VALUES
+(1, 'balao party', 'balay ni balao', 'ajujujuju', '2018-02-22', '2018-02-24', 'Ongoing', '2018-02-20 23:00:54', '2018-02-20 23:00:54');
 
 -- --------------------------------------------------------
 
@@ -249,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -351,7 +359,18 @@ CREATE TABLE IF NOT EXISTS `profile_events` (
   PRIMARY KEY (`profile_events_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile_events`
+--
+
+INSERT INTO `profile_events` (`profile_events_id`, `profile_id`, `events_id`, `created_at`, `updated_at`) VALUES
+(1, 23, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(2, 24, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(3, 33, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(4, 38, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(5, 42, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54');
 
 -- --------------------------------------------------------
 
@@ -478,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', '2rQoiKh8Zcy5k5t9QuNm0vCqTYvCjD2ryAcT2h1DOVWbl5ZSHqcaFK7vpP6t', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'pFiuzzuU8VWECXNz6D6l2zLylYnfi0Yr7rP3Q4PKO6aIw6JRII5FznnpWMyA', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
 (2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------

@@ -35,7 +35,7 @@ class EventsController extends Controller
      */
     public function create()
     {
-        //
+        return view('events/addevents');
     }
 
     /**
@@ -47,6 +47,48 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'event_name' => 'required',
+            'client_name' => 'required',
+            'event_details' => 'required',
+            'event_startdate' => 'required',
+            'event_deadline' => 'required',
+            'event_status' => 'required',
+        ]);
+
+        $events = new Event;
+        $events->events_name =
+        $request->input('event_name');
+        $events->events_clients =
+        $request->input('client_name');
+        $events->events_details =
+        $request->input('event_details');
+        $events->events_startdate =
+        $request->input('event_startdate');
+        $events->events_deadline =
+        $request->input('event_deadline');
+        $events->events_status =
+        $request->input('event_status');
+        $events->save();
+
+        $count = count($request->cluster_name);
+
+        for($i=0; $count > $i; $i++){
+
+          $volunteers =
+          Vols::where('cluster',$request->cluster_name[$i])->get();
+          foreach($volunteers as $value){
+            $profileevents = new ProfileEvents;
+            $profileevents->events_id = $events->events_id;
+            $profileevents->profile_id = $value->profile_id;
+            $profileevents->save();
+          }
+        }
+        #
+
+        return
+        redirect('events/')->with('success','Added Event!');
+
     }
 
     /**
