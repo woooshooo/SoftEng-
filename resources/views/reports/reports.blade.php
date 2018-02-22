@@ -24,7 +24,7 @@
 		>events involved
 		<h4>All Projects</h4>
 		<h4>All Events</h4>
-
+		<a href="{{ url('streampdf') }}" class="btn btn-default">Stream PDF</a>
 	</div>
 </div>
 @endsection

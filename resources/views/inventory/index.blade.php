@@ -12,7 +12,7 @@
 	$user = Staffs::find($id)->profile;
 ?>
 <!-- ADDING MORE Borrow-->
-<script>
+<script type="text/javascript">
 $(document).ready(function(){
     var i=1;
 		var maxvalue ="";

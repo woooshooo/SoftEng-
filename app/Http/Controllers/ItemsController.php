@@ -11,6 +11,7 @@ use App\ItemDetails;
 use App\BorrowDetails;
 use App\sumofBorrowed;
 use DB;
+use PDF;
 class ItemsController extends Controller
 {
     /**

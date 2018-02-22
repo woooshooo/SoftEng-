@@ -51,5 +51,6 @@ Route::resource('/projects','ProjectsController');
 Route::resource('/itemdetails','ItemDetailsController');
 Route::get('getItemName/{id}','ItemsController@getItemName');
 Route::get('reports','ReportsController@index');
+Route::get('streampdf','ReportsController@streampdf');
 Auth::routes();
 Route::resource('/addmilestone','MilestoneProjectsController');
