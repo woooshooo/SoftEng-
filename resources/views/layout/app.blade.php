@@ -287,6 +287,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 
 
+<<<<<<< HEAD
 <!-- To change progress bar width (inline style) -->
 <script>
   $(document).ready(function(){
@@ -320,16 +321,41 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
   });
 </script>
+=======
+{{-- <script>
+
+//To change progress bar width (inline style)
+$(document).ready(function(){
+  $('#projProgBar').css('width', '100%');
+});
+
+</script>
+ --}}
+
+<script>
+  //count checkboxes in div where milestones are
+  $(document).ready(function(){
+    var checkboxes = $('#milestonesform label input[type="checkbox"]');
+    checkboxes.change(function(){
+      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+      $('#count-checked-checkboxes').value(countCheckedCheckboxes);
+    });
+  });
+</script>
+
+<!-- Adding milestones-->
+
+>>>>>>> 7cf04763b61a976eed867f632ce1a739075df9df
 <script>
 $(document).ready(function(){
     var i=1;
     $('#addmilestone').click(function(){
          i++;
-         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
     $(document).on('click', '.btn_remove', function(){
-         var button_id = $(this).attr("id");
-         $('#row'+button_id+'').remove();
+         var btn_id = $(this).attr("id");
+         $('#row'+btn_id+'').remove();
     });
 });
 </script>

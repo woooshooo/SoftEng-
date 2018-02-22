@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 11, 2018 at 05:52 PM
+-- Generation Time: Feb 22, 2018 at 04:38 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -172,6 +172,7 @@ DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `events_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `events_clients` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `events_details` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `events_startdate` date NOT NULL,
   `events_deadline` date NOT NULL,
@@ -179,7 +180,14 @@ CREATE TABLE IF NOT EXISTS `events` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`events_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`events_id`, `events_name`, `events_clients`, `events_details`, `events_startdate`, `events_deadline`, `events_status`, `created_at`, `updated_at`) VALUES
+(1, 'balao party', 'balay ni balao', 'ajujujuju', '2018-02-22', '2018-02-24', 'Ongoing', '2018-02-20 23:00:54', '2018-02-20 23:00:54');
 
 -- --------------------------------------------------------
 
@@ -249,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -257,7 +265,9 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
 
 INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `milestone_name`, `milestone_status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Milestone 1', 'Finished', NULL, NULL),
-(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL);
+(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL),
+(3, 2, 'Milestone 1', 'Ongoing', NULL, NULL),
+(4, 2, 'Milestone 2', 'Ongoing', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -349,7 +359,18 @@ CREATE TABLE IF NOT EXISTS `profile_events` (
   PRIMARY KEY (`profile_events_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile_events`
+--
+
+INSERT INTO `profile_events` (`profile_events_id`, `profile_id`, `events_id`, `created_at`, `updated_at`) VALUES
+(1, 23, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(2, 24, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(3, 33, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(4, 38, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54'),
+(5, 42, 1, '2018-02-20 23:00:54', '2018-02-20 23:00:54');
 
 -- --------------------------------------------------------
 
@@ -367,18 +388,18 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
 --
 
 INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_id`, `created_at`, `updated_at`) VALUES
-(30, 23, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(31, 24, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(32, 33, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(33, 38, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19');
+(60, 23, 3, '2018-02-13 18:57:50', '2018-02-13 18:57:50'),
+(61, 24, 3, '2018-02-13 18:57:50', '2018-02-13 18:57:50'),
+(62, 33, 3, '2018-02-13 18:57:50', '2018-02-13 18:57:50'),
+(63, 38, 3, '2018-02-13 18:57:50', '2018-02-13 18:57:50'),
+(64, 42, 3, '2018-02-13 18:57:50', '2018-02-13 18:57:50');
 
 -- --------------------------------------------------------
 
@@ -398,14 +419,17 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
-(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19');
+(1, 'Project Sample 1', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-02-13 18:14:32'),
+(2, 'Project Sample 2', 'Aloy & Friends', 'hahahha', '2018-02-14', '2018-02-15', 'Ongoing', '2018-02-13 16:42:41', '2018-02-13 18:14:46'),
+(3, 'Project Sample 3', 'Axl & Friends', 'Lorem ipsum odor bla bla bla', '2018-02-14', '2018-03-14', 'Ongoing', '2018-02-13 18:13:17', '2018-02-13 18:57:50'),
+(4, 'Project Sample 4', 'Presidents Office', 'HAHAHAHUHUHUHU', '2018-02-14', '2018-02-15', 'Ongoing', '2018-02-13 18:57:31', '2018-02-13 18:57:31');
 
 -- --------------------------------------------------------
 
@@ -473,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'FSfccdjVVuerdW0nP4XcSqCtGvF1eD5U1R69QtYylcmLckOu04U9j4J3aF7R', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'pFiuzzuU8VWECXNz6D6l2zLylYnfi0Yr7rP3Q4PKO6aIw6JRII5FznnpWMyA', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
 (2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------

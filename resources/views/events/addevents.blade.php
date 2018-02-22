@@ -10,8 +10,9 @@
 			'class' => 'panel-body col-lg-12 form'])!!}
 
 						<div class="form-group col-lg-6">
-							<label for="project_name">Event Title</label>
-							<input type="text" class="form-control" id="project_name">
+							<label for="event_name">Event Title</label>
+							<input type="text" class="form-control" id="event_name"
+							name = "event_name">
 						</div>
 
 						<div class="form-group col-lg-6">
@@ -34,21 +35,21 @@
 
 
 						<div class="form-group col-lg-12">
-							<label for="project_details">Event Details</label>
-							<textarea class="form-control" id="project_details" name="project_details"></textarea>
+							<label for="event_details">Event Details</label>
+							<textarea class="form-control" id="event_details" name="event_details"></textarea>
 						</div>
 
 						<div class="form-group col-lg-4">
-							<label for="project_startdate">Event Start Date</label>
-					    <input type="date" name="project_startdate" class="form-control">
+							<label for="event_startdate">Event Start Date</label>
+					    <input type="date" name="event_startdate" class="form-control">
 						</div>
 						<div class="form-group col-lg-4">
-							<label for="project_deadline">Event End Date</label>
-					    <input type="date" name="project_deadline" class="form-control">
+							<label for="event_deadline">Event End Date</label>
+					    <input type="date" name="event_deadline" class="form-control">
 						</div>
 						<div class="form-group col-lg-4">
-							<label for="project_status">Status</label>
-					    <input type="text" name="project_status" class="form-control">
+							<label for="events_status">Status</label>
+					    <input type="text" name="event_status" class="form-control">
 						</div>
 
 					</div>

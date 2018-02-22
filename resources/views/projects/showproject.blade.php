@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('content')
+
 	<div id="wrapper">
 		<div class="row">
 				<div class="col-lg-12">
@@ -9,51 +10,6 @@
     <div class="form-group col-lg-12">
       <button class="btn btn-default"onclick="history.go(-1);">Back </button>
     </div>
-		{!! Form::open(['action' => ['ProjectsController@update',$projects->projects_id], 'method' => 'POST',
-			'class' => 'panel-body col-lg-12 form'])!!}
-
-					<!--
-
-						<div class="form-group col-lg-6">
-							<label for="project_name">Project Title</label>
-							<input type="text" class="form-control" id="project_name" name="project_name" value="{{$projects->projects_name}}" disabled>
-						</div>
-
-						<div class="form-group col-lg-6">
-							<label for="client_name">Client Name</label>
-							<input type="text" class="form-control" id="client_name" name="client_name" value="{{$projects->projects_client}}" disabled>
-						</div>
-						<div class="form-group col-lg-6">
-							<label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
-							<br>
-							<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Production Cluster" > Broadcast & Production Cluster</label>
-							<br>
-							<label>
-							<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster" > Creative Cluster</label>
-							<br><label>
-							<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Editorial & Social Media Cluster" > Editorial & Social Media Cluster</label>
-							<br>
-						</div>
-							<div class="form-group col-lg-12">
-							<label for="project_details">Project Details</label>
-							<textarea class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
-						</div>
-						<div class="form-group col-lg-4">
-							<label for="project_startdate">Project Start Date</label>
-					    <input type="date" name="project_startdate" class="form-control" value="{{$projects->projects_startdate}}" disabled>
-						</div>
-						<div class="form-group col-lg-4">
-							<label for="project_deadline">Project Deadline</label>
-					    <input type="date" name="project_deadline" class="form-control" value="{{$projects->projects_deadline}}" disabled>
-						</div>
-						<div class="form-group col-lg-4">
-							<label for="project_status">Status</label>
-					    <input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}" disabled>
-						</div>
-
-					</div>
-				-->
-
 				{!! Form::open(['action' => ['ProjectsController@update',$projects->projects_id], 'method' => 'POST',
 				'class' => 'panel-body col-lg-12 form', 'id' => 'progressBar'])!!}
 				<div class="col-lg-12">
@@ -80,13 +36,26 @@
 						<!--Lagay ng foreach for each Milestone from DB-->
 						<form id="milestonesform">
 						@foreach($milestones as $value)
+								<!--
 								<label>
 									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
-								</label><br>	
-	                    @endforeach
-	                	</form>
-	                	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestone">Add Milestone</button>
-	                    
+								</label><br>
+								-->
+								@if($value->milestone_status == 'Finished')
+	         				<label>
+									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}" disabled checked> {{$value->milestone_name}}
+								</label><br>
+								@else
+								<label>
+										<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_name}}"> {{$value->milestone_name}}
+								</label><br>
+	         			@endif
+	          	@endforeach
+	            </form>
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestones">
+								Add Milestones
+							</button>
+
 				</div>
 				</div>
 				<div class="form-group col-lg-4">
@@ -105,7 +74,9 @@
 				<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#editproject">
 				  Edit
 				</button>
-
+				<a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default btn-lg" >
+				  Finish Project
+				</a>
 
 @endsection
 
@@ -179,5 +150,40 @@
   </div>
 </div>
 
-<!-- Add milestones modal -->
-
+<!--Add milestones modal-->
+<div class="modal fade" id="addmilestones" tabindex="-1" role="dialog" aria-labelledby ="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role-="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h3 class="modal-title" id="exampleModalLongTitle">Add Milestone</h3>
+			</div>
+			<div class="modal-body">
+				{!! Form::open(['action' => 'MilestoneProjectsController@store', 'method' => 'POST',
+						'class' => 'panel-body col-lg-12 form'])!!}
+								<div class="form-group col-lg-12">
+													<div class="table-responsive">
+															 <table class="table table-hover" id="dynamic_field_milestone">
+																 		<thead>
+																			<th><label class="control-label" for="milestone_name">Name</label></th>
+																			<th><label class="control-label" for="milestone_status">Status</label></th>
+																		</thead>
+																		<tr>
+																			<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
+																			<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td>
+																			<td><button type="button" name="" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
+																		</tr>
+															 </table>
+													</div>
+								</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save</button>
+	 {!! Form::close() !!}
+			</div>
+		</div>
+	</div>
+</div>

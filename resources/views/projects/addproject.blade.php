@@ -16,7 +16,7 @@
 
 						<div class="form-group col-lg-6">
 							<label for="client_name">Client Name</label>
-							<input type="text" class="form-control" id="client_name" name="client_name">
+							<input type="text" class="form-control" id="projects_client" name="client_name">
 						</div>
 
                         <!-- commented out for testing haha
@@ -33,7 +33,7 @@
                         <div class="form-group col-lg-6">
                             <label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
                             <br>
-                                <label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Production Cluster"> Broadcast & Production Cluster</label>
+                                <label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"> Broadcast & Productions Cluster</label>
                                 <br>
                                 <label>
                                 <input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>
