@@ -55,3 +55,4 @@ Route::get('streampdf','ReportsController@streampdf');
 Auth::routes();
 Route::resource('/addmilestone','MilestoneProjectsController');
 Route::get('/finishedprojects/{id}', 'ProjectsController@destroy');
+Route::get('/showevents/{id}');

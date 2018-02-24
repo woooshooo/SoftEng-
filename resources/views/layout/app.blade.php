@@ -1,3 +1,4 @@
+
 <?php
 use Illuminate\Support\Facades\Auth;
 use App\Projects;
@@ -287,7 +288,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
 
 
-<<<<<<< HEAD
+
 <!-- To change progress bar width (inline style) -->
 <script>
   $(document).ready(function(){
@@ -321,7 +322,7 @@ $('#listallborrowed').on('hidden.bs.modal', function (event) {
 
   });
 </script>
-=======
+
 {{-- <script>
 
 //To change progress bar width (inline style)
@@ -345,7 +346,7 @@ $(document).ready(function(){
 
 <!-- Adding milestones-->
 
->>>>>>> 7cf04763b61a976eed867f632ce1a739075df9df
+
 <script>
 $(document).ready(function(){
     var i=1;

@@ -99,7 +99,11 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        //
+      $title = 'View Event';
+      $events = Events::find($id);
+      //for finished event
+
+      return view('events/showevents')->with('title', $title)->with('events', $events);
     }
 
     /**
@@ -122,7 +126,7 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
