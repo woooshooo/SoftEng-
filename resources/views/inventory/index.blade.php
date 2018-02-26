@@ -62,12 +62,12 @@ $(document).ready(function(){
 					<h1>Inventory</h1>
 				</div>
 				<div class="navbutton">
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addequipment">Add Items</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#listallborrowed">Return Equipments</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#addequipment">Add Items</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#listallborrowed">Return Equipments</button>
 				</div><br>
 
-				<table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables">
+				<table width="100%" class="table table-bordered table-hover table-responsive " id="dataTables">
           <thead>
             <tr>
   						<th>Name</th>
@@ -83,24 +83,21 @@ $(document).ready(function(){
 									<td>{{$value->item_type}}</td>
 									<td>{{$value->item_code}}</td>
 									{{--  green available and more than 0 value--}}
-											@if ($value->item_status == "AVAILABLE" && $value->item_quantity > 0)
-												@if ($value->item_quantity >= 2)
-													@foreach ($sum as $key2 => $value2)
-														@if ($value->equipment_details_id == $value2->equipment_details_id )
-															@if (($value->item_quantity - $value2->sumOf) != 0)
-																<td><font color="green"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
-															@else
-																<td><font color="red"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
-															@endif
-														@endif
-													@endforeach
+									@if ($value->item_status == "AVAILABLE" && $value->item_quantity == 1)
+										<td><font color="green"> {{$value->item_status}} </font></td>
+									@elseif ($value->item_status != "AVAILABLE" && $value->item_quantity == 1)
+										<td><font color="red"> {{$value->item_status}} </font></td>
+									@elseif ($value->item_status == "AVAILABLE" && $value->item_quantity > 1)
+										@foreach ($sum as $key2 => $value2)
+											@if ($value->equipment_details_id == $value2->equipment_details_id)
+												@if (($value->item_quantity - $value2->sumOf) != 0)
+													<td><font color="green"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
 												@else
-													<td><font color="green">{{$value->item_status}}</font></td>
+													<td><font color="red"> {{$value->item_quantity - $value2->sumOf}} LEFT </font></td>
 												@endif
-
-											@elseif ($value->item_status != "AVAILABLE")
-												<td><font color="red">{{$value->item_status}}</font></td>
 											@endif
+										@endforeach
+									@endif
 							</tr>
 				@endforeach
 

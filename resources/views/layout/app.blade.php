@@ -36,6 +36,13 @@ $user = Staffs::find($id)->profile;
 
     <!-- Custom CSS -->
     <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet">
+		<link href="{{asset('datatables/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+		<link href="{{asset('datatables/css/buttons.dataTables.min.css')}}" rel="stylesheet">
+		{{-- <link href="{{asset('datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet"> --}}
+
+		{{-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css	" rel="stylesheet" type="text/css"> --}}
+
 
     <!-- Morris Charts CSS -->
     <link href="{{ asset('morrisjs/morris.css')}}" rel="stylesheet">
@@ -55,7 +62,9 @@ $user = Staffs::find($id)->profile;
     <style type="text/css">
       @media print
       {
-      .noprint {display:none;}
+      .noprint {
+				display:none;
+			}
       }
 
       @media screen
@@ -101,9 +110,15 @@ $user = Staffs::find($id)->profile;
 <script src="{{ asset('morrisjs/morris.min.js')}}"></script>
 <script src="{{ asset('data/morris-data.js')}}"></script>
 <!-- DataTables JavaScript -->
-<script src="{{ asset('datatables/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{ asset('datatables-responsive/dataTables.responsive.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/dataTables.buttons.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/dataTables.bootstrap4.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/jszip.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/pdfmake.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/buttons.flash.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/buttons.html5.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/buttons.print.min.js')}}"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/sb-admin-2.js')}}"></script>
 <!-- fullCalendar -->
@@ -142,22 +157,66 @@ jQuery(document).ready(function($) {
 <script>
 $(document).ready(function() {
 		$('#dataTables-example').DataTable({
-				responsive: true
+			dom: 'Bfrtip',
+			buttons: [
+				'excel', 'pdf', {
+            extend: 'print',
+            text: 'Print',
+            autoPrint: false
+        }
+		]
 		});
     $('#dataTables').DataTable({
-				responsive: true
+			dom: 'Bfrtip',
+			buttons: [
+				'excel', 'pdf', {
+            extend: 'print',
+            text: 'Print',
+            autoPrint: false
+        }
+		]
 		});
     $('#dataTables-forms').DataTable({
-				responsive: true
+			dom: 'Bfrtip',
+			buttons: [
+				'excel', 'pdf', {
+            extend: 'print',
+            text: 'Print',
+            autoPrint: false
+        }
+		]
 		});
     $('#dataTables-items').DataTable({
-				responsive: true
+			dom: 'Bfrtip',
+			buttons: [
+				'excel', 'pdf', {
+            extend: 'print',
+            text: 'Print',
+            autoPrint: false
+        }
+		]
 		});
     $('#dataTables-record').DataTable( {
-        "order": [[ 3, "desc" ]]
+        "order": [[ 3, "desc" ]],
+				dom: 'Bfrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
     } );
     $('#dataTables-viewrecord').DataTable( {
-        "order": [[ 5, "desc" ]]
+        "order": [[ 5, "desc" ]],
+				dom: 'Bfrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
     } );
 });
 </script>

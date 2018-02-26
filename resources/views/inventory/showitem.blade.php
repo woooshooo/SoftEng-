@@ -60,11 +60,7 @@
 				 <div class=" form-group col-lg-6"><br>
 					 {{-- <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#itemeditmodal">Edit</button> --}}
 					 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewrecordmodal">View Record</button>
-					 @if ($itemdetails->item_status == "BORROWED")
-						 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm" disabled>Change Status</button>
-					 @else
 						 <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#confirm">Change Status</button>
-					 @endif
 
 			 </div>
         {!!Form::close()!!}
