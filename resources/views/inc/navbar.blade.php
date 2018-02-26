@@ -220,9 +220,9 @@
                     <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipments</a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="{{url('reports')}}"><i class="fa fa-tasks fa-fw"></i> Reports</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
