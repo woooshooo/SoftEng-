@@ -20,7 +20,7 @@
                         </div>
                         <a href="{{url('projects')}}">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">View Projects</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -32,7 +32,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-book     fa-5x"></i>
+                                    <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">{{$events}}</div>
@@ -40,9 +40,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{url('viewevents')}}">
+                        <a href="{{url('events')}}">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">View Events</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -64,7 +64,7 @@
                         </div>
                         <a href="{{url('staffs')}}">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">View Staffs</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -86,7 +86,7 @@
                         </div>
                         <a href="{{url('vols')}}">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">View Volunteers</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -95,8 +95,7 @@
                 </div>
 
 
-            <div class="huge col-lg-12 text-center">iCOMMP Calendar</div>
-            <div class="col-lg-12 well" id="calendar"></div>
+            
           </div>
     </div>
 @endsection

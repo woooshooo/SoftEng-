@@ -172,7 +172,7 @@
 																		</thead>
 																		<tr>
 																			<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
-																			<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td>
+																			<!--<td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td>-->
 																			<td><button type="button" name="" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
 																		</tr>
 															 </table>

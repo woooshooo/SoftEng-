@@ -55,6 +55,7 @@ $user = Staffs::find($id)->profile;
 		<!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+<<<<<<< HEAD
     <!-- calendar -->
     <link rel='stylesheet' href={{asset('fullcalendar-3.8.0/fullcalendar.css')}} />
     <script src={{asset('fullcalendar-3.8.0/lib/jquery.min.js')}}></script>
@@ -66,21 +67,9 @@ $user = Staffs::find($id)->profile;
 				display:none;
 			}
       }
+=======
+>>>>>>> f6e95b074736d3492982e4abe93df4fe9e3c2e7a
 
-      @media screen
-      {
-      }
-
-      .ui-front {
-        z-index:1001;
-      }
-      .modal-backdrop {
-        visibility: hidden !important;
-      }
-      .modal.in {
-        background-color: rgba(0,0,0,0.5);
-      }
-    </style>
 
   </head>
 
@@ -123,28 +112,7 @@ $user = Staffs::find($id)->profile;
 <script src="{{ asset('js/sb-admin-2.js')}}"></script>
 <!-- fullCalendar -->
 <script src={{asset('fullcalendar-3.8.0/fullcalendar.js')}}></script>
-<script>
-$(document).ready(function() {
 
-    // page is now ready, initialize the calendar...
-
-    $('#calendar').fullCalendar({
-        // put your options and callbacks here
-        header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,basicWeek,basicDay'
-      },
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-        dayClick: function() {
-        alert('a day has been clicked!');
-    }
-    })
-
-});
-</script>
 <!-- clickable row -->
 <script>
 jQuery(document).ready(function($) {
@@ -411,7 +379,7 @@ $(document).ready(function(){
     var i=1;
     $('#addmilestone').click(function(){
          i++;
-         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
     $(document).on('click', '.btn_remove', function(){
          var btn_id = $(this).attr("id");

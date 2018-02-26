@@ -41,17 +41,17 @@ class MilestoneProjectsController extends Controller
     {
         //return $request;
          $this->validate($request, [
-          'milestone_name' => 'required',
-          'milestone_status' => 'required'
+          'milestone_name' => 'required'
+          //'milestone_status' => 'required'
         ]);
         #
         $count = count($request->milestone_name);
         $milestoneproject = new MilestoneProjects;
         #
         for($num=$count; $num > 0; $num--){
-            $milestoneproject->projects_id = 2;
+            $milestoneproject->projects_id = Projects::get($id);
             $milestoneproject->milestone_name = $request->milestone_name[$num-1];
-            $milestoneproject->milestone_status = $request->milestone_status[$num-1];
+            $milestoneproject->milestone_status = 'Ongoing';
             $milestoneproject->save();
 
         }
