@@ -100,6 +100,7 @@ $user = Staffs::find($id)->profile;
 <script type="text/javascript" src="{{ asset('datatables/js/dataTables.buttons.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/dataTables.bootstrap4.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/jszip.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('datatables/js/jszip.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/pdfmake.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/buttons.flash.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/buttons.html5.min.js')}}"></script>
