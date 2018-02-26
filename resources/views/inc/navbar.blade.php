@@ -9,7 +9,7 @@
     <ul class="nav navbar-top-links navbar-right">
 
         <!-- /.dropdown -->
-        <li class="dropdown">
+        {{-- <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
@@ -86,9 +86,9 @@
                 </li>
             </ul>
             <!-- /.dropdown-tasks -->
-        </li>
+        </li> --}}
         <!-- /.dropdown -->
-        <li class="dropdown">
+        {{-- <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
@@ -146,7 +146,7 @@
                 </li>
             </ul>
             <!-- /.dropdown-alerts -->
-        </li>
+        </li> --}}
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -191,15 +191,7 @@
                     <a href="{{url('home')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-desktop fa-fw"></i> Projects <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                          <a href="{{url('addprojects')}}">Add Project</a>
-                        </li>
-                        <li>
-                          <a href="{{url('projects')}}">View Projects</a>
-                        </li>
-                    </ul>
+                    <a href="{{url('projects')}}"><i class="fa fa-desktop fa-fw"></i> Projects</a>
                 </li>
 
                 <li>
