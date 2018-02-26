@@ -48,7 +48,7 @@ $user = Staffs::find($id)->profile;
 		<!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-    
+
 
   </head>
 
@@ -308,7 +308,7 @@ $(document).ready(function(){
     var i=1;
     $('#addmilestone').click(function(){
          i++;
-         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" id="milestonestatus" name="milestone_status[]" class="form-control" value="Ongoing" disabled></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
     $(document).on('click', '.btn_remove', function(){
          var btn_id = $(this).attr("id");
