@@ -55,7 +55,7 @@ $user = Staffs::find($id)->profile;
 		<!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<<<<<<< HEAD
+
     <!-- calendar -->
     <link rel='stylesheet' href={{asset('fullcalendar-3.8.0/fullcalendar.css')}} />
     <script src={{asset('fullcalendar-3.8.0/lib/jquery.min.js')}}></script>
@@ -67,10 +67,7 @@ $user = Staffs::find($id)->profile;
 				display:none;
 			}
       }
-=======
->>>>>>> f6e95b074736d3492982e4abe93df4fe9e3c2e7a
-
-
+			</style>
   </head>
 
 
