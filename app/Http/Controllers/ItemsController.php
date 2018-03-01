@@ -75,15 +75,15 @@ class ItemsController extends Controller
           $items->receivedby = $request->input('receivedby');
           $items->encodedby = $user->firstname." ".$user->lastname; #<--- returns authenticated user
           $items->save();
-        for($num = $count; $num > 0; $num-- ){
+        for($num = 0; $count > $num; $num++ ){
           $itemdetails = new ItemDetails;
           $itemdetails->equipment_id = $items->equipment_id;
-          $itemdetails->item_name = $request->item_name[$num-1];
-          $itemdetails->item_type = $request->item_type[$num-1];
-          $itemdetails->item_code = $request->item_code[$num-1];
-          $itemdetails->item_quantity = $request->item_quantity[$num-1];
-          $itemdetails->item_warranty = $request->item_warranty[$num-1];
-          $itemdetails->item_desc = $request->item_desc[$num-1];
+          $itemdetails->item_name = $request->item_name[$num];
+          $itemdetails->item_type = $request->item_type[$num];
+          $itemdetails->item_code = $request->item_code[$num];
+          $itemdetails->item_quantity = $request->item_quantity[$num];
+          $itemdetails->item_warranty = $request->item_warranty[$num];
+          $itemdetails->item_desc = $request->item_desc[$num];
           $itemdetails->save();
         }
 

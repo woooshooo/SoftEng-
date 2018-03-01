@@ -18,7 +18,6 @@ class Borrow extends Model
   {
     return $this->belongsToMany('App\Profile','borrow_profile','borrow_id','profile_id');
   }
-
   public function borrowdetail()
   {
     return $this->hasMany('App\BorrowDetails','borrow_id');

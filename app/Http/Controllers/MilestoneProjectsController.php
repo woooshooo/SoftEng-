@@ -39,22 +39,23 @@ class MilestoneProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request;
+        // return $request;
          $this->validate($request, [
           'milestone_name' => 'required'
-          //'milestone_status' => 'required'
         ]);
-        #
+        #declare
         $count = count($request->milestone_name);
-        $milestoneproject = new MilestoneProjects;
-        #
-        for($num=$count; $num > 0; $num--){
-            $milestoneproject->projects_id = Projects::get($id);
-            $milestoneproject->milestone_name = $request->milestone_name[$num-1];
-            $milestoneproject->milestone_status = 'Ongoing';
+        $id = Projects::where('projects_id',$request->projects_id)->value('projects_id');
+        #loop
+        for($num=0; $count > $num; $num++){
+            $milestoneproject = new MilestoneProjects;
+            $milestoneproject->projects_id = $id;
+            $milestoneproject->milestone_name = $request->milestone_name[$num];
+            $milestoneproject->milestone_status = $request->milestone_status[$num];
             $milestoneproject->save();
-
         }
+
+        return redirect('projects/'.$id);
     }
 
     /**
@@ -89,10 +90,10 @@ class MilestoneProjectsController extends Controller
     public function update(Request $request, $id)
     {
         //validate
-        $this->validate($request, [
-          'milestone_name' => 'required',
-          'milestone_status' => 'required'
-        ]);
+        // $this->validate($request, [
+        //   'milestone_name' => 'required',
+        //   'milestone_status' => 'required'
+        // ]);
 
         //update milestone Status
         $milestone = MilestoneProjects::find($id);
@@ -115,5 +116,16 @@ class MilestoneProjectsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeStatus($id){
+      $milestone = MilestoneProjects::find($id);
+      if ($milestone->milestone_status == "Ongoing") {
+        $milestone->milestone_status = "Finished";
+      } else {
+        $milestone->milestone_status = "Ongoing";
+      }
+      $milestone->save();
+      return $milestone;
     }
 }

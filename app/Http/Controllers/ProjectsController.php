@@ -13,6 +13,8 @@ use App\ProfileProjects;
 use App\Projects;
 use App\MilestoneProjects;
 use App\FinishedMilestones;
+use App\ItemsProject;
+use DB;
 class ProjectsController extends Controller
 {
     /**
@@ -30,7 +32,9 @@ class ProjectsController extends Controller
         $title = 'View Projects';
         $itemdetails = ItemDetails::all();
         $projects = Projects::all();
-        return view('projects/projects')->with('title', $title)->with('projects', $projects)->with('itemdetails',$itemdetails);
+        $profileprojects = ProfileProjects::all();
+        $profiles = Profile::all();
+        return view('projects/projects')->with('title', $title)->with('projects', $projects)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects);
     }
 
     /**
@@ -51,7 +55,8 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-      // return $request->cluster_name[0];
+      // return $request;
+      //return $request->cluster_name[0];
       // $vols = Vols::all();
       // return Vols::where('cluster',$request->cluster_name[0])->get();
       //validate
@@ -108,6 +113,14 @@ class ProjectsController extends Controller
     {
       $title = 'Viewing Project';
       $projects = Projects::find($id);
+      $profileprojects = ProfileProjects::all();
+      $profiles = Profile::all();
+      $vols = Vols::all();
+      $cluster = DB::select('select distinct cluster from vols');
+      // it just get the same equipment_details_id and the project id
+      $projectitems = ItemsProject::where('projects_id',$id)->get();
+      $itemdetails = ItemDetails::all();
+      // return $projects;
       $milestones = MilestoneProjects::where('projects_id', $id)->get();
       $finished = FinishedMilestones::where('projects_id', $id)->get();
       $getmilestones = count($milestones);
@@ -119,8 +132,7 @@ class ProjectsController extends Controller
       else{
         $progress = ($getfinished/$getmilestones)*100;
       }
-      //$mstatus = MilestoneProjects::where('milestone_status', 'Finished');
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress);
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress)->with('projectitems', $projectitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects)->with('vols',$vols);
     }
 
     /**
@@ -145,8 +157,10 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // return $request;
+      // return $profileprojects = ProfileProjects::where('projects_id',$id)->get();
+      // return $volunteers = Vols::find(1);
       $vols = Vols::all();
-      #Vols::where('cluster',$request->cluster_name[1])->get();
       //validate
         $this->validate($request, [
           'project_name' => 'required',
@@ -157,7 +171,7 @@ class ProjectsController extends Controller
           'project_deadline' => 'required',
           'project_status' => 'required'
         ]);
-
+        $count = count($request->cluster_name);
 
         #
         $projects = Projects::find($id);
@@ -171,21 +185,18 @@ class ProjectsController extends Controller
         $projects->save();
         #
         #
-
-        $profileprojects = ProfileProjects::all();
-        foreach ($profileprojects as $value) {
-          $value->delete();
+        $profileprojects = ProfileProjects::where('projects_id',$id)->get();
+        foreach ($profileprojects as $profileproject) {
+          $profileproject->delete();
         }
 
-        $count = count($request->cluster_name); //2
           for ($i=0; $count > $i ; $i++) {
-
             $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
-            foreach ($volunteers as $value) {
-              $profileprojects = new ProfileProjects;
-              $profileprojects->projects_id = $projects->projects_id;
-              $profileprojects->profile_id = $value->profile_id;
-              $profileprojects->save();
+            foreach ($volunteers as $volunteer) {
+              $newprofileprojects = new ProfileProjects;
+              $newprofileprojects->projects_id = $projects->projects_id;
+              $newprofileprojects->profile_id = $volunteer->profile_id;
+              $newprofileprojects->save();
           }
         }
         #

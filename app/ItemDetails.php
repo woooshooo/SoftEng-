@@ -25,4 +25,9 @@ class ItemDetails extends Model
   {
     return $this->belongsToMany('App\BorrowDetails', 'borrow_id');
   }
+  public function projects()
+  {
+    return $this->belongsToMany('App\Projects','items_project','projects_id','equipment_details_id');
+  }
+
 }

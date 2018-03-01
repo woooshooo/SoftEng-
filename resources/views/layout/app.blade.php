@@ -183,6 +183,26 @@ $(document).ready(function() {
 	        }
 			]
     } );
+		$('#dataTables-projectitems').DataTable( {
+      	dom: 'fBrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
+    } );
+		$('#dataTables-vols').DataTable( {
+      	dom: 'fBrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
+    } );
 });
 </script>
 <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
@@ -208,9 +228,12 @@ $(document).ready(function(){
     $('#add').click(function(){
          i++;
          $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td><td><input type="text" id="searchItemType'+i+'" name="item_type[]" placeholder="Enter Type" class="form-control"></td><td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td><td><input type="number"  name="item_quantity[]" class="form-control" value="1"</td><td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td><td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-         $( '#searchItemType'+i+'' ).autocomplete({
+         $( '#searchItemType'+i+'').autocomplete({
            source: 'http://localhost:8000/searchItemType'
          });
+				 $( "#searchProfile").autocomplete({
+			     source: 'http://localhost:8000/searchProfile'
+			   });
          //CREATE SEARCH ITEM TYPE
     });
     $(document).on('click', '.btn_remove', function(){
@@ -234,36 +257,25 @@ $(document).ready(function(){
 </script>
 
 <script>
-$( function() {
+$(document).ready(function() {
   $( "#searchItem" ).autocomplete({
     source: 'http://localhost:8000/searchItem'
   });
-});
-$( function() {
-  $( "#searchItemType" ).autocomplete({
+	$( "#searchItemType" ).autocomplete({
     source: 'http://localhost:8000/searchItemType'
   });
-});
-$( function() {
-  $( "#searchProfilee" ).autocomplete({
+	$( "#searchProfilee" ).autocomplete({
     source: 'http://localhost:8000/searchProfile'
   });
-});
-$( function() {
-  $( "#searchProfile" ).autocomplete({
+	$( "#searchProfile" ).autocomplete({
     source: 'http://localhost:8000/searchProfile'
   });
+	$( "#searchItemCode" ).autocomplete({
+		source: 'http://localhost:8000/searchItemCode'
+	});
 });
-$( function() {
-  $( "#searchItemCode" ).autocomplete({
-    source: 'http://localhost:8000/searchItemCode'
-  });
-});
-
-
-
 </script>
-
+<!-- my ajax auto complete name for choosing tiem code-->
 <script>
 $(document).ready(function() {
 var i = 1;
@@ -300,71 +312,25 @@ $(".itemCode").change(function(){
 });
 </script>
 
-<script>
-
-$('#listallborrowed').on('hidden.bs.modal', function (event) {
-  if ($('.modal:visible').length) {
-    $('body').addClass('modal-open');
-  }
-});
-
-</script>
-
-
-
-
-<!-- To change progress bar width (inline style) -->
+{{-- ajax for milestone project --}}
 <script>
   $(document).ready(function(){
-    //count all checkboxes
-    var countAll = function(){
-      var m = parseInt($("[name=milestone_project]").length);
-      $("#allElem").text(m);
-    };
-    $("input[type=checkbox]").on("click", countAll);
-
-    //count checkboxes in div where milestones are
-    var countChecked = function(){
-      var n = parseInt($("input:checked").length);
-      $("#result").text(n);
-    };
-    $("input[type=checkbox]").on("click", countChecked);
-
-    //Get quotient of checked/total
-    var quotient = function(){
-      var quo = (countChecked%countAll)*100;
-      var quoo = parseInt(quo);
-      $("#progress").text(quo);
-    };
-    $("input[type=checkbox]").on("click", quotient);
-
-
-    // for changing width of progress bar
-    var length = parseInt(quoo);
-    $('#projProgBar').css({"width":""+length+"%"});
-
-
-  });
-</script>
-
-{{-- <script>
-
-//To change progress bar width (inline style)
-$(document).ready(function(){
-  $('#projProgBar').css('width', '100%');
-});
-
-</script>
- --}}
-
-<script>
-  //count checkboxes in div where milestones are
-  $(document).ready(function(){
-    var checkboxes = $('#milestonesform label input[type="checkbox"]');
-    checkboxes.change(function(){
-      var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
-      $('#count-checked-checkboxes').value(countCheckedCheckboxes);
-    });
+		$('form').on('change', ':checkbox',function() {
+			var milestone_projects_id = this.value;
+  		console.log("checkbox clicked "+milestone_projects_id);
+			$.ajax({
+	      url:"/changeMilestoneStatus/"+milestone_projects_id,
+	      type: "GET",
+	      data:{'milestone_projects_id':milestone_projects_id},
+	      success:function(response){
+					console.log(response);
+					location.reload();
+	      },
+	      error: function(data){
+	        console.log(data);
+	      }
+	    });
+		});
   });
 </script>
 
@@ -376,7 +342,7 @@ $(document).ready(function(){
     var i=1;
     $('#addmilestone').click(function(){
          i++;
-         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_milestone').append('<tr id="row'+i+'"><td><input type="text" id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td><td><input type="text" name="milestone_status[]" class="form-control" value="Ongoing" disabled><input type="hidden" name="milestone_status[]" value="Ongoing"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
     });
     $(document).on('click', '.btn_remove', function(){
          var btn_id = $(this).attr("id");

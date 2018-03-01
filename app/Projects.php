@@ -24,7 +24,8 @@ class Projects extends Model
   {
     return $this->hasMany('App\MilestoneProjects', 'milestone_projects_id');
   }
-  public function noMilestone(){
-    return $this->doesntHave('App\MilestoneProjects', 'milestone_projects_id');
-  }
+  public function itemdetails()
+  {
+    return $this->hasMany('App\ItemsProject', 'equipment_details_id');
+  } 
 }

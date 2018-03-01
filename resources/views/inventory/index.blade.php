@@ -18,7 +18,7 @@ $(document).ready(function(){
 		var maxvalue ="";
     $('#addborrow').click(function(){
          i++;
-         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow'+i+'"></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow'+i+'" required></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" required></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
 
          $(".itemCode"+i).change(function(){
            var id = $("#itemCode"+i).val();
@@ -97,6 +97,8 @@ $(document).ready(function(){
 												@endif
 											@endif
 										@endforeach
+									@elseif ($value->item_status != "AVAILABLE" && $value->item_quantity > 1)
+										<td><font color="red"> {{$value->item_status}} </font></td>
 									@endif
 							</tr>
 				@endforeach
@@ -126,15 +128,20 @@ $(document).ready(function(){
 
 					<div class="form-group col-lg-6">
 						<label class="control-label" for="dateordered">Date Ordered</label>
-						<input type="date" class="form-control custom-search-form"  name="dateordered" placeholder="Enter Date of Order">
+						<input type="date" class="form-control custom-search-form"  name="dateordered" placeholder="Enter Date of Order" required>
 					</div>
 					<div class="form-group col-lg-6">
 						<label class="control-label" for="datedelivered">Date Delivered</label>
-						<input type="date" class="form-control custom-search-form"  name="datedelivered" placeholder="Enter Date of Delivery">
+						<input type="date" class="form-control custom-search-form"  name="datedelivered" placeholder="Enter Date of Delivery" required>
 					</div>
 					<div class="form-group col-lg-6">
 						<label class="control-label" for="receivedby">Received By</label>
-						<input type="text" class="form-control custom-search-form" id="searchProfile" name="receivedby" placeholder="Enter Receiver">
+						{{-- <input type="text" class="form-control custom-search-form" id="searchProfile" name="receivedby" placeholder="Enter Receiver" required> --}}
+						<select class="form-control custom-search-form" name="receivedby">
+							@foreach ($profiles as $key => $value)
+								<option value="{{$value->firstname}} {{$value->lastname}}">{{$value->firstname}} {{$value->lastname}}</option>
+							@endforeach
+						</select>
 					</div>
 					<div class="form-group col-lg-6">
 						<label class="control-label" for="encodedby">Encoded By</label>
@@ -153,12 +160,12 @@ $(document).ready(function(){
 																<th><label class="control-label" for=""></label></th>
 															</thead>
 															<tr>
-																	 <td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control"></td>
-																	 <td><input type="text" id="searchItemType" name="item_type[]" placeholder="Enter Type" class="form-control"></td>
-																	 <td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control"</td>
-																	 <td><input type="number"  name="item_quantity[]" class="form-control" value="1"</td>
-																	 <td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"</td>
-																	 <td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"</td>
+																	 <td><input type="text" name="item_name[]" placeholder="Enter Name" class="form-control" required></td>
+																	 <td><input type="text" id="searchItemType" name="item_type[]" placeholder="Enter Type" class="form-control" required></td>
+																	 <td><input type="text"  name="item_code[]" placeholder="Enter Code" class="form-control required"></td>
+																	 <td><input type="number"  name="item_quantity[]" class="form-control" value="1"required></td>
+																	 <td><input type="text"  name="item_warranty[]" placeholder="Enter Warranty"class="form-control"></td>
+																	 <td><input type="text"  name="item_desc[]" placeholder="Enter Description" class="form-control"></td>
 																	 <td><button type="button" name="add" id="add" class="btn btn-success btn-block">Add Item</button></td>
 															</tr>
 												 </table>
@@ -205,7 +212,7 @@ $(document).ready(function(){
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="borrower">Borrower</label>
-						<select class="form-control custom-search-form" name="borrower">
+						<select class="form-control custom-search-form" name="borrower" required autofocus>
 							@foreach ($profiles as $key => $value)
 								<option value="{{$value->firstname}} {{$value->lastname}}">{{$value->firstname}} {{$value->lastname}}</option>
 							@endforeach
@@ -221,7 +228,7 @@ $(document).ready(function(){
 																<th><label class="control-label" for="numberofdays">Days to Borrow</label></th>
 															</thead>
 															<tr>
-																<td><select name="item_code[]" id="itemCode" class="form-control itemCode" >
+																<td><select name="item_code[]" id="itemCode" class="form-control itemCode" required>
 																@foreach ($itemdetails as $key => $value)
 																	@if ($value->item_status == "AVAILABLE")
 																		<option value="{{$value->item_code}}">{{$value->item_code}}</option>
@@ -229,14 +236,14 @@ $(document).ready(function(){
 																@endforeach
 															</select></td>
 																<td>
-																	<select name="item_name[]" class="form-control item_name"></select>
+																	<select name="item_name[]" class="form-control item_name" required></select>
 																</td>
 																{{-- if item quantity is one disable adding more quantity to borrow
 																	if item has more than 1 quantity allow until max available quantity
 																 	--}}
-																<td><input type="number" name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow"></td>
+																<td><input type="number" name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow" required></td>
 
-																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control"></td>
+																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" required></td>
 																<td><button type="button" name="addborrow" id="addborrow" class="btn btn-success btn-block">Add More</button></td>
 															</tr>
 												 </table>
@@ -246,7 +253,7 @@ $(document).ready(function(){
 
 					<div class="form-group col-lg-12">
 						<label class="control-label" for="purpose">Purpose</label>
-						<textarea style="height: 10%; width: 100%; resize: vertical" class="form-control" name="purpose"></textarea>
+						<textarea style="height: 10%; width: 100%; resize: vertical" class="form-control" name="purpose" required></textarea>
 					</div>
 
 
@@ -271,7 +278,7 @@ $(document).ready(function(){
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">All Borrow Forms</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">Return</h3>
       </div>
       <div class="modal-body">
 				<div class="row">

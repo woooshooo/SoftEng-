@@ -82,7 +82,7 @@ class BorrowsController extends Controller
            $itemdetails = ItemDetails::where('item_code',$request->item_code[$num-1])->first();
            if ($itemdetails->item_quantity == 1) {
              $itemdetails->item_status = "BORROWED";
-           } 
+           }
            $itemdetails->save();
            $borrowdetails->save();
          }

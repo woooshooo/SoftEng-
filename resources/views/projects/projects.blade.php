@@ -30,8 +30,11 @@
 												<td>{{$value->projects_client}}</td>
 												<td>{{$value->projects_startdate}}</td>
 												<td>{{$value->projects_deadline}}</td>
-												<td>{{$value->projects_status}}</td>
-
+												@if ($value->projects_status == "Ongoing")
+													<td><font color="green">{{$value->projects_status}}</font></td>
+												@else
+													<td><font color="tomato">{{$value->projects_status}}</font></td>
+												@endif
 										</tr>
 								@endforeach
             </table>
@@ -40,7 +43,7 @@
 @endsection
 
 <!--Modal Add Project-->
-<<div class="modal fade" id="addproject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<<div class="modal fade" id="addproject" tabindex="-1" role="dialog" aria-labelledby="myLargeModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role-="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -54,16 +57,17 @@
 					'class' => 'panel body col-lg-12 form ui-front'])!!}
 					<div class="col-lg-6">
 						<label class="control-label" for="projects_name">Project Name</label>
-						<input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project Name">
+						<input type="text" class="form-control" id="project_name" name="project_name" placeholder="Project Name" required>
 					</div>
 					<div class="col-lg-6">
 						<label class="control-label" for="client_name">Client Name</label>
-						<input type="text" class="form-control" id="projects_client" name="client_name" placeholder="Client Name">
-					</div><br>
+						<input type="text" class="form-control" id="projects_client" name="client_name" placeholder="Client Name" required>
+					</div>
+					<div class="col-lg-12"><br></div>
 					<div class="col-lg-12">
-						<label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
+						<label class="form-check-label"><u>Choose Cluster/s assigned</u><font color="tomato">(cannot be changed afterwards)</font></label>
 						<br>
-								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"> Broadcast & Productions Cluster</label>
+								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"required> Broadcast & Productions Cluster</label>
 								<br>
 								<label>
 								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>
@@ -71,17 +75,19 @@
 								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Editorial & Social Media Cluster"> Editorial & Social Media Cluster</label>
 								<br>
 					</div>
+					<div class="col-lg-12"><br></div>
 					<div class="col-lg-12">
 						<label for="project_details">Project Details</label>
-						<textarea class="form-control" id="project_details" name="project_details"></textarea>
+						<textarea class="form-control" style="resize:vertical" id="project_details" name="project_details"required></textarea>
 					</div>
+					<div class="col-lg-12"><br></div>
 					<div class="col-lg-4">
 						<label for="project_startdate">Project Start Date</label>
-						<input type="date" name="project_startdate" class="form-control" id="projectDatePicker">
+						<input type="date" name="project_startdate" class="form-control" id="projectDatePicker"required>
 					</div>
 					<div class="col-lg-4">
 						<label for="project_deadline">Project Deadline</label>
-						<input type="date" name="project_deadline" class="form-control" id="projectDatePicker">
+						<input type="date" name="project_deadline" class="form-control" id="projectDatePicker"required>
 					</div>
 					<div class="col-lg-4">
 						<label for="project_status">Status</label>
@@ -91,6 +97,7 @@
 								<option value="Finsihed">Finsihed</option>
 							</select>
 					</div>
+					<div class="col-lg-12"><br></div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
