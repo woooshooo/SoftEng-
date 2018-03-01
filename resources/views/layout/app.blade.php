@@ -122,7 +122,7 @@ jQuery(document).ready(function($) {
 <script>
 $(document).ready(function() {
 		$('#dataTables-example').DataTable({
-			dom: 'Bfrtip',
+			dom: 'fBrtip',
 			buttons: [
 				'excel', 'pdf', {
             extend: 'print',
@@ -132,7 +132,7 @@ $(document).ready(function() {
 		]
 		});
     $('#dataTables').DataTable({
-			dom: 'Bfrtip',
+			dom: 'fBrtip',
 			buttons: [
 				'excel', 'pdf', {
             extend: 'print',
@@ -142,7 +142,7 @@ $(document).ready(function() {
 		]
 		});
     $('#dataTables-forms').DataTable({
-			dom: 'Bfrtip',
+			dom: 'fBrtip',
 			buttons: [
 				'excel', 'pdf', {
             extend: 'print',
@@ -152,7 +152,7 @@ $(document).ready(function() {
 		]
 		});
     $('#dataTables-items').DataTable({
-			dom: 'Bfrtip',
+			dom: 'fBrtip',
 			buttons: [
 				'excel', 'pdf', {
             extend: 'print',
@@ -163,7 +163,7 @@ $(document).ready(function() {
 		});
     $('#dataTables-record').DataTable( {
         "order": [[ 3, "desc" ]],
-				dom: 'Bfrtip',
+				dom: 'fBrtip',
 				buttons: [
 					'excel', 'pdf', {
 	            extend: 'print',
@@ -174,7 +174,7 @@ $(document).ready(function() {
     } );
     $('#dataTables-viewrecord').DataTable( {
         "order": [[ 5, "desc" ]],
-				dom: 'Bfrtip',
+				dom: 'fBrtip',
 				buttons: [
 					'excel', 'pdf', {
 	            extend: 'print',
