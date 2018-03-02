@@ -49,18 +49,15 @@ class EventsController extends Controller
         //
         $this->validate($request, [
             'event_name' => 'required',
-            'client_name' => 'required',
             'event_details' => 'required',
             'event_startdate' => 'required',
             'event_deadline' => 'required',
             'event_status' => 'required',
         ]);
 
-        $events = new Event;
+        $events = new Events;
         $events->events_name =
         $request->input('event_name');
-        $events->events_clients =
-        $request->input('client_name');
         $events->events_details =
         $request->input('event_details');
         $events->events_startdate =
