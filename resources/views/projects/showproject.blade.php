@@ -95,12 +95,14 @@
 						@foreach ($profiles as $profile)
 							@foreach ($vols as $vol)
 								@foreach ($profileprojects as $profileproject)
-									@if ($profile->profile_id == $profileproject->profile_id)
-										@if ($profile->profile_id == $vol->profile_id)
-											<tr>
-												<td>{{$profile->firstname}} {{$profile->lastname}}</td>
-												<td>{{$vol->cluster}}</td>
-											</tr>
+									@if ($profileproject->projects_id == $projects->projects_id)
+										@if ($profile->profile_id == $profileproject->profile_id)
+											@if ($profile->profile_id == $vol->profile_id)
+												<tr>
+													<td>{{$profile->firstname}} {{$profile->lastname}}</td>
+													<td>{{$vol->cluster}}</td>
+												</tr>
+											@endif
 										@endif
 									@endif
 								@endforeach
@@ -133,9 +135,20 @@
 			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#additem" onclick="console.log('Opened Modal');">
 				Add Item Used
 			</button>
-			<a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default">
+			{{-- <a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default">
 				Finish Project
-			</a><br><br>
+			</a> --}}
+			@if ($progress != 100)
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');" disabled>
+					Finish Project
+				</button>
+			@else
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');">
+					Finish Project
+				</button>
+			@endif
+
+			<br><br>
 		</div>
 	</div>
 </div>
@@ -246,7 +259,6 @@
 				</button>
 				<h3 class="modal-title">Add Items Used</h3>
 			</div>
-			{{--  FIX FIRST ITEM NOT DOING ITS JOB--}}
 			<div class="modal-body">
 					{!! Form::open(['action' => 'ItemsProjectController@store', 'method' => 'POST','class' => ' form  ui-front '])!!}
 							<table class="table table-hover table-responsive" id="dynamic_field_borrow">
@@ -278,4 +290,53 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Modal FinishProjects-->
+<div class="modal fade" id="finishproject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				<h3 class="modal-title">Check Volunteers</h3>
+      </div>
+      <div class="modal-body">
+				{!! Form::open(['action'=> ['ProfileProjectsController@update', $projects->projects_id], 'method' => 'POST',
+					'class' => 'panel-body form was-validated'])!!}
+					<div class="form-group col-lg-12">
+						{{-- <button id="checkAll" class="btn btn-default">Check All</button>	 --}}
+						<table class="table table-hover table-responsive" id="dataTables">
+							<thead>
+								<th>Volunteers</th>
+								<th>Cluster</th>
+							</thead>
+							@foreach ($profiles as $profile)
+								@foreach ($vols as $vol)
+									@foreach ($profileprojects as $profileproject)
+										@if ($profileproject->projects_id == $projects->projects_id)
+											@if ($profile->profile_id == $profileproject->profile_id)
+												@if ($profile->profile_id == $vol->profile_id)
+													<tr>
+														<td> <input type="checkbox" class="custom-control-input" name="volunteers[]" value="{{$profile->profile_id}}"> {{$profile->firstname}} {{$profile->lastname}}</td>
+														<td>{{$vol->cluster}}</td>
+													</tr>
+												@endif
+											@endif
+										@endif
+									@endforeach
+								@endforeach
+							@endforeach
+						</table>
+			    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+				{{Form::hidden('_method','PUT')}}
+				{!! Form::close() !!}
+      </div>
+    </div>
+  </div>
 </div>

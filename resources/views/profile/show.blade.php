@@ -84,6 +84,7 @@
         @endif
         {{-- <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a> --}}
        <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewborroweditems">View Borrowed Items</button>
+       <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewprojects">View Projects</button>
        {!!Form::close()!!}
      </div>
 
@@ -91,54 +92,104 @@
 @endsection
 
 <!-- Modal View Borrowed Items-->
-<div class="modal fade" id="viewborroweditems" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade" id="viewborroweditems" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Borrowed Items</h3>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class=" col-lg-12 ml-auto">
+            <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Item Code</th>
+                  <th>To return after</th>
+                  <th>Purpose</th>
+                  <th>Date Borrowed</th>
+                  <th>Date Returned</th>
+                </tr>
+              </thead>
+              @foreach($borrows as $borrow)
+                @foreach ($borrowdetails as $borrowdetail)
+                  @foreach ($itemdetails as $itemdetail)
+                    @if ($borrow->borrow_id == $borrowdetail->borrow_id)
+                      @if ($borrowdetail->equipment_details_id == $itemdetail->equipment_details_id)
+                        <tr>
+                          <td>{{$itemdetail->item_name}}</td>
+                          <td>{{$itemdetail->item_code}}</td>
+                          <td>{{$borrowdetail->numberofdays}}</td>
+                          <td>{{$borrow->purpose}}</td>
+                          <td>{{$borrow->dateborrowed}}</td>
+                          @if (!is_null($borrow->returndate))
+                            <td>{{$borrow->returndate}}</td>
+                          @else
+                            <td>Not Yet Returned</td>
+                          @endif
+                        </tr>
+                      @endif
+                    @endif
+                  @endforeach
+                @endforeach
+              @endforeach
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal View Projects Joined-->
+<div class="modal fade" id="viewprojects" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Projects Volunteered</h3>
 
       </div>
       <div class="modal-body">
       <div class="row">
         <div class=" col-lg-12 ml-auto">
-        <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-example">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Item Code</th>
-              <th>To return after</th>
-              <th>Purpose</th>
-              <th>Date Borrowed</th>
-              <th>Date Returned</th>
-            </tr>
-          </thead>
-        @foreach($borrows as $borrow)
-          @foreach ($borrowdetails as $borrowdetail)
-            @foreach ($itemdetails as $itemdetail)
-              @if ($borrow->borrow_id == $borrowdetail->borrow_id)
-                @if ($borrowdetail->equipment_details_id == $itemdetail->equipment_details_id)
+          <table class="table table-bordered table-hover table-responsive" id="dataTables">
+              <thead>
                   <tr>
-                    <td>{{$itemdetail->item_name}}</td>
-                    <td>{{$itemdetail->item_code}}</td>
-                    <td>{{$borrowdetail->numberofdays}}</td>
-                    <td>{{$borrow->purpose}}</td>
-                    <td>{{$borrow->dateborrowed}}</td>
-                    @if (!is_null($borrow->returndate))
-                      <td>{{$borrow->returndate}}</td>
-                    @else
-                      <td>Not Yet Returned</td>
-                    @endif
-
+                  <th>Project Name</th>
+                  <th>Client</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
                   </tr>
-                @endif
-              @endif
-            @endforeach
-          @endforeach
-        @endforeach
-      </table>
+              </thead>
+              @foreach ($projects as $project)
+                @foreach ($profileprojects as $profileproject)
+                  @if ($project->projects_id == $profileproject->projects_id)
+                    <tr class="clickable-row" data-href="/projects/{{$project->projects_id}}">
+                        <td>{{$project->projects_name}}</td>
+                        <td>{{$project->projects_client}}</td>
+                        <td>{{$project->projects_startdate}}</td>
+                        <td>{{$project->projects_deadline}}</td>
+                        @if ($project->projects_status == "Ongoing")
+                          <td><font color="green">{{$project->projects_status}}</font></td>
+                        @else
+                          <td><font color="tomato">{{$project->projects_status}}</font></td>
+                        @endif
+                    </tr>
+                  @endif
+                @endforeach
+              @endforeach
+          </table>
       </div>
       </div>
 

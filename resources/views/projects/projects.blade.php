@@ -67,7 +67,7 @@
 					<div class="col-lg-12">
 						<label class="form-check-label"><u>Choose Cluster/s assigned</u><font color="tomato">(cannot be changed afterwards)</font></label>
 						<br>
-								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"required> Broadcast & Productions Cluster</label>
+								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"> Broadcast & Productions Cluster</label>
 								<br>
 								<label>
 								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>
@@ -94,7 +94,7 @@
 						<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
 							<select class="form-control col-lg-4" name="project_status">
 								<option value="Ongoing">Ongoing</option>
-								<option value="Finsihed">Finsihed</option>
+								{{-- <option value="Finsihed">Finsihed</option> --}}
 							</select>
 					</div>
 					<div class="col-lg-12"><br></div>

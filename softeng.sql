@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 27, 2018 at 09:10 AM
+-- Generation Time: Mar 02, 2018 at 05:43 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -139,7 +139,8 @@ CREATE TABLE IF NOT EXISTS `equipments` (
 INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `receivedby`, `encodedby`, `created_at`, `updated_at`) VALUES
 (1, '2018-02-26', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
 (2, '2018-02-19', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
-(3, '2018-02-19', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL);
+(3, '2018-02-19', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
+(4, '2018-03-01', '2018-03-01', 'Webster Kyle Genise', 'Bernie Jereza', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_details_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipment_details`
@@ -176,7 +177,8 @@ INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_n
 (5, 1, 'DSLR 700D', 'Camera', 'code1', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (6, 2, 'Speaker9000', 'Speaker', 'code7', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (7, 2, 'Macbook', 'Laptop', 'code6', 1, NULL, 'BORROWED', NULL, NULL, NULL),
-(8, 3, 'AUX Cable 15m', 'Cable', 'code8', 10, NULL, 'AVAILABLE', 'Good', NULL, NULL);
+(8, 3, 'AUX Cable 15m', 'Cable', 'code8', 10, NULL, 'AVAILABLE', 'Good', NULL, NULL),
+(9, 4, 'Telephoto Lens', 'Lens', 'code9', 2, NULL, 'AVAILABLE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -200,6 +202,22 @@ CREATE TABLE IF NOT EXISTS `events` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `items_project`
+--
+
+DROP TABLE IF EXISTS `items_project`;
+CREATE TABLE IF NOT EXISTS `items_project` (
+  `items_project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `projects_id` int(10) UNSIGNED NOT NULL,
+  `equipment_details_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`items_project_id`),
+  KEY `projects_id` (`projects_id`),
+  KEY `equipment_details_id` (`equipment_details_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
@@ -209,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -231,7 +249,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2018_01_26_060648_milestone_projects', 1),
 (15, '2018_01_30_074807_item__code', 2),
 (16, '2018_01_31_031917_equipment_details', 3),
-(17, '2018_01_31_155208_borrow_details', 3);
+(17, '2018_01_31_155208_borrow_details', 3),
+(18, '2018_02_28_050313_project_items', 4);
 
 -- --------------------------------------------------------
 
@@ -272,8 +291,8 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
 --
 
 INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `milestone_name`, `milestone_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Milestone 1', 'Finished', NULL, NULL),
-(2, 1, 'Milestone 2', 'Ongoing', NULL, NULL);
+(1, 1, 'Milestone One', 'Finished', '2018-03-01 20:55:25', '2018-03-01 20:55:29'),
+(2, 1, 'Milestone Two', 'Ongoing', '2018-03-01 20:55:25', '2018-03-01 20:55:25');
 
 -- --------------------------------------------------------
 
@@ -383,18 +402,80 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   PRIMARY KEY (`profile_projects_id`),
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
 --
 
 INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_id`, `created_at`, `updated_at`) VALUES
-(30, 23, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(31, 24, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(32, 33, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(33, 38, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19'),
-(34, 42, 1, '2018-01-25 22:51:19', '2018-01-25 22:51:19');
+(77, 12, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(78, 14, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(79, 16, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(80, 17, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(81, 18, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(82, 21, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(83, 22, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(84, 26, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(85, 29, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(86, 35, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(87, 36, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(88, 37, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(89, 39, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(90, 11, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(91, 13, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(92, 15, 2, '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(93, 19, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(94, 20, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(95, 25, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(96, 27, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(97, 28, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(98, 30, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(99, 31, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(100, 32, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(101, 34, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(102, 40, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(103, 41, 2, '2018-03-01 20:53:15', '2018-03-01 20:53:15'),
+(104, 12, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(105, 14, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(106, 16, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(107, 17, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(108, 18, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(109, 21, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(110, 22, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(111, 26, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(112, 29, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(113, 35, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(114, 36, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(115, 37, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(116, 39, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(117, 11, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(118, 13, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(119, 15, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(120, 19, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(121, 20, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(122, 25, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(123, 27, 3, '2018-03-01 20:55:06', '2018-03-01 20:55:06'),
+(124, 28, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(125, 30, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(126, 31, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(127, 32, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(128, 34, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(129, 40, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(130, 41, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(131, 23, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(132, 24, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(133, 33, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(134, 38, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(135, 42, 3, '2018-03-01 20:55:07', '2018-03-01 20:55:07'),
+(136, 12, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(137, 17, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(138, 18, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(139, 26, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(140, 35, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(141, 36, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(142, 37, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49'),
+(143, 39, 1, '2018-03-01 20:55:49', '2018-03-01 20:55:49');
 
 -- --------------------------------------------------------
 
@@ -414,14 +495,16 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `projects_details`, `projects_startdate`, `projects_deadline`, `projects_status`, `created_at`, `updated_at`) VALUES
-(1, 'Project Sample One', 'GT & Friends', 'Details Sample', '2018-01-22', '2018-01-23', 'Ongoing', '2018-01-22 04:00:54', '2018-01-25 22:51:19');
+(1, 'Project One', 'Client One', 'Project One Details', '2018-03-02', '2018-03-03', 'Finished', '2018-03-01 20:51:50', '2018-03-01 20:55:49'),
+(2, 'Project Two', 'Client Two', 'Project Two Details', '2018-02-25', '2018-03-03', 'Ongoing', '2018-03-01 20:53:14', '2018-03-01 20:53:14'),
+(3, 'Project Three', 'Client Three', 'Project Details Three', '2018-03-01', '2018-03-02', 'Ongoing', '2018-03-01 20:55:06', '2018-03-01 20:55:06');
 
 -- --------------------------------------------------------
 
@@ -447,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `staffs` (
 --
 
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-01-26 19:44:14'),
+(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-03-01 21:08:09'),
 (2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------
@@ -489,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', '567Gi3VhXBWaqI819c1AZI8nZ6HZCH5n8yZAa77s9FIp6M2WwCM3vC7yZjFL', '2018-01-12 10:01:39', '2018-01-26 19:44:14'),
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', '567Gi3VhXBWaqI819c1AZI8nZ6HZCH5n8yZAa77s9FIp6M2WwCM3vC7yZjFL', '2018-01-12 10:01:39', '2018-03-01 21:08:09'),
 (2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------
@@ -550,7 +633,7 @@ CREATE TABLE IF NOT EXISTS `vols` (
 
 INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `section`, `vol_status`, `created_at`, `updated_at`) VALUES
 (1, 11, 'Creative Cluster', '4th Year', 'AB-Psychology', '4-AB Psych', 'ACTIVE', '2018-01-21 22:10:36', '2018-01-26 19:57:36'),
-(2, 12, 'Broadcast & Productions Cluster', '4th Year', 'AB Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:11:46', '2018-01-21 22:11:46'),
+(2, 12, 'Broadcast & Productions Cluster', '4th Year', 'AB Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:11:46', '2018-03-01 21:07:57'),
 (3, 13, 'Creative Cluster', '4th Year', 'AB IS Major in Asian Studies', '4-AB IS Major in Asian Studies', 'ACTIVE', '2018-01-21 22:13:05', '2018-01-21 22:13:05'),
 (4, 14, 'Broadcast & Productions Cluster', '3rd Year', 'BS Information Technology', 'IT 3-A', 'ACTIVE', '2018-01-21 22:13:54', '2018-02-01 00:46:13'),
 (5, 15, 'Creative Cluster', '4th Year', 'BSEd English', '4-BSEd English', 'ACTIVE', '2018-01-21 22:15:08', '2018-01-21 22:15:08'),
@@ -647,6 +730,13 @@ ALTER TABLE `borrow_profile`
 --
 ALTER TABLE `equipment_details`
   ADD CONSTRAINT `equipment_details_ibfk_1` FOREIGN KEY (`equipment_id`) REFERENCES `equipments` (`equipment_id`);
+
+--
+-- Constraints for table `items_project`
+--
+ALTER TABLE `items_project`
+  ADD CONSTRAINT `items_project_ibfk_1` FOREIGN KEY (`projects_id`) REFERENCES `projects` (`projects_id`),
+  ADD CONSTRAINT `items_project_ibfk_2` FOREIGN KEY (`equipment_details_id`) REFERENCES `equipment_details` (`equipment_details_id`);
 
 --
 -- Constraints for table `milestone_projects`

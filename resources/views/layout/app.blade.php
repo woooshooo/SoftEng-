@@ -67,6 +67,12 @@ $user = Staffs::find($id)->profile;
 				display:none;
 			}
       }
+			.scrollbox {
+			  height:200px;
+				width:100%;
+			  overflow-x:hidden;
+				overflow-y:scroll;
+			}
 			</style>
   </head>
 
