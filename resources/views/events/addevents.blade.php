@@ -9,17 +9,17 @@
 		{!! Form::open(['action' => 'EventsController@store', 'method' => 'POST',
 			'class' => 'panel-body col-lg-12 form'])!!}
 
-						<div class="form-group col-lg-6">
+						<div class="form-group col-lg-12">
 							<label for="event_name">Event Title</label>
 							<input type="text" class="form-control" id="event_name"
 							name = "event_name">
 						</div>
-
+						<!--
 						<div class="form-group col-lg-6">
 							<label for="client_name">Client Name</label>
 							<input type="text" class="form-control" id="client_name" name="client_name">
 						</div>
-
+					-->
 
 						<div class="form-group col-lg-6">
                             <label class="form-check-label"><u>Choose Cluster/s assigned</u></label>
