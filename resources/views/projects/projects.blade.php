@@ -43,7 +43,7 @@
 @endsection
 
 <!--Modal Add Project-->
-<<div class="modal fade" id="addproject" tabindex="-1" role="dialog" aria-labelledby="myLargeModal" aria-hidden="true">
+<div class="modal fade" id="addproject" tabindex="-1" role="dialog" aria-labelledby="myLargeModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role-="document">
 		<div class="modal-content">
 			<div class="modal-header">
