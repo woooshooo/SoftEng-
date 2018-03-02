@@ -138,9 +138,16 @@
 			{{-- <a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default">
 				Finish Project
 			</a> --}}
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');">
-				Finish Project
-			</button>
+			@if ($progress != 100)
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');" disabled>
+					Finish Project
+				</button>
+			@else
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');">
+					Finish Project
+				</button>
+			@endif
+
 			<br><br>
 		</div>
 	</div>
@@ -299,7 +306,7 @@
 				{!! Form::open(['action'=> ['ProfileProjectsController@update', $projects->projects_id], 'method' => 'POST',
 					'class' => 'panel-body form was-validated'])!!}
 					<div class="form-group col-lg-12">
-						<button id="checkAll" class="btn btn-default">Check All</button>	
+						{{-- <button id="checkAll" class="btn btn-default">Check All</button>	 --}}
 						<table class="table table-hover table-responsive" id="dataTables">
 							<thead>
 								<th>Volunteers</th>

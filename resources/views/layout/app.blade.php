@@ -356,9 +356,4 @@ $(document).ready(function(){
     });
 });
 </script>
-<script>
-$("#checkAll").click(function(){
-$('input:checkbox').not(this).prop('checked', this.checked);
-});
-</script>
 </html>
