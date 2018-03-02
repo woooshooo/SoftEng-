@@ -11,7 +11,7 @@ class ProfileProjects extends Model
   //Primary Key
   public $primaryKey = 'profile_projects_id';
   //Timestamps
-  public $timestamps = true;
+  public $timestamps = false;
 
   protected $fillable = [
       'profile_id'

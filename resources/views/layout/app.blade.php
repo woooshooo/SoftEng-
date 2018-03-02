@@ -9,7 +9,8 @@ use App\Profile;
 use App\ItemDetails;
 use App\MilestoneProjects;
 
-
+$vols = Vols::all();
+$profiles = Profile::all();
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
 ?>
@@ -22,15 +23,15 @@ $user = Staffs::find($id)->profile;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Webster Kyle Genise">
 
 		<!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
 
-
     <!-- MetisMenu CSS -->
     <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
-
+		<!-- ajax -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <!-- JQUERY UI -->
     <link href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 
@@ -38,11 +39,6 @@ $user = Staffs::find($id)->profile;
     <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet">
 		<link href="{{asset('datatables/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 		<link href="{{asset('datatables/css/buttons.dataTables.min.css')}}" rel="stylesheet">
-		{{-- <link href="{{asset('datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet"> --}}
-
-		{{-- <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-		<link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css	" rel="stylesheet" type="text/css"> --}}
-
 
     <!-- Morris Charts CSS -->
     <link href="{{ asset('morrisjs/morris.css')}}" rel="stylesheet">
@@ -50,16 +46,10 @@ $user = Staffs::find($id)->profile;
     <!-- Custom Fonts -->
     <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
-		<!-- ajax -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 		<!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- calendar -->
-    <link rel='stylesheet' href={{asset('fullcalendar-3.8.0/fullcalendar.css')}} />
-    <script src={{asset('fullcalendar-3.8.0/lib/jquery.min.js')}}></script>
-    <script src={{asset('fullcalendar-3.8.0/lib/moment.min.js')}}></script>
     <style type="text/css">
       @media print
       {
@@ -87,10 +77,8 @@ $user = Staffs::find($id)->profile;
 	<!-- Compiled and minified JavaScript -->
 <!-- jQuery -->
 <script src="{{ asset('jquery/jquery.min.js')}}"></script>
-
 <!-- jQuery UI -->
 <script src="{{ asset('jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
-
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
@@ -113,8 +101,6 @@ $user = Staffs::find($id)->profile;
 <script type="text/javascript" src="{{ asset('datatables/js/buttons.print.min.js')}}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/sb-admin-2.js')}}"></script>
-<!-- fullCalendar -->
-<script src={{asset('fullcalendar-3.8.0/fullcalendar.js')}}></script>
 
 <!-- clickable row -->
 <script>
@@ -199,7 +185,38 @@ $(document).ready(function() {
 	        }
 			]
     } );
+		$('#dataTables-eventitems').DataTable( {
+      	dom: 'fBrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
+    } );
 		$('#dataTables-vols').DataTable( {
+      	dom: 'fBrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
+    } );
+		$('#dataTables-vols2').DataTable( {
+      	dom: 'fBrtip',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
+    } );
+		$('#dataTables-projects').DataTable( {
+				"order": [[ 3, "desc" ]],
       	dom: 'fBrtip',
 				buttons: [
 					'excel', 'pdf', {
@@ -337,7 +354,26 @@ $(".itemCode").change(function(){
 	      }
 	    });
 		});
+{{-- ajax for milestone events --}}
+		$('#milestonesform').on('change', ':checkbox',function() {
+			var milestone_events_id = this.value;
+  		console.log("checkbox clicked "+milestone_events_id);
+			$.ajax({
+	      url:"/changeMilestoneStatusE/"+milestone_events_id,
+	      type: "GET",
+	      data:{'milestone_events_id':milestone_events_id},
+	      success:function(response){
+					console.log(response);
+					location.reload();
+	      },
+	      error: function(data){
+	        console.log(data);
+	      }
+	    });
+		});
   });
+
+
 </script>
 
 <!-- Adding milestones-->
@@ -354,6 +390,20 @@ $(document).ready(function(){
          var btn_id = $(this).attr("id");
          $('#row'+btn_id+'').remove();
     });
+});
+</script>
+{{--  add volunteer for projects--}}
+<script>
+$(document).ready(function(){
+		var x=1;
+		$('#addvolunteersbtn').click(function(){
+				 x++;
+				 $('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" class="form-control">@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+		});
+		$(document).on('click', '.btn_remove1', function(){
+				 var btn_id = $(this).attr("id");
+				 $('#row'+btn_id+'').remove();
+		});
 });
 </script>
 </html>

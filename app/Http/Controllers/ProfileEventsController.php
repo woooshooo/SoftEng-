@@ -9,12 +9,13 @@ use App\Profile;
 use App\Events;
 use App\ItemDetails;
 use App\ProfileProjects;
+use App\ProfileEvents;
 use App\Projects;
-use App\MilestoneProjects;
-use App\FinishedMilestones;
+use App\MilestoneEvents;
 use App\ItemsProject;
+use App\ItemsEvent;
 use DB;
-class ProfileProjectsController extends Controller
+class ProfileEventsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,17 +45,17 @@ class ProfileProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        $id = $request->projects_id;
-        $volcount = count($request->volunteers);
-        for ($i=0; $i < $volcount; $i++) {
-          $newpp = new ProfileProjects;
-          $newpp->profile_id = $request->volunteers[$i];
-          $newpp->projects_id = $id;
-          $newpp->status = "Assigned";
-          $newpp->save();
-        }
-        return redirect('projects/'.$id)->with('success','Volunteers Assigned!');
+      // return $request;
+      $id = $request->events_id;
+      $volcount = count($request->volunteers);
+      for ($i=0; $i < $volcount; $i++) {
+        $newpe = new ProfileEvents;
+        $newpe->profile_id = $request->volunteers[$i];
+        $newpe->events_id = $id;
+        $newpe->status = "Assigned";
+        $newpe->save();
+      }
+      return redirect('events/'.$id)->with('success','Volunteers Assigned!');
     }
 
     /**
@@ -89,16 +90,16 @@ class ProfileProjectsController extends Controller
     public function update(Request $request, $id)
     {
       // return $request;
-      $project = Projects::find($id);
+      $events = Events::find($id);
       $volcount = count($request->volunteers);
       for ($i=0; $i < $volcount; $i++) {
-        $worked = ProfileProjects::where('projects_id',$id)->where('profile_id',$request->volunteers[$i])->first();
+        $worked = ProfileEvents::where('events_id',$id)->where('profile_id',$request->volunteers[$i])->first();
         $worked->status = "Worked";
         $worked->save();
       }
-      $project->projects_status = "Finished";
-      $project->save();
-      return redirect('projects/'.$id)->with('success','Project Finished!');
+      $events->events_status = "Finished";
+      $events->save();
+      return redirect('projects/'.$id)->with('success','Event Finished!');
     }
 
     /**

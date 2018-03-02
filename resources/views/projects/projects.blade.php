@@ -14,7 +14,7 @@
 						<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addproject">Add project</button>
 					</div><br>
 					<div>
-            <table class="table table-bordered table-hover table-responsive" id="dataTables-example">
+            <table class="table table-bordered table-hover table-responsive" id="dataTables-projects">
                 <thead>
                     <tr>
                     <th>Project Name</th>
@@ -65,20 +65,8 @@
 					</div>
 					<div class="col-lg-12"><br></div>
 					<div class="col-lg-12">
-						<label class="form-check-label"><u>Choose Cluster/s assigned</u><font color="tomato">(cannot be changed afterwards)</font></label>
-						<br>
-								<label><input type="checkbox" class="form-check-input" name="cluster_name[]" value="Broadcast & Productions Cluster"> Broadcast & Productions Cluster</label>
-								<br>
-								<label>
-								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Creative Cluster"> Creative Cluster</label>
-								<br><label>
-								<input type="checkbox" class="form-check-input" name="cluster_name[]" value="Editorial & Social Media Cluster"> Editorial & Social Media Cluster</label>
-								<br>
-					</div>
-					<div class="col-lg-12"><br></div>
-					<div class="col-lg-12">
 						<label for="project_details">Project Details</label>
-						<textarea class="form-control" style="resize:vertical" id="project_details" name="project_details"required></textarea>
+						<textarea class="form-control" style="height: 30%; width: 100%; resize: vertical" id="project_details" name="project_details"required></textarea>
 					</div>
 					<div class="col-lg-12"><br></div>
 					<div class="col-lg-4">
@@ -94,7 +82,7 @@
 						<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
 							<select class="form-control col-lg-4" name="project_status">
 								<option value="Ongoing">Ongoing</option>
-								{{-- <option value="Finsihed">Finsihed</option> --}}
+								<option value="Pending">Pending</option>
 							</select>
 					</div>
 					<div class="col-lg-12"><br></div>

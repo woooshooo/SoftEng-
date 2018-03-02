@@ -150,7 +150,7 @@
 
 <!-- Modal View Projects Joined-->
 <div class="modal fade" id="viewprojects" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,6 +170,7 @@
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
+                  <th>Un/Delivered</th>
                   </tr>
               </thead>
               @foreach ($projects as $project)
@@ -185,6 +186,7 @@
                         @else
                           <td><font color="tomato">{{$project->projects_status}}</font></td>
                         @endif
+                        <td>{{$profileproject->status}}</td>
                     </tr>
                   @endif
                 @endforeach

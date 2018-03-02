@@ -50,12 +50,16 @@ Route::resource('/events','EventsController');
 Route::resource('/projects','ProjectsController');
 Route::resource('/itemdetails','ItemDetailsController');
 Route::resource('/itemsproject','ItemsProjectController');
+Route::resource('/itemsevent','ItemsEventController');
 Route::resource('/profileprojects','ProfileProjectsController');
+Route::resource('/profileevents','ProfileEventsController');
 Route::get('getItemName/{id}','ItemsController@getItemName');
-Route::get('changeMilestoneStatus/{id}','MilestoneProjectsController@changeStatus'); // change milestone status
+Route::get('changeMilestoneStatus/{id}','MilestoneProjectsController@changeStatus'); // change milestone status projects
+Route::get('changeMilestoneStatusE/{id}','MilestoneEventsController@changeStatus'); // change milestone status events
 Route::get('reports','ReportsController@index');
 Route::get('streampdf','ReportsController@streampdf');
 Auth::routes();
 Route::resource('/addmilestone','MilestoneProjectsController');
+Route::resource('/addeventmilestone','MilestoneEventsController');
 Route::get('/finishedprojects/{id}', 'ProjectsController@destroy');
 Route::get('/showevents/{id}');

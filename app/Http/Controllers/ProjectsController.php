@@ -63,7 +63,7 @@ class ProjectsController extends Controller
         $this->validate($request, [
           'project_name' => 'required',
           'client_name' => 'required',
-          'cluster_name' => 'required',
+          // 'cluster_name' => 'required',
           'project_details' => 'required',
           'project_startdate' => 'required',
           'project_deadline' => 'required',
@@ -81,23 +81,6 @@ class ProjectsController extends Controller
         $projects->projects_deadline = $request->input('project_deadline');
         $projects->projects_status = $request->input('project_status');
         $projects->save();
-        #
-        #
-        $count = count($request->cluster_name); //2
-          for ($i=0; $count > $i ; $i++) {
-
-            $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
-            foreach ($volunteers as $value) {
-              $profileprojects = new ProfileProjects;
-              $profileprojects->projects_id = $projects->projects_id;
-              $profileprojects->profile_id = $value->profile_id;
-              $profileprojects->save();
-          }
-        }
-        #
-
-
-
         return redirect('/projects')->with('success','Added Project!');
 
 
@@ -113,6 +96,19 @@ class ProjectsController extends Controller
     {
       $title = 'Viewing Project';
       $projects = Projects::find($id);
+      $startdate = strtotime($projects->projects_startdate);
+      $enddate = strtotime($projects->projects_deadline);
+      $currdate = strtotime(date("Y-m-d"));
+      $totaldays = ($enddate-$startdate)/86400;
+      $remainingdays = ($enddate-$currdate)/86400;
+      $remainingdaystostart = ($startdate-$currdate)/86400;
+      if ($remainingdays==0) {
+        $progressExpected = 100;
+      // } elseif($remainingdaystostart < $remainingdays) {
+      //   $progressExpected = 0;
+      } else {
+        $progressExpected = sprintf('%0.0f', round(($remainingdays/$totaldays)*100, 2));
+      }
       $profileprojects = ProfileProjects::all();
       $profiles = Profile::all();
       $vols = Vols::all();
@@ -130,9 +126,9 @@ class ProjectsController extends Controller
         $progress = 0;
       }
       else{
-        $progress = ($getfinished/$getmilestones)*100;
+        $progress = sprintf('%0.0f', round(($getfinished/$getmilestones)*100, 2));
       }
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress)->with('projectitems', $projectitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects)->with('vols',$vols);
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress)->with('progressExpected', $progressExpected)->with('projectitems', $projectitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects)->with('vols',$vols);
     }
 
     /**
@@ -184,28 +180,7 @@ class ProjectsController extends Controller
         $projects->projects_status = $request->input('project_status');
         $projects->save();
         #
-        #
-        // $profileprojects = ProfileProjects::where('projects_id',$id)->get();
-        // foreach ($profileprojects as $profileproject) {
-        //   $profileproject->delete();
-        // }
-        // 
-        //   for ($i=0; $count > $i ; $i++) {
-        //     $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
-        //     foreach ($volunteers as $volunteer) {
-        //       $newprofileprojects = new ProfileProjects;
-        //       $newprofileprojects->projects_id = $projects->projects_id;
-        //       $newprofileprojects->profile_id = $volunteer->profile_id;
-        //       $newprofileprojects->save();
-        //   }
-        // }
-        // #
-
-
-
-        return redirect('projects/'.$id)->with('success','Edited Project!');
-
-
+        return redirect('projects/'.$id)->with('success','Succesfully Updated!');
     }
 
     /**

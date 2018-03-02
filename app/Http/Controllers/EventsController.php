@@ -8,7 +8,13 @@ use App\Vols;
 use App\Staffs;
 use App\Profile;
 use App\Events;
+use App\ItemDetails;
 use App\ProfileEvents;
+use App\Projects;
+use App\MilestoneEvents;
+use App\FinishedMilestonesEvents;
+use App\ItemsEvent;
+use DB;
 class EventsController extends Controller
 {
     /**
@@ -22,10 +28,12 @@ class EventsController extends Controller
      }
     public function index()
     {
-      $profiles = Profile::all();
-      $events = Events::all();
       $title = 'View Events';
-      return view('events/events')->with('title', $title)->with('events', $events)->with('profiles', $profiles);
+      $itemdetails = ItemDetails::all();
+      $events = Events::all();
+      $profileevents = ProfileEvents::all();
+      $profiles = Profile::all();
+      return view('events/events')->with('title', $title)->with('events', $events)->with('itemdetails',$itemdetails)->with('profiles', $profiles)->with('profileevents',$profileevents);
     }
 
     /**
@@ -48,40 +56,19 @@ class EventsController extends Controller
     {
         //
         $this->validate($request, [
-            'event_name' => 'required',
-            'event_details' => 'required',
-            'event_startdate' => 'required',
-            'event_deadline' => 'required',
-            'event_status' => 'required',
+            'events_name' => 'required',
+            'events_details' => 'required',
+            'events_startdate' => 'required',
+            'events_deadline' => 'required',
+            'events_status' => 'required',
         ]);
-
         $events = new Events;
-        $events->events_name =
-        $request->input('event_name');
-        $events->events_details =
-        $request->input('event_details');
-        $events->events_startdate =
-        $request->input('event_startdate');
-        $events->events_deadline =
-        $request->input('event_deadline');
-        $events->events_status =
-        $request->input('event_status');
+        $events->events_name = $request->input('events_name');
+        $events->events_details =$request->input('events_details');
+        $events->events_startdate =$request->input('events_startdate');
+        $events->events_deadline =$request->input('events_deadline');
+        $events->events_status =$request->input('events_status');
         $events->save();
-
-        $count = count($request->cluster_name);
-
-        for($i=0; $count > $i; $i++){
-
-          $volunteers =
-          Vols::where('cluster',$request->cluster_name[$i])->get();
-          foreach($volunteers as $value){
-            $profileevents = new ProfileEvents;
-            $profileevents->events_id = $events->events_id;
-            $profileevents->profile_id = $value->profile_id;
-            $profileevents->save();
-          }
-        }
-        #
 
         return
         redirect('events/')->with('success','Added Event!');
@@ -96,12 +83,41 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-      $title = 'View Event';
+      $title = 'Viewing Event';
       $events = Events::find($id);
-      //for finished event
-
-      return view('events/showevents')->with('title', $title)->with('events', $events);
-    }
+      $startdate = strtotime($events->events_startdate);
+      $enddate = strtotime($events->events_deadline);
+      $currdate = strtotime(date("Y-m-d"));
+      $totaldays = ($enddate-$startdate)/86400;
+      $remainingdays = ($enddate-$currdate)/86400;
+      $remainingdaystostart = ($startdate-$currdate)/86400;
+      if ($remainingdays==0) {
+        $progressExpected = 100;
+      // } elseif($remainingdaystostart < $remainingdays) {
+      //   $progressExpected = 0;
+      } else {
+        $progressExpected = sprintf('%0.0f', round(($remainingdays/$totaldays)*100, 1));
+      }
+      $profileevents = ProfileEvents::all();
+      $profiles = Profile::all();
+      $vols = Vols::all();
+      // it just get the same equipment_details_id and the project id
+      $eventitems = ItemsEvent::where('events_id',$id)->get();
+      $itemdetails = ItemDetails::all();
+      // return $events;
+      $milestones = MilestoneEvents::where('events_id', $id)->get();
+      $finished = FinishedMilestonesEvents::where('events_id', $id)->get();
+      $getmilestones = count($milestones);
+      $getfinished = count($finished);
+      $progress;
+      if($getmilestones == 0 || $getfinished == 0){
+        $progress = 0;
+      }
+      else{
+        $progress = sprintf('%0.0f', round(($getfinished/$getmilestones)*100, 2));
+      }
+      return view('events/showevents')->with('title',$title)->with('events',$events)->with('milestones', $milestones)->with('progress', $progress)->with('progressExpected', $progressExpected)->with('eventitems', $eventitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileevents',$profileevents)->with('vols',$vols);
+      }
 
     /**
      * Show the form for editing the specified resource.
@@ -123,7 +139,24 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
+      // return $request;
+      $this->validate($request, [
+          'events_name' => 'required',
+          'events_details' => 'required',
+          'events_startdate' => 'required',
+          'events_deadline' => 'required',
+          'events_status' => 'required',
+      ]);
+      $events = Events::find($id);
+      $events->events_name = $request->input('events_name');
+      $events->events_details =$request->input('events_details');
+      $events->events_startdate =$request->input('events_startdate');
+      $events->events_deadline =$request->input('events_deadline');
+      $events->events_status =$request->input('events_status');
+      $events->save();
 
+      return
+      redirect('events/'.$id)->with('success','Succesfully Updated!');
     }
 
     /**

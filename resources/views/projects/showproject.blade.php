@@ -37,6 +37,7 @@
 	         var button_id = $(this).attr("id");
 	         $('#row'+button_id+'').remove();
 	    });
+
 	});
 	</script>
 
@@ -45,32 +46,81 @@
 				<div class="col-lg-12">
 						<h1 class="page-header">{{$projects->projects_name}}</h1>
 				</div>
+
+				<div class="col-lg-12">
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#editproject">
+							Edit Project
+						</button>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addvolunteers">
+						Add Volunteers
+					</button>
+					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#additem" onclick="console.log('Opened Modal');">
+						Add Item Used
+					</button>
+					{{-- <a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default">
+						Finish Project
+					</a> --}}
+					@if ($progress == 100 && $projects->projects_status == "Ongoing")
+						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');">
+							Finish Project
+						</button>
+					@endif
+				</div>
 				{!! Form::open(['action' => ['ProjectsController@update',$projects->projects_id], 'method' => 'POST',
-				'class' => 'panel-body col-lg-12 form', 'id' => 'progressBar'])!!}
+				'class' => 'panel-body col-lg-12 form'])!!}
+				<h4>Actual Progress</h4>
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div id="projProgBar" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%"></div>
-				</div>
+						<div id="projProgBar" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">{{$progress}}%</div>
+					</div>
+					<!-- 2nd progress bar -->
+					<h4>Expected Progess</h4>
+					<div class="progress progress-striped active">
+						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
+						<div id="projProgBar2" class="progress-bar progress-bar-info" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
+					</div>
 				<div class = "col-lg-6">
 					<label for="project_details">Project Details</label>
 					<textarea style="height: 30%; width: 100%; resize: none" class="form-control" id="project_details" name="project_details" disabled>{{$projects->projects_details}}</textarea>
 				</div>
 				<!-- milestones -->
 				<div class="col-lg-6">
-					<label>Project Milestones</label><br>
-					<!--Lagay ng foreach for each Milestone from DB-->
-					<form name="milestonesform" id="milestonesform">
-					@foreach($milestones as $value)
-							@if($value->milestone_status == 'Finished')
-								<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}" checked> {{$value->milestone_name}}<br>
+						<label>Project Milestones</label>@if ($progress == 100)
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestones" disabled>
+								Add Milestones
+							</button>
+						@else
+							<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestones">
+								Add Milestones
+							</button>
+						@endif<br>
+						<div class="col-lg-12 well scrollbox" style="height: 29%">
+						<!--Lagay ng foreach for each Milestone from DB-->
+						<form name="milestonesform" id="milestonesform" class="form-check mb-2 mr-sm-2">
+							<table style="width:100%; text-align:center;">
+								<thead>
+									<th style="text-align:center; width:50%">Milestone Name</th>
+									<th style="text-align:center">Option</th>
+								</thead>
+
+						@foreach($milestones as $value)
+								@if($value->milestone_status == 'Finished')
+									<tr>
+									<td>{{$value->milestone_name}}</td>
+									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}" checked> </td>
+								</tr>
 							@else
-									<input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}"> {{$value->milestone_name}}<br>
-							@endif
-						@endforeach
-						</form>
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmilestones">
-							Add Milestones
-						</button>
+								<tr>
+									<td>{{$value->milestone_name}}</td>
+									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}"></td>
+									</tr>
+								@endif
+							@endforeach
+
+						</table>
+							</form>
+
+						</div>
 					</div>
 				<div class="col-lg-12"><br></div>
 				<div class="form-group col-lg-4">
@@ -85,11 +135,11 @@
 					<label for="project_status">Status</label>
 					<input type="text" name="project_status" class="form-control" value="{{$projects->projects_status}}" disabled>
 				</div>
-
+<div class="col-lg-12"><hr></div>
 				<div class="col-lg-6">
 					<table  width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-vols">
 						<thead>
-							<th>Volunteer Assigned</th>
+							<th>Volunteers Assigned</th>
 							<th>Cluster</th>
 						</thead>
 						@foreach ($profiles as $profile)
@@ -98,7 +148,7 @@
 									@if ($profileproject->projects_id == $projects->projects_id)
 										@if ($profile->profile_id == $profileproject->profile_id)
 											@if ($profile->profile_id == $vol->profile_id)
-												<tr>
+												<tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}">
 													<td>{{$profile->firstname}} {{$profile->lastname}}</td>
 													<td>{{$vol->cluster}}</td>
 												</tr>
@@ -112,6 +162,33 @@
 
 				</div>
 				<div class="col-lg-6">
+					<table  width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-vols2">
+						<thead>
+							<th>Volunteers Worked</th>
+							<th>Cluster</th>
+						</thead>
+						@foreach ($profiles as $profile)
+							@foreach ($vols as $vol)
+								@foreach ($profileprojects as $profileproject)
+									@if ($profileproject->projects_id == $projects->projects_id)
+										@if ($profile->profile_id == $profileproject->profile_id)
+											@if ($profile->profile_id == $vol->profile_id)
+												@if ($profileproject->status == "Worked")
+													<tr class="clickable-row" data-href="/vols/{{$profile->projects_id}}">
+														<td>{{$profile->firstname}} {{$profile->lastname}}</td>
+														<td>{{$vol->cluster}}</td>
+													</tr>
+												@endif
+											@endif
+										@endif
+									@endif
+								@endforeach
+							@endforeach
+						@endforeach
+					</table>
+				</div>
+<div class="col-lg-12"><hr></div>
+				<div class="col-lg-12">
 					<table  width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-projectitems">
 						<thead>
 							<th>Item Used in Project</th>
@@ -127,26 +204,7 @@
 						@endforeach
 					</table>
 				</div>
-		<div class="col-lg-12"><br><hr></div>
-		<div class="col-lg-12">
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#editproject">
-				Edit Project
-			</button>
-			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#additem" onclick="console.log('Opened Modal');">
-				Add Item Used
-			</button>
-			{{-- <a href="{{url('finishedprojects/'.$projects->projects_id)}}" type="button" class="btn btn-default">
-				Finish Project
-			</a> --}}
-			@if ($progress != 100)
-				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');" disabled>
-					Finish Project
-				</button>
-			@else
-				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#finishproject" onclick="console.log('Opened Modal');">
-					Finish Project
-				</button>
-			@endif
+
 
 			<br><br>
 		</div>
@@ -292,6 +350,51 @@
 	</div>
 </div>
 
+<!-- Modal Add Volunteers-->
+<div class="modal fade" id="addvolunteers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+				<h3 class="modal-title">Add Volunteers</h3>
+      </div>
+      <div class="modal-body">
+				{!! Form::open(['action'=> ['ProfileProjectsController@store'], 'method' => 'POST',
+					'class' => 'panel-body form ui-front'])!!}
+					<div class="form-group col-lg-12">
+						<input type="hidden" name="projects_id" value="{{$projects->projects_id}}">
+							<table class="table table-hover table-responsive" id="dynamic_field_addvolunteer">
+								<thead>
+									<th><label class="control-label">Volunteer Name</label></th>
+									<th></th>
+								</thead>
+								<tr>
+									<td><select class="form-control" name="volunteers[]">
+										@foreach ($profiles as $profile)
+											@foreach ($vols as $vol)
+												@if ($profile->profile_id == $vol->profile_id)
+													<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>
+												@endif
+											@endforeach
+										@endforeach
+									</select></td>
+									<td><button type="button" id="addvolunteersbtn" class="btn btn-success btn-block">Add More</button></td>
+								</tr>
+							</table>
+			    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+			{!! Form::close() !!}
+    </div>
+  </div>
+</div>
+
+
 <!-- Modal FinishProjects-->
 <div class="modal fade" id="finishproject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -307,28 +410,24 @@
 					'class' => 'panel-body form was-validated'])!!}
 					<div class="form-group col-lg-12">
 						{{-- <button id="checkAll" class="btn btn-default">Check All</button>	 --}}
-						<table class="table table-hover table-responsive" id="dataTables">
-							<thead>
-								<th>Volunteers</th>
-								<th>Cluster</th>
-							</thead>
+
+						<div class="scrollbox">
 							@foreach ($profiles as $profile)
 								@foreach ($vols as $vol)
 									@foreach ($profileprojects as $profileproject)
 										@if ($profileproject->projects_id == $projects->projects_id)
 											@if ($profile->profile_id == $profileproject->profile_id)
 												@if ($profile->profile_id == $vol->profile_id)
-													<tr>
-														<td> <input type="checkbox" class="custom-control-input" name="volunteers[]" value="{{$profile->profile_id}}"> {{$profile->firstname}} {{$profile->lastname}}</td>
-														<td>{{$vol->cluster}}</td>
-													</tr>
+													<div class="form-group col-lg-6">
+													<input class="vols" type="checkbox" name="volunteers[]" value="{{$profile->profile_id}}"> {{$profile->firstname}} {{$profile->lastname}}
+												</div>
 												@endif
 											@endif
 										@endif
 									@endforeach
 								@endforeach
 							@endforeach
-						</table>
+						</div>
 			    </div>
       </div>
       <div class="modal-footer">

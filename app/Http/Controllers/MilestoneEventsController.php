@@ -3,18 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Vols;
-use App\Staffs;
-use App\Profile;
 use App\Events;
-use App\ItemDetails;
-use App\ProfileProjects;
-use App\Projects;
-use App\MilestoneProjects;
-use App\FinishedMilestones;
-use App\ItemsProject;
-use DB;
-class ProfileProjectsController extends Controller
+use App\MilestoneEvents;
+use App\FinishedMilestonesEvents;
+class MilestoneEventsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,17 +36,23 @@ class ProfileProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        $id = $request->projects_id;
-        $volcount = count($request->volunteers);
-        for ($i=0; $i < $volcount; $i++) {
-          $newpp = new ProfileProjects;
-          $newpp->profile_id = $request->volunteers[$i];
-          $newpp->projects_id = $id;
-          $newpp->status = "Assigned";
-          $newpp->save();
-        }
-        return redirect('projects/'.$id)->with('success','Volunteers Assigned!');
+      // return $request;
+       $this->validate($request, [
+        'milestone_name' => 'required'
+      ]);
+      #declare
+      $count = count($request->milestone_name);
+      $id = Events::where('events_id',$request->events_id)->value('events_id');
+      #loop
+      for($num=0; $count > $num; $num++){
+          $milestoneevent = new MilestoneEvents;
+          $milestoneevent->events_id = $id;
+          $milestoneevent->milestone_name = $request->milestone_name[$num];
+          $milestoneevent->milestone_status = $request->milestone_status[$num];
+          $milestoneevent->save();
+      }
+
+      return redirect('events/'.$id);
     }
 
     /**
@@ -88,17 +86,7 @@ class ProfileProjectsController extends Controller
      */
     public function update(Request $request, $id)
     {
-      // return $request;
-      $project = Projects::find($id);
-      $volcount = count($request->volunteers);
-      for ($i=0; $i < $volcount; $i++) {
-        $worked = ProfileProjects::where('projects_id',$id)->where('profile_id',$request->volunteers[$i])->first();
-        $worked->status = "Worked";
-        $worked->save();
-      }
-      $project->projects_status = "Finished";
-      $project->save();
-      return redirect('projects/'.$id)->with('success','Project Finished!');
+        //
     }
 
     /**
@@ -110,5 +98,16 @@ class ProfileProjectsController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function changeStatus($id){
+      $milestone = MilestoneEvents::find($id);
+      if ($milestone->milestone_status == "Ongoing") {
+        $milestone->milestone_status = "Finished";
+        $milestone->save();
+      } else {
+        $milestone->milestone_status = "Ongoing";
+        $milestone->save();
+      }
+      return $milestone;
     }
 }
