@@ -50,6 +50,7 @@ Route::resource('/events','EventsController');
 Route::resource('/projects','ProjectsController');
 Route::resource('/itemdetails','ItemDetailsController');
 Route::resource('/itemsproject','ItemsProjectController');
+Route::resource('/profileprojects','ProfileProjectsController');
 Route::get('getItemName/{id}','ItemsController@getItemName');
 Route::get('changeMilestoneStatus/{id}','MilestoneProjectsController@changeStatus'); // change milestone status
 Route::get('reports','ReportsController@index');

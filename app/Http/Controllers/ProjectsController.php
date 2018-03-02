@@ -165,7 +165,7 @@ class ProjectsController extends Controller
         $this->validate($request, [
           'project_name' => 'required',
           'client_name' => 'required',
-          'cluster_name' => 'required',
+          //'cluster_name' => 'required',
           'project_details' => 'required',
           'project_startdate' => 'required',
           'project_deadline' => 'required',
@@ -185,21 +185,21 @@ class ProjectsController extends Controller
         $projects->save();
         #
         #
-        $profileprojects = ProfileProjects::where('projects_id',$id)->get();
-        foreach ($profileprojects as $profileproject) {
-          $profileproject->delete();
-        }
-
-          for ($i=0; $count > $i ; $i++) {
-            $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
-            foreach ($volunteers as $volunteer) {
-              $newprofileprojects = new ProfileProjects;
-              $newprofileprojects->projects_id = $projects->projects_id;
-              $newprofileprojects->profile_id = $volunteer->profile_id;
-              $newprofileprojects->save();
-          }
-        }
-        #
+        // $profileprojects = ProfileProjects::where('projects_id',$id)->get();
+        // foreach ($profileprojects as $profileproject) {
+        //   $profileproject->delete();
+        // }
+        // 
+        //   for ($i=0; $count > $i ; $i++) {
+        //     $volunteers = Vols::where('cluster',$request->cluster_name[$i])->get();
+        //     foreach ($volunteers as $volunteer) {
+        //       $newprofileprojects = new ProfileProjects;
+        //       $newprofileprojects->projects_id = $projects->projects_id;
+        //       $newprofileprojects->profile_id = $volunteer->profile_id;
+        //       $newprofileprojects->save();
+        //   }
+        // }
+        // #
 
 
 

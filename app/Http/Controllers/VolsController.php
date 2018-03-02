@@ -10,6 +10,8 @@ use App\BorrowProfile;
 use App\Items;
 use App\ItemDetails;
 use App\BorrowDetails;
+use App\ProfileProjects;
+use App\Projects;
 use DB;
 class VolsController extends Controller
 {
@@ -92,8 +94,10 @@ class VolsController extends Controller
       $borrows = Borrow::where('profile_id',$id)->get();
       $borrowdetails = BorrowDetails::all();
       $itemdetails = ItemDetails::all();
+      $projects = Projects::all();
+      $profileprojects = ProfileProjects::where('profile_id',$id)->get();
 
-      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails);
+      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails)->with('profileprojects',$profileprojects)->with('projects',$projects);
 
 
 
