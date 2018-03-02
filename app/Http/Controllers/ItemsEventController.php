@@ -41,7 +41,7 @@ class ItemsEventController extends Controller
       for ($i=0; $count > $i; $i++) {
         $item = ItemDetails::where('item_code',$request->item_code[$i])->first();
         $itemevent = new ItemsEvent;
-        $itemevent->projects_id = $id;
+        $itemevent->events_id = $id;
         $itemevent->equipment_details_id = $item->equipment_details_id;
         $itemevent->save();
       }

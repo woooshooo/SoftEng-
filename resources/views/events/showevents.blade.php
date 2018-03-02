@@ -167,9 +167,9 @@
         						@foreach ($profiles as $profile)
         							@foreach ($vols as $vol)
                         @foreach ($profileevents as $profileevent)
-        									@if ($profileevent->events_id == $events->events_id)
-        										@if ($profile->profile_id == $profileevent->events_id)
-        											@if ($profile->profile_id == $vol->profile_id)
+                          @if ($profileevent->events_id == $events->events_id)
+                            @if ($profile->profile_id == $profileevent->profile_id)
+                              @if ($profile->profile_id == $vol->profile_id)
         												@if ($profileevent->status == "Worked")
         													<tr class="clickable-row" data-href="/vols/{{$profile->events_id}}">
         														<td>{{$profile->firstname}} {{$profile->lastname}}</td>

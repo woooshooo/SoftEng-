@@ -195,15 +195,7 @@
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-book fa-fw"></i> Events <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{url('addevents')}}">Add Events</a>
-                        </li>
-                        <li>
-                            <a href="{{url('events')}}">View Events</a>
-                        </li>
-                    </ul>
+                    <a href="{{url('events')}}"><i class="fa fa-book fa-fw"></i> Events</span></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-users fa-fw"></i> Profiles <span class="fa arrow"></span></a>
