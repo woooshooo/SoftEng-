@@ -71,7 +71,7 @@
 @endsection
 
 <!-- Modal View Record -->
-<div class="modal fade bd-example-modal-lg" id="viewrecordmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewrecordmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -83,7 +83,7 @@
       </div>
       <div class="modal-body">
 				<div class="row">
-				<div class=" col-lg-12 ml-auto">
+				<div class="col-lg-12">
         <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-viewrecord">
           <thead>
             <tr>
@@ -131,7 +131,7 @@
 
 
 <!--Confirmation -->
-	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 	  <div class="modal-dialog modal-sm model-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">

@@ -77,7 +77,7 @@
 					<h4>Expected Progess</h4>
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div id="projProgBar2" class="progress-bar progress-bar-info" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
+						<div id="projProgBar2" class="progress-bar progress-bar-danger" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
 					</div>
 				<div class = "col-lg-6">
 					<label for="project_details">Project Details</label>
@@ -96,7 +96,7 @@
 						@endif<br>
 						<div class="col-lg-12 well scrollbox" style="height: 29%">
 						<!--Lagay ng foreach for each Milestone from DB-->
-						<form name="milestonesform" id="milestonesform" class="form-check mb-2 mr-sm-2">
+						<form name="milestonesprojectsform" id="#milestoneprojects" class="form-check mb-2 mr-sm-2">
 							<table style="width:100%; text-align:center;">
 								<thead>
 									<th style="text-align:center; width:50%">Milestone Name</th>
@@ -104,17 +104,22 @@
 								</thead>
 
 						@foreach($milestones as $value)
-								@if($value->milestone_status == 'Finished')
-									<tr>
-									<td>{{$value->milestone_name}}</td>
-									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}" checked> </td>
-								</tr>
-							@else
+							@if($projects->projects_status == 'Finished')
 								<tr>
 									<td>{{$value->milestone_name}}</td>
-									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_project" value="{{$value->milestone_projects_id}}"></td>
-									</tr>
-								@endif
+									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}" checked disabled> </td>
+								</tr>
+							@elseif($value->milestone_status == 'Finished')
+								<tr>
+									<td>{{$value->milestone_name}}</td>
+									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}" checked> </td>
+								</tr>
+							@elseif($value->milestone_status == 'Ongoing')
+								<tr>
+									<td>{{$value->milestone_name}}</td>
+									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}"></td>
+								</tr>
+							@endif
 							@endforeach
 
 						</table>

@@ -102,12 +102,12 @@ class ProjectsController extends Controller
       $totaldays = ($enddate-$startdate)/86400;
       $remainingdays = ($enddate-$currdate)/86400;
       $remainingdaystostart = ($startdate-$currdate)/86400;
-      if ($remainingdays==0) {
+      if ($remainingdays <= 0) {
         $progressExpected = 100;
-      // } elseif($remainingdaystostart < $remainingdays) {
-      //   $progressExpected = 0;
+      } elseif ($totaldays == 0 && $currdate != $startdate) {
+        $progressExpected = 0;
       } else {
-        $progressExpected = sprintf('%0.0f', round(($remainingdays/$totaldays)*100, 2));
+        $progressExpected = sprintf('%0.0f', round((($totaldays-$remainingdays)/$totaldays)*100, 2));
       }
       $profileprojects = ProfileProjects::all();
       $profiles = Profile::all();

@@ -13,7 +13,10 @@ class MilestoneEvents extends Model
   //Timestamps
   public $timestamps = true;
 
-  public function events()
+  protected $fillable = [
+      'profile_id, milestone_name'
+  ];
+  public function event()
   {
     return $this->belongsTo('App\Events', 'events_id');
   }

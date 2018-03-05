@@ -76,7 +76,7 @@
           <h4>Expected Progess</h4>
           <div class="progress progress-striped active">
             <!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-            <div id="projProgBar2" class="progress-bar progress-bar-info" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
+            <div id="projProgBar2" class="progress-bar progress-bar-danger" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
           </div>
 
           <div class="col-lg-6">
@@ -95,7 +95,7 @@
   							</button>
   						@endif<br>
   						<div class="col-lg-12 well scrollbox" style="height: 29%">
-  						<form name="milestonesform" id="milestonesform" class="form-check mb-2 mr-sm-2">
+  						<form name="milestoneseventsform" id="#milestoneevents" class="form-check mb-2 mr-sm-2">
   							<table style="width:100%; text-align:center;">
   								<thead>
   									<th style="text-align:center; width:50%">Milestone Name</th>
@@ -103,15 +103,20 @@
   								</thead>
 
   						@foreach($milestones as $value)
-  								@if($value->milestone_status == 'Finished')
+                @if($events->events_status == 'Finished')
+                  <tr>
+                  <td>{{$value->milestone_name}}</td>
+                  <td><input type="checkbox" class="form-check-input" id="milestone_event" name="milestone_event" value="{{$value->milestone_events_id}}" checked disabled> </td>
+                </tr>
+                @elseif($value->milestone_status == 'Finished')
   									<tr>
   									<td>{{$value->milestone_name}}</td>
-  									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_event" value="{{$value->milestone_events_id}}" checked> </td>
+  									<td><input type="checkbox" class="form-check-input" id="milestone_event" name="milestone_event" value="{{$value->milestone_events_id}}" checked> </td>
   								</tr>
-  							@else
+                @elseif($value->milestone_status == 'Ongoing')
   								<tr>
   									<td>{{$value->milestone_name}}</td>
-  									<td><input type="checkbox" class="form-check-input" id="milestones" name="milestone_event" value="{{$value->milestone_events_id}}"></td>
+  									<td><input type="checkbox" class="form-check-input" id="milestone_event" name="milestone_event" value="{{$value->milestone_events_id}}"></td>
   									</tr>
   								@endif
   							@endforeach
@@ -402,11 +407,11 @@
 						{{-- <button id="checkAll" class="btn btn-default">Check All</button>	 --}}
 
 						<div class="scrollbox">
-							@foreach ($profiles as $profile)
+              @foreach ($profiles as $profile)
 								@foreach ($vols as $vol)
-                  @foreach ($profileevents as $profileevent)
-                    @if ($profileevent->events_id == $events->events_id)
-                      @if ($profile->profile_id == $profileevent->events_id)
+									@foreach ($profileevents as $profileevent)
+										@if ($profileevent->events_id == $events->events_id)
+											@if ($profile->profile_id == $profileevent->profile_id)
 												@if ($profile->profile_id == $vol->profile_id)
 													<div class="form-group col-lg-6">
 													<input class="vols" type="checkbox" name="volunteers[]" value="{{$profile->profile_id}}"> {{$profile->firstname}} {{$profile->lastname}}

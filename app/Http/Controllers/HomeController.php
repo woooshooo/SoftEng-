@@ -2,7 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Illuminate\Support\Facades\Auth;
+use DB;
+use App\Projects;
+use App\ProjectRank;
+use App\Events;
+use App\EventRank;
+use App\Staffs;
+use App\Vols;
+use App\Profile;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -23,7 +38,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $title = 'Welcome to the Dashboard';
-        return view('home')->with('title',$title);
+      $profiles = Profile::all();
+      $projectscount = Projects::all()->count();
+      $projectsfinished = count(Projects::where('projects_status','Finished')->get());
+      $projectsprogress = sprintf('%0.0f', round(($projectsfinished/$projectscount)*100, 2));
+      $eventscount = Events::all()->count();
+      $eventsfinished = count(Events::where('events_status','Finished')->get());
+      $eventsprogress = sprintf('%0.0f', round(($eventsfinished/$eventscount)*100, 2));
+      $staffscount = Staffs::all()->count();
+      $volscount = Vols::all()->count();
+      $title = 'Rankings';
+      $id = Auth::id();
+      $user = Staffs::find($id)->profile;
+      $eventrank = EventRank::all();
+      $projectrank = ProjectRank::all();
+      $projects = Projects::all();
+      $events = Events::all();
+      $currdate = new DateTime(); // Today's Date/Time
+      return view('dashboard')->with(compact('projectscount','eventscount','staffscount','volscount','title','id','user','projectrank','eventrank','profiles','projects','events','currdate','eventsprogress','projectsprogress'));
     }
 }

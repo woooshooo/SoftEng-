@@ -29,5 +29,9 @@ class ItemDetails extends Model
   {
     return $this->belongsToMany('App\Projects','items_project','projects_id','equipment_details_id');
   }
+  public function events()
+  {
+    return $this->belongsToMany('App\Events','items_event','events_id','equipment_details_id');
+  }
 
 }

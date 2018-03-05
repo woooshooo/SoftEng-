@@ -17,7 +17,12 @@ $user = Staffs::find($id)->profile;
 
 <html>
 	<head>
-		<title>{{$title}}</title>
+		@if ($title == 'Rankings')
+			<title>Dashboard</title>
+		@else
+			<title>{{$title}}</title>
+		@endif
+
 
 		<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,9 +51,9 @@ $user = Staffs::find($id)->profile;
     <!-- Custom Fonts -->
     <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
-		<!-- date picker -->
+		{{-- <!-- date picker -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script> --}}
 
     <style type="text/css">
       @media print
@@ -121,6 +126,38 @@ $(document).ready(function() {
             text: 'Print',
             autoPrint: false
         }
+		]
+		});
+		$('#dataTables-projrank').DataTable({
+			dom: 'Brtp',
+			buttons: [{
+                extend: 'excel',
+                filename: 'Project Rankings',
+								title: 'Rankings',
+								messageTop: 'Rankings of most number of Projects worked'
+            },
+            {
+                extend: 'pdf',
+                filename: 'Project Rankings',
+								title: 'Rankings',
+								messageTop: 'Rankings of most number of Projects worked',
+            }
+		]
+		});
+		$('#dataTables-eventrank').DataTable({
+			dom: 'Brtp',
+			buttons: [{
+                extend: 'excel',
+                filename: 'Event Rankings',
+								title: 'Rankings',
+								messageTop: 'Rankings of most number of Events worked'
+            },
+            {
+                extend: 'pdf',
+                filename: 'Event Rankings',
+								title: 'Rankings',
+								messageTop: 'Rankings of most number of Events worked',
+            }
 		]
 		});
     $('#dataTables').DataTable({
@@ -338,7 +375,7 @@ $(".itemCode").change(function(){
 {{-- ajax for milestone project --}}
 <script>
   $(document).ready(function(){
-		$('form').on('change', ':checkbox',function() {
+		$('form').on('change', '#milestone_project',function() {
 			var milestone_projects_id = this.value;
   		console.log("checkbox clicked "+milestone_projects_id);
 			$.ajax({
@@ -347,6 +384,7 @@ $(".itemCode").change(function(){
 	      data:{'milestone_projects_id':milestone_projects_id},
 	      success:function(response){
 					console.log(response);
+					console.log("projects");
 					location.reload();
 	      },
 	      error: function(data){
@@ -355,7 +393,7 @@ $(".itemCode").change(function(){
 	    });
 		});
 {{-- ajax for milestone events --}}
-		$('#milestonesform').on('change', ':checkbox',function() {
+		$('form').on('change', '#milestone_event',function() {
 			var milestone_events_id = this.value;
   		console.log("checkbox clicked "+milestone_events_id);
 			$.ajax({
@@ -364,6 +402,7 @@ $(".itemCode").change(function(){
 	      data:{'milestone_events_id':milestone_events_id},
 	      success:function(response){
 					console.log(response);
+					console.log("events");
 					location.reload();
 	      },
 	      error: function(data){
@@ -406,4 +445,7 @@ $(document).ready(function(){
 		});
 });
 </script>
+{{-- <footer class="pull-right">
+	Copyright © 2018 Software Engineering Requirement | Developed by TeamPura | Coded by Webster Kyle Genise
+</footer> --}}
 </html>

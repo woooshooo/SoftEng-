@@ -55,26 +55,26 @@
 					'class' => 'panel body col-lg-12 form ui-front'])!!}
 					<div class="col-lg-6">
 						<label class="control-label" for="event_name">Events Name</label>
-						<input type="text" class="form-control" id="event_name" name="event_name" placeholder="Event Name" required>
+						<input type="text" class="form-control" id="event_name" name="events_name" placeholder="Event Name" required>
 					</div>
 					<div class="col-lg-12"><br></div>
 					<div class="col-lg-12">
 						<label for="event_details">Events Details</label>
-						<textarea class="form-control" style="resize:vertical" id="event_details" name="event_details"required></textarea>
+						<textarea class="form-control" style="resize:vertical" id="event_details" name="events_details"required></textarea>
 					</div>
 					<div class="col-lg-12"><br></div>
 					<div class="col-lg-4">
 						<label for="event_startdate">Event Start Date</label>
-						<input type="date" name="event_startdate" class="form-control" id="projectDatePicker"required>
+						<input type="date" name="events_startdate" class="form-control" id="projectDatePicker"required>
 					</div>
 					<div class="col-lg-4">
 						<label for="event_deadline">Event Deadline</label>
-						<input type="date" name="event_deadline" class="form-control" id="projectDatePicker"required>
+						<input type="date" name="events_deadline" class="form-control" id="projectDatePicker"required>
 					</div>
 					<div class="col-lg-4">
-						<label for="event_status">Status</label>
+						<label for="events_status">Status</label>
 						<!--Changed to dropdown. Change back to textbox if needed (sorry if nag buot2 ko huhuhu)-->
-							<select class="form-control col-lg-4" name="event_status">
+							<select class="form-control col-lg-4" name="events_status">
 								<option value="Ongoing">Ongoing</option>
 								<option value="Pending">Pending</option>
 							</select>

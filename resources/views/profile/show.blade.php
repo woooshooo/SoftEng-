@@ -85,6 +85,7 @@
         {{-- <a href="/borrows/{{$profiles->profile_id}}" class="btn btn-default"> View Borrowed Items </a> --}}
        <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewborroweditems">View Borrowed Items</button>
        <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewprojects">View Projects</button>
+       <button type="button" class="btn btn-default btn-inline" data-toggle="modal" data-target="#viewevents">View Events</button>
        {!!Form::close()!!}
      </div>
 
@@ -187,6 +188,59 @@
                           <td><font color="tomato">{{$project->projects_status}}</font></td>
                         @endif
                         <td>{{$profileproject->status}}</td>
+                    </tr>
+                  @endif
+                @endforeach
+              @endforeach
+          </table>
+      </div>
+      </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal View Projects Joined-->
+<div class="modal fade" id="viewevents" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Events Volunteered</h3>
+
+      </div>
+      <div class="modal-body">
+      <div class="row">
+        <div class=" col-lg-12 ml-auto">
+          <table class="table table-bordered table-hover table-responsive" id="dataTables-vols">
+              <thead>
+                  <tr>
+                  <th>Event Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Un/Delivered</th>
+                  </tr>
+              </thead>
+              @foreach ($events as $event)
+                @foreach ($profileevents as $profileevent)
+                  @if ($event->events_id == $profileevent->events_id)
+                    <tr class="clickable-row" data-href="/events/{{$event->events_id}}">
+                        <td>{{$event->events_name}}</td>
+                        <td>{{$event->events_startdate}}</td>
+                        <td>{{$event->events_deadline}}</td>
+                        @if ($event->events_status == "Ongoing")
+                          <td><font color="green">{{$event->events_status}}</font></td>
+                        @else
+                          <td><font color="tomato">{{$event->events_status}}</font></td>
+                        @endif
+                        <td>{{$profileevent->status}}</td>
                     </tr>
                   @endif
                 @endforeach

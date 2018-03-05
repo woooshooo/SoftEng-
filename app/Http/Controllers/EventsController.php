@@ -54,6 +54,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
+
         //
         $this->validate($request, [
             'events_name' => 'required',
@@ -91,17 +92,17 @@ class EventsController extends Controller
       $totaldays = ($enddate-$startdate)/86400;
       $remainingdays = ($enddate-$currdate)/86400;
       $remainingdaystostart = ($startdate-$currdate)/86400;
-      if ($remainingdays==0) {
+      if ($remainingdays<=0) {
         $progressExpected = 100;
-      // } elseif($remainingdaystostart < $remainingdays) {
-      //   $progressExpected = 0;
+      } elseif ($totaldays == 0 && $currdate != $startdate) {
+        $progressExpected = 0;
       } else {
-        $progressExpected = sprintf('%0.0f', round(($remainingdays/$totaldays)*100, 1));
+        $progressExpected = sprintf('%0.0f', round((($totaldays-$remainingdays)/$totaldays)*100, 2));
       }
       $profileevents = ProfileEvents::all();
       $profiles = Profile::all();
       $vols = Vols::all();
-      // it just get the same equipment_details_id and the project id
+      // it just get the same equipment_details_id and the event id
       $eventitems = ItemsEvent::where('events_id',$id)->get();
       $itemdetails = ItemDetails::all();
       // return $events;

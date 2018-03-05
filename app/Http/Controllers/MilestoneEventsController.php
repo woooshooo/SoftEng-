@@ -100,10 +100,9 @@ class MilestoneEventsController extends Controller
         //
     }
     public function changeStatus($id){
-      return $milestone = MilestoneEvents::find($id);
+      $milestone = MilestoneEvents::find($id);
       if ($milestone->milestone_status == "Ongoing") {
         $milestone->milestone_status = "Finished";
-        $milestone->save();
       } else {
         $milestone->milestone_status = "Ongoing";
       }
