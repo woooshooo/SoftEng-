@@ -179,7 +179,7 @@ class BorrowsController extends Controller
       return $searchResult;
 
     }
-    public function searchItemType(Request $request){
+    function searchItemType(Request $request){
       $term = $request->term;
       $items = ItemType::where('item_type','LIKE','%'.$term.'%')->get();
       foreach ($items as $value) {

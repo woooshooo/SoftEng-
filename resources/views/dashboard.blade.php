@@ -99,7 +99,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                {{-- <div class="row">
                   <div class="col-lg-12">
                     <img src="{{asset("images/logo.png")}}" alt="" style="width:100%">
                   </div>
@@ -110,7 +110,7 @@
                   <div class="col-lg-12">
                     <hr>
                   </div>
-                </div>
+                </div> --}}
 
             <!-- ONGOING                    -->
                 <div class="row">
@@ -172,9 +172,10 @@
               </div>
 
               </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                      <h3>Event Rankings</h3>
+                <div class="row" >
+                    <div class="col-lg-6" >
+                      <h3>Event Rankings <button class="btn btn-default" id="showerank">Show Rankings</button></h3>
+                      <div style="display:none" id="erank">
                       <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-eventrank">
                         <thead>
                           <tr>
@@ -198,8 +199,10 @@
                         @endforeach
                       </table>
                     </div>
+                    </div>
                     <div class="col-lg-6">
-                      <h3>Project Rankings</h3>
+                      <h3>Project Rankings <button class="btn btn-default" id="showprank">Show Rankings</button></h3>
+                      <div style="display:none" id="prank">
                       <table width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-projrank">
                         <thead>
                           <tr>
@@ -223,10 +226,10 @@
                         @endforeach
                       </table>
                     </div>
+                    </div>
                 </div>
                 <!-- /.row -->
 
-                <br><br><br><br>
             </div>
         </div>
 @endsection

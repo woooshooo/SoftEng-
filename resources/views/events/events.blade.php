@@ -14,7 +14,7 @@
 						<button type="button" class="btn btn-default btn-lg btn-inline" data-toggle="modal" data-target="#addevents">Add Events</button>
 					</div><br>
 					<div>
-            <table class="table table-bordered table-hover table-responsive" id="dataTables-projects">
+            <table class="table table-bordered table-hover table-responsive" id="dataTables-events">
                 <thead>
                     <tr>
                     <th>Events Name</th>

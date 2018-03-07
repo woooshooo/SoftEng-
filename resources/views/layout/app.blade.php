@@ -79,6 +79,8 @@ $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed
 
 <!-- jQuery UI -->
 <script src="{{ asset('jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+<!-- jQuery Autocomplete -->
+<script src="{{ asset('js/jquery.autocomplete.js')}}"></script>
 <!-- Bootstrap Core JavaScript -->
 <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
@@ -229,32 +231,107 @@ $(document).ready(function() {
 		$('#dataTables-vols').DataTable( {
       	dom: 'fBrtip',
 				buttons: [
-					'excel', 'pdf', {
+					{
+	            extend: 'excel',
+	            filename: 'AllAssigned',
+							title: 'All Assigned',
+							messageTop: 'All Volunteers Assigned',
+	        },
+					{
+	            extend: 'pdf',
+							filename: 'AllAssigned',
+							title: 'All Assigned',
+							messageTop: 'All Volunteers Assigned',
+	        },
+					{
 	            extend: 'print',
 	            text: 'Print',
-	            autoPrint: false
+	            autoPrint: false,
+							filename: 'AllAssigned',
+							title: 'All Assigned',
+							messageTop: 'All Volunteers Assigned',
 	        }
+
 			]
     } );
 		$('#dataTables-vols2').DataTable( {
       	dom: 'fBrtip',
 				buttons: [
-					'excel', 'pdf', {
+					{
+	            extend: 'excel',
+	            filename: 'AllWorked',
+							title: 'All Worked',
+							messageTop: 'All Volunteers Worked',
+	        },
+					{
+	            extend: 'pdf',
+							filename: 'AllWorked',
+							title: 'All Worked',
+							messageTop: 'All Volunteers Worked',
+	        },
+					{
 	            extend: 'print',
 	            text: 'Print',
-	            autoPrint: false
+	            autoPrint: false,
+							filename: 'AllWorked',
+							title: 'All Worked',
+							messageTop: 'All Volunteers Worked',
 	        }
+
 			]
     } );
 		$('#dataTables-projects').DataTable( {
 				"order": [[ 3, "desc" ]],
       	dom: 'fBrtip',
 				buttons: [
-					'excel', 'pdf', {
+					{
+	            extend: 'excel',
+	            filename: 'AllProjects',
+							title: 'Projects',
+							messageTop: 'All Projects',
+	        },
+					{
+	            extend: 'pdf',
+	            filename: 'AllProjects',
+							title: 'Projects',
+							messageTop: 'All Projects',
+	        },
+					{
 	            extend: 'print',
 	            text: 'Print',
-	            autoPrint: false
+	            autoPrint: false,
+							filename: 'AllProjects',
+							title: 'Projects',
+							messageTop: 'All Projects',
 	        }
+
+			]
+    } );
+		$('#dataTables-events').DataTable( {
+				"order": [[ 3, "desc" ]],
+      	dom: 'fBrtip',
+				buttons: [
+					{
+	            extend: 'excel',
+	            filename: 'AllEvents',
+							title: 'Events',
+							messageTop: 'All Events',
+	        },
+					{
+	            extend: 'pdf',
+	            filename: 'AllEvents',
+							title: 'Events',
+							messageTop: 'All Events',
+	        },
+					{
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false,
+							filename: 'AllEvents',
+							title: 'Events',
+							messageTop: 'All Events',
+	        }
+
 			]
     } );
 });
@@ -295,18 +372,7 @@ $(document).ready(function(){
          var button_id = $(this).attr("id");
          $('#row'+button_id+'').remove();
     });
-    $('#submit').click(function(){
-         $.ajax({
-              url:"/addborroweditem",
-              method:"POST",
-              data:$('#add_item').serialize(),
-              success:function(data)
-              {
-                   alert(data);
-                   $('#add_item')[0].reset();
-              }
-         });
-    });
+
 
 });
 </script>
@@ -509,6 +575,30 @@ $(document).ready(function(){
 });
 </script>
 <script>
+$(document).ready(function(){
+    $("#showerank").click(function(){
+        $("#erank").fadeToggle("fast");
+				if ($("#showerank").html() == "Show Rankings") {
+					$("#showerank").text("Hide");
+				} else {
+					$("#showerank").text("Show Rankings");
+				}
 
+    });
+		$("#showprank").click(function(){
+        $("#prank").fadeToggle("fast");
+				if ($("#showprank").html() == "Show Rankings") {
+					$("#showprank").text("Hide");
+				} else {
+					$("#showprank").text("Show Rankings");
+				}
+    });
+
+		$("#searchItemType").on("change","input" function(){
+			$( "#searchItemType" ).autocomplete({
+		    source: 'http://localhost:8000/searchItemType'
+		  });
+		});
+});
 </script>
 </html>
