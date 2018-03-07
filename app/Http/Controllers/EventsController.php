@@ -54,8 +54,9 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-
-        //
+      if ($request->events_startdate > $request->events_deadline) {
+        return redirect('/events')->with('error','Deadline is earlier than start date!');
+      }
         $this->validate($request, [
             'events_name' => 'required',
             'events_details' => 'required',

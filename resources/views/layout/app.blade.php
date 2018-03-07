@@ -8,11 +8,12 @@ use App\Vols;
 use App\Profile;
 use App\ItemDetails;
 use App\MilestoneProjects;
-
+$itemdetails = ItemDetails::all();
 $vols = Vols::all();
 $profiles = Profile::all();
 $id = Auth::id();
 $user = Staffs::find($id)->profile;
+$sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed) as sumOf from sumofBorrowed group by equipment_details_id');
 ?>
 
 <html>
@@ -45,15 +46,8 @@ $user = Staffs::find($id)->profile;
 		<link href="{{asset('datatables/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 		<link href="{{asset('datatables/css/buttons.dataTables.min.css')}}" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="{{ asset('morrisjs/morris.css')}}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="{{ asset('font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-
-		{{-- <!-- date picker -->
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script> --}}
 
     <style type="text/css">
       @media print
@@ -82,6 +76,7 @@ $user = Staffs::find($id)->profile;
 	<!-- Compiled and minified JavaScript -->
 <!-- jQuery -->
 <script src="{{ asset('jquery/jquery.min.js')}}"></script>
+
 <!-- jQuery UI -->
 <script src="{{ asset('jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
 <!-- Bootstrap Core JavaScript -->
@@ -106,7 +101,6 @@ $user = Staffs::find($id)->profile;
 <script type="text/javascript" src="{{ asset('datatables/js/buttons.print.min.js')}}"></script>
 <!-- Custom Theme JavaScript -->
 <script src="{{ asset('js/sb-admin-2.js')}}"></script>
-
 <!-- clickable row -->
 <script>
 jQuery(document).ready(function($) {
@@ -280,6 +274,7 @@ $("[data-toggle=popover]")
 		$('.datepicker').datepicker({
 			autoclose: true,
 		});
+
 </script>
 <!-- ADDING MORE Equipment-->
 <script>
@@ -338,9 +333,11 @@ $(document).ready(function() {
 <!-- my ajax auto complete name for choosing tiem code-->
 <script>
 $(document).ready(function() {
-var i = 1;
+var x = 1;
 var option = "";
 var maxvalue = "";
+
+$('.qtytoBorrow').empty();
 $(".itemCode").change(function(){
   var id = $("#itemCode").val();
   option = "";
@@ -353,15 +350,19 @@ $(".itemCode").change(function(){
       data:{'id':id},
       success:function(response){
 				console.log(response);
-        for(i = 0; i < response.length;  i++){
-          option += "<option value='" + response[i].item_name+"'>" + response[i].item_name+ "</option>";
-					maxvalue += response[i].item_quantity;
-        }
+				console.log("This is the length "+response["itemnames"].length);
+				console.log("This is the max value "+response["diff"][0]);
+				console.log("This is the item name "+response["itemnames"][0].item_name);
+				for(x = 0; x < response["itemnames"].length;  x++){
+					option += "<option value='"+ response["itemnames"][x].item_name+"'>"+response["itemnames"][x].item_name+"</option>";
+					maxvalue += response["diff"][0];
+				}
         $('.item_name').append(option);
 				$('.qtytoBorrow').attr({
 		       "max" : maxvalue,
 					 "min" : 1
 		    });
+
       },
       error: function(data){
         console.log(data);
@@ -448,4 +449,66 @@ $(document).ready(function(){
 {{-- <footer class="pull-right">
 	Copyright © 2018 Software Engineering Requirement | Developed by TeamPura | Coded by Webster Kyle Genise
 </footer> --}}
+<!-- ADDING MORE Borrow-->
+<script type="text/javascript">
+$(document).ready(function(){
+    var i=1;
+		var maxvalue ="";
+
+    $('#addborrow').click(function(){
+			console.log('addborrow clicked');
+         i++;
+         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($itemdetails as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow'+i+'" required></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" required></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+
+         $(".itemCode"+i).change(function(){
+           var id = $("#itemCode"+i).val();
+					 // Validating same Item
+					 for (var q = 0; q < i; q++) {
+					 	if (id == $("#itemCode"+q).val() || id == $("#itemCode").val() ) {
+							console.log('Deleting Duplicate Item..');
+		          $('#row'+i+'').remove();
+					 		console.log('Duplicate Item Deleted');
+					 	}
+					 }
+					 // End of Validating Same Item
+           console.log(id);
+           options = "";
+					 maxvalue ="";
+           $('.item_name'+i).empty();
+           if (id){
+             $.ajax({
+               url:"/getItemName/"+id,
+               type: "GET",
+               data:{'id':id},
+               success:function(response){
+                 console.log(response);
+								 console.log("This is the length "+response["itemnames"].length);
+								 console.log("This is the max value "+response["diff"][0]);
+								 console.log("This is the item name "+response["itemnames"][0].item_name);
+                 for(x = 0; x < response["itemnames"].length;  x++){
+                   options += "<option value='"+ response["itemnames"][x].item_name+"'>"+response["itemnames"][x].item_name+"</option>";
+									 maxvalue += response["diff"][0];
+                 }
+                 $('.item_name'+i).append(options);
+								 $('.qtytoBorrow'+i).attr({
+				 		       "max" : maxvalue,
+				 					 "min" : 1
+				 		    });
+               },
+               error: function(data){
+                 console.log(data);
+               }
+             });
+           }
+         });
+    });
+    $(document).on('click', '.btn_remove', function(){
+         var button_id = $(this).attr("id");
+         $('#row'+button_id+'').remove();
+    });
+});
+</script>
+<script>
+
+</script>
 </html>

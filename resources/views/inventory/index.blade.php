@@ -11,51 +11,7 @@
 	$id = Auth::id();
 	$user = Staffs::find($id)->profile;
 ?>
-<!-- ADDING MORE Borrow-->
-<script type="text/javascript">
-$(document).ready(function(){
-    var i=1;
-		var maxvalue ="";
-    $('#addborrow').click(function(){
-         i++;
-         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($forBorrows as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><input type="number"  name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow'+i+'" required></td><td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" required></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
 
-         $(".itemCode"+i).change(function(){
-           var id = $("#itemCode"+i).val();
-           console.log(id);
-           options = "";
-					 maxvalue ="";
-           $('.item_name'+i).empty();
-           if (id){
-             $.ajax({
-               url:"/getItemName/"+id,
-               type: "GET",
-               data:{'id':id},
-               success:function(response){
-                 console.log(response);
-                 for(x = 0; x < response.length;  x++){
-                   options += "<option value='"+ response[x].item_name+"'>"+response[x].item_name+"</option>";
-									 maxvalue += response[x].item_quantity;
-                 }
-                 $('.item_name'+i).append(options);
-								 $('.qtytoBorrow'+i).attr({
-				 		       "max" : maxvalue,
-				 					 "min" : 1
-				 		    });
-               },
-               error: function(data){
-                 console.log(data);
-               }
-             });
-           }
-         });
-    });
-    $(document).on('click', '.btn_remove', function(){
-         var button_id = $(this).attr("id");
-         $('#row'+button_id+'').remove();
-    });
-});
-</script>
 
 			<div class="panel-body">
 				<div class="panel-heading">
@@ -241,7 +197,7 @@ $(document).ready(function(){
 																{{-- if item quantity is one disable adding more quantity to borrow
 																	if item has more than 1 quantity allow until max available quantity
 																 	--}}
-																<td><input type="number" name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow" required></td>
+																<td><input type="number" name="quantity_borrowed[]" placeholder="Enter Quantity" class="form-control qtytoBorrow" id="qtytoBorrow" required></td>
 
 																<td><input type="number" name="numberofdays[]"  placeholder="Enter Days" class="form-control" required></td>
 																<td><button type="button" name="addborrow" id="addborrow" class="btn btn-success btn-block">Add More</button></td>

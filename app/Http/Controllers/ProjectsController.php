@@ -56,14 +56,12 @@ class ProjectsController extends Controller
     public function store(Request $request)
     {
       // return $request;
-      //return $request->cluster_name[0];
-      // $vols = Vols::all();
-      // return Vols::where('cluster',$request->cluster_name[0])->get();
-      //validate
+      if ($request->project_startdate > $request->project_deadline) {
+        return redirect('/projects')->with('error','Deadline is earlier than start date!');
+      }
         $this->validate($request, [
           'project_name' => 'required',
-          'client_name' => 'required',
-          // 'cluster_name' => 'required',
+          'client_name' => 'required',          
           'project_details' => 'required',
           'project_startdate' => 'required',
           'project_deadline' => 'required',

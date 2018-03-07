@@ -71,11 +71,11 @@
 					<div class="col-lg-12"><br></div>
 					<div class="col-lg-4">
 						<label for="project_startdate">Project Start Date</label>
-						<input type="date" name="project_startdate" class="form-control" id="projectDatePicker"required>
+						<input type="date" name="project_startdate" class="form-control" id="from"required>
 					</div>
 					<div class="col-lg-4">
 						<label for="project_deadline">Project Deadline</label>
-						<input type="date" name="project_deadline" class="form-control" id="projectDatePicker"required>
+						<input type="date" name="project_deadline" class="form-control" id="to"required>
 					</div>
 					<div class="col-lg-4">
 						<label for="project_status">Status</label>

@@ -191,6 +191,16 @@ class ItemsController extends Controller
     }
     public function getItemName($id){
       $itemnames = ItemDetails::select('equipment_details_id', 'item_code', 'item_name','item_quantity')->where('item_code',$id)->where('item_status','AVAILABLE')->get();
-      return $itemnames;
+      $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed) as sumOf from sumofBorrowed group by equipment_details_id');
+      $diff;
+      foreach ($itemnames as $value) {
+        foreach ($sum as $value2){
+          if ($value->equipment_details_id == $value2->equipment_details_id) {
+            $diff[] = ($value->item_quantity - $value2->sumOf);
+          }
+        }
+      }
+      // return $itemnames;
+      return compact('itemnames','diff');
     }
 }
