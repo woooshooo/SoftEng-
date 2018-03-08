@@ -11,8 +11,24 @@
 	$id = Auth::id();
 	$user = Staffs::find($id)->profile;
 ?>
-
-
+<script>
+$(document).ready(function() {
+	$( "#searchItemType" ).autocomplete({
+		source: "/searchItemType"
+	});
+});
+</script>
+{{-- 	$.ajax({
+			 url: "/searchItemType/",
+			 type: "GET",
+			 data: {
+				 'letter':request.term
+			 },
+			 success: function( data ) {
+				 response(data);
+				 console.log(data);
+			 }
+		 }); --}}
 			<div class="panel-body">
 				<div class="panel-heading">
 					<h1>Inventory</h1>

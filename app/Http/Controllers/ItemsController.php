@@ -129,27 +129,27 @@ class ItemsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+      // return $request;
 
       //validate
         $this->validate($request, [
-
-          'item_warranty' => 'required',
-          'item_notes' => 'required',
-          'item_dateofpurchase' => 'required',
+          'item_name' => 'required',
+          'item_type' => 'required',
+          'item_quantity' => 'required',
           'item_code' => 'required'
 
         ]);
 
           $itemdetails = ItemDetails::where('equipment_id', $id)->first();
-          $itemdetails->equipment_id = $items->equipment_id;
-          $itemdetails->item_dateofpurchase = $request->input('item_dateofpurchase');
+          $itemdetails->equipment_id = $id;
+          $itemdetails->item_name = $request->input('item_name');
+          $itemdetails->item_type = $request->input('item_type');
+          $itemdetails->item_quantity = $request->input('item_quantity');
           $itemdetails->item_warranty = $request->input('item_warranty');
-          $itemdetails->item_notes = $request->input('item_notes');
+          $itemdetails->item_desc = $request->input('item_desc');
           $itemdetails->item_code = $request->input('item_code');
-          $itemdetails->item_status = 'AVAILABLE';
           $itemdetails->save();
-      return redirect('items/'.$id);
+      return redirect('itemdetails/'.$itemdetails->equipment_details_id);
     }
     /**
      * Remove the specified resource from storage.

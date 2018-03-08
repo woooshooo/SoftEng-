@@ -36,8 +36,8 @@ $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed
 
     <!-- MetisMenu CSS -->
     <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
-		<!-- ajax -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+			<!-- ajax -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <!-- JQUERY UI -->
     <link href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 
@@ -380,19 +380,21 @@ $(document).ready(function(){
 <script>
 $(document).ready(function() {
   $( "#searchItem" ).autocomplete({
-    source: 'http://localhost:8000/searchItem'
+    source: '/searchItem'
   });
 	$( "#searchItemType" ).autocomplete({
-    source: 'http://localhost:8000/searchItemType'
-  });
+		source: "/searchItemType"
+	});
 	$( "#searchProfilee" ).autocomplete({
-    source: 'http://localhost:8000/searchProfile'
+    source: '/searchProfile'
   });
 	$( "#searchProfile" ).autocomplete({
-    source: 'http://localhost:8000/searchProfile'
+    source: '/searchProfile'
   });
 	$( "#searchItemCode" ).autocomplete({
-		source: 'http://localhost:8000/searchItemCode'
+		source: '/searchItemCode'
+	});
+
 	});
 });
 </script>
@@ -593,12 +595,6 @@ $(document).ready(function(){
 					$("#showprank").text("Show Rankings");
 				}
     });
-
-		$("#searchItemType").on("change","input" function(){
-			$( "#searchItemType" ).autocomplete({
-		    source: 'http://localhost:8000/searchItemType'
-		  });
-		});
 });
 </script>
 </html>
