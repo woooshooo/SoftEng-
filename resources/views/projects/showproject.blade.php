@@ -71,13 +71,17 @@
 				<h4>Actual Progress</h4>
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div id="projProgBar" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">{{$progress}}%</div>
+						@if ($progress >= $progressExpected)
+							<div id="projProgBar" class="progress-bar progress-bar-info" name="progress_bar" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">{{$progress}}%</div>
+						@else
+							<div id="projProgBar" class="progress-bar progress-bar-danger" name="progress_bar" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">{{$progress}}%</div>
+						@endif
 					</div>
 					<!-- 2nd progress bar -->
 					<h4>Expected Progess</h4>
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
-						<div id="projProgBar2" class="progress-bar progress-bar-danger" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
+						<div id="projProgBar2" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
 					</div>
 				<div class = "col-lg-6">
 					<label for="project_details">Project Details</label>
@@ -376,7 +380,7 @@
 									<th></th>
 								</thead>
 								<tr>
-									<td><select class="form-control" name="volunteers[]">
+									<td><select class="form-control" name="volunteers[]"id="volName">
 										@foreach ($profiles as $profile)
 											@foreach ($vols as $vol)
 												@if ($profile->profile_id == $vol->profile_id)

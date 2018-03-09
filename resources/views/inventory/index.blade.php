@@ -18,17 +18,6 @@ $(document).ready(function() {
 	});
 });
 </script>
-{{-- 	$.ajax({
-			 url: "/searchItemType/",
-			 type: "GET",
-			 data: {
-				 'letter':request.term
-			 },
-			 success: function( data ) {
-				 response(data);
-				 console.log(data);
-			 }
-		 }); --}}
 			<div class="panel-body">
 				<div class="panel-heading">
 					<h1>Inventory</h1>

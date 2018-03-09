@@ -366,7 +366,7 @@
 									<th></th>
 								</thead>
 								<tr>
-                  <td><select class="form-control" name="volunteers[]">
+                  <td><select class="form-control" name="volunteers[]"id="volName">
 										@foreach ($profiles as $profile)
 											@foreach ($vols as $vol)
 												@if ($profile->profile_id == $vol->profile_id)

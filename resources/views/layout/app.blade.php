@@ -504,10 +504,38 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
 		var x=1;
+		$(".volName").change(function(){
+			var id = $("#volName").val();
+			// Validating same Item
+			for (var q = 0; q < x; q++) {
+			 if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
+				 console.log('Deleting Duplicate Item..');
+				 $('#row'+x+'').remove();
+				 console.log('Duplicate Item Deleted');
+			 }
+			}
+			// End of Validating Same Item
+		});
 		$('#addvolunteersbtn').click(function(){
 				 x++;
-				 $('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" class="form-control">@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+				 $('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+				 console.log("Added "+$("#volName").val());
+
+				 $(".volName"+x).change(function(){
+           var id = $("#volName"+x).val();
+					 // Validating same Item
+					 for (var q = 0; q < x; q++) {
+						if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
+							console.log('Deleting Duplicate Item..');
+							$('#row'+x+'').remove();
+							console.log('Duplicate Item Deleted');
+						}
+					 }
+					 // End of Validating Same Item
+				 });
+
 		});
+
 		$(document).on('click', '.btn_remove1', function(){
 				 var btn_id = $(this).attr("id");
 				 $('#row'+btn_id+'').remove();
