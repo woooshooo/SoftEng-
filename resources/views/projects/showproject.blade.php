@@ -3,41 +3,52 @@
 	<!-- ADDING MORE Borrow-->
 	<script type="text/javascript">
 	$(document).ready(function(){
-	    var i=1;
-			var maxvalue ="";
-	    $('#adduseditem').click(function(){
-	         i++;
-	         $('#dynamic_field_borrow').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'">@foreach($itemdetails as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"></select></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+			var i=1;
+			$('#adduseditem').click(function(){
+				console.log('adduseditem clicked');
+					 i++;
+					 $('#dynamic_field_additem').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($itemdetails as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
 
-	         $(".itemCode"+i).change(function(){
-	           var id = $("#itemCode"+i).val();
-	           console.log(id);
-	           options = "";
-	           $('.item_name'+i).empty();
-	           if (id){
-	             $.ajax({
-	               url:"/getItemName/"+id,
-	               type: "GET",
-	               data:{'id':id},
-	               success:function(response){
-	                 console.log(response);
-	                 for(x = 0; x < response.length;  x++){
-	                   options += "<option value='"+ response[x].item_name+"'>"+response[x].item_name+"</option>";
-	                 }
-	                 $('.item_name'+i).append(options);
-	               },
-	               error: function(data){
-	                 console.log(data);
-	               }
-	             });
-	           }
-	         });
-	    });
-	    $(document).on('click', '.btn_remove', function(){
-	         var button_id = $(this).attr("id");
-	         $('#row'+button_id+'').remove();
-	    });
-
+					 $(".itemCode"+i).change(function(){
+						 var id = $("#itemCode"+i).val();
+						 // Validating same Item
+						 for (var q = 0; q < i; q++) {
+							if (id == $("#itemCode"+q).val() || id == $("#itemCode").val() ) {
+								console.log('Deleting Duplicate Item..');
+								$('#row'+i+'').remove();
+								console.log('Duplicate Item Deleted');
+							}
+						 }
+						 // End of Validating Same Item
+						 console.log(id);
+						 options = "";
+						 $('.item_name'+i).empty();
+						 if (id){
+							 $.ajax({
+								 url:"/getItemName/"+id,
+								 type: "GET",
+								 data:{'id':id},
+								 success:function(response){
+									 console.log(response);
+									 console.log("This is the length "+response["itemnames"].length);
+									 console.log("This is the max value "+response["diff"][0]);
+									 console.log("This is the item name "+response["itemnames"][0].item_name);
+									 for(x = 0; x < response["itemnames"].length;  x++){
+										 options += "<option value='"+ response["itemnames"][x].item_name+"'>"+response["itemnames"][x].item_name+"</option>";
+									 }
+									 $('.item_name'+i).append(options);
+								 },
+								 error: function(data){
+									 console.log(data);
+								 }
+							 });
+						 }
+					 });
+			});
+			$(document).on('click', '.btn_remove', function(){
+					 var button_id = $(this).attr("id");
+					 $('#row'+button_id+'').remove();
+			});
 	});
 	</script>
 
@@ -104,25 +115,36 @@
 							<table style="width:100%; text-align:center;">
 								<thead>
 									<th style="text-align:center; width:50%">Milestone Name</th>
+									<th style="text-align:center">Deadline</th>
 									<th style="text-align:center">Option</th>
 								</thead>
 
-						@foreach($milestones as $value)
+						@foreach($milestones as $key => $value)
 							@if($projects->projects_status == 'Finished')
 								<tr>
 									<td>{{$value->milestone_name}}</td>
+									<td>{{$value->milestone_deadline}}</td>
 									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}" checked disabled> </td>
 								</tr>
 							@elseif($value->milestone_status == 'Finished')
 								<tr>
 									<td>{{$value->milestone_name}}</td>
+									<td>{{$value->milestone_deadline}}</td>
 									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}" checked> </td>
+								</tr>
+							@elseif($value->milestone_status == 'Finished')
+								<tr>
+									<td>{{$value->milestone_name}}</td>
+									<td>{{$value->milestone_deadline}}</td>
+									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}" disabled></td>
 								</tr>
 							@elseif($value->milestone_status == 'Ongoing')
 								<tr>
 									<td>{{$value->milestone_name}}</td>
+									<td>{{$value->milestone_deadline}}</td>
 									<td><input type="checkbox" class="form-check-input" id="milestone_project" name="milestone_project" value="{{$value->milestone_projects_id}}"></td>
 								</tr>
+
 							@endif
 							@endforeach
 
@@ -149,22 +171,24 @@
 					<table  width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-vols">
 						<thead>
 							<th>Volunteers Assigned</th>
-							<th>Cluster</th>
+							<th>Assigned</th>
 						</thead>
 						@foreach ($profiles as $profile)
-							@foreach ($vols as $vol)
-								@foreach ($profileprojects as $profileproject)
+							@foreach ($profileprojects as $profileproject)
 									@if ($profileproject->projects_id == $projects->projects_id)
 										@if ($profile->profile_id == $profileproject->profile_id)
-											@if ($profile->profile_id == $vol->profile_id)
-												<tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}">
-													<td>{{$profile->firstname}} {{$profile->lastname}}</td>
-													<td>{{$vol->cluster}}</td>
-												</tr>
-											@endif
+											@foreach ($milestones as $milestone)
+												@if ($profileproject->milestone_projects_id == $milestone->milestone_projects_id)
+													<tr class="clickable-row" data-href="/vols/{{$profile->projects_id}}">
+														<td>{{$profile->firstname}} {{$profile->lastname}}</td>
+														<td>
+															{{$milestone->milestone_name}}
+														</td>
+													</tr>
+												@endif
+											@endforeach
 										@endif
 									@endif
-								@endforeach
 							@endforeach
 						@endforeach
 					</table>
@@ -174,20 +198,18 @@
 					<table  width="100%" class="table table-bordered table-hover table-responsive" id="dataTables-vols2">
 						<thead>
 							<th>Volunteers Worked</th>
-							<th>Cluster</th>
+							<th>Assigned</th>
 						</thead>
 						@foreach ($profiles as $profile)
-							@foreach ($vols as $vol)
-								@foreach ($profileprojects as $profileproject)
+							@foreach ($profileprojectsworked as $profileproject)
+								@foreach ($milestones as $milestone)
 									@if ($profileproject->projects_id == $projects->projects_id)
 										@if ($profile->profile_id == $profileproject->profile_id)
-											@if ($profile->profile_id == $vol->profile_id)
-												@if ($profileproject->status == "Worked")
-													<tr class="clickable-row" data-href="/vols/{{$profile->projects_id}}">
-														<td>{{$profile->firstname}} {{$profile->lastname}}</td>
-														<td>{{$vol->cluster}}</td>
-													</tr>
-												@endif
+											@if ($profileproject->milestone_projects_id == $milestone->milestone_projects_id)
+												<tr class="clickable-row" data-href="/vols/{{$profile->projects_id}}">
+													<td>{{$profile->firstname}} {{$profile->lastname}}</td>
+													<td>{{$milestone->milestone_name}}</td>
+												</tr>
 											@endif
 										@endif
 									@endif
@@ -296,10 +318,12 @@
 						<table class="table table-hover table-responsive" id="dynamic_field_milestone">
 							<thead>
 								<th><label class="control-label" for="milestone_name">Name</label></th>
+								<th><label class="control-label" for="milestone_deadline">Deadline</label></th>
 								<th><label class="control-label" for="milestone_status">Status</label></th>
 							</thead>
 							<tr>
 								<td><input type="text"  id="milestonename" name="milestone_name[]" placeholder="Enter Milestone name" class="form-control"></td>
+								<td><input type="date"  name="milestone_deadline[]" placeholder="Enter Deadline" class="form-control"></td>
 								<td><input type="text" name="milestone_status[]" class="form-control" value="Ongoing" disabled>
 								<input type="hidden" name="milestone_status[]" value="Ongoing"></td>
 								<td><button type="button" name="" id="addmilestone" class="btn btn-success btn-block">Add More</button></td>
@@ -328,7 +352,7 @@
 			</div>
 			<div class="modal-body">
 					{!! Form::open(['action' => 'ItemsProjectController@store', 'method' => 'POST','class' => ' form  ui-front '])!!}
-							<table class="table table-hover table-responsive" id="dynamic_field_borrow">
+							<table class="table table-hover table-responsive" id="dynamic_field_additem">
 								<thead>
 									<th><label class="control-label" for="item_code">Item Code</label></th>
 									<th><label class="control-label" for="item_name">Item Name</label></th>
@@ -377,6 +401,7 @@
 							<table class="table table-hover table-responsive" id="dynamic_field_addvolunteer">
 								<thead>
 									<th><label class="control-label">Volunteer Name</label></th>
+									<th><label class="control-label">Milestone</label></th>
 									<th></th>
 								</thead>
 								<tr>
@@ -387,6 +412,11 @@
 													<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>
 												@endif
 											@endforeach
+										@endforeach
+									</select></td>
+									<td><select class="form-control" name="milestone[]"id="milestoneName">
+										@foreach ($milestones as $milestone)
+											<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
 										@endforeach
 									</select></td>
 									<td><button type="button" id="addvolunteersbtn" class="btn btn-success btn-block">Add More</button></td>
@@ -415,34 +445,39 @@
 				<h3 class="modal-title">Check Volunteers</h3>
       </div>
       <div class="modal-body">
-				{!! Form::open(['action'=> ['ProfileProjectsController@update', $projects->projects_id], 'method' => 'POST',
+				{!! Form::open(['action'=> ['ProfileProjectsWorkedController@store'], 'method' => 'POST',
 					'class' => 'panel-body form was-validated'])!!}
 					<div class="form-group col-lg-12">
-						{{-- <button id="checkAll" class="btn btn-default">Check All</button>	 --}}
-
-						<div class="scrollbox">
-							@foreach ($profiles as $profile)
-								@foreach ($vols as $vol)
-									@foreach ($profileprojects as $profileproject)
-										@if ($profileproject->projects_id == $projects->projects_id)
-											@if ($profile->profile_id == $profileproject->profile_id)
+						<input type="hidden" name="projects_id" value="{{$projects->projects_id}}">
+							<table class="table table-hover table-responsive" id="dynamic_field_addvolunteer0">
+								<thead>
+									<th><label class="control-label">Volunteer Name</label></th>
+									<th><label class="control-label">Milestone</label></th>
+									<th></th>
+								</thead>
+								<tr>
+									<td><select class="form-control" name="volunteers[]"id="volName">
+										@foreach ($profiles as $profile)
+											@foreach ($vols as $vol)
 												@if ($profile->profile_id == $vol->profile_id)
-													<div class="form-group col-lg-6">
-													<input class="vols" type="checkbox" name="volunteers[]" value="{{$profile->profile_id}}"> {{$profile->firstname}} {{$profile->lastname}}
-												</div>
+													<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>
 												@endif
-											@endif
-										@endif
-									@endforeach
-								@endforeach
-							@endforeach
-						</div>
+											@endforeach
+										@endforeach
+									</select></td>
+									<td><select class="form-control" name="milestone[]"id="milestoneName">
+										@foreach ($milestones as $milestone)
+											<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
+										@endforeach
+									</select></td>
+									<td><button type="button" id="addvolunteersbtn0" class="btn btn-success btn-block">Add More</button></td>
+								</tr>
+							</table>
 			    </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Save changes</button>
-				{{Form::hidden('_method','PUT')}}
 				{!! Form::close() !!}
       </div>
     </div>

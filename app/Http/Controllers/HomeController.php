@@ -11,9 +11,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use App\Projects;
-use App\ProjectRank;
+use App\ProjectsRank;
 use App\Events;
-use App\EventRank;
+use App\EventsRank;
 use App\Staffs;
 use App\Vols;
 use App\Profile;
@@ -50,11 +50,11 @@ class HomeController extends Controller
       $title = 'Rankings';
       $id = Auth::id();
       $user = Staffs::find($id)->profile;
-      $eventrank = EventRank::all();
-      $projectrank = ProjectRank::all();
       $projects = Projects::all();
       $events = Events::all();
       $currdate = new DateTime(); // Today's Date/Time
-      return view('dashboard')->with(compact('projectscount','eventscount','staffscount','volscount','title','id','user','projectrank','eventrank','profiles','projects','events','currdate','eventsprogress','projectsprogress'));
+      $eventsrank = EventsRank::all();
+      $projectsrank = ProjectsRank::all();
+      return view('dashboard')->with(compact('projectscount','eventscount','staffscount','volscount','title','id','user','profiles','projects','events','currdate','eventsprogress','projectsprogress','eventsrank','projectsrank'));
     }
 }

@@ -30,8 +30,10 @@
 												<td>{{$value->events_deadline}}</td>
 												@if ($value->events_status == "Ongoing")
 													<td><font color="green">{{$value->events_status}}</font></td>
-												@else
+												@elseif ($value->events_status == "Finished")
 													<td><font color="tomato">{{$value->events_status}}</font></td>
+												@else
+													<td><font color="blue">{{$value->events_status}}</font></td>
 												@endif
 										</tr>
 								@endforeach

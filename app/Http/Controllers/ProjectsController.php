@@ -10,6 +10,7 @@ use App\Profile;
 use App\Events;
 use App\ItemDetails;
 use App\ProfileProjects;
+use App\ProfileProjectsWorked;
 use App\Projects;
 use App\MilestoneProjects;
 use App\FinishedMilestones;
@@ -61,7 +62,7 @@ class ProjectsController extends Controller
       }
         $this->validate($request, [
           'project_name' => 'required',
-          'client_name' => 'required',          
+          'client_name' => 'required',
           'project_details' => 'required',
           'project_startdate' => 'required',
           'project_deadline' => 'required',
@@ -100,14 +101,11 @@ class ProjectsController extends Controller
       $totaldays = ($enddate-$startdate)/86400;
       $remainingdays = ($enddate-$currdate)/86400;
       $remainingdaystostart = ($startdate-$currdate)/86400;
-      if ($remainingdays <= 0) {
-        $progressExpected = 100;
-      } elseif ($totaldays == 0 && $currdate != $startdate) {
-        $progressExpected = 0;
-      } else {
-        $progressExpected = sprintf('%0.0f', round((($totaldays-$remainingdays)/$totaldays)*100, 2));
-      }
+      $percentage = (($currdate-$startdate)/86400)/$totaldays * 100;
+      $progressExpected = sprintf('%0.0f', round($percentage,2));
+      $projectmilestones = MilestoneProjects::where('projects_id',$id)->get();
       $profileprojects = ProfileProjects::all();
+      $profileprojectsworked = ProfileProjectsWorked::all();
       $profiles = Profile::all();
       $vols = Vols::all();
       $cluster = DB::select('select distinct cluster from vols');
@@ -117,16 +115,25 @@ class ProjectsController extends Controller
       // return $projects;
       $milestones = MilestoneProjects::where('projects_id', $id)->get();
       $finished = FinishedMilestones::where('projects_id', $id)->get();
-      $getmilestones = count($milestones);
-      $getfinished = count($finished);
-      $progress;
-      if($getmilestones == 0 || $getfinished == 0){
+      if (count($finished) > 0) {
+        foreach ($finished as $k => $finish) {
+          $daysfromstart[] = ((strtotime($finish->milestone_deadline)-$startdate)/86400);
+          $aw = ($daysfromstart[$k]/$totaldays)*100;
+          $progress = sprintf('%0.0f', round($aw,2));
+        }
+      } else {
         $progress = 0;
       }
-      else{
-        $progress = sprintf('%0.0f', round(($getfinished/$getmilestones)*100, 2));
-      }
-      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress)->with('progressExpected', $progressExpected)->with('projectitems', $projectitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects)->with('vols',$vols);
+      // return $aw;
+      // return $progress;
+      // $progress;
+      // if($getmilestones == 0 || $getfinished == 0){
+      //   $progress = 0;
+      // }
+      // else{
+      //   $progress = sprintf('%0.0f', round(($getfinished/$getmilestones)*100, 2));
+      // }
+      return view('projects/showproject')->with('title',$title)->with('projects',$projects)->with('milestones', $milestones)->with('progress', $progress)->with('progressExpected', $progressExpected)->with('projectitems', $projectitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileprojects',$profileprojects)->with('vols',$vols)->with('profileprojectsworked',$profileprojectsworked);
     }
 
     /**

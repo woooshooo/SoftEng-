@@ -157,7 +157,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Projects Volunteered</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Projects Worked</h3>
 
       </div>
       <div class="modal-body">
@@ -171,7 +171,6 @@
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
-                  <th>Un/Delivered</th>
                   </tr>
               </thead>
               @foreach ($projects as $project)
@@ -187,7 +186,6 @@
                         @else
                           <td><font color="tomato">{{$project->projects_status}}</font></td>
                         @endif
-                        <td>{{$profileproject->status}}</td>
                     </tr>
                   @endif
                 @endforeach
@@ -212,7 +210,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Events Volunteered</h3>
+        <h3 class="modal-title" id="exampleModalLongTitle">{{$profiles->firstname}}'s Events Worked</h3>
 
       </div>
       <div class="modal-body">
@@ -225,7 +223,6 @@
                   <th>Start Date</th>
                   <th>End Date</th>
                   <th>Status</th>
-                  <th>Un/Delivered</th>
                   </tr>
               </thead>
               @foreach ($events as $event)
@@ -240,7 +237,6 @@
                         @else
                           <td><font color="tomato">{{$event->events_status}}</font></td>
                         @endif
-                        <td>{{$profileevent->status}}</td>
                     </tr>
                   @endif
                 @endforeach

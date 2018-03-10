@@ -39,20 +39,29 @@ class MilestoneProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+
          $this->validate($request, [
-          'milestone_name' => 'required'
+          'milestone_name' => 'required',
+          'milestone_deadline' => 'required'
         ]);
         #declare
         $count = count($request->milestone_name);
         $id = Projects::where('projects_id',$request->projects_id)->value('projects_id');
+        $projects = Projects::find($id);
         #loop
         for($num=0; $count > $num; $num++){
             $milestoneproject = new MilestoneProjects;
             $milestoneproject->projects_id = $id;
             $milestoneproject->milestone_name = $request->milestone_name[$num];
-            $milestoneproject->milestone_status = $request->milestone_status[$num];
-            $milestoneproject->save();
+            if ($request->milestone_deadline[$num] > $projects->projects_startdate && $request->milestone_deadline[$num] < $projects->projects_deadline) {
+              $milestoneproject->milestone_deadline = $request->milestone_deadline[$num];
+              $milestoneproject->milestone_status = $request->milestone_status[$num];
+              $milestoneproject->save();
+            } else {
+              return redirect('projects/'.$id)->with('error','Please Check Milestone Deadline');
+            }
+
+
         }
 
         return redirect('projects/'.$id);

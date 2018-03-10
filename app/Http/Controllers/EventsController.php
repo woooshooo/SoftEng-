@@ -9,7 +9,8 @@ use App\Staffs;
 use App\Profile;
 use App\Events;
 use App\ItemDetails;
-use App\ProfileEvents;
+use App\ProfileEventsAssigned;
+use App\ProfileEventsWorked;
 use App\Projects;
 use App\MilestoneEvents;
 use App\FinishedMilestonesEvents;
@@ -31,9 +32,9 @@ class EventsController extends Controller
       $title = 'View Events';
       $itemdetails = ItemDetails::all();
       $events = Events::all();
-      $profileevents = ProfileEvents::all();
+      $profileeventsassigned = ProfileEventsAssigned::all();
       $profiles = Profile::all();
-      return view('events/events')->with('title', $title)->with('events', $events)->with('itemdetails',$itemdetails)->with('profiles', $profiles)->with('profileevents',$profileevents);
+      return view('events/events')->with('title', $title)->with('events', $events)->with('itemdetails',$itemdetails)->with('profiles', $profiles)->with('profileeventsassigned',$profileeventsassigned);
     }
 
     /**
@@ -100,25 +101,15 @@ class EventsController extends Controller
       } else {
         $progressExpected = sprintf('%0.0f', round((($totaldays-$remainingdays)/$totaldays)*100, 2));
       }
-      $profileevents = ProfileEvents::all();
+      $profileeventsassigned = ProfileEventsAssigned::all();
+      $profileeventsworked = ProfileEventsWorked::all();
       $profiles = Profile::all();
       $vols = Vols::all();
       // it just get the same equipment_details_id and the event id
       $eventitems = ItemsEvent::where('events_id',$id)->get();
       $itemdetails = ItemDetails::all();
-      // return $events;
-      $milestones = MilestoneEvents::where('events_id', $id)->get();
-      $finished = FinishedMilestonesEvents::where('events_id', $id)->get();
-      $getmilestones = count($milestones);
-      $getfinished = count($finished);
-      $progress;
-      if($getmilestones == 0 || $getfinished == 0){
-        $progress = 0;
-      }
-      else{
-        $progress = sprintf('%0.0f', round(($getfinished/$getmilestones)*100, 2));
-      }
-      return view('events/showevents')->with('title',$title)->with('events',$events)->with('milestones', $milestones)->with('progress', $progress)->with('progressExpected', $progressExpected)->with('eventitems', $eventitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileevents',$profileevents)->with('vols',$vols);
+
+      return view('events/showevents')->with('title',$title)->with('events',$events)->with('progressExpected', $progressExpected)->with('eventitems', $eventitems)->with('itemdetails',$itemdetails)->with('profiles',$profiles)->with('profileeventsassigned',$profileeventsassigned)->with('profileeventsworked',$profileeventsworked)->with('vols',$vols);
       }
 
     /**

@@ -9,6 +9,7 @@ use App\Profile;
 use App\Events;
 use App\ItemDetails;
 use App\ProfileProjects;
+use App\ProfileProjectsWorked;
 use App\Projects;
 use App\MilestoneProjects;
 use App\FinishedMilestones;
@@ -51,7 +52,7 @@ class ProfileProjectsController extends Controller
           $newpp = new ProfileProjects;
           $newpp->profile_id = $request->volunteers[$i];
           $newpp->projects_id = $id;
-          $newpp->status = "Assigned";
+          $newpp->milestone_projects_id = $request->milestone[$i];
           $newpp->save();
         }
         return redirect('projects/'.$id)->with('success','Volunteers Assigned!');

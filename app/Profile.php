@@ -33,9 +33,17 @@ class Profile extends Model
   {
     return $this->hasMany('App\ProfileProjects','profile_id');
   }
-  public function events()
+  public function projectsWorked()
   {
-    return $this->hasMany('App\ProfileEvents','profile_id');
+    return $this->hasMany('App\ProfileProjectsWorked','profile_id');
+  }
+  public function eventsAssigned()
+  {
+    return $this->hasMany('App\ProfileEventsAssigned','profile_id');
+  }
+  public function eventsWorked()
+  {
+    return $this->hasMany('App\ProfileEventsWorked','profile_id');
   }
 }
 ?>

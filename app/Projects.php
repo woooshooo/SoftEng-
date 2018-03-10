@@ -20,6 +20,10 @@ class Projects extends Model
   {
     return $this->belongsTo('App\ProfileProjects','profile_projects_id');
   }
+  public function profileprojectWorked()
+  {
+    return $this->belongsTo('App\ProfileProjectsWorked','profile_projects_worked_id');
+  }
   public function milestoneproject()
   {
     return $this->hasMany('App\MilestoneProjects', 'milestone_projects_id');
@@ -27,5 +31,5 @@ class Projects extends Model
   public function itemdetails()
   {
     return $this->hasMany('App\ItemsProject', 'equipment_details_id');
-  } 
+  }
 }

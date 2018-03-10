@@ -16,13 +16,13 @@ class Events extends Model
   protected $fillable = [
       'events_name, events_details,	events_startdate,	events_deadline,	events_status'
   ];
-  public function profileevent()
+  public function profileeventassigned()
   {
-    return $this->belongsTo('App\ProfileEvents','profile_events_id');
+    return $this->belongsTo('App\ProfileEventsAssigned','profile_events_assigned_id');
   }
-  public function milestoneevent()
+  public function profileeventworked()
   {
-    return $this->hasMany('App\MilestoneEvents', 'milestone_events_id');
+    return $this->belongsTo('App\ProfileEventsWorked','profile_events_worked_id');
   }
   public function itemdetails()
   {

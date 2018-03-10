@@ -11,8 +11,9 @@ use App\Items;
 use App\ItemDetails;
 use App\BorrowDetails;
 use App\ProfileProjects;
+use App\ProfileProjectsWorked;
 use App\Projects;
-use App\ProfileEvents;
+use App\ProfileEventsWorked;
 use App\Events;
 use DB;
 class VolsController extends Controller
@@ -97,9 +98,9 @@ class VolsController extends Controller
       $borrowdetails = BorrowDetails::all();
       $itemdetails = ItemDetails::all();
       $projects = Projects::all();
-      $profileprojects = ProfileProjects::where('profile_id',$id)->get();
+      $profileprojects = ProfileProjectsWorked::where('profile_id',$id)->get();
       $events = Events::all();
-      $profileevents = ProfileEvents::where('profile_id',$id)->get();
+      $profileevents = ProfileEventsWorked::where('profile_id',$id)->get();
 
       return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails)->with('profileprojects',$profileprojects)->with('projects',$projects)->with('events',$events)->with('profileevents',$profileevents);
     }

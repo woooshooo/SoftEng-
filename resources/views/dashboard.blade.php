@@ -185,14 +185,19 @@
                             <th>Worked</th>
                           </tr>
                         </thead>
-                        @foreach ($eventrank as $erkey => $er)
+                        @foreach ($eventsrank as $erkey => $er)
                           @foreach ($profiles as $profile)
                             @if ($er->profile_id == $profile->profile_id)
                               <tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}">
                                 <td>{{$erkey+1}}</td>
                                 <td>{{$profile->firstname}} {{$profile->lastname}}</td>
                                 <td>{{$er->total}}</td>
-                                <td>{{$er->worked}}</td>
+                                @if (is_null($er->worked))
+                                  <td>0</td>
+                                @else
+                                  <td>{{$er->worked}}</td>
+                                @endif
+
                               </tr>
                             @endif
                           @endforeach
@@ -212,14 +217,18 @@
                             <th>Worked</th>
                           </tr>
                         </thead>
-                        @foreach ($projectrank as $prkey => $pr)
+                        @foreach ($projectsrank as $prkey => $pr)
                           @foreach ($profiles as $profile)
                             @if ($pr->profile_id == $profile->profile_id)
                               <tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}">
                                 <td>{{$prkey+1}}</td>
                                 <td>{{$profile->firstname}} {{$profile->lastname}}</td>
                                 <td>{{$pr->total}}</td>
-                                <td>{{$pr->worked}}</td>
+                                @if (is_null($pr->worked))
+                                  <td>0</td>
+                                @else
+                                  <td>{{$pr->worked}}</td>
+                                @endif
                               </tr>
                             @endif
                           @endforeach

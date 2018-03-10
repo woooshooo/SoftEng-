@@ -48,7 +48,9 @@ Route::resource('/itemdetails','ItemDetailsController');
 Route::resource('/itemsproject','ItemsProjectController');
 Route::resource('/itemsevent','ItemsEventController');
 Route::resource('/profileprojects','ProfileProjectsController');
-Route::resource('/profileevents','ProfileEventsController');
+Route::resource('/profileprojectsworked','ProfileProjectsWorkedController');
+Route::resource('/profileeventsassigned','ProfileEventsAssignedController');
+Route::resource('/profileeventsworked','ProfileEventsWorkedController');
 Route::get('getItemName/{id}','ItemsController@getItemName');
 Route::get('changeMilestoneStatus/{id}','MilestoneProjectsController@changeStatus'); // change milestone status projects
 Route::get('changeMilestoneStatusE/{id}','MilestoneEventsController@changeStatus'); // change milestone status events
