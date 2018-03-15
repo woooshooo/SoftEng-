@@ -1,6 +1,89 @@
 @extends('layout.app')
 @section('content')
 
+	{{--  add volunteer for events_worked--}}
+<script src="{{ asset('jquery/jquery.min.js')}}"></script>
+	<script>
+		$(document).ready(function(){
+				var pid = $("#pid").val();
+				console.log(pid);
+				var x=1;
+				function getSum(total, num) {
+						return total + num;
+				}
+				$("form").on('change','#volName',function(){
+					console.log("changed in showproject");
+					var id = $("#volName").val();
+					var eventphaseval = $("#eventphaseID").val();
+					$("#eventphaseID").val(eventphaseval);
+				});
+				$('#addvolunteersbtn').click(function(){
+					console.log('clicked button');
+						$('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach($milestones as $milestone)@if($milestone->projects_id == $projects->projects_id)<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endif @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+						$('.selectpicker').selectpicker('render');
+						console.log("Added "+$("#volName").val());
+					x++;
+						 $("#volName"+x).change(function(){
+							 var id = $("#volName"+x).val();
+							 // Validating same Item
+							 for (var q = 0; q < x; q++) {
+								if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
+									console.log('Deleting Duplicate Item..');
+									$('#row'+x+'').remove();
+									console.log('Duplicate Item Deleted');
+								}
+							 }
+							 // End of Validating Same Item
+						 });
+
+				});
+
+				$(document).on('click', '.btn_remove1', function(){
+						 var btn_id = $(this).attr("id");
+						 $('#row'+btn_id+'').remove();
+				});
+		});
+	</script>
+	{{--  add volunteer for events_worked--}}
+	<script>
+	$(document).ready(function(){
+			var x=1;
+			function getSum(total, num) {
+			    return total + num;
+			}
+			$("form").on('change','#volName',function(){
+				console.log("changed");
+				var id = $("#volName").val();
+				var eventphaseval = $("#eventphaseID").val();
+				$("#eventphaseID").val(eventphaseval);
+			});
+			$('#addvolunteersbtn0').click(function(){
+					$('#dynamic_field_addvolunteer0').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach ($milestones as $milestone)<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+					$('.selectpicker').selectpicker('render');
+					console.log("Added "+$("#volName").val());
+				x++;
+					 $("#volName"+x).change(function(){
+	           var id = $("#volName"+x).val();
+						 // Validating same Item
+						 for (var q = 0; q < x; q++) {
+							if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
+								console.log('Deleting Duplicate Item..');
+								$('#row'+x+'').remove();
+								console.log('Duplicate Item Deleted');
+							}
+						 }
+						 // End of Validating Same Item
+					 });
+
+			});
+
+			$(document).on('click', '.btn_remove1', function(){
+					 var btn_id = $(this).attr("id");
+					 $('#row'+btn_id+'').remove();
+			});
+	});
+	</script>
+
 	<div id="wrapper">
 		<div class="row">
 				<div class="col-lg-12">
@@ -346,7 +429,7 @@
 				{!! Form::open(['action'=> ['ProfileProjectsController@store'], 'method' => 'POST',
 					'class' => 'panel-body form ui-front'])!!}
 					<div class="form-group col-lg-12">
-						<input type="hidden" name="projects_id" value="{{$projects->projects_id}}">
+						<input type="hidden" id="pid" name="projects_id" value="{{$projects->projects_id}}">
 							<table class="table table-hover table-responsive" id="dynamic_field_addvolunteer">
 								<thead>
 									<th><label class="control-label">Volunteer Name</label></th>

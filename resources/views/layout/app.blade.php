@@ -17,6 +17,7 @@ $milestones = MilestoneProjects::all();
 $eventsassigned = EventsAssigned::all();
 $eventsworked = EventsWorked::all();
 $itemdetails = ItemDetails::all();
+// $projects = Projects::all();
 $vols = Vols::all();
 $profiles = Profile::all();
 $id = Auth::id();
@@ -96,11 +97,11 @@ $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{ asset('metisMenu/metisMenu.min.js')}}"></script>
-
+{{--
 <!-- Morris Charts JavaScript -->
 <script src="{{ asset('raphael/raphael.min.js')}}"></script>
 <script src="{{ asset('morrisjs/morris.min.js')}}"></script>
-<script src="{{ asset('data/morris-data.js')}}"></script>
+<script src="{{ asset('data/morris-data.js')}}"></script> --}}
 <!-- DataTables JavaScript -->
 <script type="text/javascript" src="{{ asset('datatables/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('datatables/js/dataTables.buttons.min.js')}}"></script>
@@ -508,86 +509,6 @@ $(document).ready(function(){
 });
 </script>
 
-{{--  add volunteer for events_worked--}}
-<script>
-$(document).ready(function(){
-		var x=1;
-		function getSum(total, num) {
-		    return total + num;
-		}
-		$("form").on('change','#volName',function(){
-			console.log("changed");
-			var id = $("#volName").val();
-			var eventphaseval = $("#eventphaseID").val();
-			$("#eventphaseID").val(eventphaseval);
-		});
-		$('#addvolunteersbtn').click(function(){
-				$('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach ($milestones as $milestone)<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
-				$('.selectpicker').selectpicker('render');
-				console.log("Added "+$("#volName").val());
-			x++;
-				 $("#volName"+x).change(function(){
-           var id = $("#volName"+x).val();
-					 // Validating same Item
-					 for (var q = 0; q < x; q++) {
-						if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
-							console.log('Deleting Duplicate Item..');
-							$('#row'+x+'').remove();
-							console.log('Duplicate Item Deleted');
-						}
-					 }
-					 // End of Validating Same Item
-				 });
-
-		});
-
-		$(document).on('click', '.btn_remove1', function(){
-				 var btn_id = $(this).attr("id");
-				 $('#row'+btn_id+'').remove();
-		});
-});
-</script>
-
-{{--  add volunteer for events_worked--}}
-<script>
-$(document).ready(function(){
-		var x=1;
-		function getSum(total, num) {
-		    return total + num;
-		}
-		$("form").on('change','#volName',function(){
-			console.log("changed");
-			var id = $("#volName").val();
-			var eventphaseval = $("#eventphaseID").val();
-			$("#eventphaseID").val(eventphaseval);
-		});
-		$('#addvolunteersbtn2').click(function(){
-				$('#dynamic_field_addvolunteer2').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="selectpicker" name="eventphase[]" id="eventphaseID'+x+'" ><option value="1">Pre Setup</option><option value="2">Actual Event</option><option value="3">Pack Up</option><option value="4">Pre Setup, Pack Up</option><option value="5">Actual Event, Pack Up</option><option value="6">Pre Setup, Actual Event,Pack Up</option></select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
-				$('.selectpicker').selectpicker('render');
-				console.log("Added "+$("#volName").val());
-			x++;
-				 $("#volName"+x).change(function(){
-           var id = $("#volName"+x).val();
-					 // Validating same Item
-					 for (var q = 0; q < x; q++) {
-						if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
-							console.log('Deleting Duplicate Item..');
-							$('#row'+x+'').remove();
-							console.log('Duplicate Item Deleted');
-
-						}
-					 }
-					 // End of Validating Same Item
-				 });
-
-		});
-
-		$(document).on('click', '.btn_remove1', function(){
-				 var btn_id = $(this).attr("id");
-				 $('#row'+btn_id+'').remove();
-		});
-});
-</script>
 
 
 {{-- <footer class="pull-right">
@@ -674,6 +595,48 @@ $(document).ready(function(){
 });
 </script>
 
+
+{{--  add volunteer for events_worked--}}
+<script>
+$(document).ready(function(){
+		var x=1;
+		function getSum(total, num) {
+				return total + num;
+		}
+		$("form").on('change','#volName',function(){
+			console.log("changed");
+			var id = $("#volName").val();
+			var eventphaseval = $("#eventphaseID").val();
+			$("#eventphaseID").val(eventphaseval);
+		});
+		$('#addvolunteersbtn2').click(function(){
+				$('#dynamic_field_addvolunteer2').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="selectpicker" name="eventphase[]" id="eventphaseID'+x+'" ><option value="1">Pre Setup</option><option value="2">Actual Event</option><option value="3">Pack Up</option><option value="4">Pre Setup, Pack Up</option><option value="5">Actual Event, Pack Up</option><option value="6">Pre Setup, Actual Event,Pack Up</option></select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+				$('.selectpicker').selectpicker('render');
+				console.log("Added "+$("#volName").val());
+			x++;
+				 $("#volName"+x).change(function(){
+					 var id = $("#volName"+x).val();
+					 // Validating same Item
+					 for (var q = 0; q < x; q++) {
+						if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
+							console.log('Deleting Duplicate Item..');
+							$('#row'+x+'').remove();
+							console.log('Duplicate Item Deleted');
+
+						}
+					 }
+					 // End of Validating Same Item
+				 });
+
+		});
+
+		$(document).on('click', '.btn_remove1', function(){
+				 var btn_id = $(this).attr("id");
+				 $('#row'+btn_id+'').remove();
+		});
+});
+</script>
+
 <script>
 $(document).ready(function(){
 		var x=1;
@@ -715,45 +678,7 @@ $(document).ready(function(){
 </script>
 
 
-{{--  add volunteer for events_worked--}}
-<script>
-$(document).ready(function(){
-		var x=1;
-		function getSum(total, num) {
-		    return total + num;
-		}
-		$("form").on('change','#volName',function(){
-			console.log("changed");
-			var id = $("#volName").val();
-			var eventphaseval = $("#eventphaseID").val();
-			$("#eventphaseID").val(eventphaseval);
-		});
-		$('#addvolunteersbtn0').click(function(){
-				$('#dynamic_field_addvolunteer0').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach ($milestones as $milestone)<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
-				$('.selectpicker').selectpicker('render');
-				console.log("Added "+$("#volName").val());
-			x++;
-				 $("#volName"+x).change(function(){
-           var id = $("#volName"+x).val();
-					 // Validating same Item
-					 for (var q = 0; q < x; q++) {
-						if (id == $("#volName"+q).val() || id == $("#volName").val() ) {
-							console.log('Deleting Duplicate Item..');
-							$('#row'+x+'').remove();
-							console.log('Duplicate Item Deleted');
-						}
-					 }
-					 // End of Validating Same Item
-				 });
 
-		});
-
-		$(document).on('click', '.btn_remove1', function(){
-				 var btn_id = $(this).attr("id");
-				 $('#row'+btn_id+'').remove();
-		});
-});
-</script>
 
 <!-- ADDING USED ITEM-->
 <script type="text/javascript">
