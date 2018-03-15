@@ -25,6 +25,21 @@
                     </tr>
                 </thead>
 								@foreach ($projects as $value)
+									@if ($value->projects_deadline < date("Y-m-d") && $value->projects_status == "Ongoing")
+										<tr class="clickable-row" data-href="/projects/{{$value->projects_id}}">
+												<td>{{$value->projects_name}}</td>
+												<td>{{$value->projects_client}}</td>
+												<td>{{$value->projects_startdate}}</td>
+												<td  style="color: tomato">{{$value->projects_deadline}}</td>
+												@if ($value->projects_status == "Ongoing")
+													<td><font color="green">{{$value->projects_status}}</font></td>
+												@elseif ($value->projects_status == "Finished")
+													<td><font color="tomato">{{$value->projects_status}}</font></td>
+												@else
+													<td><font color="blue">{{$value->projects_status}}</font></td>
+												@endif
+										</tr>
+									@else
 										<tr class="clickable-row" data-href="/projects/{{$value->projects_id}}">
 												<td>{{$value->projects_name}}</td>
 												<td>{{$value->projects_client}}</td>
@@ -38,6 +53,7 @@
 													<td><font color="blue">{{$value->projects_status}}</font></td>
 												@endif
 										</tr>
+									@endif
 								@endforeach
             </table>
 					</div>

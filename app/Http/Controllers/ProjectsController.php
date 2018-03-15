@@ -102,7 +102,12 @@ class ProjectsController extends Controller
       $remainingdays = ($enddate-$currdate)/86400;
       $remainingdaystostart = ($startdate-$currdate)/86400;
       $percentage = (($currdate-$startdate)/86400)/$totaldays * 100;
-      $progressExpected = sprintf('%0.0f', round($percentage,2));
+      $progressexpectedvalue = sprintf('%0.0f', round($percentage,2));
+      if ($progressexpectedvalue >= 100) {
+        $progressExpected = 100;
+      } else {
+        $progressExpected = sprintf('%0.0f', round($percentage,2));
+      }
       $projectmilestones = MilestoneProjects::where('projects_id',$id)->get();
       $profileprojects = ProfileProjects::all();
       $profileprojectsworked = ProfileProjectsWorked::all();

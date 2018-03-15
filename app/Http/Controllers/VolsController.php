@@ -99,6 +99,7 @@ class VolsController extends Controller
       $itemdetails = ItemDetails::all();
       $projects = Projects::all();
       $profileprojects = ProfileProjectsWorked::where('profile_id',$id)->get();
+      // return $profileprojects = DB::table('profile_projects_worked')->distinct()->get();
       $events = Events::all();
       $profileevents = ProfileEventsWorked::where('profile_id',$id)->get();
 

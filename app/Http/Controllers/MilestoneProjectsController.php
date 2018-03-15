@@ -53,7 +53,7 @@ class MilestoneProjectsController extends Controller
             $milestoneproject = new MilestoneProjects;
             $milestoneproject->projects_id = $id;
             $milestoneproject->milestone_name = $request->milestone_name[$num];
-            if ($request->milestone_deadline[$num] > $projects->projects_startdate && $request->milestone_deadline[$num] < $projects->projects_deadline) {
+            if ($request->milestone_deadline[$num] >= $projects->projects_startdate && $request->milestone_deadline[$num] <= $projects->projects_deadline) {
               $milestoneproject->milestone_deadline = $request->milestone_deadline[$num];
               $milestoneproject->milestone_status = $request->milestone_status[$num];
               $milestoneproject->save();

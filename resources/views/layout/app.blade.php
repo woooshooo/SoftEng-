@@ -46,7 +46,7 @@ $sum = DB::select('select equipment_details_id, item_name, sum(quantity_borrowed
     <!-- MetisMenu CSS -->
     <link href="{{ asset('metisMenu/metisMenu.min.css')}}" rel="stylesheet">
 			<!-- ajax -->
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> --}}
     <!-- JQUERY UI -->
     <link href="{{ asset('jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet">
 
@@ -754,4 +754,57 @@ $(document).ready(function(){
 		});
 });
 </script>
+
+<!-- ADDING USED ITEM-->
+<script type="text/javascript">
+$(document).ready(function(){
+		var i=1;
+		$('table').on('click','#adduseditem',function(){
+			console.log('adduseditem clicked');
+				 i++;
+				 $('#dynamic_field_additem').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($itemdetails as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
+
+				 $(".itemCode"+i).change(function(){
+					 var id = $("#itemCode"+i).val();
+					 // Validating same Item
+					 for (var q = 0; q < i; q++) {
+						if (id == $("#itemCode"+q).val() || id == $("#itemCode").val() ) {
+							console.log('Deleting Duplicate Item..');
+							$('#row'+i+'').remove();
+							console.log('Duplicate Item Deleted');
+						}
+					 }
+					 // End of Validating Same Item
+					 console.log(id);
+					 options = "";
+					 $('.item_name'+i).empty();
+					 if (id){
+						 $.ajax({
+							 url:"/getItemName/"+id,
+							 type: "GET",
+							 data:{'id':id},
+							 success:function(response){
+								 console.log(response);
+								 console.log("This is the length "+response["itemnames"].length);
+								 console.log("This is the max value "+response["diff"][0]);
+								 console.log("This is the item name "+response["itemnames"][0].item_name);
+								 for(x = 0; x < response["itemnames"].length;  x++){
+									 options += "<option value='"+ response["itemnames"][x].item_name+"'>"+response["itemnames"][x].item_name+"</option>";
+								 }
+								 $('.item_name'+i).append(options);
+							 },
+							 error: function(data){
+								 console.log(data);
+							 }
+						 });
+					 }
+				 });
+		});
+		$(document).on('click', '.btn_remove', function(){
+				 var button_id = $(this).attr("id");
+				 $('#row'+button_id+'').remove();
+		});
+});
+</script>
+
 </html>

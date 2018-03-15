@@ -1,56 +1,5 @@
 @extends('layout.app')
 @section('content')
-	<!-- ADDING MORE Borrow-->
-	<script type="text/javascript">
-	$(document).ready(function(){
-			var i=1;
-			$('#adduseditem').click(function(){
-				console.log('adduseditem clicked');
-					 i++;
-					 $('#dynamic_field_additem').append('<tr id="row'+i+'"><td><select name="item_code[]" id="itemCode'+i+'" class="form-control itemCode'+i+'" required>@foreach($itemdetails as $key => $value)@if ($value->item_status == "AVAILABLE")<option value="{{$value->item_code}}">{{$value->item_code}}@endif</option>@endforeach</select></td><td><select name="item_name[]" class="form-control item_name'+i+'"required></select></td><td><button type="button" name="remove" id="'+i+'"class="btn btn-danger btn_remove btn-block">Remove</button></td></tr>');
-
-					 $(".itemCode"+i).change(function(){
-						 var id = $("#itemCode"+i).val();
-						 // Validating same Item
-						 for (var q = 0; q < i; q++) {
-							if (id == $("#itemCode"+q).val() || id == $("#itemCode").val() ) {
-								console.log('Deleting Duplicate Item..');
-								$('#row'+i+'').remove();
-								console.log('Duplicate Item Deleted');
-							}
-						 }
-						 // End of Validating Same Item
-						 console.log(id);
-						 options = "";
-						 $('.item_name'+i).empty();
-						 if (id){
-							 $.ajax({
-								 url:"/getItemName/"+id,
-								 type: "GET",
-								 data:{'id':id},
-								 success:function(response){
-									 console.log(response);
-									 console.log("This is the length "+response["itemnames"].length);
-									 console.log("This is the max value "+response["diff"][0]);
-									 console.log("This is the item name "+response["itemnames"][0].item_name);
-									 for(x = 0; x < response["itemnames"].length;  x++){
-										 options += "<option value='"+ response["itemnames"][x].item_name+"'>"+response["itemnames"][x].item_name+"</option>";
-									 }
-									 $('.item_name'+i).append(options);
-								 },
-								 error: function(data){
-									 console.log(data);
-								 }
-							 });
-						 }
-					 });
-			});
-			$(document).on('click', '.btn_remove', function(){
-					 var button_id = $(this).attr("id");
-					 $('#row'+button_id+'').remove();
-			});
-	});
-	</script>
 
 	<div id="wrapper">
 		<div class="row">
@@ -370,7 +319,7 @@
 									<td>
 										<select name="item_name[]" class="form-control item_name"></select>
 									</td>
-									<td><button type="button" name="adduseditem" id="adduseditem" class="btn btn-success btn-block">Add More</button></td>
+									<td><button type="button" id="adduseditem" class="btn btn-success btn-block">Add More</button></td>
 								</tr>
 							</table>
 					</div>
@@ -416,7 +365,9 @@
 									</select></td>
 									<td><select class="form-control" name="milestone[]"id="milestoneName">
 										@foreach ($milestones as $milestone)
-											<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
+											@if ($milestone->projects_id == $projects->projects_id)
+												<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
+											@endif
 										@endforeach
 									</select></td>
 									<td><button type="button" id="addvolunteersbtn" class="btn btn-success btn-block">Add More</button></td>
