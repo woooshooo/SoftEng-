@@ -15,6 +15,7 @@ use App\ProfileProjectsWorked;
 use App\Projects;
 use App\ProfileEventsWorked;
 use App\Events;
+use App\MilestoneProjects;
 use DB;
 class VolsController extends Controller
 {
@@ -97,13 +98,16 @@ class VolsController extends Controller
       $borrows = Borrow::where('profile_id',$id)->get();
       $borrowdetails = BorrowDetails::all();
       $itemdetails = ItemDetails::all();
-      $projects = Projects::all();
-      $profileprojects = ProfileProjectsWorked::where('profile_id',$id)->get();
+      //$profileprojects = ProfileProjectsWorked::where('profile_id',$id)->get();
+      $projectID = ProfileProjectsWorked::where('profile_id',$id)->distinct()->get(['projects_id']);
+      $projects = Projects::find($projectID);
+      $milestoneprojects = MilestoneProjects::where('projects_id',$projectID)->get();
+
       // return $profileprojects = DB::table('profile_projects_worked')->distinct()->get();
       $events = Events::all();
       $profileevents = ProfileEventsWorked::where('profile_id',$id)->get();
 
-      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails)->with('profileprojects',$profileprojects)->with('projects',$projects)->with('events',$events)->with('profileevents',$profileevents);
+      return View('profile/show')->with('profiles', $profiles)->with('vols', $vols)->with('title',$title)->with('borrows',$borrows)->with('borrowdetails',$borrowdetails)->with('itemdetails',$itemdetails)->with('projects',$projects)->with('events',$events)->with('profileevents',$profileevents);
     }
 
     /**

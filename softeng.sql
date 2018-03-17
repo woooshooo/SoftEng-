@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 15, 2018 at 08:11 AM
+-- Generation Time: Mar 17, 2018 at 08:46 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `events` (
 --
 
 INSERT INTO `events` (`events_id`, `events_name`, `events_details`, `events_startdate`, `events_deadline`, `events_status`, `created_at`, `updated_at`) VALUES
-(1, 'Awitenista Coverage', 'Awitenista Coverage Details', '2018-03-03', '2018-03-04', 'Ongoing', '2018-03-02 08:54:47', '2018-03-05 02:31:31'),
+(1, 'Awitenista Coverage', 'Awitenista Coverage Details', '2018-03-03', '2018-03-04', 'Finished', '2018-03-02 08:54:47', '2018-03-15 05:24:53'),
 (2, 'Baccalaureate Mass(BM)', 'Baccalaureate Mass for BM', '2018-04-06', '2018-04-06', 'Ongoing', '2018-03-05 02:46:16', '2018-03-10 01:38:17'),
 (3, '5AM Mass', '5am mass', '2018-03-05', '2018-03-05', 'Ongoing', '2018-03-05 04:09:25', '2018-03-05 04:11:07'),
 (4, 'Biology Coverage', 'Biology Coverage', '2018-03-08', '2018-03-09', 'Ongoing', '2018-03-07 10:56:36', '2018-03-09 21:29:30');
@@ -246,7 +246,16 @@ CREATE TABLE IF NOT EXISTS `items_event` (
   PRIMARY KEY (`items_event_id`),
   KEY `events_id` (`events_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items_event`
+--
+
+INSERT INTO `items_event` (`items_event_id`, `events_id`, `equipment_details_id`) VALUES
+(1, 1, 7),
+(2, 1, 2),
+(3, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -262,7 +271,16 @@ CREATE TABLE IF NOT EXISTS `items_project` (
   PRIMARY KEY (`items_project_id`),
   KEY `projects_id` (`projects_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `items_project`
+--
+
+INSERT INTO `items_project` (`items_project_id`, `projects_id`, `equipment_details_id`) VALUES
+(1, 1, 4),
+(2, 1, 8),
+(3, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -344,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -366,7 +384,8 @@ INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `miles
 (13, 8, 'Milestone 4', '2018-03-08', 'Finished', '2018-03-14 20:34:41', '2018-03-15 00:03:10'),
 (14, 8, 'Milestone 5', '2018-03-10', 'Finished', '2018-03-14 21:08:20', '2018-03-15 00:03:14'),
 (15, 8, 'Milestone 6', '2018-03-11', 'Finished', '2018-03-14 21:08:20', '2018-03-15 00:03:22'),
-(16, 8, 'Milestone 7', '2018-03-12', 'Finished', '2018-03-14 21:08:36', '2018-03-15 00:03:24');
+(16, 8, 'Milestone 7', '2018-03-12', 'Finished', '2018-03-14 21:08:36', '2018-03-15 00:03:24'),
+(17, 10, 'Milestone 1', '2018-03-10', 'Finished', '2018-03-17 00:44:04', '2018-03-17 00:44:09');
 
 -- --------------------------------------------------------
 
@@ -486,7 +505,15 @@ CREATE TABLE IF NOT EXISTS `profile_events_worked` (
   PRIMARY KEY (`profile_events_worked_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `profile_events_worked`
+--
+
+INSERT INTO `profile_events_worked` (`profile_events_worked_id`, `profile_id`, `events_id`, `pre_setup`, `actual_event`, `pack_up`) VALUES
+(1, 11, 1, 1, 1, 1),
+(2, 21, 1, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -504,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `milestone_projects_id` (`milestone_projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
@@ -521,7 +548,8 @@ INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_i
 (8, 13, 8, 13),
 (9, 14, 8, 14),
 (10, 15, 8, 15),
-(11, 16, 8, 16);
+(11, 16, 8, 16),
+(12, 25, 10, 17);
 
 -- --------------------------------------------------------
 
@@ -539,7 +567,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects_worked` (
   KEY `milestone_projects_id` (`milestone_projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `profile_projects_worked`
@@ -549,7 +577,8 @@ INSERT INTO `profile_projects_worked` (`profile_projects_worked_id`, `profile_id
 (1, 25, 1, 1),
 (2, 25, 1, 2),
 (3, 25, 1, 3),
-(4, 25, 1, 4);
+(4, 25, 1, 4),
+(5, 25, 10, 17);
 
 -- --------------------------------------------------------
 
@@ -585,7 +614,7 @@ INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `proj
 (7, 'Photoshoot for Yearbook', 'AdDU JHS', 'Photoshoot for Yearbook', '2018-02-25', '2018-04-07', 'Ongoing', '2018-03-05 08:21:55', '2018-03-10 01:32:00'),
 (8, 'Date Validation Project', 'Date Validation Client', 'Date Validation Details', '2018-03-06', '2018-03-12', 'Ongoing', '2018-03-07 10:36:09', '2018-03-14 21:07:54'),
 (9, 'Project', '1239851094812', 'Secret', '2018-03-10', '2018-04-07', 'Ongoing', '2018-03-08 00:15:25', '2018-03-10 01:56:15'),
-(10, 'Project Test', 'Client Test', 'asdsadasd', '2018-03-01', '2018-03-10', 'Ongoing', '2018-03-10 00:52:41', '2018-03-10 00:52:41');
+(10, 'Project Test', 'Client Test', 'asdsadasd', '2018-03-01', '2018-03-10', 'Finished', '2018-03-10 00:52:41', '2018-03-17 00:44:17');
 
 -- --------------------------------------------------------
 
@@ -690,7 +719,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'dFyofnE8ketjSDlBnl8SXEnbAiXlqpcj0zQzW3Wu84XV0lLYubZDxyjPZgjJ', '2018-01-12 10:01:39', '2018-03-01 21:08:09'),
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'z2kq9mQHzhfi3QWQMCxI18d6gDhxwsMToKYboRQ0Kc8uUDENEOINWWBOFQqt', '2018-01-12 10:01:39', '2018-03-01 21:08:09'),
 (2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
 
 -- --------------------------------------------------------
@@ -764,7 +793,7 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (12, 22, 'Broadcast & Productions Cluster', '4th Year', 'AB IS Major in American Studies', '4-AB IS Major in American Studies', 'ACTIVE', '2018-01-21 22:25:30', '2018-01-21 22:25:30'),
 (13, 23, 'Editorial & Social Media Cluster', 'Grade 11', 'STEM- Pre Science', '11 STEM- Pre Science', 'ACTIVE', '2018-01-21 22:26:34', '2018-01-21 22:26:34'),
 (14, 24, 'Editorial & Social Media Cluster', '4th Year', 'BS Biology', '4-BS Biology', 'ACTIVE', '2018-01-21 22:27:36', '2018-01-21 22:27:36'),
-(15, 25, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3-A', 'ACTIVE', '2018-01-21 22:28:42', '2018-01-21 22:28:42'),
+(15, 25, 'Creative Cluster', '3rd Year', 'BS Information Technology', 'InTech 3-A', 'ACTIVE', '2018-01-21 22:28:42', '2018-03-17 00:01:07'),
 (16, 26, 'Broadcast & Productions Cluster', '3rd Year', 'AB IDS minor in Media and Tech', '3-AB IDS minor in Media and Tech', 'ACTIVE', '2018-01-21 22:29:34', '2018-01-21 22:29:34'),
 (17, 27, 'Creative Cluster', '4th Year', 'AB Psychology', '4-AB Psychology', 'ACTIVE', '2018-01-21 22:30:19', '2018-01-21 22:30:19'),
 (18, 28, 'Creative Cluster', 'Grade 11', 'ABM', '11-ABM', 'ACTIVE', '2018-01-21 22:31:14', '2018-01-21 22:31:14'),

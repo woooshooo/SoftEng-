@@ -174,21 +174,17 @@
                   </tr>
               </thead>
               @foreach ($projects as $project)
-                @foreach ($profileprojects as $profileproject)
-                  @if ($project->projects_id == $profileproject->projects_id)
-                    <tr class="clickable-row" data-href="/projects/{{$project->projects_id}}">
-                        <td>{{$project->projects_name}}</td>
-                        <td>{{$project->projects_client}}</td>
-                        <td>{{$project->projects_startdate}}</td>
-                        <td>{{$project->projects_deadline}}</td>
-                        @if ($project->projects_status == "Ongoing")
-                          <td><font color="green">{{$project->projects_status}}</font></td>
-                        @else
-                          <td><font color="tomato">{{$project->projects_status}}</font></td>
-                        @endif
-                    </tr>
-                  @endif
-                @endforeach
+                <tr class="clickable-row" data-href="/projects/{{$project->projects_id}}">
+                    <td>{{$project->projects_name}}</td>
+                    <td>{{$project->projects_client}}</td>
+                    <td>{{$project->projects_startdate}}</td>
+                    <td>{{$project->projects_deadline}}</td>
+                    @if ($project->projects_status == "Ongoing")
+                      <td><font color="green">{{$project->projects_status}}</font></td>
+                    @else
+                      <td><font color="tomato">{{$project->projects_status}}</font></td>
+                    @endif
+                </tr>
               @endforeach
           </table>
       </div>

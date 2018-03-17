@@ -1,9 +1,9 @@
 @extends('layout.app')
 @section('content')
-  <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+  {{-- <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
     rel="stylesheet" type="text/css" />
 <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"
-    type="text/javascript"></script>
+    type="text/javascript"></script> --}}
 
   <div id="wrapper">
     <div class="row">
