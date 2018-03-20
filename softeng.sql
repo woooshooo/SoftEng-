@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2018 at 03:42 AM
+-- Generation Time: Mar 20, 2018 at 11:36 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -39,14 +39,7 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `borrow`
---
-
-INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `returndate`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
-(1, '2018-03-12', NULL, 25, 'Cover', NULL, NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -66,16 +59,7 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
   PRIMARY KEY (`borrow_details_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `borrow_details`
---
-
-INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `quantity_borrowed`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 3, '2018-03-11 22:56:09', '2018-03-11 22:56:09'),
-(2, 1, 9, 1, 1, '2018-03-11 22:56:09', '2018-03-11 22:56:09'),
-(3, 1, 5, 1, 1, '2018-03-11 22:56:09', '2018-03-11 22:56:09');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -91,14 +75,7 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
   PRIMARY KEY (`borrow_profile_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `borrow_profile`
---
-
-INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
-(1, 1, 25);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -116,17 +93,18 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
 --
 
 INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `receivedby`, `encodedby`, `created_at`, `updated_at`) VALUES
-(1, '2018-02-26', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
-(2, '2018-02-19', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
-(3, '2018-02-19', '2018-02-26', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
-(4, '2018-03-01', '2018-03-01', 'Webster Kyle Genise', 'Bernie Jereza', NULL, NULL);
+(1, '2018-01-01', '2018-01-01', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
+(2, '2018-01-02', '2018-01-02', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
+(3, '2018-01-03', '2018-01-03', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
+(4, '2018-01-04', '2018-01-04', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
+(5, '2015-01-01', '2015-01-01', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -149,22 +127,107 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_details_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipment_details`
 --
 
 INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_quantity`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
-(1, 1, '16gb MicroSD', 'SD Card', 'code5', 5, NULL, 'AVAILABLE', 'Good Condition', NULL, NULL),
-(2, 1, 'Flashlight', 'Misc.', 'code4', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(3, 1, 'FlyCamHD', 'Camera', 'code3', 1, NULL, 'DAMAGED', NULL, NULL, NULL),
-(4, 1, 'NIKON900', 'Camera', 'code2', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(5, 1, 'DSLR 700D', 'Camera', 'code1', 1, NULL, 'BORROWED', 'Good', NULL, NULL),
-(6, 2, 'Speaker9000', 'Speaker', 'code7', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(7, 2, 'Macbook', 'Laptop', 'code6', 1, NULL, 'AVAILABLE', 'Lost the lens cap', NULL, NULL),
-(8, 3, 'AUX Cable 15m', 'Cable', 'code8', 10, NULL, 'AVAILABLE', 'Good item condition ehehe', NULL, NULL),
-(9, 4, 'Telephoto Lens', 'Lens', 'code9', 2, NULL, 'AVAILABLE', 'Good Condition', NULL, NULL);
+(1, 1, 'Converters', 'Converter', '0001', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(2, 1, 'RPK-N', 'Adaptor', '0002', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(3, 1, 'RPS-N', 'Adaptor', '0003', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(4, 1, 'RPE-N', 'Adaptor', '0004', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(5, 1, 'HDMI to SDI Converters', 'Converter', '0005', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(6, 1, 'SDI to HDMI Converters', 'Converter', '0006', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(7, 1, 'BMD Headsets', 'Headset', '0007', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(8, 1, 'BMD Chargers', 'Charger', '0008', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(9, 1, 'BMD Telephoto Lense', 'BMD Lense', '0009', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(10, 1, 'BMD WideLense', 'BMD Lense', '0010', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(11, 1, 'BMD Intensity Shuttle Thunderbolt', 'Shuttle', '0011', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(12, 1, 'BMD Hyper Deck Shuttle', 'Shuttle', '0012', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(13, 1, 'Thunderbolt Ethernet', 'Adaptor', '0013', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(14, 1, 'Edimax Charger', 'Charger', '0014', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(15, 1, 'KTEc AC Adaptor', 'Adaptor', '0015', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(16, 1, 'Ethernet Switch', 'Switch', '0016', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(17, 1, 'Samsung Remote', 'Remote', '0017', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(18, 2, 'Microphone Cables', 'Cable', '0018', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(19, 2, 'OMNI 15M Extension Wheels', 'Extension', '0019', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(20, 2, 'OMNI Extension Bars: WER-103 (small)', 'Extension', '0020', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(21, 2, 'OMNI Extension Bars: WED-340 (big)', 'Extension', '0021', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(22, 2, 'Panther Extension Bars', 'Extension', '0022', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(23, 2, 'Danger Tapes', 'Tape', '0023', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(24, 2, 'Caution Tape', 'Tape', '0024', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(25, 2, 'Duct Tape', 'Tape', '0025', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(26, 2, 'Tokina Extension Bars', 'Extension', '0026', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(27, 3, 'HDMI Cables', 'Cable', '0027', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(28, 3, 'Ethernet Cables: CAT5E', 'Cable', '0028', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(29, 3, 'Ethernet Cables: CAT6', 'Cable', '0029', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(30, 3, 'Coaxial Cables: RG-6U', 'Cable', '0030', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(31, 3, 'Coaxial Cable: SDI', 'Cable', '0031', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(32, 3, 'Coaxial Cable: L-5CFW', 'Cable', '0032', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(33, 3, 'NSW24707 Cable', 'Cable', '0033', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(34, 4, 'ASUS Monitors', 'Monitor', '0034', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(35, 4, 'iMac Mini', 'MAC', '0035', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(36, 4, 'Apple Keyboard (USB)', 'Keyboard', '0036', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(37, 4, 'Apple Mouse (USB)', 'Mouse', '0037', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(38, 4, 'Mac', 'MAC', '0038', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(39, 4, 'Apple Magic Mouse (wireless)', 'Mouse', '0039', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(40, 4, 'Apple Keyboard (wireless)', 'Keyboard', '0040', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(41, 4, '4Tech N-320 Mouse', 'Mouse', '0041', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(42, 4, '4Tech OP-720 Mouse', 'Mouse', '0042', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(43, 4, '4Tech Keyboard', 'Mouse', '0043', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(44, 4, 'Scorpion Gaming Mouse', 'Mouse', '0044', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(45, 4, 'Gigabit Switch', 'Switch', '0045', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(46, 4, 'VR Glasses', 'VR', '0046', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(47, 4, 'LG PSU', 'Power Supply', '0047', 1, NULL, 'AVAILABLE', 'Dead', NULL, NULL),
+(48, 4, 'POWERLOGIC PSU', 'Power Supply', '0048', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(49, 4, 'HP COMPAQ', 'CPU', '0049', 2, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
+(50, 4, 'APC Smart-UPS', 'Power Supply', '0050', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(51, 4, 'Canon PRO-100 Printer', 'Printer', '0051', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(52, 4, 'Brother DCP-J100 Printer', 'Printer', '0052', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(53, 5, 'BMD', 'BMD', '0053', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(54, 5, 'BMD Tripod Bags', 'Bags', '0054', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(55, 5, 'SSD (240GB)', 'SSD', '0055', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(56, 5, 'Canon EOS 650D', 'Camera', '0056', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(57, 5, 'SD Cards (16GB)', 'SD Card', '0057', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(58, 5, 'Cam Rig', 'Camera Accessories', '0058', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(59, 5, 'FlyCam', 'Accessories', '0059', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(60, 5, 'Canon XA10', 'Camera', '0060', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(61, 5, 'Canon Compact Power Adaptor', 'Adaptor', '0061', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(62, 5, 'Tripods', 'Tripod', '0062', 4, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
+(63, 5, 'Tripod (Manfrotto)', 'Tripod', '0063', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(64, 5, 'JINBEI Softboxes', 'Accessories', '0064', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(65, 5, 'Water Cellophane (for Studio Lights)', 'Accessories', '0065', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(66, 5, 'JINBEI Light Weight Stand', 'Accessories', '0066', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(67, 5, 'JINBEI Light Bulbs (85W)', 'Accessories', '0067', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(68, 5, 'Rode Mic Pole', 'Mic Pole', '0068', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(69, 5, 'Rode Mic and Windshield', 'Mic', '0069', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(70, 5, 'Firefly Light and Radio', 'Tools', '0070', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(71, 5, 'Eneloop Batteries', 'Batteries', '0071', 20, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(72, 5, 'L.E.D.', 'LED Display', '0072', 16, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(73, 5, 'Image Class MFb28Cw', 'Photocopier', '0073', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(74, 5, 'Canon iR1022iF', 'Photocopier', '0074', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(75, 5, 'AudioTechnica Receiver', 'Accessories', '0075', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(76, 5, 'Microphone Earmount/Clip-on', 'Accessories', '0076', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(77, 5, 'AudioTechnica Transmitter', 'Accessories', '0077', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(78, 5, 'AudioTechnica Adaptor', 'Adaptor', '0078', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(79, 5, 'Zihyun Crane  for Mirrorless & DSLR Cameras', 'Accessories', '0079', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(80, 5, 'Phottix Speed Ring', 'Accessories', '0080', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(81, 5, 'Phottix Spartan Beauty Disk', 'Accessories', '0081', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(82, 5, 'Oval Reflector 150cm x 200cm', 'Accessories', '0082', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(83, 5, 'Yongnuo F750 Digital/video light rechargeable battery', 'Batteries', '0083', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(84, 5, 'Yonguo Digital  3000 III  Pro LED Video Light', 'Accessories', '0084', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(85, 5, 'Boya Microphone BY-M1', 'Mic', '0085', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(86, 5, 'Boya Microphone BY-WM5', 'Mic', '0086', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(87, 5, 'Yongnuo 660 Speedlite Flash', 'Accessories', '0087', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(88, 5, 'Yongnuo 3000 III LED Charger', 'Charger', '0088', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(89, 5, 'Yonguo  RF603C II Wireless Flash Trigger', 'Accessories', '0089', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(90, 5, 'Benro MoveOver4 Slider A04S9', 'Accessories', '0090', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(91, 5, 'Caler EII 200 Studio Flash Kit', 'Accessories', '0091', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(92, 5, 'Benro A28T Monopod', 'Monopod', '0092', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(93, 5, 'Benro S6 Fluid Head', 'Accesories', '0093', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(94, 5, 'Benro SystemGoPlus FGP28A', 'Accesories', '0094', 1, NULL, 'AVAILABLE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -246,16 +309,7 @@ CREATE TABLE IF NOT EXISTS `items_event` (
   PRIMARY KEY (`items_event_id`),
   KEY `events_id` (`events_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `items_event`
---
-
-INSERT INTO `items_event` (`items_event_id`, `events_id`, `equipment_details_id`) VALUES
-(1, 1, 7),
-(2, 1, 2),
-(3, 1, 8);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -271,16 +325,7 @@ CREATE TABLE IF NOT EXISTS `items_project` (
   PRIMARY KEY (`items_project_id`),
   KEY `projects_id` (`projects_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `items_project`
---
-
-INSERT INTO `items_project` (`items_project_id`, `projects_id`, `equipment_details_id`) VALUES
-(1, 1, 4),
-(2, 1, 8),
-(3, 1, 9);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -362,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -393,7 +438,11 @@ INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `miles
 (22, 11, 'mag makeup sa models', '2018-03-21', 'Finished', '2018-03-19 18:30:49', '2018-03-19 18:41:05'),
 (23, 11, 'mag photoshoot', '2018-03-22', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
 (24, 11, 'Pack Up', '2018-03-23', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
-(25, 11, 'return items', '2018-03-24', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:40:30');
+(25, 11, 'return items', '2018-03-24', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:40:30'),
+(26, 9, 'Milestone 1', '2018-03-20', 'Finished', '2018-03-20 02:16:05', '2018-03-20 02:16:10'),
+(27, 9, 'Milestone 2', '2018-03-22', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06'),
+(28, 9, 'Milestone 3', '2018-03-28', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06'),
+(29, 9, 'Milestone 4', '2018-04-07', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06');
 
 -- --------------------------------------------------------
 
