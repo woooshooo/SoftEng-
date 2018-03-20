@@ -45,15 +45,23 @@ class ProfileProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+      $this->validate($request, [
+        'volunteers' => 'required',
+        'milestone' => 'required'
+      ]);
         $id = $request->projects_id;
         $volcount = count($request->volunteers);
         for ($i=0; $i < $volcount; $i++) {
-          $newpp = new ProfileProjects;
-          $newpp->profile_id = $request->volunteers[$i];
-          $newpp->projects_id = $id;
-          $newpp->milestone_projects_id = $request->milestone[$i];
-          $newpp->save();
+          $profileprojects = ProfileProjects::where('profile_id',$request->volunteers[$i])->where('projects_id',$id)->where('milestone_projects_id',$request->milestone[$i])->get();
+          if (count($profileprojects) == 1) {
+            return redirect('projects/'.$id)->with('error','Volunteer duplicate entry!');
+          } else {
+            $newpp = new ProfileProjects;
+            $newpp->profile_id = $request->volunteers[$i];
+            $newpp->projects_id = $id;
+            $newpp->milestone_projects_id = $request->milestone[$i];
+            $newpp->save();
+          }
         }
         return redirect('projects/'.$id)->with('success','Volunteers Assigned!');
     }

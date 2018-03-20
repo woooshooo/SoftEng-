@@ -39,11 +39,16 @@ class ProfileProjectsWorkedController extends Controller
         $id = $request->projects_id;
         $volcount = count($request->volunteers);
         for ($i=0; $i < $volcount; $i++) {
-          $newpp = new ProfileProjectsWorked;
-          $newpp->profile_id = $request->volunteers[$i];
-          $newpp->projects_id = $id;
-          $newpp->milestone_projects_id = $request->milestone[$i];
-          $newpp->save();
+          $profileprojects = ProfileProjectsWorked::where('profile_id',$request->volunteers[$i])->where('projects_id',$id)->where('milestone_projects_id',$request->milestone[$i])->get();
+          if (count($profileprojects) == 1) {
+            return redirect('projects/'.$id)->with('error','Volunteer duplicate entry!');
+          } else {
+            $newpp = new ProfileProjectsWorked;
+            $newpp->profile_id = $request->volunteers[$i];
+            $newpp->projects_id = $id;
+            $newpp->milestone_projects_id = $request->milestone[$i];
+            $newpp->save();
+          }
         }
         $projects = Projects::find($id);
         $projects->projects_status = "Finished";

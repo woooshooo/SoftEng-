@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 17, 2018 at 08:46 AM
+-- Generation Time: Mar 20, 2018 at 03:02 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -362,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -385,7 +385,15 @@ INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `miles
 (14, 8, 'Milestone 5', '2018-03-10', 'Finished', '2018-03-14 21:08:20', '2018-03-15 00:03:14'),
 (15, 8, 'Milestone 6', '2018-03-11', 'Finished', '2018-03-14 21:08:20', '2018-03-15 00:03:22'),
 (16, 8, 'Milestone 7', '2018-03-12', 'Finished', '2018-03-14 21:08:36', '2018-03-15 00:03:24'),
-(17, 10, 'Milestone 1', '2018-03-10', 'Finished', '2018-03-17 00:44:04', '2018-03-17 00:44:09');
+(17, 10, 'Milestone 1', '2018-03-10', 'Finished', '2018-03-17 00:44:04', '2018-03-17 00:44:09'),
+(18, 7, 'Milestone 1', '2018-02-26', 'Finished', '2018-03-19 17:59:41', '2018-03-19 17:59:44'),
+(19, 7, 'Milestone 2', '2018-03-20', 'Finished', '2018-03-19 17:59:41', '2018-03-19 17:59:48'),
+(20, 7, 'Milestone 3', '2018-04-07', 'Finished', '2018-03-19 17:59:41', '2018-03-19 18:49:15'),
+(21, 11, 'Setup items sa studio', '2018-03-20', 'Finished', '2018-03-19 18:30:49', '2018-03-19 18:41:00'),
+(22, 11, 'mag makeup sa models', '2018-03-21', 'Finished', '2018-03-19 18:30:49', '2018-03-19 18:41:05'),
+(23, 11, 'mag photoshoot', '2018-03-22', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
+(24, 11, 'Pack Up', '2018-03-23', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
+(25, 11, 'return items', '2018-03-24', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:40:30');
 
 -- --------------------------------------------------------
 
@@ -419,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `profiles_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profiles`
@@ -459,7 +467,8 @@ INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `em
 (39, 'Justin', NULL, 'Tabora', 'justintabora@gmail.com', '09164235826', '2018-01-21 22:45:22', '2018-01-21 22:45:22'),
 (40, 'Princess', NULL, 'Taroza', 'notinputted@yahoo.com', '09483181141', '2018-01-21 22:46:24', '2018-01-21 22:46:24'),
 (41, 'Bianca', NULL, 'Valenzona', 'bmcvalenzona18@yahoo.com', 'O9338741537', '2018-01-21 22:47:35', '2018-01-21 22:47:35'),
-(42, 'Lyen Krenz', NULL, 'Yap', 'OfficialEzra.C@gmail.com', '09231560814', '2018-01-21 22:48:55', '2018-01-21 22:48:55');
+(42, 'Lyen Krenz', NULL, 'Yap', 'OfficialEzra.C@gmail.com', '09231560814', '2018-01-21 22:48:55', '2018-01-21 22:48:55'),
+(43, 'Maiko Angelo', 'Brion', 'Guino-o', 'mabguinoo@gmail.com', '09174059355', '2018-03-19 18:32:47', '2018-03-19 18:32:47');
 
 -- --------------------------------------------------------
 
@@ -531,7 +540,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `milestone_projects_id` (`milestone_projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
@@ -549,7 +558,13 @@ INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_i
 (9, 14, 8, 14),
 (10, 15, 8, 15),
 (11, 16, 8, 16),
-(12, 25, 10, 17);
+(12, 25, 10, 17),
+(13, 11, 7, 18),
+(14, 11, 7, 19),
+(15, 11, 7, 20),
+(16, 12, 7, 18),
+(17, 12, 7, 19),
+(18, 12, 7, 20);
 
 -- --------------------------------------------------------
 
@@ -567,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects_worked` (
   KEY `milestone_projects_id` (`milestone_projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `profile_projects_worked`
@@ -578,7 +593,13 @@ INSERT INTO `profile_projects_worked` (`profile_projects_worked_id`, `profile_id
 (2, 25, 1, 2),
 (3, 25, 1, 3),
 (4, 25, 1, 4),
-(5, 25, 10, 17);
+(5, 25, 10, 17),
+(6, 11, 7, 18),
+(7, 11, 7, 19),
+(8, 12, 7, 18),
+(9, 12, 7, 19),
+(10, 12, 7, 20),
+(11, 11, 7, 20);
 
 -- --------------------------------------------------------
 
@@ -598,7 +619,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
@@ -611,10 +632,11 @@ INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `proj
 (4, 'Project Four', 'Client Four', 'Project Details Four', '2018-03-26', '2018-03-31', 'Ongoing', '2018-03-01 22:11:48', '2018-03-05 00:31:59'),
 (5, 'Webster Self Project', 'Webster', 'details 5', '2018-02-27', '2018-03-02', 'Ongoing', '2018-03-01 22:28:08', '2018-03-05 02:48:27'),
 (6, 'Project New', 'Client New', 'Details New', '2018-02-28', '2018-03-02', 'Ongoing', '2018-03-01 23:05:59', '2018-03-05 03:50:14'),
-(7, 'Photoshoot for Yearbook', 'AdDU JHS', 'Photoshoot for Yearbook', '2018-02-25', '2018-04-07', 'Ongoing', '2018-03-05 08:21:55', '2018-03-10 01:32:00'),
+(7, 'Photoshoot for Yearbook', 'AdDU JHS', 'Photoshoot for Yearbook', '2018-02-25', '2018-04-07', 'Finished', '2018-03-05 08:21:55', '2018-03-19 18:58:51'),
 (8, 'Date Validation Project', 'Date Validation Client', 'Date Validation Details', '2018-03-06', '2018-03-12', 'Ongoing', '2018-03-07 10:36:09', '2018-03-14 21:07:54'),
 (9, 'Project', '1239851094812', 'Secret', '2018-03-10', '2018-04-07', 'Ongoing', '2018-03-08 00:15:25', '2018-03-10 01:56:15'),
-(10, 'Project Test', 'Client Test', 'asdsadasd', '2018-03-01', '2018-03-10', 'Finished', '2018-03-10 00:52:41', '2018-03-17 00:44:17');
+(10, 'Project Test', 'Client Test', 'asdsadasd', '2018-03-01', '2018-03-10', 'Finished', '2018-03-10 00:52:41', '2018-03-17 00:44:17'),
+(11, 'Photoshoot Models', 'Gauttier', 'Project ni GT pero si Maiko mutrabaho', '2018-03-20', '2018-03-24', 'Ongoing', '2018-03-19 18:29:16', '2018-03-19 18:40:19');
 
 -- --------------------------------------------------------
 
@@ -772,7 +794,7 @@ CREATE TABLE IF NOT EXISTS `vols` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`vol_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `vols`
@@ -810,7 +832,8 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (29, 39, 'Broadcast & Productions Cluster', 'Grade 12', 'HUMMS', '12 - HUMMS', 'ACTIVE', '2018-01-21 22:45:22', '2018-01-21 22:45:22'),
 (30, 40, 'Creative Cluster', '3rd Year', 'AB Mass Communication', '3-AB Mass Communication', 'ACTIVE', '2018-01-21 22:46:24', '2018-01-21 22:46:24'),
 (31, 41, 'Creative Cluster', '4th Year', 'AB IDS minor in Language and Literature', '4-AB IDS minor in Language and Literature', 'ACTIVE', '2018-01-21 22:47:35', '2018-01-21 22:47:35'),
-(32, 42, 'Editorial & Social Media Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:48:55', '2018-01-21 22:48:55');
+(32, 42, 'Editorial & Social Media Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:48:55', '2018-01-21 22:48:55'),
+(33, 43, 'Creative Cluster', '3rd Year', 'AB Mass Communications', '3-A', 'ACTIVE', '2018-03-19 18:32:47', '2018-03-19 18:32:47');
 
 -- --------------------------------------------------------
 

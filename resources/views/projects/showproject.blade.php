@@ -144,7 +144,7 @@
 						<div class="col-lg-12 well scrollbox" style="height: 29%">
 						<!--Lagay ng foreach for each Milestone from DB-->
 						<form name="milestonesprojectsform" id="#milestoneprojects" class="form-check mb-2 mr-sm-2">
-							<table style="width:100%; text-align:center;">
+							<table style="width:100%; text-align:center;" id="dataTables-milestones">
 								<thead>
 									<th style="text-align:center; width:50%">Milestone Name</th>
 									<th style="text-align:center">Deadline</th>

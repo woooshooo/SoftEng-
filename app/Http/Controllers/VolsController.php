@@ -98,11 +98,11 @@ class VolsController extends Controller
       $borrows = Borrow::where('profile_id',$id)->get();
       $borrowdetails = BorrowDetails::all();
       $itemdetails = ItemDetails::all();
+
       //$profileprojects = ProfileProjectsWorked::where('profile_id',$id)->get();
       $projectID = ProfileProjectsWorked::where('profile_id',$id)->distinct()->get(['projects_id']);
       $projects = Projects::find($projectID);
-      $milestoneprojects = MilestoneProjects::where('projects_id',$projectID)->get();
-
+      // $milestoneprojects = MilestoneProjects::where('projects_id',$projectID)->get();
       // return $profileprojects = DB::table('profile_projects_worked')->distinct()->get();
       $events = Events::all();
       $profileevents = ProfileEventsWorked::where('profile_id',$id)->get();

@@ -208,6 +208,10 @@ $(document).ready(function() {
 	        }
 			]
     } );
+		$('#dataTables-milestones').DataTable( {
+        "order": [[ 1, "asc" ]],
+				dom: ''
+    } );
     $('#dataTables-viewrecord').DataTable( {
         "order": [[ 5, "desc" ]],
 				dom: 'fBrtip',
