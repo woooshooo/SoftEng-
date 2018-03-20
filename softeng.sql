@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2018 at 03:02 AM
+-- Generation Time: Mar 20, 2018 at 03:42 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -487,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `profile_events_assigned` (
   PRIMARY KEY (`profile_events_assigned_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_events_assigned`
@@ -495,7 +495,9 @@ CREATE TABLE IF NOT EXISTS `profile_events_assigned` (
 
 INSERT INTO `profile_events_assigned` (`profile_events_assigned_id`, `profile_id`, `events_id`, `pre_setup`, `actual_event`, `pack_up`) VALUES
 (1, 11, 1, 1, 0, 0),
-(2, 12, 1, 1, 1, 1);
+(2, 12, 1, 1, 1, 1),
+(3, 18, 4, 1, 1, 1),
+(4, 23, 4, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -811,7 +813,7 @@ INSERT INTO `vols` (`vol_id`, `profile_id`, `cluster`, `yearlvl`, `course`, `sec
 (8, 18, 'Broadcast & Productions Cluster', '4th Year', 'AB Mass Communication', '4-AB Mass Communication', 'ACTIVE', '2018-01-21 22:19:20', '2018-01-21 22:19:20'),
 (9, 19, 'Creative Cluster', '4th Year', 'BSEd English', '4-BSEd English', 'ACTIVE', '2018-01-21 22:22:10', '2018-01-21 22:22:10'),
 (10, 20, 'Creative Cluster', 'Grade 12', 'STEM- Computer Studies', '12 STEM- Computer Studies', 'ACTIVE', '2018-01-21 22:23:18', '2018-01-21 22:23:18'),
-(11, 21, 'Broadcast & Productions Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:24:11', '2018-01-21 22:24:11'),
+(11, 21, 'Broadcast & Productions Cluster', '3rd Year', 'AB Psychology', '3-AB Psychology', 'ACTIVE', '2018-01-21 22:24:11', '2018-03-19 19:35:13'),
 (12, 22, 'Broadcast & Productions Cluster', '4th Year', 'AB IS Major in American Studies', '4-AB IS Major in American Studies', 'ACTIVE', '2018-01-21 22:25:30', '2018-01-21 22:25:30'),
 (13, 23, 'Editorial & Social Media Cluster', 'Grade 11', 'STEM- Pre Science', '11 STEM- Pre Science', 'ACTIVE', '2018-01-21 22:26:34', '2018-01-21 22:26:34'),
 (14, 24, 'Editorial & Social Media Cluster', '4th Year', 'BS Biology', '4-BS Biology', 'ACTIVE', '2018-01-21 22:27:36', '2018-01-21 22:27:36'),
