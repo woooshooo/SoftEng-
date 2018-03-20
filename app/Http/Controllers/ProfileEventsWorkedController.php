@@ -41,40 +41,45 @@ class ProfileEventsWorkedController extends Controller
       $volcount = count($request->volunteers);
 
       for ($i=0; $i < $volcount; $i++) {
-        $newpe = new ProfileEventsWorked;
-        $newpe->profile_id = $request->volunteers[$i];
-        $newpe->events_id = $id;
-        if ($request->eventphase[$i] == 1) {
-          $newpe->pre_setup = true;
-          $newpe->actual_event = false;
-          $newpe->pack_up = false;
+        $profileeventsworked = ProfileEventsWorked::where('profile_id',$request->volunteers[$i])->where('events_id',$id)->get();
+        if (count($profileeventsworked) > 0) {
+          return redirect('events/'.$id)->with('error','Volunteer duplicate entry!');
+        } else {
+          $newpe = new ProfileEventsWorked;
+          $newpe->profile_id = $request->volunteers[$i];
+          $newpe->events_id = $id;
+          if ($request->eventphase[$i] == 1) {
+            $newpe->pre_setup = true;
+            $newpe->actual_event = false;
+            $newpe->pack_up = false;
+          }
+          if ($request->eventphase[$i] == 2) {
+            $newpe->pre_setup = false;
+            $newpe->actual_event = true;
+            $newpe->pack_up = false;
+          }
+          if ($request->eventphase[$i] == 3) {
+            $newpe->pre_setup = false;
+            $newpe->actual_event = false;
+            $newpe->pack_up = true;
+          }
+          if ($request->eventphase[$i] == 4) {
+            $newpe->pre_setup = true;
+            $newpe->actual_event = false;
+            $newpe->pack_up = true;
+          }
+          if ($request->eventphase[$i] == 5) {
+            $newpe->pre_setup = false;
+            $newpe->actual_event = true;
+            $newpe->pack_up = true;
+          }
+          if ($request->eventphase[$i] == 6) {
+            $newpe->pre_setup = true;
+            $newpe->actual_event = true;
+            $newpe->pack_up = true;
+          }
+          $newpe->save();
         }
-        if ($request->eventphase[$i] == 2) {
-          $newpe->pre_setup = false;
-          $newpe->actual_event = true;
-          $newpe->pack_up = false;
-        }
-        if ($request->eventphase[$i] == 3) {
-          $newpe->pre_setup = false;
-          $newpe->actual_event = false;
-          $newpe->pack_up = true;
-        }
-        if ($request->eventphase[$i] == 4) {
-          $newpe->pre_setup = true;
-          $newpe->actual_event = false;
-          $newpe->pack_up = true;
-        }
-        if ($request->eventphase[$i] == 5) {
-          $newpe->pre_setup = false;
-          $newpe->actual_event = true;
-          $newpe->pack_up = true;
-        }
-        if ($request->eventphase[$i] == 6) {
-          $newpe->pre_setup = true;
-          $newpe->actual_event = true;
-          $newpe->pack_up = true;
-        }
-        $newpe->save();
       }
       $event = Events::find($id);
       $event->events_status = "Finished";

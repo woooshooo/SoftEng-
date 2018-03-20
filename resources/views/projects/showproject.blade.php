@@ -95,7 +95,7 @@
 							Edit Project
 						</button>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addvolunteers">
-						Add Volunteers
+						Assign Volunteers
 					</button>
 					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#additem" onclick="console.log('Opened Modal');">
 						Add Item Used
@@ -423,7 +423,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-				<h3 class="modal-title">Add Volunteers</h3>
+				<h3 class="modal-title">Assign Volunteers</h3>
       </div>
       <div class="modal-body">
 				{!! Form::open(['action'=> ['ProfileProjectsController@store'], 'method' => 'POST',
@@ -446,7 +446,7 @@
 											@endforeach
 										@endforeach
 									</select></td>
-									<td><select class="form-control" name="milestone[]"id="milestoneName">
+									<td><select class="form-control" name="milestone[]"id="milestoneName" required>
 										@foreach ($milestones as $milestone)
 											@if ($milestone->projects_id == $projects->projects_id)
 												<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>

@@ -16,7 +16,7 @@
           Edit Event
         </button>
       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addvolunteers">
-        Add Volunteers
+        Assign Volunteers
       </button>
       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#additemmodal" onclick="console.log('Opened Modal');">
         Add Item Used
@@ -59,6 +59,7 @@
         						<thead>
         							<th>Volunteers Assigned</th>
         							<th>Assigned To</th>
+        							{{-- <th>Option</th> --}}
         						</thead>
                     @foreach ($profiles as $profile)
                       @foreach ($vols as $vol)
@@ -66,8 +67,7 @@
                           @if ($assigned->events_id == $events->events_id)
                             @if ($profile->profile_id == $assigned->profile_id)
                               @if ($profile->profile_id == $vol->profile_id)
-                                {{-- <tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}"> --}}
-                                <tr>
+                                <tr class="clickable-row" data-href="/vols/{{$profile->profile_id}}">
                                   <td>{{$profile->firstname}} {{$profile->lastname}}</td>
                                   <td>
                                     @if ($assigned->pre_setup == 1 && $assigned->actual_event == 0 && $assigned->pack_up == 0)
@@ -84,6 +84,7 @@
                                       Pre Setup, Actual Event ,Pack Up
                                     @endif
                                 </td>
+                                {{-- <td><button type="button" class="btn btn-default" style="width: 100%;" data-toggle="modal" data-target="#editassigned">Edit</button></td> --}}
                                 </tr>
                               @endif
                             @endif
@@ -261,7 +262,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-				<h3 class="modal-title">Add Volunteers</h3>
+				<h3 class="modal-title">Assign Volunteers</h3>
       </div>
       <div class="modal-body">
 				{!! Form::open(['action'=> ['ProfileEventsAssignedController@store'], 'method' => 'POST',
