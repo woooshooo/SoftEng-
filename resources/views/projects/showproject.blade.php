@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('content')
 
-	{{--  add volunteer for events_worked--}}
+	{{--  add volunteer for assigned--}}
 <script src="{{ asset('jquery/jquery.min.js')}}"></script>
 	<script>
 		$(document).ready(function(){
@@ -19,7 +19,7 @@
 				});
 				$('#addvolunteersbtn').click(function(){
 					console.log('clicked button');
-						$('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach($milestones as $milestone)@if($milestone->projects_id == $projects->projects_id)<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endif @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
+						$('#dynamic_field_addvolunteer').append('<tr id="row'+x+'"><td><select name="volunteers[]" id="volName'+x+'" class="form-control volName'+x+'" >@foreach($profiles as $profile)@foreach($vols as $vol)@if($profile->profile_id == $vol->profile_id)<option value="{{$profile->profile_id}}">{{$profile->firstname}} {{$profile->lastname}}</option>@endif @endforeach @endforeach</select></td><td><select class="form-control" name="milestone[]"id="milestoneName">@foreach($milestones as $milestone)@if($milestone->projects_id == $projects->projects_id)@if($milestone->milestone_status == "Ongoing")<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>@endif @endif @endforeach</select></td><td><button type="button" name="remove" id="'+x+'" class="btn btn-danger btn_remove1 btn-block">Remove</button></td></tr>');
 						$('.selectpicker').selectpicker('render');
 						console.log("Added "+$("#volName").val());
 					x++;
@@ -121,7 +121,7 @@
 						@endif
 					</div>
 					<!-- 2nd progress bar -->
-					<h4>Expected Progess</h4>
+					<h4>Expected Progress</h4>
 					<div class="progress progress-striped active">
 						<!--Update aria-valuenow by embedding php code that will divide total milestones and completed milestones and round up quotient-->
 						<div id="projProgBar2" class="progress-bar progress-bar-success" name="progress_bar" role="progressbar" aria-valuenow="{{$progressExpected}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progressExpected}}%">{{$progressExpected}}%</div>
@@ -449,7 +449,9 @@
 									<td><select class="form-control" name="milestone[]"id="milestoneName" required>
 										@foreach ($milestones as $milestone)
 											@if ($milestone->projects_id == $projects->projects_id)
-												<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
+												@if($milestone->milestone_status == "Ongoing")
+													<option value="{{$milestone->milestone_projects_id}}">{{$milestone->milestone_name}}</option>
+												@endif
 											@endif
 										@endforeach
 									</select></td>

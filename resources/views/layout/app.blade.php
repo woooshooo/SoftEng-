@@ -210,7 +210,14 @@ $(document).ready(function() {
     } );
 		$('#dataTables-milestones').DataTable( {
         "order": [[ 1, "asc" ]],
-				dom: ''
+				dom: 'B',
+				buttons: [
+					'excel', 'pdf', {
+	            extend: 'print',
+	            text: 'Print',
+	            autoPrint: false
+	        }
+			]
     } );
     $('#dataTables-viewrecord').DataTable( {
         "order": [[ 5, "desc" ]],

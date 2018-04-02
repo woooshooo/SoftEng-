@@ -213,6 +213,7 @@
 						<option value="DAMAGED">DAMAGED</option>
 						<option value="LOST">LOST</option>
 						<option value="IN REPAIR">IN REPAIR</option>
+						<option value="RETIRED">RETIRED</option>
 					</select>
 	      </div>
 	      </div>

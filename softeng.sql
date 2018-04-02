@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 20, 2018 at 11:36 AM
+-- Generation Time: Apr 02, 2018 at 10:26 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -39,7 +39,18 @@ CREATE TABLE IF NOT EXISTS `borrow` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `borrow`
+--
+
+INSERT INTO `borrow` (`borrow_id`, `dateborrowed`, `returndate`, `profile_id`, `purpose`, `created_at`, `updated_at`) VALUES
+(1, '2018-03-20', '2018-03-20', 14, 'Test Borrow', NULL, NULL),
+(2, '2018-03-21', NULL, 1, '1235ysjg', NULL, NULL),
+(3, '2018-03-21', '2018-03-21', 14, 'Purpose', NULL, NULL),
+(4, '2018-03-21', NULL, 25, 'Borrow for Thesis', NULL, NULL),
+(5, '2018-04-02', NULL, 43, 'Test lang', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -59,7 +70,22 @@ CREATE TABLE IF NOT EXISTS `borrow_details` (
   PRIMARY KEY (`borrow_details_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `borrow_details`
+--
+
+INSERT INTO `borrow_details` (`borrow_details_id`, `borrow_id`, `equipment_details_id`, `numberofdays`, `quantity_borrowed`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 1, 1, '2018-03-20 08:08:45', '2018-03-20 08:08:45'),
+(2, 1, 2, 2, 2, '2018-03-20 08:08:45', '2018-03-20 08:08:45'),
+(3, 2, 34, 14, 2, '2018-03-20 18:51:36', '2018-03-20 18:51:36'),
+(4, 3, 34, 5, 2, '2018-03-20 18:52:31', '2018-03-20 18:52:31'),
+(5, 4, 43, 2, 1, '2018-03-20 18:55:21', '2018-03-20 18:55:21'),
+(6, 4, 42, 2, 1, '2018-03-20 18:55:21', '2018-03-20 18:55:21'),
+(7, 4, 41, 2, 1, '2018-03-20 18:55:22', '2018-03-20 18:55:22'),
+(8, 5, 15, 2, 1, '2018-04-02 01:54:03', '2018-04-02 01:54:03'),
+(9, 5, 17, 1, 1, '2018-04-02 01:54:03', '2018-04-02 01:54:03');
 
 -- --------------------------------------------------------
 
@@ -75,7 +101,18 @@ CREATE TABLE IF NOT EXISTS `borrow_profile` (
   PRIMARY KEY (`borrow_profile_id`),
   KEY `borrow_id` (`borrow_id`),
   KEY `profile_id` (`profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `borrow_profile`
+--
+
+INSERT INTO `borrow_profile` (`borrow_profile_id`, `borrow_id`, `profile_id`) VALUES
+(1, 1, 14),
+(2, 2, 1),
+(3, 3, 14),
+(4, 4, 25),
+(5, 5, 43);
 
 -- --------------------------------------------------------
 
@@ -93,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `equipments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipments`
@@ -104,7 +141,9 @@ INSERT INTO `equipments` (`equipment_id`, `dateordered`, `datedelivered`, `recei
 (2, '2018-01-02', '2018-01-02', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
 (3, '2018-01-03', '2018-01-03', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
 (4, '2018-01-04', '2018-01-04', 'Bernie Jereza', 'Bernie Jereza', NULL, NULL),
-(5, '2015-01-01', '2015-01-01', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL);
+(5, '2015-01-01', '2015-01-01', 'Aivy Rose Villarba', 'Bernie Jereza', NULL, NULL),
+(6, '2018-03-05', '2018-03-21', 'Gian Carlo Tancontian', 'Bernie Jereza', NULL, NULL),
+(7, '2018-03-05', '2018-03-21', 'Gian Carlo Tancontian', 'Bernie Jereza', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,96 +166,96 @@ CREATE TABLE IF NOT EXISTS `equipment_details` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`equipment_details_id`),
   KEY `equipment_id` (`equipment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `equipment_details`
 --
 
 INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_name`, `item_type`, `item_code`, `item_quantity`, `item_warranty`, `item_status`, `item_desc`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Converters', 'Converter', '0001', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(2, 1, 'RPK-N', 'Adaptor', '0002', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(3, 1, 'RPS-N', 'Adaptor', '0003', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(4, 1, 'RPE-N', 'Adaptor', '0004', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(5, 1, 'HDMI to SDI Converters', 'Converter', '0005', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(6, 1, 'SDI to HDMI Converters', 'Converter', '0006', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(7, 1, 'BMD Headsets', 'Headset', '0007', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(8, 1, 'BMD Chargers', 'Charger', '0008', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(9, 1, 'BMD Telephoto Lense', 'BMD Lense', '0009', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(1, 1, 'Converters', 'Converter', '0001', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(2, 1, 'RPK-N', 'Adaptor', '0002', 1, NULL, 'AVAILABLE', 'Good Condition', NULL, NULL),
+(3, 1, 'RPS-N', 'Adaptor', '0003', 1, NULL, 'AVAILABLE', 'Good Condition', NULL, NULL),
+(4, 1, 'RPE-N', 'Adaptor', '0004', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(5, 1, 'HDMI to SDI Converters', 'Converter', '0005', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(6, 1, 'SDI to HDMI Converters', 'Converter', '0006', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(7, 1, 'BMD Headsets', 'Headset', '0007', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(8, 1, 'BMD Chargers', 'Charger', '0008', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(9, 1, 'BMD Telephoto Lense', 'BMD Lense', '0009', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (10, 1, 'BMD WideLense', 'BMD Lense', '0010', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (11, 1, 'BMD Intensity Shuttle Thunderbolt', 'Shuttle', '0011', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (12, 1, 'BMD Hyper Deck Shuttle', 'Shuttle', '0012', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (13, 1, 'Thunderbolt Ethernet', 'Adaptor', '0013', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (14, 1, 'Edimax Charger', 'Charger', '0014', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(15, 1, 'KTEc AC Adaptor', 'Adaptor', '0015', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(15, 1, 'KTEc AC Adaptor', 'Adaptor', '0015', 1, NULL, 'BORROWED', NULL, NULL, NULL),
 (16, 1, 'Ethernet Switch', 'Switch', '0016', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(17, 1, 'Samsung Remote', 'Remote', '0017', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(18, 2, 'Microphone Cables', 'Cable', '0018', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(19, 2, 'OMNI 15M Extension Wheels', 'Extension', '0019', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(20, 2, 'OMNI Extension Bars: WER-103 (small)', 'Extension', '0020', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(21, 2, 'OMNI Extension Bars: WED-340 (big)', 'Extension', '0021', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(22, 2, 'Panther Extension Bars', 'Extension', '0022', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(23, 2, 'Danger Tapes', 'Tape', '0023', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(24, 2, 'Caution Tape', 'Tape', '0024', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(25, 2, 'Duct Tape', 'Tape', '0025', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(17, 1, 'Samsung Remote', 'Remote', '0017', 1, NULL, 'BORROWED', NULL, NULL, NULL),
+(18, 2, 'Microphone Cables', 'Cable', '0018', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(19, 2, 'OMNI 15M Extension Wheels', 'Extension', '0019', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(20, 2, 'OMNI Extension Bars: WER-103 (small)', 'Extension', '0020', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(21, 2, 'OMNI Extension Bars: WED-340 (big)', 'Extension', '0021', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(22, 2, 'Panther Extension Bars', 'Extension', '0022', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(23, 2, 'Danger Tapes', 'Tape', '0023', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(24, 2, 'Caution Tape', 'Tape', '0024', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(25, 2, 'Duct Tape', 'Tape', '0025', 10, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (26, 2, 'Tokina Extension Bars', 'Extension', '0026', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(27, 3, 'HDMI Cables', 'Cable', '0027', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(28, 3, 'Ethernet Cables: CAT5E', 'Cable', '0028', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(29, 3, 'Ethernet Cables: CAT6', 'Cable', '0029', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(30, 3, 'Coaxial Cables: RG-6U', 'Cable', '0030', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(27, 3, 'HDMI Cables', 'Cable', '0027', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(28, 3, 'Ethernet Cables: CAT5E', 'Cable', '0028', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(29, 3, 'Ethernet Cables: CAT6', 'Cable', '0029', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(30, 3, 'Coaxial Cables: RG-6U', 'Cable', '0030', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (31, 3, 'Coaxial Cable: SDI', 'Cable', '0031', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (32, 3, 'Coaxial Cable: L-5CFW', 'Cable', '0032', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (33, 3, 'NSW24707 Cable', 'Cable', '0033', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(34, 4, 'ASUS Monitors', 'Monitor', '0034', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(35, 4, 'iMac Mini', 'MAC', '0035', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(36, 4, 'Apple Keyboard (USB)', 'Keyboard', '0036', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(37, 4, 'Apple Mouse (USB)', 'Mouse', '0037', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(38, 4, 'Mac', 'MAC', '0038', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(39, 4, 'Apple Magic Mouse (wireless)', 'Mouse', '0039', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(40, 4, 'Apple Keyboard (wireless)', 'Keyboard', '0040', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(41, 4, '4Tech N-320 Mouse', 'Mouse', '0041', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(42, 4, '4Tech OP-720 Mouse', 'Mouse', '0042', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(43, 4, '4Tech Keyboard', 'Mouse', '0043', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(34, 4, 'ASUS Monitors', 'Monitor', '0034', 1, NULL, 'AVAILABLE', 'Same when borrowed', NULL, NULL),
+(35, 4, 'iMac Mini', 'MAC', '0035', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(36, 4, 'Apple Keyboard (USB)', 'Keyboard', '0036', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(37, 4, 'Apple Mouse (USB)', 'Mouse', '0037', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(38, 4, 'Mac', 'MAC', '0038', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(39, 4, 'Apple Magic Mouse (wireless)', 'Mouse', '0039', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(40, 4, 'Apple Keyboard (wireless)', 'Keyboard', '0040', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(41, 4, '4Tech N-320 Mouse', 'Mouse', '0041', 1, NULL, 'BORROWED', NULL, NULL, NULL),
+(42, 4, '4Tech OP-720 Mouse', 'Mouse', '0042', 1, NULL, 'BORROWED', NULL, NULL, NULL),
+(43, 4, '4Tech Keyboard', 'Mouse', '0043', 1, NULL, 'BORROWED', NULL, NULL, NULL),
 (44, 4, 'Scorpion Gaming Mouse', 'Mouse', '0044', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (45, 4, 'Gigabit Switch', 'Switch', '0045', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(46, 4, 'VR Glasses', 'VR', '0046', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(46, 4, 'VR Glasses', 'VR', '0046', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (47, 4, 'LG PSU', 'Power Supply', '0047', 1, NULL, 'AVAILABLE', 'Dead', NULL, NULL),
 (48, 4, 'POWERLOGIC PSU', 'Power Supply', '0048', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(49, 4, 'HP COMPAQ', 'CPU', '0049', 2, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
-(50, 4, 'APC Smart-UPS', 'Power Supply', '0050', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(49, 4, 'HP COMPAQ', 'CPU', '0049', 1, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
+(50, 4, 'APC Smart-UPS', 'Power Supply', '0050', 1, NULL, 'LOST', NULL, NULL, NULL),
 (51, 4, 'Canon PRO-100 Printer', 'Printer', '0051', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (52, 4, 'Brother DCP-J100 Printer', 'Printer', '0052', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(53, 5, 'BMD', 'BMD', '0053', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(54, 5, 'BMD Tripod Bags', 'Bags', '0054', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(55, 5, 'SSD (240GB)', 'SSD', '0055', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(53, 5, 'BMD', 'BMD', '0053', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(54, 5, 'BMD Tripod Bags', 'Bags', '0054', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(55, 5, 'SSD (240GB)', 'SSD', '0055', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (56, 5, 'Canon EOS 650D', 'Camera', '0056', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(57, 5, 'SD Cards (16GB)', 'SD Card', '0057', 5, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(57, 5, 'SD Cards (16GB)', 'SD Card', '0057', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (58, 5, 'Cam Rig', 'Camera Accessories', '0058', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (59, 5, 'FlyCam', 'Accessories', '0059', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (60, 5, 'Canon XA10', 'Camera', '0060', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (61, 5, 'Canon Compact Power Adaptor', 'Adaptor', '0061', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(62, 5, 'Tripods', 'Tripod', '0062', 4, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
+(62, 5, 'Tripods', 'Tripod', '0062', 1, NULL, 'AVAILABLE', '1 Dead', NULL, NULL),
 (63, 5, 'Tripod (Manfrotto)', 'Tripod', '0063', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(64, 5, 'JINBEI Softboxes', 'Accessories', '0064', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(65, 5, 'Water Cellophane (for Studio Lights)', 'Accessories', '0065', 6, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(66, 5, 'JINBEI Light Weight Stand', 'Accessories', '0066', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(67, 5, 'JINBEI Light Bulbs (85W)', 'Accessories', '0067', 3, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(68, 5, 'Rode Mic Pole', 'Mic Pole', '0068', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(64, 5, 'JINBEI Softboxes', 'Accessories', '0064', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(65, 5, 'Water Cellophane (for Studio Lights)', 'Accessories', '0065', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(66, 5, 'JINBEI Light Weight Stand', 'Accessories', '0066', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(67, 5, 'JINBEI Light Bulbs (85W)', 'Accessories', '0067', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(68, 5, 'Rode Mic Pole', 'Mic Pole', '0068', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (69, 5, 'Rode Mic and Windshield', 'Mic', '0069', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (70, 5, 'Firefly Light and Radio', 'Tools', '0070', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(71, 5, 'Eneloop Batteries', 'Batteries', '0071', 20, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(72, 5, 'L.E.D.', 'LED Display', '0072', 16, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(71, 5, 'Eneloop Batteries', 'Batteries', '0071', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(72, 5, 'L.E.D.', 'LED Display', '0072', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (73, 5, 'Image Class MFb28Cw', 'Photocopier', '0073', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (74, 5, 'Canon iR1022iF', 'Photocopier', '0074', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(75, 5, 'AudioTechnica Receiver', 'Accessories', '0075', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(76, 5, 'Microphone Earmount/Clip-on', 'Accessories', '0076', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(77, 5, 'AudioTechnica Transmitter', 'Accessories', '0077', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(78, 5, 'AudioTechnica Adaptor', 'Adaptor', '0078', 2, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(75, 5, 'AudioTechnica Receiver', 'Accessories', '0075', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(76, 5, 'Microphone Earmount/Clip-on', 'Accessories', '0076', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(77, 5, 'AudioTechnica Transmitter', 'Accessories', '0077', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(78, 5, 'AudioTechnica Adaptor', 'Adaptor', '0078', 1, NULL, 'RETIRED', NULL, NULL, NULL),
 (79, 5, 'Zihyun Crane  for Mirrorless & DSLR Cameras', 'Accessories', '0079', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (80, 5, 'Phottix Speed Ring', 'Accessories', '0080', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (81, 5, 'Phottix Spartan Beauty Disk', 'Accessories', '0081', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (82, 5, 'Oval Reflector 150cm x 200cm', 'Accessories', '0082', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(83, 5, 'Yongnuo F750 Digital/video light rechargeable battery', 'Batteries', '0083', 4, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(83, 5, 'Yongnuo F750 Digital/video light rechargeable battery', 'Batteries', '0083', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (84, 5, 'Yonguo Digital  3000 III  Pro LED Video Light', 'Accessories', '0084', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (85, 5, 'Boya Microphone BY-M1', 'Mic', '0085', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (86, 5, 'Boya Microphone BY-WM5', 'Mic', '0086', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
@@ -227,7 +266,9 @@ INSERT INTO `equipment_details` (`equipment_details_id`, `equipment_id`, `item_n
 (91, 5, 'Caler EII 200 Studio Flash Kit', 'Accessories', '0091', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (92, 5, 'Benro A28T Monopod', 'Monopod', '0092', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
 (93, 5, 'Benro S6 Fluid Head', 'Accesories', '0093', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
-(94, 5, 'Benro SystemGoPlus FGP28A', 'Accesories', '0094', 1, NULL, 'AVAILABLE', NULL, NULL, NULL);
+(94, 5, 'Benro SystemGoPlus FGP28A', 'Accesories', '0094', 1, NULL, 'AVAILABLE', NULL, NULL, NULL),
+(95, 6, 'Macbook Pro', 'MAC', '0095', 1, 'Apple Care', 'DAMAGED', NULL, NULL, NULL),
+(96, 6, 'iPhone X', 'Phone', '0096', 1, NULL, 'AVAILABLE', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -246,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`events_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `events`
@@ -256,7 +297,8 @@ INSERT INTO `events` (`events_id`, `events_name`, `events_details`, `events_star
 (1, 'Awitenista Coverage', 'Awitenista Coverage Details', '2018-03-03', '2018-03-04', 'Finished', '2018-03-02 08:54:47', '2018-03-15 05:24:53'),
 (2, 'Baccalaureate Mass(BM)', 'Baccalaureate Mass for BM', '2018-04-06', '2018-04-06', 'Ongoing', '2018-03-05 02:46:16', '2018-03-10 01:38:17'),
 (3, '5AM Mass', '5am mass', '2018-03-05', '2018-03-05', 'Ongoing', '2018-03-05 04:09:25', '2018-03-05 04:11:07'),
-(4, 'Biology Coverage', 'Biology Coverage', '2018-03-08', '2018-03-09', 'Ongoing', '2018-03-07 10:56:36', '2018-03-09 21:29:30');
+(4, 'Biology Coverage', 'Biology Coverage', '2018-03-08', '2018-03-09', 'Ongoing', '2018-03-07 10:56:36', '2018-03-09 21:29:30'),
+(5, 'Viewfinder Summit 2019', '5pm, Pakighinabi Room', '2018-03-20', '2018-03-20', 'Finished', '2018-03-20 18:40:20', '2018-03-20 18:43:18');
 
 -- --------------------------------------------------------
 
@@ -281,6 +323,7 @@ CREATE TABLE IF NOT EXISTS `events_rank` (
 `profile_id` int(10)
 ,`total` bigint(21)
 ,`worked` bigint(21)
+,`percentage` decimal(23,0)
 );
 
 -- --------------------------------------------------------
@@ -309,7 +352,19 @@ CREATE TABLE IF NOT EXISTS `items_event` (
   PRIMARY KEY (`items_event_id`),
   KEY `events_id` (`events_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items_event`
+--
+
+INSERT INTO `items_event` (`items_event_id`, `events_id`, `equipment_details_id`) VALUES
+(1, 5, 10),
+(2, 5, 11),
+(3, 5, 12),
+(4, 5, 53),
+(5, 5, 8),
+(6, 5, 9);
 
 -- --------------------------------------------------------
 
@@ -325,7 +380,22 @@ CREATE TABLE IF NOT EXISTS `items_project` (
   PRIMARY KEY (`items_project_id`),
   KEY `projects_id` (`projects_id`),
   KEY `equipment_details_id` (`equipment_details_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `items_project`
+--
+
+INSERT INTO `items_project` (`items_project_id`, `projects_id`, `equipment_details_id`) VALUES
+(1, 12, 77),
+(2, 12, 13),
+(3, 12, 4),
+(4, 12, 7),
+(5, 5, 3),
+(6, 5, 8),
+(7, 5, 7),
+(8, 11, 95),
+(9, 11, 71);
 
 -- --------------------------------------------------------
 
@@ -407,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `milestone_projects` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`milestone_projects_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `milestone_projects`
@@ -439,10 +509,22 @@ INSERT INTO `milestone_projects` (`milestone_projects_id`, `projects_id`, `miles
 (23, 11, 'mag photoshoot', '2018-03-22', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
 (24, 11, 'Pack Up', '2018-03-23', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:30:49'),
 (25, 11, 'return items', '2018-03-24', 'Ongoing', '2018-03-19 18:30:49', '2018-03-19 18:40:30'),
-(26, 9, 'Milestone 1', '2018-03-20', 'Finished', '2018-03-20 02:16:05', '2018-03-20 02:16:10'),
-(27, 9, 'Milestone 2', '2018-03-22', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06'),
-(28, 9, 'Milestone 3', '2018-03-28', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06'),
-(29, 9, 'Milestone 4', '2018-04-07', 'Ongoing', '2018-03-20 02:16:06', '2018-03-20 02:16:06');
+(26, 9, 'Milestone 1', '2018-03-20', 'Finished', '2018-03-20 02:16:05', '2018-03-20 08:49:57'),
+(27, 9, 'Milestone 2', '2018-03-22', 'Finished', '2018-03-20 02:16:06', '2018-03-20 08:50:03'),
+(28, 9, 'Milestone 3', '2018-03-28', 'Finished', '2018-03-20 02:16:06', '2018-03-20 08:50:17'),
+(29, 9, 'Milestone 4', '2018-04-07', 'Finished', '2018-03-20 02:16:06', '2018-04-02 01:43:25'),
+(30, 12, 'Fix Database', '2017-11-20', 'Finished', '2018-03-20 08:21:17', '2018-03-20 08:22:43'),
+(31, 12, 'Learn Laravel', '2017-12-01', 'Finished', '2018-03-20 08:21:18', '2018-03-20 18:30:28'),
+(32, 12, 'Module 1', '2018-01-05', 'Finished', '2018-03-20 08:21:18', '2018-03-20 18:30:22'),
+(33, 12, 'Module 2', '2018-01-25', 'Finished', '2018-03-20 08:21:18', '2018-03-20 18:30:32'),
+(34, 12, 'Module 3', '2018-02-15', 'Finished', '2018-03-20 08:21:18', '2018-03-20 18:30:42'),
+(35, 12, 'Module 4', '2018-03-05', 'Ongoing', '2018-03-20 08:21:18', '2018-03-20 18:30:54'),
+(36, 12, 'Defense Fee', '2018-03-16', 'Ongoing', '2018-03-20 08:21:18', '2018-03-20 08:22:34'),
+(37, 12, 'Defense Day', '2018-03-21', 'Finished', '2018-03-20 08:21:18', '2018-03-20 18:30:59'),
+(38, 13, 'Defense Day', '2018-03-21', 'Ongoing', '2018-03-20 18:32:18', '2018-03-20 18:32:18'),
+(39, 13, 'Pass documents', '2018-03-21', 'Ongoing', '2018-03-20 18:32:48', '2018-03-20 18:32:48'),
+(40, 5, 'Milestone 1', '2018-02-27', 'Finished', '2018-03-20 18:34:14', '2018-03-20 18:34:53'),
+(41, 5, 'Milestone 2', '2018-03-02', 'Finished', '2018-03-20 18:34:46', '2018-03-20 18:35:06');
 
 -- --------------------------------------------------------
 
@@ -476,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`profile_id`),
   UNIQUE KEY `profiles_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profiles`
@@ -517,7 +599,13 @@ INSERT INTO `profiles` (`profile_id`, `firstname`, `middlename`, `lastname`, `em
 (40, 'Princess', NULL, 'Taroza', 'notinputted@yahoo.com', '09483181141', '2018-01-21 22:46:24', '2018-01-21 22:46:24'),
 (41, 'Bianca', NULL, 'Valenzona', 'bmcvalenzona18@yahoo.com', 'O9338741537', '2018-01-21 22:47:35', '2018-01-21 22:47:35'),
 (42, 'Lyen Krenz', NULL, 'Yap', 'OfficialEzra.C@gmail.com', '09231560814', '2018-01-21 22:48:55', '2018-01-21 22:48:55'),
-(43, 'Maiko Angelo', 'Brion', 'Guino-o', 'mabguinoo@gmail.com', '09174059355', '2018-03-19 18:32:47', '2018-03-19 18:32:47');
+(43, 'Maiko Angelo', 'Brion', 'Guino-o', 'mabguinoo@gmail.com', '09174059355', '2018-03-19 18:32:47', '2018-03-19 18:32:47'),
+(44, 'Edna Leah May', 'E', 'Medija', 'elmemedija@addu.edu.ph', '09055652310', '2018-03-20 04:05:09', '2018-03-20 04:05:09'),
+(45, 'Karlo Alexie', 'C', 'Puerto', 'kacpuerto@addu.edu.ph', '09177133880', '2018-03-20 04:05:47', '2018-03-20 04:05:47'),
+(46, 'Gian Carlo', 'C', 'Tancontian', 'gcctancontian@addu.edu.ph', '09328828868', '2018-03-20 04:06:46', '2018-03-20 04:06:46'),
+(47, 'Virgilio Martin', 'V', 'Castrillo', 'igy.castrillo@gmail.com', '09778291103', '2018-03-20 04:07:33', '2018-03-20 04:09:31'),
+(48, 'Micheal Aaron', 'C', 'Gomez', 'macgomez@addu.edu.ph', '09171256847', '2018-03-20 04:08:28', '2018-03-20 04:09:42'),
+(49, 'Murphy', 'P', 'Caballero', 'mpcaballero@addu.edu.ph', '09236640865', '2018-03-20 04:09:05', '2018-03-20 04:09:05');
 
 -- --------------------------------------------------------
 
@@ -536,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `profile_events_assigned` (
   PRIMARY KEY (`profile_events_assigned_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_events_assigned`
@@ -546,7 +634,11 @@ INSERT INTO `profile_events_assigned` (`profile_events_assigned_id`, `profile_id
 (1, 11, 1, 1, 0, 0),
 (2, 12, 1, 1, 1, 1),
 (3, 18, 4, 1, 1, 1),
-(4, 23, 4, 0, 1, 1);
+(4, 23, 4, 0, 1, 1),
+(5, 14, 5, 1, 0, 0),
+(6, 11, 5, 1, 0, 0),
+(7, 17, 5, 1, 1, 1),
+(8, 20, 5, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -565,7 +657,7 @@ CREATE TABLE IF NOT EXISTS `profile_events_worked` (
   PRIMARY KEY (`profile_events_worked_id`),
   KEY `profile_id` (`profile_id`),
   KEY `events_id` (`events_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_events_worked`
@@ -573,7 +665,10 @@ CREATE TABLE IF NOT EXISTS `profile_events_worked` (
 
 INSERT INTO `profile_events_worked` (`profile_events_worked_id`, `profile_id`, `events_id`, `pre_setup`, `actual_event`, `pack_up`) VALUES
 (1, 11, 1, 1, 1, 1),
-(2, 21, 1, 0, 1, 1);
+(2, 21, 1, 0, 1, 1),
+(3, 14, 5, 0, 0, 1),
+(4, 12, 5, 0, 1, 0),
+(5, 20, 5, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -591,7 +686,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects` (
   KEY `projects_id` (`projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `milestone_projects_id` (`milestone_projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `profile_projects`
@@ -615,7 +710,21 @@ INSERT INTO `profile_projects` (`profile_projects_id`, `profile_id`, `projects_i
 (15, 11, 7, 20),
 (16, 12, 7, 18),
 (17, 12, 7, 19),
-(18, 12, 7, 20);
+(18, 12, 7, 20),
+(19, 14, 12, 30),
+(20, 25, 12, 31),
+(21, 14, 12, 31),
+(22, 25, 12, 32),
+(23, 25, 12, 33),
+(24, 25, 12, 34),
+(25, 25, 12, 35),
+(26, 25, 12, 36),
+(27, 14, 12, 36),
+(28, 14, 12, 37),
+(29, 25, 12, 37),
+(30, 14, 5, 40),
+(31, 16, 5, 41),
+(32, 14, 5, 41);
 
 -- --------------------------------------------------------
 
@@ -633,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `profile_projects_worked` (
   KEY `milestone_projects_id` (`milestone_projects_id`),
   KEY `profile_id` (`profile_id`),
   KEY `projects_id` (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `profile_projects_worked`
@@ -650,7 +759,9 @@ INSERT INTO `profile_projects_worked` (`profile_projects_worked_id`, `profile_id
 (8, 12, 7, 18),
 (9, 12, 7, 19),
 (10, 12, 7, 20),
-(11, 11, 7, 20);
+(11, 11, 7, 20),
+(12, 16, 5, 40),
+(13, 19, 5, 41);
 
 -- --------------------------------------------------------
 
@@ -670,7 +781,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`projects_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `projects`
@@ -680,14 +791,16 @@ INSERT INTO `projects` (`projects_id`, `projects_name`, `projects_client`, `proj
 (1, 'Project One', 'Client One', 'Project One Details', '2018-02-28', '2018-03-07', 'Finished', '2018-03-01 20:51:50', '2018-03-11 23:16:23'),
 (2, 'Project Two', 'Client Two', 'Project Two Details', '2018-02-25', '2018-03-03', 'Ongoing', '2018-03-01 20:53:14', '2018-03-10 01:57:12'),
 (3, 'Project Three', 'Client Three', 'Project Details Three', '2018-03-01', '2018-03-02', 'Ongoing', '2018-03-01 20:55:06', '2018-03-05 07:01:43'),
-(4, 'Project Four', 'Client Four', 'Project Details Four', '2018-03-26', '2018-03-31', 'Ongoing', '2018-03-01 22:11:48', '2018-03-05 00:31:59'),
-(5, 'Webster Self Project', 'Webster', 'details 5', '2018-02-27', '2018-03-02', 'Ongoing', '2018-03-01 22:28:08', '2018-03-05 02:48:27'),
+(4, 'Project Four', 'Client Four', 'Project Details Four', '2018-03-26', '2018-03-31', 'Pending', '2018-03-01 22:11:48', '2018-03-20 18:11:01'),
+(5, 'Webster Self Project', 'Webster', 'details 5', '2018-02-27', '2018-03-02', 'Finished', '2018-03-01 22:28:08', '2018-03-20 18:36:36'),
 (6, 'Project New', 'Client New', 'Details New', '2018-02-28', '2018-03-02', 'Ongoing', '2018-03-01 23:05:59', '2018-03-05 03:50:14'),
 (7, 'Photoshoot for Yearbook', 'AdDU JHS', 'Photoshoot for Yearbook', '2018-02-25', '2018-04-07', 'Finished', '2018-03-05 08:21:55', '2018-03-19 18:58:51'),
 (8, 'Date Validation Project', 'Date Validation Client', 'Date Validation Details', '2018-03-06', '2018-03-12', 'Ongoing', '2018-03-07 10:36:09', '2018-03-14 21:07:54'),
 (9, 'Project', '1239851094812', 'Secret', '2018-03-10', '2018-04-07', 'Ongoing', '2018-03-08 00:15:25', '2018-03-10 01:56:15'),
 (10, 'Project Test', 'Client Test', 'asdsadasd', '2018-03-01', '2018-03-10', 'Finished', '2018-03-10 00:52:41', '2018-03-17 00:44:17'),
-(11, 'Photoshoot Models', 'Gauttier', 'Project ni GT pero si Maiko mutrabaho', '2018-03-20', '2018-03-24', 'Ongoing', '2018-03-19 18:29:16', '2018-03-19 18:40:19');
+(11, 'Photoshoot Models', 'Gauttier', 'Project ni GT pero si Maiko mutrabaho', '2018-03-20', '2018-03-24', 'Ongoing', '2018-03-19 18:29:16', '2018-03-19 18:40:19'),
+(12, 'Demo Software Engineering System', 'Bernie Jereza', 'iCOMMP System', '2017-11-14', '2018-03-21', 'Ongoing', '2018-03-20 08:18:11', '2018-03-20 17:29:32'),
+(13, 'Software Engineering System', 'Bernie Jereza', 'ICOMMP System', '2017-11-14', '2018-03-21', 'Ongoing', '2018-03-20 18:27:34', '2018-03-20 18:27:34');
 
 -- --------------------------------------------------------
 
@@ -712,6 +825,7 @@ CREATE TABLE IF NOT EXISTS `projects_rank` (
 `profile_id` int(10)
 ,`total` bigint(21)
 ,`worked` bigint(21)
+,`percentage` decimal(23,0)
 );
 
 -- --------------------------------------------------------
@@ -743,15 +857,21 @@ CREATE TABLE IF NOT EXISTS `staffs` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`),
   KEY `staffs_ibfk_1` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `staffs`
 --
 
 INSERT INTO `staffs` (`staff_id`, `profile_id`, `cluster`, `staff_pos`, `staff_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-03-01 21:08:09'),
-(2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-26 22:28:25');
+(1, 1, 'Administrator', 'Director', 'ACTIVE', NULL, '2018-03-20 18:59:59'),
+(2, 2, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-01-25 21:45:59', '2018-01-26 22:28:25'),
+(3, 44, 'Administrator', 'Administrative Associate', 'ACTIVE', '2018-03-20 04:05:09', '2018-03-20 04:05:09'),
+(4, 45, 'Broadcast & Productions Cluster', 'Technical Staff', 'ACTIVE', '2018-03-20 04:05:47', '2018-03-20 04:05:47'),
+(5, 46, 'Creative Cluster', 'Technical Staff', 'ACTIVE', '2018-03-20 04:06:46', '2018-03-20 04:06:46'),
+(6, 47, 'Administrator', 'Consultant', 'ACTIVE', '2018-03-20 04:07:33', '2018-03-20 04:07:33'),
+(7, 48, 'Editorial & Social Media Cluster', 'Technical Staff', 'ACTIVE', '2018-03-20 04:08:28', '2018-03-20 04:08:28'),
+(8, 49, 'Creative Cluster', 'Technical Staff', 'ACTIVE', '2018-03-20 04:09:05', '2018-03-20 04:09:05');
 
 -- --------------------------------------------------------
 
@@ -785,15 +905,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `staff_id` (`staff_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `staff_id`, `user_status`, `username`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'z2kq9mQHzhfi3QWQMCxI18d6gDhxwsMToKYboRQ0Kc8uUDENEOINWWBOFQqt', '2018-01-12 10:01:39', '2018-03-01 21:08:09'),
-(2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25');
+(1, 1, 'ACTIVE', 'admin', '$2y$10$A2BhT8qjn4cU2HPKP40ppOKBJZ84lz3nvZQ6umw/.4kTfSaJAf0ry', 'nFrN96uTxcfVMTGzxjXfFIelzQeVFyBh220NLCmpdrcOQW1I8T5Sh2vQwek1', '2018-01-12 10:01:39', '2018-03-20 18:59:59'),
+(2, 2, 'ACTIVE', 'avillarba', '$2y$10$udxTbm/0R4M5MjGP7fIJTO3UmTuifv/Y43DJ5zFSzgUpp1YycVlJy', NULL, '2018-01-25 21:45:59', '2018-01-26 22:28:25'),
+(3, 3, 'ACTIVE', 'emedija', '$2y$10$krC5Rupl9b1YRbff70.2cuK5d7LkyLFZAfZmU8iw1359W7H.683XC', NULL, '2018-03-20 04:05:10', '2018-03-20 04:05:10'),
+(4, 4, 'ACTIVE', 'kpuerto', '$2y$10$MdbXo9wTRBBjInnDbbJT5eFjDERTBa8SEUkzI0eaO79z4xP8FpEwK', NULL, '2018-03-20 04:05:47', '2018-03-20 04:05:47'),
+(5, 5, 'ACTIVE', 'gtancontian', '$2y$10$5NwoLH18wXyKkFOac4R5mOOQ.Ain2IVNz5xiYda6gocg9W04tLnU6', NULL, '2018-03-20 04:06:46', '2018-03-20 04:06:46'),
+(6, 6, 'ACTIVE', 'vcastrillo', '$2y$10$ajJuSd.n7VYPtzQh9Wj1Yuycjjm83LSMQH6I6HmpJrw2vThEII3si', NULL, '2018-03-20 04:07:33', '2018-03-20 04:07:33'),
+(7, 7, 'ACTIVE', 'mgomez', '$2y$10$oJxFyplQ1AWH9cVDZQZflO9PxiMU9xnTQFGriI9yuD7zVyrA8aZPG', NULL, '2018-03-20 04:08:28', '2018-03-20 04:08:28'),
+(8, 8, 'ACTIVE', 'mcaballero', '$2y$10$frWqCsT9B0mJBBH96A5XluPJHmOKbBiPeg1mlOWT7wzVEMGHxSkty', NULL, '2018-03-20 04:09:05', '2018-03-20 04:09:05');
 
 -- --------------------------------------------------------
 
@@ -902,7 +1028,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `events_rank`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `events_rank`  AS  select `events_assigned`.`profile_id` AS `profile_id`,`events_assigned`.`events_assigned` AS `total`,`events_worked`.`events_worked` AS `worked` from (`events_assigned` left join `events_worked` on((`events_assigned`.`profile_id` = `events_worked`.`profile_id`))) order by `events_worked`.`events_worked` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `events_rank`  AS  select `events_assigned`.`profile_id` AS `profile_id`,`events_assigned`.`events_assigned` AS `total`,`events_worked`.`events_worked` AS `worked`,truncate(((`events_worked`.`events_worked` / `events_assigned`.`events_assigned`) * 100),0) AS `percentage` from (`events_assigned` left join `events_worked` on((`events_assigned`.`profile_id` = `events_worked`.`profile_id`))) order by truncate(((`events_worked`.`events_worked` / `events_assigned`.`events_assigned`) * 100),0) desc ;
 
 -- --------------------------------------------------------
 
@@ -947,7 +1073,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `projects_rank`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `projects_rank`  AS  select `projects_assigned`.`profile_id` AS `profile_id`,`projects_assigned`.`projects_assigned` AS `total`,`projects_worked`.`projects_worked` AS `worked` from (`projects_assigned` left join `projects_worked` on((`projects_assigned`.`profile_id` = `projects_worked`.`profile_id`))) order by `projects_worked`.`projects_worked` desc ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `projects_rank`  AS  select `projects_assigned`.`profile_id` AS `profile_id`,`projects_assigned`.`projects_assigned` AS `total`,`projects_worked`.`projects_worked` AS `worked`,truncate(((`projects_worked`.`projects_worked` / `projects_assigned`.`projects_assigned`) * 100),0) AS `percentage` from (`projects_assigned` left join `projects_worked` on((`projects_assigned`.`profile_id` = `projects_worked`.`profile_id`))) order by truncate(((`projects_worked`.`projects_worked` / `projects_assigned`.`projects_assigned`) * 100),0) desc ;
 
 -- --------------------------------------------------------
 

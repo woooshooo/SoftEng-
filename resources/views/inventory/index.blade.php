@@ -23,9 +23,9 @@ $(document).ready(function() {
 					<h1>Inventory</h1>
 				</div>
 				<div class="navbutton">
-					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#addequipment">Add Items</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#addequipment">Add Equipment</button>
 					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#borrowequipment">Borrow Equipment</button>
-					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#listallborrowed">Return Equipments</button>
+					<button type="button" class="btn btn-default btn-lg btn-inline noprint" data-toggle="modal" data-target="#listallborrowed">Return Equipment</button>
 				</div><br>
 
 				<table width="100%" class="table table-bordered table-hover table-responsive " id="dataTables">
@@ -197,7 +197,13 @@ $(document).ready(function() {
 																@endforeach
 															</select></td>
 																<td>
-																	<select name="item_name[]" class="form-control item_name" required></select>
+																	<select name="item_name[]" class="form-control item_name" required>
+																	{{-- @foreach ($itemdetails as $key => $itemname)
+																		@if ($value->item_status == "AVAILABLE")
+																			<option value="{{$itemname->item_name}}">{{$itemname->item_name}}</option>
+																		@endif
+																	@endforeach --}}
+																	</select>
 																</td>
 																{{-- if item quantity is one disable adding more quantity to borrow
 																	if item has more than 1 quantity allow until max available quantity

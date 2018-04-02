@@ -204,12 +204,12 @@
                             <a href="{{url('vols')}}">Volunteers</a>
                         </li>
                         <li>
-                            <a href="{{url('staffs')}}">Staff</a>
+                            <a href="{{url('staffs')}}">Staffs</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipments</a>
+                    <a href="{{url('items')}}"><i class="fa fa-wrench fa-fw"></i> Equipment</a>
                 </li>
 
                 {{-- <li>

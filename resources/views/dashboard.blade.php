@@ -183,6 +183,7 @@
                             <th>Name</th>
                             <th>Total Assigned</th>
                             <th>Worked</th>
+                            <th>Percentage</th>
                           </tr>
                         </thead>
                         @foreach ($eventsrank as $erkey => $er)
@@ -197,7 +198,11 @@
                                 @else
                                   <td>{{$er->worked}}</td>
                                 @endif
-
+                                @if ($er->percentage != 0)
+                                  <td>{{($er->percentage)}}%</td>
+                                @else
+                                  <td>0%</td>
+                                @endif
                               </tr>
                             @endif
                           @endforeach
@@ -215,6 +220,7 @@
                             <th>Name</th>
                             <th>Total Assigned</th>
                             <th>Worked</th>
+                            <th>Percentage</th>
                           </tr>
                         </thead>
                         @foreach ($projectsrank as $prkey => $pr)
@@ -228,6 +234,11 @@
                                   <td>0</td>
                                 @else
                                   <td>{{$pr->worked}}</td>
+                                @endif
+                                @if ($pr->percentage != 0)
+                                  <td>{{($pr->percentage)}}%</td>
+                                @else
+                                  <td>0%</td>
                                 @endif
                               </tr>
                             @endif
